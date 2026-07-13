@@ -340,13 +340,13 @@
       ]
     },
     {
-      "id": "neutral-block-spawn",
-      "character": "neutral",
+      "id": "genderless-block-spawn",
+      "character": "genderless",
       "anchor_px": [
         416,
         232
       ],
-      "source": "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
       "frame_top_left_px": [
         392,
         168

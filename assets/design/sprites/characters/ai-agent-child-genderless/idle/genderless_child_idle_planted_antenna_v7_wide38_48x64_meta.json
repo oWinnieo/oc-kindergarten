@@ -1,5 +1,5 @@
 {
-  "source": "assets/design/sprites/characters/ai-agent-child-neutral/static/neutral-child-static-48x64.png",
+  "source": "assets/design/sprites/characters/ai-agent-child-genderless/static/genderless-child-static-48x64.png",
   "action": "planted idle",
   "revision": "antenna_pulse_v7_wide38",
   "frame_size": [
@@ -22,14 +22,14 @@
     32
   ],
   "gif_transparency": "binary alpha without magenta edge blending",
-  "sheet": "assets/design/sprites/characters/ai-agent-child-neutral/idle/neutral_child_idle_planted_antenna_v7_wide38_2x2_48x64.png",
-  "strip": "assets/design/sprites/characters/ai-agent-child-neutral/idle/neutral_child_idle_planted_antenna_v7_wide38_strip_48x64.png",
-  "gif": "assets/design/sprites/characters/ai-agent-child-neutral/idle/neutral_child_idle_planted_antenna_v7_wide38_48x64.gif",
+  "sheet": "assets/design/sprites/characters/ai-agent-child-genderless/idle/genderless_child_idle_planted_antenna_v7_wide38_2x2_48x64.png",
+  "strip": "assets/design/sprites/characters/ai-agent-child-genderless/idle/genderless_child_idle_planted_antenna_v7_wide38_strip_48x64.png",
+  "gif": "assets/design/sprites/characters/ai-agent-child-genderless/idle/genderless_child_idle_planted_antenna_v7_wide38_48x64.gif",
   "frames": [
-    "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-1.png",
-    "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-2.png",
-    "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-3.png",
-    "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-4.png"
+    "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+    "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-2.png",
+    "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-3.png",
+    "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-4.png"
   ],
   "phases": [
     {

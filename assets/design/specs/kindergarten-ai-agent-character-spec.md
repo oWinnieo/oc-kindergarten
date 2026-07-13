@@ -21,7 +21,7 @@
 
 - 男孩：蓝色鸭舌帽、黄色背带裤。
 - 女孩：红色小花、黄色连衣裙。
-- 中性孩子：浅蓝圆球天线、黄色连体衣。
+- 无性别孩子：浅蓝圆球天线、黄色连体衣。
 
 ## 主规格
 
@@ -29,7 +29,7 @@
 - 角色帧：`48x64`。
 - 三人整体可见宽度：`38px`。
 - 脚底基线：同一 `64px` 帧底部。
-- 中性孩子 `36x48` 版本仅作为早期紧凑比例参考保留。
+- 无性别孩子 `36x48` 版本仅作为早期紧凑比例参考保留。
 
 ## Planted Idle 基线
 
@@ -37,14 +37,14 @@
 - 每帧 `360ms`。
 - 身体、服装、书包、腿和双脚保持逐像素固定。
 - 男孩和女孩只改变 terminal 眼睛、嘴巴与屏幕微光。
-- 中性孩子除 terminal 脸外，允许天线圆球做明显的伸缩和亮度脉冲。
+- 无性别孩子除 terminal 脸外，允许天线圆球做明显的伸缩和亮度脉冲。
 - GIF 不应出现可见的洋红色透明边缘。
 
 ## 当前定稿文件
 
 - 男孩：`assets/design/sprites/characters/ai-agent-child-boy/idle/`
 - 女孩：`assets/design/sprites/characters/ai-agent-child-girl/idle/`
-- 中性孩子：`assets/design/sprites/characters/ai-agent-child-neutral/idle/`
+- 无性别孩子：`assets/design/sprites/characters/ai-agent-child-genderless/idle/`
 - 三人同步预览：`assets/design/sprites/characters/trio/idle/`
 
 ## 后续状态

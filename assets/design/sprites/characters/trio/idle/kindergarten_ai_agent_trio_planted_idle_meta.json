@@ -3,7 +3,7 @@
   "character_order": [
     "boy",
     "girl",
-    "neutral"
+    "genderless"
   ],
   "source_format": "transparent PNG frames",
   "source_frame_size": [
@@ -138,12 +138,12 @@
       ]
     },
     {
-      "character": "neutral",
+      "character": "genderless",
       "frame_paths": [
-        "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-1.png",
-        "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-2.png",
-        "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-3.png",
-        "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-4.png"
+        "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+        "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-2.png",
+        "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-3.png",
+        "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-4.png"
       ],
       "durations_ms": [
         360,

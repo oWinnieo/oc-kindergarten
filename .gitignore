@@ -12,4 +12,5 @@ coverage
 *.tsbuildinfo
 __pycache__/
 *.pyc
+.hidden/
 !assets/design/README.md

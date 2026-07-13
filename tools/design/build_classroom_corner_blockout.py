@@ -33,10 +33,10 @@ CHARACTERS = [
         "source": "assets/design/sprites/characters/ai-agent-child-girl/idle/frames/idle-planted-girl-1.png",
     },
     {
-        "id": "neutral-block-spawn",
-        "character": "neutral",
+        "id": "genderless-block-spawn",
+        "character": "genderless",
         "anchor_px": [416, 232],
-        "source": "assets/design/sprites/characters/ai-agent-child-neutral/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+        "source": "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
     },
 ]
 
