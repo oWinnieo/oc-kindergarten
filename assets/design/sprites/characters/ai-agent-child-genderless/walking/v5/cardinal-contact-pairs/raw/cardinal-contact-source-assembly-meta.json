@@ -1,0 +1,324 @@
+{
+  "output": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/genderless-child-cardinal-contact-pairs-4x2-normalized.png",
+  "operation": "selection and equal-cell repack; no pose redraw",
+  "grid": [
+    4,
+    2
+  ],
+  "cell_size_px": 580,
+  "baseline_padding_px": 40,
+  "frames": [
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/front-pair-2x2-magenta.png",
+      "direction": "front",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        210,
+        87,
+        463,
+        555
+      ],
+      "crop_box_in_cell": [
+        194,
+        71,
+        479,
+        571
+      ],
+      "output_grid": [
+        0,
+        0
+      ],
+      "paste_position": [
+        147,
+        40
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/front-pair-2x2-magenta.png",
+      "direction": "front",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_cell_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        157,
+        87,
+        411,
+        555
+      ],
+      "crop_box_in_cell": [
+        141,
+        71,
+        427,
+        571
+      ],
+      "output_grid": [
+        0,
+        1
+      ],
+      "paste_position": [
+        727,
+        40
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/back-pair-2x2-magenta.png",
+      "direction": "back",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        240,
+        96,
+        483,
+        536
+      ],
+      "crop_box_in_cell": [
+        224,
+        80,
+        499,
+        552
+      ],
+      "output_grid": [
+        1,
+        0
+      ],
+      "paste_position": [
+        152,
+        648
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/back-pair-2x2-magenta.png",
+      "direction": "back",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_cell_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        135,
+        97,
+        377,
+        538
+      ],
+      "crop_box_in_cell": [
+        119,
+        81,
+        393,
+        554
+      ],
+      "output_grid": [
+        1,
+        1
+      ],
+      "paste_position": [
+        733,
+        647
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/left-left-foot-forward-2x2-magenta.png",
+      "direction": "left",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        221,
+        92,
+        474,
+        542
+      ],
+      "crop_box_in_cell": [
+        205,
+        76,
+        490,
+        558
+      ],
+      "output_grid": [
+        2,
+        0
+      ],
+      "paste_position": [
+        147,
+        1218
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/left-right-foot-forward-2x2-magenta.png",
+      "direction": "left",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        245,
+        101,
+        485,
+        539
+      ],
+      "crop_box_in_cell": [
+        229,
+        85,
+        501,
+        555
+      ],
+      "output_grid": [
+        2,
+        1
+      ],
+      "paste_position": [
+        734,
+        1230
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/right-left-foot-forward-2x2-magenta.png",
+      "direction": "right",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        230,
+        93,
+        470,
+        523
+      ],
+      "crop_box_in_cell": [
+        214,
+        77,
+        486,
+        539
+      ],
+      "output_grid": [
+        3,
+        0
+      ],
+      "paste_position": [
+        154,
+        1818
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/raw/right-right-foot-forward-2x2-magenta.png",
+      "direction": "right",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        259,
+        99,
+        503,
+        532
+      ],
+      "crop_box_in_cell": [
+        243,
+        83,
+        519,
+        548
+      ],
+      "output_grid": [
+        3,
+        1
+      ],
+      "paste_position": [
+        732,
+        1815
+      ]
+    }
+  ]
+}

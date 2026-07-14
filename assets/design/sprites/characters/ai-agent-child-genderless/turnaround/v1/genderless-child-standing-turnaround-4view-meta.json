@@ -1,0 +1,89 @@
+{
+  "character_id": "ai-agent-child-genderless",
+  "asset": "standing_turnaround",
+  "revision": "v1",
+  "status": "visual_approval_candidate",
+  "reference_concept": "assets/design/concepts/kindergarten-ai-agent-trio/kindergarten-ai-agent-trio-concept-v2-terminal.png",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "order": [
+    "front",
+    "back",
+    "left",
+    "right"
+  ],
+  "sources": {
+    "front": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/frames/down/walk-down-2.png",
+    "back": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/frames/up/walk-up-2.png",
+    "left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/frames/left/walk-left-2.png",
+    "right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/frames/right/walk-right-2.png"
+  },
+  "frames": {
+    "front": "assets/design/sprites/characters/ai-agent-child-genderless/turnaround/v1/frames/genderless-child-standing-front-48x64.png",
+    "back": "assets/design/sprites/characters/ai-agent-child-genderless/turnaround/v1/frames/genderless-child-standing-back-48x64.png",
+    "left": "assets/design/sprites/characters/ai-agent-child-genderless/turnaround/v1/frames/genderless-child-standing-left-48x64.png",
+    "right": "assets/design/sprites/characters/ai-agent-child-genderless/turnaround/v1/frames/genderless-child-standing-right-48x64.png"
+  },
+  "sheet": "assets/design/sprites/characters/ai-agent-child-genderless/turnaround/v1/genderless-child-standing-turnaround-4view-48x64.png",
+  "preview": "assets/design/sprites/characters/ai-agent-child-genderless/turnaround/v1/previews/genderless-child-standing-turnaround-4view-preview-6x.png",
+  "qc": {
+    "front": {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        3,
+        42,
+        63
+      ],
+      "visible_magenta_pixels": 0,
+      "touches_edge": false
+    },
+    "back": {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        3,
+        41,
+        63
+      ],
+      "visible_magenta_pixels": 0,
+      "touches_edge": false
+    },
+    "left": {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        9,
+        4,
+        39,
+        63
+      ],
+      "visible_magenta_pixels": 0,
+      "touches_edge": false
+    },
+    "right": {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        8,
+        5,
+        39,
+        63
+      ],
+      "visible_magenta_pixels": 0,
+      "touches_edge": false
+    }
+  }
+}

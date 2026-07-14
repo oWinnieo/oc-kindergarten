@@ -1,0 +1,9 @@
+Create a single production-ready kindergarten activity table prop matching the visible classroom dressed-reference image.
+
+Asset plan: prop, single asset, mostly front-facing 3/4 interior view, project-native crisp limited-palette pixel art.
+Reference role: use the visible classroom image as the exact style, palette, scale, perspective, and furniture-design reference. Derive only the low block activity table shown on the right; do not reproduce the room or other props.
+Subject: one child-sized low rectangular activity table, warm golden-yellow tabletop with a coral-red/orange rim and four short coral-red legs. The tabletop has a small readable top face. Place exactly four simple toy pieces on top: one red triangular block, one medium-blue cube, one small pale-blue cylinder, and one yellow-orange rounded/cube block. Keep the pieces separated and securely resting on the tabletop.
+Scale and silhouette: designed to become a 96x56 runtime map prop for a 32px tile map and 48x64 child characters; approximately three tiles wide and under two tiles tall/deep. Stable horizontal silhouette, centered, generous empty padding, fully contained.
+Pixel style: crisp hand-authored pixel art, chunky but clean pixels, limited colors, no anti-aliased illustration look, no outlines detached from the object, same warm cheerful palette and lighting language as the reference map.
+Background: perfectly flat uniform solid #00FF00 chroma-key green covering every background pixel. No gradient, texture, shadow, floor plane, reflection, halo, or lighting variation.
+Constraints: only one table and the four specified blocks. No chairs, toy bin, bookshelf, books, characters, room, floor, wall, text, labels, UI, watermark, cast shadow, contact shadow, or detached decoration. Do not use green, lime, olive, teal, or #00FF00 anywhere in the table or toy pieces.

@@ -1,0 +1,72 @@
+{
+  "prop_id": "reading-book-bin-v1",
+  "status": "approved_visual",
+  "classification": [
+    "compact_prop",
+    "collision_bearing_object"
+  ],
+  "asset_strategy": "one_by_one",
+  "view": "mostly front-facing 3/4 interior prop",
+  "perspective": {
+    "camera_position": "slightly_right_of_object",
+    "look_direction": "right_to_left",
+    "visible_side": "right",
+    "far_side": "left"
+  },
+  "source_reference": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-raw.png",
+  "raw": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-green-raw.png",
+  "prompt": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-green-raw.prompt.txt",
+  "chroma_clean": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-green-clean.png",
+  "transparent_prop": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-48x40.png",
+  "preview": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-preview-8x.png",
+  "map_qa_preview": "assets/design/maps/classroom-corner/art/v1/classroom-corner-reading-props-qa-preview-512x288.png",
+  "runtime_size_px": [
+    48,
+    40
+  ],
+  "map_placement": {
+    "top_left_px": [
+      128,
+      44
+    ],
+    "anchor": "center_bottom",
+    "anchor_px": [
+      152,
+      84
+    ],
+    "sort_y": 84,
+    "render_layer": "floor_props"
+  },
+  "collision": {
+    "type": "rect",
+    "x": 128,
+    "y": 78,
+    "w": 48,
+    "h": 6
+  },
+  "depth_sort": {
+    "axis": "y",
+    "rule": "compare actor foot anchor with prop sort_y",
+    "actor_behind_when": "actor_sort_y < 84",
+    "actor_in_front_when": "actor_sort_y >= 84"
+  },
+  "processing": {
+    "runtime_palette_colors": 40,
+    "alpha_remove_below": 72,
+    "alpha_snap_opaque_at": 220,
+    "green_edge_cleanup": true
+  },
+  "qc": {
+    "source_alpha_box": [
+      451,
+      233,
+      1058,
+      753
+    ],
+    "visible_pixels": 1793,
+    "opaque_pixels": 1754,
+    "semi_transparent_pixels": 39,
+    "visible_green_pixels": 0,
+    "visible_color_count": 38
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "status": "visual_approval_candidate",
+  "character": "ai-agent-child-genderless",
+  "action": "diagonal walking contact pairs",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "sheet_order": {
+    "rows": [
+      "down_left",
+      "down_right",
+      "up_left",
+      "up_right"
+    ],
+    "columns": [
+      "left_foot_forward",
+      "right_foot_forward"
+    ]
+  },
+  "right_direction_method": "strict horizontal mirror of the corresponding left-direction source with anatomical foot labels swapped",
+  "review_frame_duration_ms": 900,
+  "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/processed-64",
+  "sheet": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/genderless-child-diagonal-contact-pairs-4x2-48x64.png",
+  "qc": {
+    "down_left": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "derivation": "processed_diagonal_contact_1",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/down_left/walk-down_left-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            5,
+            41,
+            63
+          ],
+          "visible_pixels": 1447,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "derivation": "processed_diagonal_contact_2",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/down_left/walk-down_left-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            5,
+            40,
+            63
+          ],
+          "visible_pixels": 1370,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1498
+    },
+    "down_right": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "derivation": "exact_horizontal_mirror_of_down_left_right_foot_forward",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/down_right/walk-down_right-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            5,
+            41,
+            63
+          ],
+          "visible_pixels": 1370,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "derivation": "processed_diagonal_contact_4",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/down_right/walk-down_right-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            5,
+            41,
+            63
+          ],
+          "visible_pixels": 1447,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1498
+    },
+    "up_left": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "derivation": "processed_diagonal_contact_5",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/up_left/walk-up_left-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            3,
+            38,
+            63
+          ],
+          "visible_pixels": 1352,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "derivation": "processed_diagonal_contact_6",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/up_left/walk-up_left-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            3,
+            39,
+            63
+          ],
+          "visible_pixels": 1367,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1372
+    },
+    "up_right": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "derivation": "processed_diagonal_contact_7",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/up_right/walk-up_right-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            3,
+            39,
+            63
+          ],
+          "visible_pixels": 1367,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "derivation": "processed_diagonal_contact_8",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/frames/up_right/walk-up_right-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            3,
+            38,
+            63
+          ],
+          "visible_pixels": 1352,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1430
+    }
+  },
+  "qc_summary": {
+    "frame_count": 8,
+    "all_frames_48x64": true,
+    "visible_magenta_pixels": 0,
+    "edge_touch_frames": []
+  }
+}

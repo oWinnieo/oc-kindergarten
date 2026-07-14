@@ -1,0 +1,500 @@
+{
+  "character_id": "ai-agent-child-genderless",
+  "action": "walk",
+  "revision": "eight_direction_v2",
+  "status": "superseded_gait_phase_issue",
+  "superseded_by": "walking/v3/genderless-child-walk-8dir-alternating-48x64-meta.json",
+  "extends": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v1/genderless-child-walk-4dir-48x64-meta.json",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count_per_direction": 4,
+  "direction_rows": {
+    "down": 0,
+    "left": 1,
+    "right": 2,
+    "up": 3,
+    "down_left": 4,
+    "down_right": 5,
+    "up_left": 6,
+    "up_right": 7
+  },
+  "frame_order": [
+    "left_foot_contact",
+    "passing",
+    "right_foot_contact",
+    "passing_loop_close"
+  ],
+  "frame_duration_ms": 140,
+  "anchor": "feet_bottom_center",
+  "anchor_offset_px": [
+    24,
+    64
+  ],
+  "movement_vectors": {
+    "down": [
+      0,
+      1
+    ],
+    "left": [
+      -1,
+      0
+    ],
+    "right": [
+      1,
+      0
+    ],
+    "up": [
+      0,
+      -1
+    ],
+    "down_left": [
+      -0.7071,
+      0.7071
+    ],
+    "down_right": [
+      0.7071,
+      0.7071
+    ],
+    "up_left": [
+      -0.7071,
+      -0.7071
+    ],
+    "up_right": [
+      0.7071,
+      -0.7071
+    ]
+  },
+  "diagonal_speed_rule": "normalize diagonal input by 1/sqrt(2)",
+  "diagonal_raw": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/raw/genderless-child-walk-diagonal-4x4-magenta-raw.png",
+  "diagonal_prompt": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/raw/genderless-child-walk-diagonal-4x4-magenta-raw.prompt.txt",
+  "diagonal_processor_meta": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/processed-64/pipeline-meta.json",
+  "sheet": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/sheets/genderless-child-walk-8dir-4frame-48x64.png",
+  "strips": {
+    "down": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-down-strip-48x64.png",
+    "left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-left-strip-48x64.png",
+    "right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-right-strip-48x64.png",
+    "up": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-up-strip-48x64.png",
+    "down_left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-down_left-strip-48x64.png",
+    "down_right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-down_right-strip-48x64.png",
+    "up_left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-up_left-strip-48x64.png",
+    "up_right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/strips/genderless-child-walk-up_right-strip-48x64.png"
+  },
+  "gifs": {
+    "down": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-down-48x64.gif",
+    "left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-left-48x64.gif",
+    "right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-right-48x64.gif",
+    "up": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-up-48x64.gif",
+    "down_left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-down_left-48x64.gif",
+    "down_right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-down_right-48x64.gif",
+    "up_left": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-up_left-48x64.gif",
+    "up_right": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/gifs/genderless-child-walk-up_right-48x64.gif"
+  },
+  "diagonal_preview": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/previews/genderless-child-walk-diagonal-preview-3x.png",
+  "map_qa_gif": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v2/previews/genderless-child-walk-8dir-map-qa.gif",
+  "qc": {
+    "directions": {
+      "down": [
+        {
+          "frame": 1,
+          "bbox": [
+            5,
+            3,
+            42,
+            63
+          ],
+          "visible_pixels": 1620,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            6,
+            3,
+            42,
+            63
+          ],
+          "visible_pixels": 1625,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            6,
+            4,
+            42,
+            63
+          ],
+          "visible_pixels": 1524,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            6,
+            4,
+            42,
+            63
+          ],
+          "visible_pixels": 1591,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "left": [
+        {
+          "frame": 1,
+          "bbox": [
+            9,
+            5,
+            39,
+            63
+          ],
+          "visible_pixels": 1341,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            9,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1269,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            8,
+            5,
+            39,
+            63
+          ],
+          "visible_pixels": 1383,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            9,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1266,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "right": [
+        {
+          "frame": 1,
+          "bbox": [
+            8,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1382,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            8,
+            5,
+            39,
+            63
+          ],
+          "visible_pixels": 1275,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            8,
+            5,
+            39,
+            63
+          ],
+          "visible_pixels": 1375,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            8,
+            5,
+            39,
+            63
+          ],
+          "visible_pixels": 1273,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "up": [
+        {
+          "frame": 1,
+          "bbox": [
+            6,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1548,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            7,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1544,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            7,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1523,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            7,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1530,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "down_left": [
+        {
+          "frame": 1,
+          "bbox": [
+            6,
+            3,
+            42,
+            63
+          ],
+          "visible_pixels": 1580,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            7,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1529,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            7,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1536,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            7,
+            3,
+            40,
+            63
+          ],
+          "visible_pixels": 1476,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "down_right": [
+        {
+          "frame": 1,
+          "bbox": [
+            6,
+            3,
+            42,
+            63
+          ],
+          "visible_pixels": 1551,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            7,
+            4,
+            40,
+            63
+          ],
+          "visible_pixels": 1430,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            6,
+            3,
+            41,
+            63
+          ],
+          "visible_pixels": 1543,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            7,
+            3,
+            40,
+            63
+          ],
+          "visible_pixels": 1491,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "up_left": [
+        {
+          "frame": 1,
+          "bbox": [
+            7,
+            4,
+            40,
+            63
+          ],
+          "visible_pixels": 1406,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            8,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1421,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            8,
+            4,
+            40,
+            63
+          ],
+          "visible_pixels": 1354,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            8,
+            3,
+            39,
+            63
+          ],
+          "visible_pixels": 1417,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "up_right": [
+        {
+          "frame": 1,
+          "bbox": [
+            8,
+            5,
+            39,
+            63
+          ],
+          "visible_pixels": 1345,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            9,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1363,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 3,
+          "bbox": [
+            8,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1386,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            8,
+            4,
+            39,
+            63
+          ],
+          "visible_pixels": 1426,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ]
+    }
+  }
+}

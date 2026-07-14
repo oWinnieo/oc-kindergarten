@@ -1,0 +1,461 @@
+{
+  "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v1/raw/genderless-child-walk-4x4-magenta-safe-margin.png",
+  "output": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v1/raw/genderless-child-walk-4x4-magenta-normalized.png",
+  "operation": "layout-only equal-cell repack; no pose redraw or scaling",
+  "grid": [
+    4,
+    4
+  ],
+  "cell_size_px": 313,
+  "target_baseline_y_in_cell": 289,
+  "placements": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "source_box": [
+        138,
+        87,
+        268,
+        302
+      ],
+      "crop_box": [
+        128,
+        77,
+        278,
+        312
+      ],
+      "paste_position": [
+        81,
+        54
+      ],
+      "margins_px": {
+        "left": 81,
+        "top": 54,
+        "right": 82,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "source_box": [
+        421,
+        87,
+        548,
+        301
+      ],
+      "crop_box": [
+        411,
+        77,
+        558,
+        311
+      ],
+      "paste_position": [
+        396,
+        55
+      ],
+      "margins_px": {
+        "left": 83,
+        "top": 55,
+        "right": 83,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        0,
+        2
+      ],
+      "source_box": [
+        708,
+        91,
+        835,
+        302
+      ],
+      "crop_box": [
+        698,
+        81,
+        845,
+        312
+      ],
+      "paste_position": [
+        709,
+        58
+      ],
+      "margins_px": {
+        "left": 83,
+        "top": 58,
+        "right": 83,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        0,
+        3
+      ],
+      "source_box": [
+        989,
+        90,
+        1115,
+        301
+      ],
+      "crop_box": [
+        979,
+        80,
+        1125,
+        311
+      ],
+      "paste_position": [
+        1022,
+        58
+      ],
+      "margins_px": {
+        "left": 83,
+        "top": 58,
+        "right": 84,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "source_box": [
+        155,
+        354,
+        262,
+        562
+      ],
+      "crop_box": [
+        145,
+        344,
+        272,
+        572
+      ],
+      "paste_position": [
+        93,
+        374
+      ],
+      "margins_px": {
+        "left": 93,
+        "top": 61,
+        "right": 93,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "source_box": [
+        424,
+        354,
+        531,
+        562
+      ],
+      "crop_box": [
+        414,
+        344,
+        541,
+        572
+      ],
+      "paste_position": [
+        406,
+        374
+      ],
+      "margins_px": {
+        "left": 93,
+        "top": 61,
+        "right": 93,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        1,
+        2
+      ],
+      "source_box": [
+        716,
+        355,
+        824,
+        561
+      ],
+      "crop_box": [
+        706,
+        345,
+        834,
+        571
+      ],
+      "paste_position": [
+        718,
+        376
+      ],
+      "margins_px": {
+        "left": 92,
+        "top": 63,
+        "right": 93,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        1,
+        3
+      ],
+      "source_box": [
+        997,
+        354,
+        1104,
+        562
+      ],
+      "crop_box": [
+        987,
+        344,
+        1114,
+        572
+      ],
+      "paste_position": [
+        1032,
+        374
+      ],
+      "margins_px": {
+        "left": 93,
+        "top": 61,
+        "right": 93,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        2,
+        0
+      ],
+      "source_box": [
+        145,
+        624,
+        255,
+        832
+      ],
+      "crop_box": [
+        135,
+        614,
+        265,
+        842
+      ],
+      "paste_position": [
+        91,
+        687
+      ],
+      "margins_px": {
+        "left": 91,
+        "top": 61,
+        "right": 92,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        2,
+        1
+      ],
+      "source_box": [
+        420,
+        625,
+        529,
+        832
+      ],
+      "crop_box": [
+        410,
+        615,
+        539,
+        842
+      ],
+      "paste_position": [
+        405,
+        688
+      ],
+      "margins_px": {
+        "left": 92,
+        "top": 62,
+        "right": 92,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        2,
+        2
+      ],
+      "source_box": [
+        712,
+        625,
+        821,
+        830
+      ],
+      "crop_box": [
+        702,
+        615,
+        831,
+        840
+      ],
+      "paste_position": [
+        718,
+        690
+      ],
+      "margins_px": {
+        "left": 92,
+        "top": 64,
+        "right": 92,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        2,
+        3
+      ],
+      "source_box": [
+        992,
+        625,
+        1100,
+        832
+      ],
+      "crop_box": [
+        982,
+        615,
+        1110,
+        842
+      ],
+      "paste_position": [
+        1031,
+        688
+      ],
+      "margins_px": {
+        "left": 92,
+        "top": 62,
+        "right": 93,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        3,
+        0
+      ],
+      "source_box": [
+        143,
+        913,
+        265,
+        1126
+      ],
+      "crop_box": [
+        133,
+        903,
+        275,
+        1136
+      ],
+      "paste_position": [
+        85,
+        995
+      ],
+      "margins_px": {
+        "left": 85,
+        "top": 56,
+        "right": 86,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        3,
+        1
+      ],
+      "source_box": [
+        422,
+        913,
+        541,
+        1126
+      ],
+      "crop_box": [
+        412,
+        903,
+        551,
+        1136
+      ],
+      "paste_position": [
+        400,
+        995
+      ],
+      "margins_px": {
+        "left": 87,
+        "top": 56,
+        "right": 87,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        3,
+        2
+      ],
+      "source_box": [
+        712,
+        914,
+        833,
+        1126
+      ],
+      "crop_box": [
+        702,
+        904,
+        843,
+        1136
+      ],
+      "paste_position": [
+        712,
+        996
+      ],
+      "margins_px": {
+        "left": 86,
+        "top": 57,
+        "right": 86,
+        "bottom": 24
+      }
+    },
+    {
+      "grid": [
+        3,
+        3
+      ],
+      "source_box": [
+        990,
+        914,
+        1110,
+        1126
+      ],
+      "crop_box": [
+        980,
+        904,
+        1120,
+        1136
+      ],
+      "paste_position": [
+        1025,
+        996
+      ],
+      "margins_px": {
+        "left": 86,
+        "top": 57,
+        "right": 87,
+        "bottom": 24
+      }
+    }
+  ]
+}

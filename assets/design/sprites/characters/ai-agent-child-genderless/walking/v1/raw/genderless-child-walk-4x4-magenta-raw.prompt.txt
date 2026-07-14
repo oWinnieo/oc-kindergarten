@@ -1,0 +1,11 @@
+Create a production 4x4 pixel-art sprite sheet for the exact same approved genderless kindergarten AI-agent child.
+
+Preserve the identity exactly: very large rounded white monitor head, black terminal screen face, two bright pale-cyan vertical eyes and cyan curved smile, white circular side ports, short dark antenna stem with a round glowing pale-cyan tip, light-blue long-sleeve undershirt, bright yellow one-piece kindergarten romper with straps and rounded pockets, yellow backpack, small skin-tone hands, light-blue socks, and dark navy shoes. No human hair, ears, nose, or human face.
+
+Create exactly 16 equal cells in a 4x4 grid with no visible grid lines, borders, labels, text, numbers, or arrows. Use a perfectly uniform solid #FF00FF background.
+
+Rows: down/front, left, right, up/back. Columns: left-foot contact, centered passing pose, right-foot contact, centered passing pose completing the loop. The back row shows the back of the white monitor head and yellow backpack, with no terminal face visible.
+
+Use a grounded planted walk with alternating legs and opposite arms. Feet lift and plant without sliding or rubbing sideways. Keep the feet anchor on one stable baseline. Limit body bob to about one pixel at final 48x64 size. The antenna may move slightly but remains attached. Keep the terminal expression stable with no blinking or status pulse.
+
+Use the same character, scale, head size, outfit details, lighting, bounding box, and crisp project-native pixel style in all cells. Keep the full body centered with generous magenta margin. Nothing may cross a cell edge. No shadows, floor, dust, motion streaks, props, furniture, other characters, UI, watermark, or effects.

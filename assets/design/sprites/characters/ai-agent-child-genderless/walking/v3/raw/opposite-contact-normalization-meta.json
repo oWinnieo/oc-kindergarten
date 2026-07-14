@@ -1,0 +1,196 @@
+{
+  "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/raw/genderless-child-opposite-contact-8dir-2x4-magenta.png",
+  "output": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/raw/genderless-child-opposite-contact-8dir-2x4-normalized.png",
+  "operation": "component detection and equal-cell repack; no scaling",
+  "grid": [
+    2,
+    4
+  ],
+  "cell_size_px": 370,
+  "placements": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "component_area": 30969,
+      "component_bbox": [
+        152,
+        82,
+        313,
+        368
+      ],
+      "crop_box": [
+        142,
+        72,
+        323,
+        378
+      ],
+      "paste_position": [
+        94,
+        32
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "component_area": 28670,
+      "component_bbox": [
+        601,
+        82,
+        752,
+        364
+      ],
+      "crop_box": [
+        591,
+        72,
+        762,
+        374
+      ],
+      "paste_position": [
+        469,
+        36
+      ]
+    },
+    {
+      "grid": [
+        0,
+        2
+      ],
+      "component_area": 28622,
+      "component_bbox": [
+        1019,
+        82,
+        1169,
+        364
+      ],
+      "crop_box": [
+        1009,
+        72,
+        1179,
+        374
+      ],
+      "paste_position": [
+        840,
+        36
+      ]
+    },
+    {
+      "grid": [
+        0,
+        3
+      ],
+      "component_area": 29525,
+      "component_bbox": [
+        1466,
+        82,
+        1621,
+        368
+      ],
+      "crop_box": [
+        1456,
+        72,
+        1631,
+        378
+      ],
+      "paste_position": [
+        1207,
+        32
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "component_area": 28979,
+      "component_bbox": [
+        152,
+        498,
+        310,
+        775
+      ],
+      "crop_box": [
+        142,
+        488,
+        320,
+        785
+      ],
+      "paste_position": [
+        96,
+        411
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "component_area": 28802,
+      "component_bbox": [
+        596,
+        498,
+        749,
+        775
+      ],
+      "crop_box": [
+        586,
+        488,
+        759,
+        785
+      ],
+      "paste_position": [
+        468,
+        411
+      ]
+    },
+    {
+      "grid": [
+        1,
+        2
+      ],
+      "component_area": 27230,
+      "component_bbox": [
+        1013,
+        498,
+        1166,
+        775
+      ],
+      "crop_box": [
+        1003,
+        488,
+        1176,
+        785
+      ],
+      "paste_position": [
+        838,
+        411
+      ]
+    },
+    {
+      "grid": [
+        1,
+        3
+      ],
+      "component_area": 26543,
+      "component_bbox": [
+        1456,
+        498,
+        1603,
+        775
+      ],
+      "crop_box": [
+        1446,
+        488,
+        1613,
+        785
+      ],
+      "paste_position": [
+        1211,
+        411
+      ]
+    }
+  ]
+}

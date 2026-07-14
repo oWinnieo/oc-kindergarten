@@ -1,0 +1,73 @@
+{
+  "prop_id": "block-table-v1",
+  "status": "superseded_perspective",
+  "superseded_by": "block-table-v2-left-to-right",
+  "classification": [
+    "wide_or_long_object",
+    "collision_bearing_object"
+  ],
+  "asset_strategy": "one_by_one",
+  "view": "mostly front-facing 3/4 interior prop",
+  "raw": "assets/design/maps/classroom-corner/props/block-table/v1/block-table-green-raw.png",
+  "prompt": "assets/design/maps/classroom-corner/props/block-table/v1/block-table-green-raw.prompt.txt",
+  "chroma_clean": "assets/design/maps/classroom-corner/props/block-table/v1/block-table-green-clean.png",
+  "transparent_prop": "assets/design/maps/classroom-corner/props/block-table/v1/block-table-96x56.png",
+  "preview": "assets/design/maps/classroom-corner/props/block-table/v1/block-table-preview-8x.png",
+  "map_qa_preview": "assets/design/maps/classroom-corner/art/v1/classroom-corner-block-table-qa-preview-512x288.png",
+  "runtime_size_px": [
+    96,
+    56
+  ],
+  "map_placement": {
+    "top_left_px": [
+      352,
+      56
+    ],
+    "anchor": "center_bottom",
+    "anchor_px": [
+      400,
+      112
+    ],
+    "sort_y": 112,
+    "render_layer": "floor_props"
+  },
+  "collision": {
+    "type": "rect",
+    "x": 352,
+    "y": 102,
+    "w": 96,
+    "h": 10
+  },
+  "depth_sort": {
+    "axis": "y",
+    "rule": "compare actor foot anchor with prop sort_y",
+    "actor_behind_when": "actor_sort_y < 112",
+    "actor_in_front_when": "actor_sort_y >= 112"
+  },
+  "processing": {
+    "runtime_palette_colors": 48,
+    "resize": "premultiplied-alpha contain, centered and bottom-aligned",
+    "alpha_remove_below": 72,
+    "alpha_snap_opaque_at": 220,
+    "green_edge_cleanup": true
+  },
+  "qc": {
+    "source_alpha_box": [
+      337,
+      212,
+      1312,
+      686
+    ],
+    "runtime_alpha_box": [
+      1,
+      9,
+      95,
+      55
+    ],
+    "visible_pixels": 3392,
+    "opaque_pixels": 3318,
+    "semi_transparent_pixels": 74,
+    "visible_green_pixels": 0,
+    "visible_color_count": 36
+  }
+}

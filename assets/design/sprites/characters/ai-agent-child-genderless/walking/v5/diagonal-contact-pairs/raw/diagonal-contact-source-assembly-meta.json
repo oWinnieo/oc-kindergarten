@@ -1,0 +1,356 @@
+{
+  "output": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/genderless-child-diagonal-contact-pairs-4x2-normalized.png",
+  "operation": "selection, temporary marker palette normalization, horizontal direction mirroring, and equal-cell repack; no pose redraw",
+  "grid": [
+    4,
+    2
+  ],
+  "cell_size_px": 581,
+  "baseline_padding_px": 40,
+  "frames": [
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/down-left-pair-2x2-magenta.png",
+      "direction": "down_left",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        216,
+        95,
+        480,
+        545
+      ],
+      "crop_box_in_cell": [
+        200,
+        79,
+        496,
+        561
+      ],
+      "mirrored_horizontally": false,
+      "source_scale": 1.0,
+      "red_marker_target": null,
+      "normalized_marker_pixels": 0,
+      "output_grid": [
+        0,
+        0
+      ],
+      "paste_position": [
+        142,
+        59
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/down-left-far-leg-forward-red-marker-v5-2x2-magenta.png",
+      "direction": "down_left",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        244,
+        85,
+        521,
+        568
+      ],
+      "crop_box_in_cell": [
+        228,
+        69,
+        537,
+        584
+      ],
+      "mirrored_horizontally": false,
+      "source_scale": 0.93,
+      "red_marker_target": "yellow",
+      "normalized_marker_pixels": 7441,
+      "output_grid": [
+        0,
+        1
+      ],
+      "paste_position": [
+        728,
+        62
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/down-left-far-leg-forward-red-marker-v5-2x2-magenta.png",
+      "direction": "down_right",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        244,
+        85,
+        521,
+        568
+      ],
+      "crop_box_in_cell": [
+        228,
+        69,
+        537,
+        584
+      ],
+      "mirrored_horizontally": true,
+      "source_scale": 0.93,
+      "red_marker_target": "yellow",
+      "normalized_marker_pixels": 7441,
+      "output_grid": [
+        1,
+        0
+      ],
+      "paste_position": [
+        147,
+        643
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/down-left-pair-2x2-magenta.png",
+      "direction": "down_right",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        216,
+        95,
+        480,
+        545
+      ],
+      "crop_box_in_cell": [
+        200,
+        79,
+        496,
+        561
+      ],
+      "mirrored_horizontally": true,
+      "source_scale": 1.0,
+      "red_marker_target": null,
+      "normalized_marker_pixels": 0,
+      "output_grid": [
+        1,
+        1
+      ],
+      "paste_position": [
+        723,
+        640
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/up-left-pair-2x2-magenta.png",
+      "direction": "up_left",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        239,
+        87,
+        462,
+        556
+      ],
+      "crop_box_in_cell": [
+        223,
+        71,
+        478,
+        572
+      ],
+      "mirrored_horizontally": false,
+      "source_scale": 1.0,
+      "red_marker_target": null,
+      "normalized_marker_pixels": 0,
+      "output_grid": [
+        2,
+        0
+      ],
+      "paste_position": [
+        163,
+        1202
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/up-left-pair-2x2-magenta.png",
+      "direction": "up_left",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_cell_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        161,
+        87,
+        398,
+        550
+      ],
+      "crop_box_in_cell": [
+        145,
+        71,
+        414,
+        566
+      ],
+      "mirrored_horizontally": false,
+      "source_scale": 1.0,
+      "red_marker_target": null,
+      "normalized_marker_pixels": 0,
+      "output_grid": [
+        2,
+        1
+      ],
+      "paste_position": [
+        737,
+        1208
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/up-left-pair-2x2-magenta.png",
+      "direction": "up_right",
+      "forward_foot": "left",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        1
+      ],
+      "source_cell_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        161,
+        87,
+        398,
+        550
+      ],
+      "crop_box_in_cell": [
+        145,
+        71,
+        414,
+        566
+      ],
+      "mirrored_horizontally": true,
+      "source_scale": 1.0,
+      "red_marker_target": null,
+      "normalized_marker_pixels": 0,
+      "output_grid": [
+        3,
+        0
+      ],
+      "paste_position": [
+        156,
+        1789
+      ]
+    },
+    {
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/diagonal-contact-pairs/raw/up-left-pair-2x2-magenta.png",
+      "direction": "up_right",
+      "forward_foot": "right",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cell": [
+        0,
+        0
+      ],
+      "source_cell_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "detected_bbox_in_cell": [
+        239,
+        87,
+        462,
+        556
+      ],
+      "crop_box_in_cell": [
+        223,
+        71,
+        478,
+        572
+      ],
+      "mirrored_horizontally": true,
+      "source_scale": 1.0,
+      "red_marker_target": null,
+      "normalized_marker_pixels": 0,
+      "output_grid": [
+        3,
+        1
+      ],
+      "paste_position": [
+        744,
+        1783
+      ]
+    }
+  ]
+}

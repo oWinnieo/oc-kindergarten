@@ -1,0 +1,269 @@
+{
+  "scene_id": "classroom-corner-runtime-v1",
+  "status": "approved_runtime_baseline",
+  "map_mode": "tile_mode",
+  "visual_model": "layered_tilemap",
+  "runtime_object_model": [
+    "separate_props",
+    "y_sorted_props",
+    "interactive_scene_objects"
+  ],
+  "collision_model": [
+    "precise_shapes",
+    "tile_collision"
+  ],
+  "engine_target": "project-native",
+  "canvas_px": [
+    512,
+    288
+  ],
+  "tile_size_px": 32,
+  "grid_tiles": [
+    16,
+    9
+  ],
+  "foundation": "assets/design/maps/classroom-corner/art/v1/classroom-corner-foundation-512x288.png",
+  "rendering": {
+    "sort_axis": "y",
+    "sort_key": "bottom_center_anchor_y",
+    "order": "ascending; larger sort_y renders later and appears in front",
+    "stable_tie_breaker": "stable_order",
+    "transparent_assets_required": true
+  },
+  "actor_contract": {
+    "visual_size_px": [
+      48,
+      64
+    ],
+    "anchor": "feet_bottom_center",
+    "anchor_offset_px": [
+      24,
+      64
+    ],
+    "collision_footprint_px": [
+      14,
+      6
+    ]
+  },
+  "objects": [
+    {
+      "id": "reading-bookshelf",
+      "asset": "assets/design/maps/classroom-corner/props/reading-bookshelf/v1/reading-bookshelf-96x44.png",
+      "source_meta": "assets/design/maps/classroom-corner/props/reading-bookshelf/v1/reading-bookshelf-meta.json",
+      "position_px": [
+        24,
+        40
+      ],
+      "size_px": [
+        96,
+        44
+      ],
+      "anchor_px": [
+        72,
+        84
+      ],
+      "sort_y": 84,
+      "stable_order": 10,
+      "render_layer": "wall_props",
+      "collision": {
+        "type": "rect",
+        "x": 24,
+        "y": 76,
+        "w": 96,
+        "h": 8
+      },
+      "perspective": null
+    },
+    {
+      "id": "reading-book-bin",
+      "asset": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-48x40.png",
+      "source_meta": "assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-meta.json",
+      "position_px": [
+        128,
+        44
+      ],
+      "size_px": [
+        48,
+        40
+      ],
+      "anchor_px": [
+        152,
+        84
+      ],
+      "sort_y": 84,
+      "stable_order": 20,
+      "render_layer": "floor_props",
+      "collision": {
+        "type": "rect",
+        "x": 128,
+        "y": 78,
+        "w": 48,
+        "h": 6
+      },
+      "perspective": {
+        "camera_position": "slightly_right_of_object",
+        "look_direction": "right_to_left",
+        "visible_side": "right",
+        "far_side": "left"
+      }
+    },
+    {
+      "id": "block-table",
+      "asset": "assets/design/maps/classroom-corner/props/block-table/v2/block-table-96x56-left-to-right.png",
+      "source_meta": "assets/design/maps/classroom-corner/props/block-table/v2/meta.json",
+      "position_px": [
+        352,
+        56
+      ],
+      "size_px": [
+        96,
+        56
+      ],
+      "anchor_px": [
+        400,
+        112
+      ],
+      "sort_y": 112,
+      "stable_order": 30,
+      "render_layer": "floor_props",
+      "collision": {
+        "type": "rect",
+        "x": 352,
+        "y": 102,
+        "w": 96,
+        "h": 10
+      },
+      "perspective": {
+        "camera_position": "slightly_left_of_object",
+        "look_direction": "left_to_right",
+        "visible_side": "left",
+        "far_side": "right",
+        "yaw_degrees_target": "8-12"
+      }
+    },
+    {
+      "id": "toy-bin",
+      "asset": "assets/design/maps/classroom-corner/props/toy-bin/v2/toy-bin-40x48-left-to-right.png",
+      "source_meta": "assets/design/maps/classroom-corner/props/toy-bin/v2/meta.json",
+      "position_px": [
+        456,
+        64
+      ],
+      "size_px": [
+        40,
+        48
+      ],
+      "anchor_px": [
+        476,
+        112
+      ],
+      "sort_y": 112,
+      "stable_order": 40,
+      "render_layer": "floor_props",
+      "collision": {
+        "type": "rect",
+        "x": 456,
+        "y": 104,
+        "w": 40,
+        "h": 8
+      },
+      "perspective": {
+        "camera_position": "slightly_left_of_object",
+        "look_direction": "left_to_right",
+        "visible_side": "left",
+        "far_side": "right",
+        "yaw_degrees_target": "8-12"
+      }
+    }
+  ],
+  "actor_spawns": [
+    {
+      "id": "boy-reading-spawn",
+      "character": "boy",
+      "anchor_px": [
+        96,
+        232
+      ],
+      "source": "assets/design/sprites/characters/ai-agent-child-boy/idle/frames/idle-planted-boy-1.png",
+      "frame_top_left_px": [
+        72,
+        168
+      ],
+      "anchor_tile": [
+        3.0,
+        7.25
+      ]
+    },
+    {
+      "id": "girl-center-spawn",
+      "character": "girl",
+      "anchor_px": [
+        256,
+        232
+      ],
+      "source": "assets/design/sprites/characters/ai-agent-child-girl/idle/frames/idle-planted-girl-1.png",
+      "frame_top_left_px": [
+        232,
+        168
+      ],
+      "anchor_tile": [
+        8.0,
+        7.25
+      ]
+    },
+    {
+      "id": "genderless-block-spawn",
+      "character": "genderless",
+      "anchor_px": [
+        416,
+        232
+      ],
+      "source": "assets/design/sprites/characters/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+      "frame_top_left_px": [
+        392,
+        168
+      ],
+      "anchor_tile": [
+        13.0,
+        7.25
+      ]
+    }
+  ],
+  "depth_sort_tests": {
+    "behind": {
+      "frame_top_left_px": [
+        376,
+        32
+      ],
+      "foot_anchor_px": [
+        400,
+        96
+      ],
+      "sort_y": 96,
+      "expected_relation": "behind block-table because 96 < 112"
+    },
+    "in_front": {
+      "frame_top_left_px": [
+        376,
+        80
+      ],
+      "foot_anchor_px": [
+        400,
+        144
+      ],
+      "sort_y": 144,
+      "expected_relation": "in front of block-table because 144 > 112"
+    }
+  },
+  "qa": {
+    "runtime_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-preview-512x288.png",
+    "depth_sort_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-depth-sort-qa-2048x576.png",
+    "collision_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-collision-qa-1024x576.png",
+    "collision_colors": {
+      "furniture_collision": "red",
+      "prop_sort_y": "cyan",
+      "prop_anchor": "yellow",
+      "actor_footprint": "green"
+    }
+  }
+}

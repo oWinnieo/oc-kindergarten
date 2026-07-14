@@ -1,0 +1,7 @@
+Edit the approved toy storage bin from a symmetric straight-on front view to the same subtle three-quarter view from left toward right used by the classroom reference.
+
+The virtual camera is slightly to the left of the bin looking toward the right. Keep the front face dominant. Show a narrow left side face of the blue body and a narrow left inner wall of the open top. Make depth edges recede gently toward the right, with the right side as the farther side. Use approximately 8-12 degrees of yaw; at 40x48 runtime size the visible left side should be about 3-5 pixels wide.
+
+Preserve the compact open-top shape, cyan/medium-blue body, yellow rim and feet, coral-red/orange inner lining, and exactly three blocks in the same arrangement: red at left/back, blue at front/center, yellow-orange at right/back. Preserve scale, proportions, pixel style, lighting, centered placement, and bottom anchor.
+
+Use a perfectly flat uniform #00FF00 chroma-key background. No table, room, floor, shadows, text, watermark, extra objects, or green/olive/teal-green colors in the object.

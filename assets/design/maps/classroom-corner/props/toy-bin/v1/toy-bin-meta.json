@@ -1,0 +1,73 @@
+{
+  "prop_id": "toy-bin-v1",
+  "status": "superseded_perspective",
+  "superseded_by": "toy-bin-v2-left-to-right",
+  "classification": [
+    "compact_prop",
+    "collision_bearing_object"
+  ],
+  "asset_strategy": "one_by_one",
+  "view": "mostly front-facing 3/4 interior prop",
+  "raw": "assets/design/maps/classroom-corner/props/toy-bin/v1/toy-bin-green-raw.png",
+  "prompt": "assets/design/maps/classroom-corner/props/toy-bin/v1/toy-bin-green-raw.prompt.txt",
+  "chroma_clean": "assets/design/maps/classroom-corner/props/toy-bin/v1/toy-bin-green-clean.png",
+  "transparent_prop": "assets/design/maps/classroom-corner/props/toy-bin/v1/toy-bin-40x48.png",
+  "preview": "assets/design/maps/classroom-corner/props/toy-bin/v1/toy-bin-preview-8x.png",
+  "map_qa_preview": "assets/design/maps/classroom-corner/art/v1/classroom-corner-all-props-qa-preview-512x288.png",
+  "runtime_size_px": [
+    40,
+    48
+  ],
+  "map_placement": {
+    "top_left_px": [
+      456,
+      64
+    ],
+    "anchor": "center_bottom",
+    "anchor_px": [
+      476,
+      112
+    ],
+    "sort_y": 112,
+    "render_layer": "floor_props"
+  },
+  "collision": {
+    "type": "rect",
+    "x": 456,
+    "y": 104,
+    "w": 40,
+    "h": 8
+  },
+  "depth_sort": {
+    "axis": "y",
+    "rule": "compare actor foot anchor with prop sort_y",
+    "actor_behind_when": "actor_sort_y < 112",
+    "actor_in_front_when": "actor_sort_y >= 112"
+  },
+  "processing": {
+    "runtime_palette_colors": 40,
+    "resize": "premultiplied-alpha contain, centered and bottom-aligned",
+    "alpha_remove_below": 72,
+    "alpha_snap_opaque_at": 220,
+    "green_edge_cleanup": true
+  },
+  "qc": {
+    "source_alpha_box": [
+      288,
+      328,
+      857,
+      1017
+    ],
+    "runtime_alpha_box": [
+      1,
+      1,
+      39,
+      47
+    ],
+    "visible_pixels": 1555,
+    "opaque_pixels": 1461,
+    "semi_transparent_pixels": 94,
+    "visible_green_pixels": 0,
+    "visible_color_count": 36
+  }
+}

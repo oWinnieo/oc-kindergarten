@@ -1,0 +1,7 @@
+Edit the approved block activity table from a symmetric straight-on front view to a subtle three-quarter view from left toward right, matching the right-upper-corner furniture perspective in the classroom reference.
+
+The virtual camera is slightly to the left of the table looking toward the right. Keep the front face dominant and nearly horizontal. Show only a narrow left side face; at 96x56 runtime size it should be about 4-6 pixels wide. Make depth edges recede gently toward the right, with the right side as the farther side. Use approximately 8-12 degrees of yaw, not a strong isometric angle.
+
+Preserve exactly the low child-sized table, golden-yellow tabletop, coral-red/orange rim and four short legs, and the four pieces in the same left-to-right order and colors: red triangle, medium-blue cube, pale-blue cylinder, yellow-orange rounded block. Preserve scale, proportions, pixel style, lighting, centered placement, and bottom anchor.
+
+Use a perfectly flat uniform #00FF00 chroma-key background. No room, floor, shadows, toy bin, text, watermark, extra objects, or green/olive/teal colors in the object.

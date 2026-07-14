@@ -1,0 +1,9 @@
+Create a production 4x4 pixel-art sprite sheet containing only the four diagonal walking directions for the approved genderless kindergarten AI-agent child.
+
+Preserve the exact monitor head, terminal face, cyan expression, side ports, antenna, light-blue undershirt, yellow romper, yellow backpack, hands, socks, navy shoes, proportions, pixel style, palette, scale, and lighting from the accepted 48x64 cardinal walking sprites.
+
+Use exactly 16 equal invisible cells in a 4x4 grid on a perfectly uniform solid #FF00FF background. Rows are down-left, down-right, up-left, and up-right. Columns are left-foot contact, passing, right-foot contact, and passing loop-close.
+
+The two downward diagonal rows use readable front three-quarter terminal faces. The two upward diagonal rows use rear three-quarter views dominated by the white monitor back and yellow backpack, with no terminal eyes or smile on the back.
+
+Use a planted diagonal walk with alternating feet and opposite arms, a stable feet baseline, no sliding, no more than about one pixel of body bob at final size, and only subtle attached antenna motion. Preserve consistent scale and generous magenta margins in every cell. No part may touch a cell edge. No text, grid lines, shadows, floor, dust, props, other characters, UI, watermark, or effects.

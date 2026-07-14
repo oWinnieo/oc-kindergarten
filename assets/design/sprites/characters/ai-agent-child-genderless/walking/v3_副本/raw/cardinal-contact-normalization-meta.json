@@ -1,0 +1,196 @@
+{
+  "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/raw/genderless-child-cardinal-contact-pairs-4x2-magenta.png",
+  "output": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v3/raw/genderless-child-cardinal-contact-pairs-4x2-normalized.png",
+  "operation": "component detection and equal-cell repack; no scaling",
+  "grid": [
+    4,
+    2
+  ],
+  "cell_size_px": 389,
+  "placements": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "component_area": 35686,
+      "component_bbox": [
+        231,
+        42,
+        411,
+        347
+      ],
+      "crop_box": [
+        221,
+        32,
+        421,
+        357
+      ],
+      "paste_position": [
+        94,
+        32
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "component_area": 35732,
+      "component_bbox": [
+        650,
+        42,
+        829,
+        347
+      ],
+      "crop_box": [
+        640,
+        32,
+        839,
+        357
+      ],
+      "paste_position": [
+        484,
+        32
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "component_area": 31144,
+      "component_bbox": [
+        247,
+        386,
+        404,
+        683
+      ],
+      "crop_box": [
+        237,
+        376,
+        414,
+        693
+      ],
+      "paste_position": [
+        106,
+        429
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "component_area": 31389,
+      "component_bbox": [
+        663,
+        386,
+        817,
+        683
+      ],
+      "crop_box": [
+        653,
+        376,
+        827,
+        693
+      ],
+      "paste_position": [
+        496,
+        429
+      ]
+    },
+    {
+      "grid": [
+        2,
+        0
+      ],
+      "component_area": 30818,
+      "component_bbox": [
+        245,
+        731,
+        400,
+        1028
+      ],
+      "crop_box": [
+        235,
+        721,
+        410,
+        1038
+      ],
+      "paste_position": [
+        107,
+        818
+      ]
+    },
+    {
+      "grid": [
+        2,
+        1
+      ],
+      "component_area": 31286,
+      "component_bbox": [
+        653,
+        731,
+        807,
+        1029
+      ],
+      "crop_box": [
+        643,
+        721,
+        817,
+        1039
+      ],
+      "paste_position": [
+        496,
+        817
+      ]
+    },
+    {
+      "grid": [
+        3,
+        0
+      ],
+      "component_area": 33464,
+      "component_bbox": [
+        239,
+        1069,
+        411,
+        1361
+      ],
+      "crop_box": [
+        229,
+        1059,
+        421,
+        1371
+      ],
+      "paste_position": [
+        98,
+        1212
+      ]
+    },
+    {
+      "grid": [
+        3,
+        1
+      ],
+      "component_area": 33329,
+      "component_bbox": [
+        641,
+        1069,
+        812,
+        1361
+      ],
+      "crop_box": [
+        631,
+        1059,
+        822,
+        1371
+      ],
+      "paste_position": [
+        488,
+        1212
+      ]
+    }
+  ]
+}

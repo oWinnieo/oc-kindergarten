@@ -1,0 +1,7 @@
+Use case: background-extraction
+Asset type: production pixel-art map prop chroma-key source
+Input image: the approved reading book-bin image is the edit target.
+Primary request: GREEN-KEY replacement for the approved reading book-bin prop. Change only the background from magenta to a perfectly flat, uniform solid #00FF00 chroma-key green.
+Subject invariants: preserve the reading book bin exactly: same pixel-art silhouette, size, placement, three-quarter/front view, coral-red outer bin, yellow front panel, blue/white/orange/yellow books, highlights, shadows, pixel edges, proportions, and composition.
+Backdrop: one uniform #00FF00 color covering every background pixel, with no gradient, texture, shadow, floor plane, reflection, halo, or lighting variation.
+Constraints: do not redraw, recolor, resize, crop, move, simplify, sharpen, or add anything to the prop. Keep generous green padding. No #00FF00, green, lime, or olive pixels anywhere inside the prop. No cast shadow, contact shadow, watermark, or text.

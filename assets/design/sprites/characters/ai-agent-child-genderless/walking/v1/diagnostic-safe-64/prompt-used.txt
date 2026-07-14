@@ -1,0 +1,7 @@
+Edit the approved 4x4 genderless AI-child walking sheet as a layout-only correction.
+
+Keep all 16 character designs, directions, walking poses, identity details, colors, expression, outfit, backpack, antenna behavior, row order, and column order unchanged. Preserve the exact 4 rows x 4 columns walking sheet.
+
+Reduce the character scale inside every cell uniformly by about 8-10 percent and recenter each full body within its own invisible equal-size cell. Add solid-magenta safety margin on all four sides of every cell, especially above every antenna and below every shoe. No antenna, head, backpack, hand, or shoe may touch or approach a cell boundary. Keep each feet anchor aligned to the same relative baseline within its row.
+
+The sheet remains square with exactly 16 equal invisible cells. No visible grid lines, borders, labels, text, numbers, or arrows. The background remains perfectly flat uniform #FF00FF. Do not redesign, add or remove details, change poses or directions, mirror rows, add shadows, or add other objects.

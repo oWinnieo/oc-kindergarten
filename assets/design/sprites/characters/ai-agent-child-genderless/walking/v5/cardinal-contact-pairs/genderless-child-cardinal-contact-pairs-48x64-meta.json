@@ -1,0 +1,192 @@
+{
+  "status": "visual_approval_candidate",
+  "character": "ai-agent-child-genderless",
+  "action": "cardinal walking contact pairs",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "sheet_order": {
+    "rows": [
+      "front",
+      "back",
+      "left",
+      "right"
+    ],
+    "columns": [
+      "left_foot_forward",
+      "right_foot_forward"
+    ]
+  },
+  "review_frame_duration_ms": 900,
+  "source": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/processed-64",
+  "sheet": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/genderless-child-cardinal-contact-pairs-4x2-48x64.png",
+  "qc": {
+    "front": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/front/walk-front-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            3,
+            40,
+            63
+          ],
+          "visible_pixels": 1485,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/front/walk-front-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            3,
+            40,
+            63
+          ],
+          "visible_pixels": 1487,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1499
+    },
+    "back": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/back/walk-back-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            6,
+            39,
+            63
+          ],
+          "visible_pixels": 1350,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/back/walk-back-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            6,
+            39,
+            63
+          ],
+          "visible_pixels": 1351,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1207
+    },
+    "left": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/left/walk-left-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            5,
+            40,
+            63
+          ],
+          "visible_pixels": 1412,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/left/walk-left-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            6,
+            39,
+            63
+          ],
+          "visible_pixels": 1325,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1468
+    },
+    "right": {
+      "frames": [
+        {
+          "forward_foot": "left",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/right/walk-right-left-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            8,
+            39,
+            63
+          ],
+          "visible_pixels": 1269,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        },
+        {
+          "forward_foot": "right",
+          "file": "assets/design/sprites/characters/ai-agent-child-genderless/walking/v5/cardinal-contact-pairs/frames/right/walk-right-right-foot-forward-48x64.png",
+          "size": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            7,
+            40,
+            63
+          ],
+          "visible_pixels": 1304,
+          "visible_magenta_pixels": 0,
+          "touches_runtime_edge": false
+        }
+      ],
+      "changed_pixels": 1363
+    }
+  },
+  "qc_summary": {
+    "frame_count": 8,
+    "all_frames_48x64": true,
+    "visible_magenta_pixels": 0,
+    "edge_touch_frames": []
+  }
+}

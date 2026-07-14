@@ -1,0 +1,74 @@
+{
+  "prop_id": "block-table-v2-left-to-right",
+  "status": "approved_visual",
+  "supersedes": "block-table-v1",
+  "classification": [
+    "wide_or_long_object",
+    "collision_bearing_object"
+  ],
+  "asset_strategy": "one_by_one",
+  "view": "subtle 3/4, camera left looking right",
+  "perspective": {
+    "camera_position": "slightly_left_of_object",
+    "look_direction": "left_to_right",
+    "visible_side": "left",
+    "far_side": "right",
+    "yaw_degrees_target": "8-12"
+  },
+  "raw": "assets/design/maps/classroom-corner/props/block-table/v2/block-table-left-to-right-green-raw.png",
+  "prompt": "assets/design/maps/classroom-corner/props/block-table/v2/block-table-left-to-right-green-raw.prompt.txt",
+  "chroma_clean": "assets/design/maps/classroom-corner/props/block-table/v2/block-table-left-to-right-green-clean.png",
+  "transparent_prop": "assets/design/maps/classroom-corner/props/block-table/v2/block-table-96x56-left-to-right.png",
+  "preview": "assets/design/maps/classroom-corner/props/block-table/v2/block-table-left-to-right-preview-8x.png",
+  "map_qa_preview": "assets/design/maps/classroom-corner/art/v1/classroom-corner-right-props-perspective-v2-qa-preview-512x288.png",
+  "runtime_size_px": [
+    96,
+    56
+  ],
+  "map_placement": {
+    "top_left_px": [
+      352,
+      56
+    ],
+    "anchor": "center_bottom",
+    "anchor_px": [
+      400,
+      112
+    ],
+    "sort_y": 112,
+    "render_layer": "floor_props"
+  },
+  "collision": {
+    "type": "rect",
+    "x": 352,
+    "y": 102,
+    "w": 96,
+    "h": 10
+  },
+  "processing": {
+    "runtime_palette_colors": 48,
+    "resize": "premultiplied-alpha contain, centered and bottom-aligned",
+    "alpha_remove_below": 72,
+    "alpha_snap_opaque_at": 220,
+    "green_edge_cleanup": true
+  },
+  "qc": {
+    "source_alpha_box": [
+      333,
+      269,
+      1336,
+      686
+    ],
+    "runtime_alpha_box": [
+      1,
+      16,
+      95,
+      55
+    ],
+    "visible_pixels": 2865,
+    "opaque_pixels": 2744,
+    "semi_transparent_pixels": 121,
+    "visible_green_pixels": 0,
+    "visible_color_count": 38
+  }
+}
