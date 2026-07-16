@@ -1,0 +1,40 @@
+{
+  "asset": "kindergarten_ai_agent_trio_movement",
+  "revision": "v2-wheelbase-move-v1",
+  "status": "approved",
+  "character_order": [
+    "boy",
+    "girl",
+    "genderless"
+  ],
+  "directions": [
+    "down",
+    "left",
+    "right",
+    "up",
+    "down_left",
+    "down_right",
+    "up_left",
+    "up_right"
+  ],
+  "frames_per_direction": 4,
+  "frame_duration_ms": 125,
+  "preview": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-8dir-v2-preview-4x.png",
+  "body_size_guide": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-body-size-guide-8x.png",
+  "decoration_excluded_core_height_px": 50,
+  "direction_gifs": {
+    "down": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-down-v2-preview-6x.gif",
+    "left": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-left-v2-preview-6x.gif",
+    "right": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-right-v2-preview-6x.gif",
+    "up": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-up-v2-preview-6x.gif",
+    "down_left": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-down_left-v2-preview-6x.gif",
+    "down_right": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-down_right-v2-preview-6x.gif",
+    "up_left": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-up_left-v2-preview-6x.gif",
+    "up_right": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-up_right-v2-preview-6x.gif"
+  },
+  "character_metadata": {
+    "boy": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-wheelbase-v2-meta.json",
+    "girl": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-wheelbase-v2-meta.json",
+    "genderless": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-wheelbase-v2-meta.json"
+  }
+}

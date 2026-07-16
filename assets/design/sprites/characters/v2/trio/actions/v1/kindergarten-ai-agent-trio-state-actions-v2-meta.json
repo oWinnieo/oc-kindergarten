@@ -1,0 +1,45 @@
+{
+  "asset": "kindergarten_ai_agent_trio_state_actions",
+  "revision": "v2-wheelbase-state-actions-v2",
+  "status": "visual_approval_candidate",
+  "actions": [
+    "researching",
+    "executing",
+    "writing"
+  ],
+  "characters": [
+    "boy",
+    "girl",
+    "genderless"
+  ],
+  "runtime_frame_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "decoration_excluded_core_height_px": 50,
+  "preview": "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v2-preview-6x.png",
+  "body_size_guide": "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-body-size-guide-v2-8x.png",
+  "action_metadata": {
+    "researching": {
+      "gif": "assets/design/sprites/characters/v2/trio/actions/v1/researching/previews/kindergarten-ai-agent-trio-researching-v2-preview-6x.gif",
+      "first_frame": "assets/design/sprites/characters/v2/trio/actions/v1/researching/previews/kindergarten-ai-agent-trio-researching-v2-preview-6x.png",
+      "metadata": "assets/design/sprites/characters/v2/trio/actions/v1/researching/kindergarten-ai-agent-trio-researching-v2-meta.json"
+    },
+    "executing": {
+      "gif": "assets/design/sprites/characters/v2/trio/actions/v1/executing/previews/kindergarten-ai-agent-trio-executing-v2-preview-6x.gif",
+      "first_frame": "assets/design/sprites/characters/v2/trio/actions/v1/executing/previews/kindergarten-ai-agent-trio-executing-v2-preview-6x.png",
+      "metadata": "assets/design/sprites/characters/v2/trio/actions/v1/executing/kindergarten-ai-agent-trio-executing-v2-meta.json"
+    },
+    "writing": {
+      "gif": "assets/design/sprites/characters/v2/trio/actions/v1/writing/previews/kindergarten-ai-agent-trio-writing-v2-preview-6x.gif",
+      "first_frame": "assets/design/sprites/characters/v2/trio/actions/v1/writing/previews/kindergarten-ai-agent-trio-writing-v2-preview-6x.png",
+      "metadata": "assets/design/sprites/characters/v2/trio/actions/v1/writing/kindergarten-ai-agent-trio-writing-v2-meta.json"
+    }
+  },
+  "technical_qc_passed": true
+}

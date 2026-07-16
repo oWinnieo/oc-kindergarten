@@ -1,0 +1,160 @@
+{
+  "character_id": "ai-agent-child-girl",
+  "asset": "state_action",
+  "revision": "v2-wheelbase-executing-v1",
+  "status": "approved",
+  "action": "executing",
+  "semantic": "place_toy_block",
+  "orientation": "up_back",
+  "frames": 4,
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "frame_duration_ms": 180,
+  "collision_footprint_px": [
+    26,
+    6
+  ],
+  "phase_order": [
+    "reach",
+    "lift_align",
+    "place_press",
+    "retract_settle"
+  ],
+  "strip": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-2x2-48x64.png",
+  "frame_paths": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-4-48x64.png"
+  ],
+  "previews": {
+    "gif_1x": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/previews/girl-child-executing-wheelbase-v2-48x64.gif",
+    "gif_6x": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/previews/girl-child-executing-wheelbase-v2-preview-6x.gif",
+    "sheet_6x": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/previews/girl-child-executing-wheelbase-v2-preview-6x.png"
+  },
+  "sources": {
+    "prompt": "design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing-4frame/prompts/executing.txt",
+    "processor_meta": "design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing-4frame/processed/pipeline-meta.json"
+  },
+  "scale_match": {
+    "reference": "oc-kindergarten/assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-1-48x64.png",
+    "reference_bbox": [
+      7,
+      11,
+      40,
+      62
+    ],
+    "reference_height_px": 51,
+    "action_frame_heights_px": [
+      51,
+      51,
+      51,
+      51
+    ],
+    "max_delta_ratio": 0.0,
+    "comparison_only": true,
+    "canonical_idle_envelope_exact_match": false
+  },
+  "body_size_lock": {
+    "policy": "accepted idle scale; decorations excluded from body height",
+    "decoration_excluded_core_height_px": 50,
+    "body_top_y": 12,
+    "wheel_bottom_y_exclusive": 62,
+    "excluded_accessory": "flower",
+    "accepted_idle_visible_height_px": 51,
+    "processor_base_fit_scale": 0.9,
+    "processor_scale_multiplier": 0.8947368421052632,
+    "processor_fit_scale": 0.805263158,
+    "canonical_researching_matches_idle_exactly": false,
+    "executing_uses_same_idle_calibration_multiplier": true
+  },
+  "qc": {
+    "frames": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          4,
+          11,
+          44,
+          62
+        ],
+        "visible_width_px": 40,
+        "visible_height_px": 51,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          6,
+          11,
+          42,
+          62
+        ],
+        "visible_width_px": 36,
+        "visible_height_px": 51,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "visible_width_px": 34,
+        "visible_height_px": 51,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          6,
+          11,
+          41,
+          62
+        ],
+        "visible_width_px": 35,
+        "visible_height_px": 51,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "adjacent_changed_pixels_including_wrap": [
+      1469,
+      1442,
+      1421,
+      1529
+    ],
+    "all_frames_distinct": true,
+    "rear_occlusion": null,
+    "technical_qc_passed": true
+  }
+}

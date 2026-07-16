@@ -1,0 +1,160 @@
+{
+  "character_id": "ai-agent-child-boy",
+  "asset": "state_action",
+  "revision": "v2-wheelbase-researching-v1",
+  "status": "approved",
+  "action": "researching",
+  "semantic": "read_picture_book",
+  "orientation": "down_front",
+  "frames": 4,
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "frame_duration_ms": 220,
+  "collision_footprint_px": [
+    30,
+    6
+  ],
+  "phase_order": [
+    "book_open",
+    "page_lift",
+    "page_turn",
+    "book_settle"
+  ],
+  "strip": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-2x2-48x64.png",
+  "frame_paths": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-4-48x64.png"
+  ],
+  "previews": {
+    "gif_1x": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/previews/boy-child-researching-wheelbase-v2-48x64.gif",
+    "gif_6x": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/previews/boy-child-researching-wheelbase-v2-preview-6x.gif",
+    "sheet_6x": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/previews/boy-child-researching-wheelbase-v2-preview-6x.png"
+  },
+  "sources": {
+    "prompt": "design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching-4frame/prompts/researching.txt",
+    "processor_meta": "design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching-4frame/processed/pipeline-meta.json"
+  },
+  "scale_match": {
+    "reference": "oc-kindergarten/assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-1-48x64.png",
+    "reference_bbox": [
+      5,
+      7,
+      42,
+      62
+    ],
+    "reference_height_px": 55,
+    "action_frame_heights_px": [
+      55,
+      55,
+      55,
+      55
+    ],
+    "max_delta_ratio": 0.0,
+    "comparison_only": false,
+    "canonical_idle_envelope_exact_match": true
+  },
+  "body_size_lock": {
+    "policy": "accepted idle scale; decorations excluded from body height",
+    "decoration_excluded_core_height_px": 50,
+    "body_top_y": 12,
+    "wheel_bottom_y_exclusive": 62,
+    "excluded_accessory": "cap",
+    "accepted_idle_visible_height_px": 55,
+    "processor_base_fit_scale": 0.9,
+    "processor_scale_multiplier": 0.9649122807017544,
+    "processor_fit_scale": 0.868421053,
+    "canonical_researching_matches_idle_exactly": true,
+    "executing_uses_same_idle_calibration_multiplier": false
+  },
+  "qc": {
+    "frames": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          5,
+          7,
+          42,
+          62
+        ],
+        "visible_width_px": 37,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          5,
+          7,
+          43,
+          62
+        ],
+        "visible_width_px": 38,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          5,
+          7,
+          43,
+          62
+        ],
+        "visible_width_px": 38,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          5,
+          7,
+          42,
+          62
+        ],
+        "visible_width_px": 37,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "adjacent_changed_pixels_including_wrap": [
+      1751,
+      1676,
+      1736,
+      1648
+    ],
+    "all_frames_distinct": true,
+    "rear_occlusion": null,
+    "technical_qc_passed": true
+  }
+}

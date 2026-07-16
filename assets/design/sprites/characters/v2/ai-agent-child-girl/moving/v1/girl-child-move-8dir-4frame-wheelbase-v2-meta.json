@@ -1,0 +1,773 @@
+{
+  "character_id": "ai-agent-child-girl",
+  "asset": "movement",
+  "revision": "v2-wheelbase-move-v1",
+  "status": "approved",
+  "action": "mechanical_glide",
+  "directions": [
+    "down",
+    "left",
+    "right",
+    "up",
+    "down_left",
+    "down_right",
+    "up_left",
+    "up_right"
+  ],
+  "frames_per_direction": 4,
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "frame_duration_ms": 125,
+  "collision_footprint_px": [
+    26,
+    6
+  ],
+  "direction_order": [
+    "down",
+    "left",
+    "right",
+    "up",
+    "down_left",
+    "down_right",
+    "up_left",
+    "up_right"
+  ],
+  "phase_order": [
+    "wheel_0",
+    "wheel_90",
+    "wheel_180",
+    "wheel_270"
+  ],
+  "mirror_policy": {
+    "down_left": "exact horizontal mirror of down_right",
+    "up_left": "exact horizontal mirror of up_right"
+  },
+  "atlas": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-wheelbase-v2-48x64.png",
+  "frames": {
+    "down": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-4-48x64.png"
+    ],
+    "left": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-4-48x64.png"
+    ],
+    "right": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-4-48x64.png"
+    ],
+    "up": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-4-48x64.png"
+    ],
+    "down_left": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-4-48x64.png"
+    ],
+    "down_right": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-4-48x64.png"
+    ],
+    "up_left": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-4-48x64.png"
+    ],
+    "up_right": [
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-1-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-2-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-3-48x64.png",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-4-48x64.png"
+    ]
+  },
+  "sources": {
+    "cardinal_prompt": "design/sprites/characters/v2/ai-agent-child-girl/moving/v1/cardinal-4frame/prompts/cardinal.txt",
+    "cardinal_processor_meta": "design/sprites/characters/v2/ai-agent-child-girl/moving/v1/cardinal-4frame/processed/pipeline-meta.json",
+    "diagonal_prompt": "design/sprites/characters/v2/ai-agent-child-girl/moving/v1/diagonal-right-4frame/prompts/diagonal-right.txt",
+    "diagonal_processor_meta": "design/sprites/characters/v2/ai-agent-child-girl/moving/v1/diagonal-right-4frame/processed/pipeline-meta.json"
+  },
+  "idle_scale_match": {
+    "idle_bbox": [
+      7,
+      11,
+      41,
+      62
+    ],
+    "idle_height_px": 51,
+    "down_frame_heights_px": [
+      51,
+      51,
+      51,
+      51
+    ],
+    "max_delta_px": 0,
+    "exact_match": true
+  },
+  "body_size_lock": {
+    "policy": "accepted idle scale; decorations excluded from body height",
+    "decoration_excluded_core_height_px": 50,
+    "body_top_y": 12,
+    "wheel_bottom_y_exclusive": 62,
+    "excluded_accessory": "flower",
+    "processor_base_fit_scale": 0.9,
+    "processor_scale_multiplier": 0.8947368421052632,
+    "processor_fit_scale": 0.8052631578947369,
+    "cardinal_fit_scale_verified": 0.805263158,
+    "diagonal_fit_scale_verified": 0.805263158,
+    "canonical_down_matches_idle_exactly": true
+  },
+  "qc": {
+    "down": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            6,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 35,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            6,
+            11,
+            42,
+            62
+          ],
+          "visible_width_px": 36,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 34,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 34,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1532,
+        1460,
+        1423,
+        1501
+      ],
+      "all_frames_distinct": true
+    },
+    "left": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1110,
+        1095,
+        1079,
+        1102
+      ],
+      "all_frames_distinct": true
+    },
+    "right": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            10,
+            14,
+            38,
+            62
+          ],
+          "visible_width_px": 28,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1101,
+        1054,
+        1063,
+        1117
+      ],
+      "all_frames_distinct": true
+    },
+    "up": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            40,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 34,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            40,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            40,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1295,
+        1294,
+        1288,
+        1273
+      ],
+      "all_frames_distinct": true
+    },
+    "down_left": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 34,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1367,
+        1380,
+        1419,
+        1432
+      ],
+      "all_frames_distinct": true
+    },
+    "down_right": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            40,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            40,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            40,
+            62
+          ],
+          "visible_width_px": 33,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            7,
+            11,
+            41,
+            62
+          ],
+          "visible_width_px": 34,
+          "visible_height_px": 51,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1367,
+        1380,
+        1419,
+        1432
+      ],
+      "all_frames_distinct": true
+    },
+    "up_left": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            15,
+            40,
+            62
+          ],
+          "visible_width_px": 31,
+          "visible_height_px": 47,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            14,
+            40,
+            62
+          ],
+          "visible_width_px": 31,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            15,
+            39,
+            62
+          ],
+          "visible_width_px": 30,
+          "visible_height_px": 47,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            14,
+            40,
+            62
+          ],
+          "visible_width_px": 31,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1148,
+        1165,
+        1173,
+        1143
+      ],
+      "all_frames_distinct": true
+    },
+    "up_right": {
+      "frames": [
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            15,
+            39,
+            62
+          ],
+          "visible_width_px": 31,
+          "visible_height_px": 47,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            14,
+            39,
+            62
+          ],
+          "visible_width_px": 31,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            9,
+            15,
+            39,
+            62
+          ],
+          "visible_width_px": 30,
+          "visible_height_px": 47,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        },
+        {
+          "size_px": [
+            48,
+            64
+          ],
+          "bbox": [
+            8,
+            14,
+            39,
+            62
+          ],
+          "visible_width_px": 31,
+          "visible_height_px": 48,
+          "wheel_bottom_y_exclusive": 62,
+          "visible_magenta_pixels": 0,
+          "touches_edge": false
+        }
+      ],
+      "adjacent_changed_pixels_including_wrap": [
+        1148,
+        1165,
+        1173,
+        1143
+      ],
+      "all_frames_distinct": true
+    }
+  }
+}

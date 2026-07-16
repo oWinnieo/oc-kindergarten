@@ -1,0 +1,681 @@
+{
+  "extension_id": "classroom-corner-writing-extension-v1",
+  "status": "visual_approval_candidate",
+  "base_runtime_manifest": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-v1.json",
+  "map_mode": "tile_mode",
+  "visual_model": "layered_tilemap",
+  "runtime_object_model": [
+    "separate_props",
+    "y_sorted_props"
+  ],
+  "collision_model": [
+    "precise_shapes",
+    "tile_collision"
+  ],
+  "canvas_px": [
+    512,
+    288
+  ],
+  "tile_size_px": 32,
+  "candidate_object": {
+    "id": "writing-table",
+    "asset": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-96x56.png",
+    "metadata": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-meta.json",
+    "position_px": [
+      208,
+      56
+    ],
+    "sort_y": 112,
+    "collision": {
+      "type": "rect",
+      "x": 208,
+      "y": 102,
+      "w": 96,
+      "h": 10
+    }
+  },
+  "walkability": {
+    "base": "assets/design/maps/classroom-corner/blockout/classroom-corner-layout.json",
+    "overrides": [
+      {
+        "tile": [
+          7,
+          3
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          8,
+          3
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          9,
+          3
+        ],
+        "walkable": false
+      }
+    ],
+    "rows": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  },
+  "state": {
+    "id": "writing",
+    "location": "写画桌",
+    "semantic": "draw_on_activity_table",
+    "orientation": "up_back",
+    "frames": 4,
+    "frame_duration_ms": 200,
+    "target_tile_by_character": {
+      "boy": [
+        7,
+        5
+      ],
+      "girl": [
+        8,
+        5
+      ],
+      "genderless": [
+        9,
+        5
+      ]
+    },
+    "target_anchor_px_by_character": {
+      "boy": [
+        224,
+        168
+      ],
+      "girl": [
+        256,
+        168
+      ],
+      "genderless": [
+        288,
+        168
+      ]
+    }
+  },
+  "validation": {
+    "approved_baseline": {
+      "lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v1.json",
+      "checked_files": 257,
+      "hash_mismatches": [],
+      "passed": true
+    },
+    "writing_actions": {
+      "characters": {
+        "boy": {
+          "metadata": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/boy-child-writing-4frame-wheelbase-v2-meta.json",
+          "status": "visual_approval_candidate",
+          "rear_occlusion": {
+            "rule": "rear head/body foreground occludes the far-side writing hand and crayon",
+            "checked_frames": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "rear_head_core_zone_px": [
+              16,
+              24,
+              32,
+              30
+            ],
+            "frames": [
+              {
+                "frame": 1,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 2,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 3,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 4,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              }
+            ],
+            "passed": true
+          },
+          "frames": [
+            {
+              "frame": 1,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-wheelbase-v2-1-48x64.png",
+              "bbox": [
+                2,
+                7,
+                46,
+                62
+              ],
+              "visible_height_px": 55,
+              "passed": true
+            },
+            {
+              "frame": 2,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-wheelbase-v2-2-48x64.png",
+              "bbox": [
+                1,
+                7,
+                46,
+                62
+              ],
+              "visible_height_px": 55,
+              "passed": true
+            },
+            {
+              "frame": 3,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-wheelbase-v2-3-48x64.png",
+              "bbox": [
+                2,
+                7,
+                45,
+                62
+              ],
+              "visible_height_px": 55,
+              "passed": true
+            },
+            {
+              "frame": 4,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-wheelbase-v2-4-48x64.png",
+              "bbox": [
+                4,
+                7,
+                43,
+                62
+              ],
+              "visible_height_px": 55,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "girl": {
+          "metadata": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/girl-child-writing-4frame-wheelbase-v2-meta.json",
+          "status": "visual_approval_candidate",
+          "rear_occlusion": {
+            "rule": "rear head/body foreground occludes the far-side writing hand and crayon",
+            "checked_frames": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "rear_head_core_zone_px": [
+              16,
+              24,
+              32,
+              30
+            ],
+            "frames": [
+              {
+                "frame": 1,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 2,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 3,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 4,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              }
+            ],
+            "passed": true
+          },
+          "frames": [
+            {
+              "frame": 1,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-1-48x64.png",
+              "bbox": [
+                5,
+                11,
+                42,
+                62
+              ],
+              "visible_height_px": 51,
+              "passed": true
+            },
+            {
+              "frame": 2,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-2-48x64.png",
+              "bbox": [
+                5,
+                11,
+                43,
+                62
+              ],
+              "visible_height_px": 51,
+              "passed": true
+            },
+            {
+              "frame": 3,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-3-48x64.png",
+              "bbox": [
+                6,
+                11,
+                42,
+                62
+              ],
+              "visible_height_px": 51,
+              "passed": true
+            },
+            {
+              "frame": 4,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-4-48x64.png",
+              "bbox": [
+                6,
+                11,
+                42,
+                62
+              ],
+              "visible_height_px": 51,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "genderless": {
+          "metadata": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-4frame-wheelbase-v2-meta.json",
+          "status": "visual_approval_candidate",
+          "rear_occlusion": {
+            "rule": "rear head/body foreground occludes the far-side writing hand and crayon",
+            "checked_frames": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "rear_head_core_zone_px": [
+              16,
+              24,
+              32,
+              30
+            ],
+            "frames": [
+              {
+                "frame": 1,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 2,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 3,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              },
+              {
+                "frame": 4,
+                "saturated_hand_or_crayon_pixels_in_rear_head_core": 0
+              }
+            ],
+            "passed": true
+          },
+          "frames": [
+            {
+              "frame": 1,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-wheelbase-v2-1-48x64.png",
+              "bbox": [
+                3,
+                4,
+                44,
+                62
+              ],
+              "visible_height_px": 58,
+              "passed": true
+            },
+            {
+              "frame": 2,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-wheelbase-v2-2-48x64.png",
+              "bbox": [
+                4,
+                4,
+                43,
+                62
+              ],
+              "visible_height_px": 58,
+              "passed": true
+            },
+            {
+              "frame": 3,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-wheelbase-v2-3-48x64.png",
+              "bbox": [
+                2,
+                4,
+                45,
+                62
+              ],
+              "visible_height_px": 58,
+              "passed": true
+            },
+            {
+              "frame": 4,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-wheelbase-v2-4-48x64.png",
+              "bbox": [
+                6,
+                4,
+                41,
+                62
+              ],
+              "visible_height_px": 58,
+              "passed": true
+            }
+          ],
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "routes_and_collisions": {
+      "characters": {
+        "boy": {
+          "start_tile": [
+            3,
+            7
+          ],
+          "target_tile": [
+            7,
+            5
+          ],
+          "target_anchor_px": [
+            224,
+            168
+          ],
+          "path_tiles": [
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "tile_steps": 4,
+          "target_footprint_px": [
+            209,
+            162,
+            239,
+            168
+          ],
+          "writing_table_collision_overlap": false,
+          "passed": true
+        },
+        "girl": {
+          "start_tile": [
+            8,
+            7
+          ],
+          "target_tile": [
+            8,
+            5
+          ],
+          "target_anchor_px": [
+            256,
+            168
+          ],
+          "path_tiles": [
+            [
+              8,
+              7
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              5
+            ]
+          ],
+          "tile_steps": 2,
+          "target_footprint_px": [
+            243,
+            162,
+            269,
+            168
+          ],
+          "writing_table_collision_overlap": false,
+          "passed": true
+        },
+        "genderless": {
+          "start_tile": [
+            13,
+            7
+          ],
+          "target_tile": [
+            9,
+            5
+          ],
+          "target_anchor_px": [
+            288,
+            168
+          ],
+          "path_tiles": [
+            [
+              13,
+              7
+            ],
+            [
+              12,
+              7
+            ],
+            [
+              11,
+              7
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              9,
+              5
+            ]
+          ],
+          "tile_steps": 4,
+          "target_footprint_px": [
+            273,
+            162,
+            303,
+            168
+          ],
+          "writing_table_collision_overlap": false,
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "passed": true
+  },
+  "qa": {
+    "preview": "assets/design/maps/classroom-corner/extensions/writing/v1/classroom-corner-writing-preview-512x288.png",
+    "collision_preview": "assets/design/maps/classroom-corner/extensions/writing/v1/classroom-corner-writing-collision-qa-1024x576.png",
+    "action_preview": "assets/design/maps/classroom-corner/extensions/writing/v1/classroom-corner-writing-actions-qa.gif"
+  }
+}

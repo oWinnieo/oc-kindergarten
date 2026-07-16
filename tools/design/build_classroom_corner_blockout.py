@@ -24,19 +24,22 @@ CHARACTERS = [
         "id": "boy-reading-spawn",
         "character": "boy",
         "anchor_px": [96, 232],
-        "source": "assets/design/sprites/characters/v1/ai-agent-child-boy/idle/frames/idle-planted-boy-1.png",
+        "source": "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-1-48x64.png",
+        "collision_footprint_px": [30, 6],
     },
     {
         "id": "girl-center-spawn",
         "character": "girl",
         "anchor_px": [256, 232],
-        "source": "assets/design/sprites/characters/v1/ai-agent-child-girl/idle/frames/idle-planted-girl-1.png",
+        "source": "assets/design/sprites/characters/v2/ai-agent-child-girl/idle/frames/girl-child-idle-wheelbase-v2-1-48x64.png",
+        "collision_footprint_px": [26, 6],
     },
     {
         "id": "genderless-block-spawn",
         "character": "genderless",
         "anchor_px": [416, 232],
-        "source": "assets/design/sprites/characters/v1/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+        "source": "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-1-48x64.png",
+        "collision_footprint_px": [30, 6],
     },
 ]
 

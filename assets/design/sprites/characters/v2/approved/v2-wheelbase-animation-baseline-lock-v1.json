@@ -1,0 +1,1096 @@
+{
+  "lock_id": "v2-wheelbase-animation-baseline-lock-v1",
+  "status": "approved",
+  "approved_on": "2026-07-16",
+  "scope": {
+    "movement": {
+      "directions": 8,
+      "frames_per_direction": 4,
+      "characters": 3,
+      "runtime_frames": 96
+    },
+    "state_actions": {
+      "actions": [
+        "researching",
+        "executing"
+      ],
+      "frames_per_action": 4,
+      "characters": 3,
+      "runtime_frames": 24
+    }
+  },
+  "character_contract": {
+    "frame_size_px": [
+      48,
+      64
+    ],
+    "anchor_px": [
+      24,
+      64
+    ],
+    "visible_wheel_bottom_y_exclusive": 62,
+    "decoration_excluded_core_height_px": 50,
+    "excluded_accessory_by_character": {
+      "boy": "cap",
+      "girl": "flower",
+      "genderless": "antenna"
+    },
+    "accepted_idle_visible_height_px_by_character": {
+      "boy": 55,
+      "girl": 51,
+      "genderless": 58
+    }
+  },
+  "approval_evidence": {
+    "runtime_manifest": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-v1.json",
+    "runtime_matching_validation_passed": true,
+    "genderless_executing_rear_occlusion_passed": true,
+    "metadata": [
+      "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/boy-child-executing-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/girl-child-researching-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-4frame-wheelbase-v2-meta.json",
+      "assets/design/sprites/characters/v2/trio/moving/v1/kindergarten-ai-agent-trio-move-8dir-v2-meta.json",
+      "assets/design/sprites/characters/v2/trio/actions/v1/researching/kindergarten-ai-agent-trio-researching-v2-meta.json",
+      "assets/design/sprites/characters/v2/trio/actions/v1/executing/kindergarten-ai-agent-trio-executing-v2-meta.json",
+      "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v1-meta.json"
+    ]
+  },
+  "locked_file_count": 257,
+  "files": [
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/boy-child-executing-4frame-wheelbase-v2-2x2-48x64.png",
+      "sha256": "656f2a404e4034f417acc73a49d9bdd536788aa7f3f0daabcfa27cf78e431578"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/boy-child-executing-4frame-wheelbase-v2-meta.json",
+      "sha256": "8192a82830bdc2fd6ed2d7b04f3a2884a07b1fd023b9820e8b5d6e18b8a853f6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/boy-child-executing-4frame-wheelbase-v2-strip-48x64.png",
+      "sha256": "59b41f6436d3accea8232c23b25cde99ce41b0909a019bc210183477f02b9a01"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-1-48x64.png",
+      "sha256": "b508fc321385c8752d346d78112aba45c19661145a3e9dd6c7ea7b6e2f7d6049"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-2-48x64.png",
+      "sha256": "6853179dbf318a878ebcf3a7449ea36b478799901a868dcdaf19c6e642f18e8f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-3-48x64.png",
+      "sha256": "80082dcdb5994b617966a2c8a6b6da7a961f507a18e9e73772a3b7df197f2ad8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-4-48x64.png",
+      "sha256": "7f75dac7c0afdafeb60842b7ac1cfc957704a8d3913bfdb602793fae65168771"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-wheelbase-v2-48x64.gif",
+      "sha256": "06611e76ca13572624bf1e17037c6e3794daa4a8bf4dc791caa90f57c4d131e5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-wheelbase-v2-preview-6x.gif",
+      "sha256": "0784ffec9258d55823259122f5dccf7af835c9035d1e9201f34a52cbd4b15b96"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-wheelbase-v2-preview-6x.png",
+      "sha256": "d5dbe287a313c5893a565f491691d2738aca4b9bff280b423a41c4aa1828fe2b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-2x2-48x64.png",
+      "sha256": "7a10ca379f2afed4e3c67f91f92f4ee6934543d9ae98001ba347a42689262b5f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-meta.json",
+      "sha256": "f64d09c3743da82751f667d4df5e4c29876e40ce7744ad8404cba789a11c653d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-strip-48x64.png",
+      "sha256": "61825fccb630d25c5073318e3dc9a4d460ec181d12e6c79d233f240d3f74fa5d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-1-48x64.png",
+      "sha256": "f9f946271d686b9c6765a0fc3b5aa1c283fbc1648621a9681d37553dbc83142c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-2-48x64.png",
+      "sha256": "d719e4dcdf4d53634c5f5c2a2896e54d8029a493a5c895ef0e90d347f140d9d7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-3-48x64.png",
+      "sha256": "b2801765dad23a5bf02fb62c81030711c2eaf50a07f7accce3045aaee8ba42fd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-4-48x64.png",
+      "sha256": "511df5fa767b8e99215361131d6679cdf963eb87ffed0db9835fbbd45b5c83e6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/previews/boy-child-researching-wheelbase-v2-48x64.gif",
+      "sha256": "5bc6498c0317bee8733d1593811dc0f7b7018cdc2959b92b8df354313a96ca25"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/previews/boy-child-researching-wheelbase-v2-preview-6x.gif",
+      "sha256": "735e101904d2e696a1344fe6da1513d61450b6690d0ca782252101ca07f68cff"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/previews/boy-child-researching-wheelbase-v2-preview-6x.png",
+      "sha256": "23fae380a2628e5224676090aaf639383feac4f7fa5e20e74f40375c4900dced"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-wheelbase-v2-48x64.png",
+      "sha256": "7d658c3481675cbfa7539a4b86dc911e3ab8686312a2549644234e2add4f2fae"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-wheelbase-v2-meta.json",
+      "sha256": "2e002796d063cebcbdd43127265c4e5a3ae42e933ed87567cf224b1823ee8a95"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-1-48x64.png",
+      "sha256": "a7f0e1d39c7be6bc3153923e258de62e82e463eb25454513771d31de19cc4e66"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-2-48x64.png",
+      "sha256": "87de84bfd4ef2767305978a335cb0f6330bed2b4d32ad9295f4b6dcfb05ff260"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-3-48x64.png",
+      "sha256": "40b85eef22e1ce014a02847bd2cd6cc8cadd3e3fed803a3bf54bfb2719d802c5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-4-48x64.png",
+      "sha256": "63669740e3c0b9368c98cceb501fb151a50b4e0bb4af66b0853549610f90a62b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-wheelbase-v2-1-48x64.png",
+      "sha256": "5fc363862fe24c474bb984c3e853eab70ef10973afcfc268cd5f3261c2b78520"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-wheelbase-v2-2-48x64.png",
+      "sha256": "fbdc5153557eb7782501f1dad43084023f6e93c7d958363440cb3edbe0d62a8b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-wheelbase-v2-3-48x64.png",
+      "sha256": "63e04ed764be0d595c05469c80a36f4ce7cc47ce89c9db1c21f773e03e25a84f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-wheelbase-v2-4-48x64.png",
+      "sha256": "9faf3408a91be869ea1a04bc5e8c8c28d5a35219a8225d35a0dedab53afbe266"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-wheelbase-v2-1-48x64.png",
+      "sha256": "42364779a8ca311c4cc38ad335bf3a2156fef899ae4220fc1bac4b0c6aa53959"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-wheelbase-v2-2-48x64.png",
+      "sha256": "9b16c6cc2142f4f6d0a070c6f75c75532d7c4d6fd6426b5862ba82d90c3a2210"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-wheelbase-v2-3-48x64.png",
+      "sha256": "91c19e60ead24ef2dc6eba0b3748bba83d005cc0eaaf35439b92c8c21f3f05ce"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-wheelbase-v2-4-48x64.png",
+      "sha256": "9d850cb9268abbdccdfe4cc61622821c79aa270b3de06e74729b3338bf0c213f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-wheelbase-v2-1-48x64.png",
+      "sha256": "875077ab2a9b29f23e5a097ccb227cab56160bd3db1d7caecd1be2e1d259df1a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-wheelbase-v2-2-48x64.png",
+      "sha256": "a0b2a02fc1b4673a69f57e7236a9f681f44911961b7148d577185b6941312582"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-wheelbase-v2-3-48x64.png",
+      "sha256": "7a2238223fbc02334f5309e7442841036b5d878ade5cbb80d19ddae8e9028ee0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-wheelbase-v2-4-48x64.png",
+      "sha256": "d0b3850016b2a80abbede3ca11b6f03448f265cf66c6a94ed5fdad5fe5d98160"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-wheelbase-v2-1-48x64.png",
+      "sha256": "8fb35b410a1e391f28be1aaeabe6db6530f5d30b8c05b9ebc01b1d25a22519b5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-wheelbase-v2-2-48x64.png",
+      "sha256": "24ad6f268380843c19c2cf6789a253e3d005626698d0ddfbe351fef1743a7fee"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-wheelbase-v2-3-48x64.png",
+      "sha256": "52143172525df94dc78da4c255bea4ccc6b2db21e97ae08f954bbd270b075af1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-wheelbase-v2-4-48x64.png",
+      "sha256": "2f5d3fcc61b146d154f2e5d048398c16e0f887c756c8b2a4b7c80374fe26e47e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-wheelbase-v2-1-48x64.png",
+      "sha256": "4c3160a3a4bc46e70db13928b79d5d5f3ce34c0395300bb68b1325bb7acb33ef"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-wheelbase-v2-2-48x64.png",
+      "sha256": "5e9b3d31d90ee693da9ca439d02987d1ab28301831503df8e7c1a12f4b978c3e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-wheelbase-v2-3-48x64.png",
+      "sha256": "54f1199c6b5239dcba12c4041548a249c4935ff835b564e719336e9312e788df"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-wheelbase-v2-4-48x64.png",
+      "sha256": "fcf41ae69a1b6bd9a7bfacc4fd85367aaca5f82dd82949c739843b9f761891f7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-wheelbase-v2-1-48x64.png",
+      "sha256": "86237b1ed694413be0d6da2fe498bf5c2ce8faaceff5bfdb55e1d0e7bf9bb29a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-wheelbase-v2-2-48x64.png",
+      "sha256": "1debc3637bb21f412df3fc52d58d545d64e62efd631318aaf0df3a418334d034"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-wheelbase-v2-3-48x64.png",
+      "sha256": "b612952815daadfa644bd88caef83266858344cc26c3a55b8d0c0f66387f5141"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-wheelbase-v2-4-48x64.png",
+      "sha256": "20ed86ca2d707928e975a7684e69899ff184519dce05c04c47269388ee08deef"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-wheelbase-v2-1-48x64.png",
+      "sha256": "7ba39ca7bd1bea8dec70a2107cf2331952413e79c9dfeed3150df265c8eac8dc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-wheelbase-v2-2-48x64.png",
+      "sha256": "0ac1ef2c259ab81f9ea0b45fe8378e7869f8d09644848e3b9112546eb4156796"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-wheelbase-v2-3-48x64.png",
+      "sha256": "600c0dea0877649490c52875adb8549e2769d9ec5cc0ac8b10529a83ec9b5565"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-wheelbase-v2-4-48x64.png",
+      "sha256": "20302c40b3835bc34d491fd41a0cfc04176fef46ebeb94ea034724af07955037"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-8dir-4frame-wheelbase-v2-preview-4x.png",
+      "sha256": "2d9fc86ed7a52c7de6783af999a70e35bb4025aa8b709ab7432b1530fe522968"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-down-wheelbase-v2-48x64.gif",
+      "sha256": "9fc0209071846b264d7ffbfcfea39a5efeff63b298f9551cd9eab45c1f343dfb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-down-wheelbase-v2-preview-6x.gif",
+      "sha256": "358a3c159a5f0a6379aa9b0ea9c1ba604284c5b84f27ba94194785ba48b648aa"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-down_left-wheelbase-v2-48x64.gif",
+      "sha256": "9be5de08ab861f5584f6dfae2ffcf77ffef11c19058e0e0163693654e5f93c5a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-down_left-wheelbase-v2-preview-6x.gif",
+      "sha256": "eb1bbbe7b602ee3a8a81cb4d8393895689cb19a732855488137746034fb6fc57"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-down_right-wheelbase-v2-48x64.gif",
+      "sha256": "e8e854100011168ba8555d3bd2428bf6bfe4635fdfb96375ade3cc32b5033bc2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-down_right-wheelbase-v2-preview-6x.gif",
+      "sha256": "b1c1b29d6888b8ceaca04e284377fb6706cc61977439fc03c64d7b1f841afa75"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-left-wheelbase-v2-48x64.gif",
+      "sha256": "1dee9f6ade028b294ca16a60736e8cbd6cc4cdefde42e1b994e2efeacf7e4b9f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-left-wheelbase-v2-preview-6x.gif",
+      "sha256": "ce4141c8b9362c044e5b8fa9ebfd0d3f7a195b05c545d2da900c5a346795b280"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-right-wheelbase-v2-48x64.gif",
+      "sha256": "8d61a641baddf78f2b31bb980857ac054ee7f1867f5d439092eef98272819389"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-right-wheelbase-v2-preview-6x.gif",
+      "sha256": "b367de4d2f0d35383b68dedc0eb0f61f545d34004b3288b106e947bd539d93ca"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-up-wheelbase-v2-48x64.gif",
+      "sha256": "b37e962053804f7437e398d915545bdc02a86280addfad6674ebccad65f5fa9f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-up-wheelbase-v2-preview-6x.gif",
+      "sha256": "02fc730a8835836cb2c1d1694f48d44e906e2481370577e8dfd4ba44352bdb31"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-up_left-wheelbase-v2-48x64.gif",
+      "sha256": "0581babb017d6f159cd6f7fbce4dc36bf912f8bc2b08509e04d64422cd9c7a8c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-up_left-wheelbase-v2-preview-6x.gif",
+      "sha256": "544fcd703e1292beaafcfeeffd7dab9be981f6ee06844982946847b46325a280"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-up_right-wheelbase-v2-48x64.gif",
+      "sha256": "5872451b0b7b106293d5de06da33b0cfee98529bb4e4be1b9524e517b4d8978d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/previews/boy-child-move-up_right-wheelbase-v2-preview-6x.gif",
+      "sha256": "499d0c9ceef1d0d967a560575507b01831a05738464ea32467826424d0a67840"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-down-wheelbase-v2-strip-48x64.png",
+      "sha256": "78502136bed638741c571577e76018385144ba93817b5f6a2c2f181cd8b5a9b0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-down_left-wheelbase-v2-strip-48x64.png",
+      "sha256": "e1946aead670f090ad6037f70fb562f43b812b17e2d91bd0b1367a58596dd6e7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-down_right-wheelbase-v2-strip-48x64.png",
+      "sha256": "19fcb03051cb323894deabe8b3491f720451a9fff8028e2a9904687c3d93f081"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-left-wheelbase-v2-strip-48x64.png",
+      "sha256": "6c4ae42140b694fb02be261e13da44bfed3b16721613215d7278c6b467891d28"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-right-wheelbase-v2-strip-48x64.png",
+      "sha256": "8695be63ceef237d11c5d48ba93d1ad9a58d7d0898f92b3b798f2f40d90a5931"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-up-wheelbase-v2-strip-48x64.png",
+      "sha256": "22dcf05c7ab3aadc63f1cf80e2e7c9a749c8541f91de7d41d6ed93550e17e8ca"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-up_left-wheelbase-v2-strip-48x64.png",
+      "sha256": "b828586cb46a7d1014a9bc348eca8f671a734818300ece4348ced980102d7cc0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/strips/boy-child-move-up_right-wheelbase-v2-strip-48x64.png",
+      "sha256": "1becadce3ae94baa46aff9ef920b5504c53d17a2e7d35281f3eec6fd8f428801"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-1-48x64.png",
+      "sha256": "29598d265b67f4b1cf0b264f79deea4269c14d3751d7395e6104d35929ae552a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-2-48x64.png",
+      "sha256": "dbb01e7834b81f026f7005551d91fe320b1ac78f0b48a8a3d5325be4057a4c10"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-3-48x64.png",
+      "sha256": "a8663385c949ab0fe2daf1edf3b80b236e59515209bb74dbd8d403e581cae2e4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-4-48x64.png",
+      "sha256": "e2f34517f07bfb6e81ad3589286442a7d429b17224ed0a243c0207071777131c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-4frame-wheelbase-v2-2x2-48x64.png",
+      "sha256": "518d6830837aef0aebf0a895888abdc7741898fcfdce6679d4bad3147a61af8c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-4frame-wheelbase-v2-meta.json",
+      "sha256": "3a16763b6a9538880b307921e8a7cb4ab7b52f648ee899a6377b2199c0e8e98e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-4frame-wheelbase-v2-strip-48x64.png",
+      "sha256": "f85ed6d8ee9eb7620992bcf256ce2aa445095701bbd0ce8fe47df814d0b61b35"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/previews/genderless-child-executing-wheelbase-v2-48x64.gif",
+      "sha256": "6a328baf89faf4bc42f23da62e6574275bbbf41566ed1dfb531f7d528298cd04"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/previews/genderless-child-executing-wheelbase-v2-preview-6x.gif",
+      "sha256": "5523df7ce41477b4a10ce64edc7bd230a6e44996cc791e67fef4a6303f6763fb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/previews/genderless-child-executing-wheelbase-v2-preview-6x.png",
+      "sha256": "5360351965f890d451d2eef6d9cb884d8aa7e1f698f594085fbc1701cb000729"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-1-48x64.png",
+      "sha256": "5a6901bdf053f64288a25cbdf481b2666eea3c282247d828b09101450ff044f8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-2-48x64.png",
+      "sha256": "e8e3010f7e591f55af04d70e97f257a95f789d2cb2313909daf8ceaa74a81ae4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-3-48x64.png",
+      "sha256": "fea5c64825e3296f2accc027368c06feb202d43ae5c06e139ca091345997a5f8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-4-48x64.png",
+      "sha256": "f3a5d8b7abcf18029379c06899905a2d978b63d1b4e04266f685a929b5a4d6e9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-4frame-wheelbase-v2-2x2-48x64.png",
+      "sha256": "dbf87fc1dba37c7fa1d8095c4b05bf0ec5381841f1df7eeee7eb4646ccacdea9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-4frame-wheelbase-v2-meta.json",
+      "sha256": "eaad5fc3f3ac40474f05058f61a72b2a2e3cddd7fa7f7142dd8cf73c2795dd30"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-4frame-wheelbase-v2-strip-48x64.png",
+      "sha256": "2d6baff39a0ae2ae9c39520ef21cffaf0f92d4eb43b01c403973a2ef2f6faf68"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/previews/genderless-child-researching-wheelbase-v2-48x64.gif",
+      "sha256": "cdfaccf26d7a1d7e9ad77de497e39f5447202da097e4d89f6e1fc0aa768b6a2f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/previews/genderless-child-researching-wheelbase-v2-preview-6x.gif",
+      "sha256": "4ead410ff28b287b5a96a0bacc31720e6dc4cfc4674eda905cfcb89aef12a32e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/previews/genderless-child-researching-wheelbase-v2-preview-6x.png",
+      "sha256": "387b128ece6d4f486b9d410017b3337dac8c1910520084b6ee42163ffab843ee"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-wheelbase-v2-1-48x64.png",
+      "sha256": "52cd20ce29d5f217ec53783c8b54350301685db1e5039df44a8f58c819135d36"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-wheelbase-v2-2-48x64.png",
+      "sha256": "461487eec940a4ea2982f57d831f276e6d97eef6a0311b1ebfaf06bcb62ffa81"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-wheelbase-v2-3-48x64.png",
+      "sha256": "3ab29b89322a9dcda15b7815c666f2feecbf1e8e742a78c3bcbb08fffb2bb89d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-wheelbase-v2-4-48x64.png",
+      "sha256": "9c84daf63626759ccbea5c3f694d909de6517a8dee412f1087d25ab80d95ca85"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-wheelbase-v2-1-48x64.png",
+      "sha256": "74f2e479c191d1aa3b76aafcc70073f4dab7ad9468a3ebdde024cc07ec63bffd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-wheelbase-v2-2-48x64.png",
+      "sha256": "bd0a8dbb8bd8eaf1431c961d27fff63033f08b1c818854ce075eead8b5e56d95"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-wheelbase-v2-3-48x64.png",
+      "sha256": "e1beacf9cd3853d476eccb13d0769ef92c1a3f7e4a7c485f33cee7833754187b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-wheelbase-v2-4-48x64.png",
+      "sha256": "5875f49cec74e0577e84207a5c036d88c6721dd3eda56eb27cb1b6570773e2e8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-wheelbase-v2-1-48x64.png",
+      "sha256": "4d432353eccc26d7ffb15d1ef13e3ef0130b5090e7ae4ee86a088457b6d51e49"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-wheelbase-v2-2-48x64.png",
+      "sha256": "f1f55db390623b42d7af2c39f23a1188a437d60ad4f2e2a148d7934c44c810cf"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-wheelbase-v2-3-48x64.png",
+      "sha256": "8aced509c9d26154e255c8a0ccb66e6a11e5e89f510ab8e1034208e465a5ec20"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-wheelbase-v2-4-48x64.png",
+      "sha256": "e76e1ef3d3310c51d8717fc504d40c8598d8a6ec4c87b575025c4f3f04735037"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-wheelbase-v2-1-48x64.png",
+      "sha256": "bfd542bb270141d2a9f0f2345c8a8c0e08cdb4a3575a1a16e9803bfa9b52d397"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-wheelbase-v2-2-48x64.png",
+      "sha256": "6443eeccafab722852253a8d895856fc18b9cc5ada218755f7bfa9b40af74ec9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-wheelbase-v2-3-48x64.png",
+      "sha256": "8bbfd30d6b3cdd707faf95ac10ee86d8a5eb967bd7c0a93f367e0ebfd28af6c6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-wheelbase-v2-4-48x64.png",
+      "sha256": "dcd7a5ea73199d3ccd3cd09ba8566ce808cf0f5faddacb330ca0846026630d11"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-wheelbase-v2-1-48x64.png",
+      "sha256": "433905f12c0b2436e81606dbc03bdf5ebe2d594ea993f07091e4ed679ea2df75"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-wheelbase-v2-2-48x64.png",
+      "sha256": "0a86b4844af8674806d980a72068ac4a0318fc458d7304c83c21a737000d165f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-wheelbase-v2-3-48x64.png",
+      "sha256": "dff24ce82cf8d3b932980ee611de9fab1182cb0404ad3804734b017800c41901"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-wheelbase-v2-4-48x64.png",
+      "sha256": "0a0c0deaa1a81054ec1cd8267a2a7fe4ac2a44ff87d5ca7aa890c20294b5f8c9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-wheelbase-v2-1-48x64.png",
+      "sha256": "8cd16f1d59323e2b578fbd2273ae1e5a6937eb8127183a671f1ffa733f1f0a56"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-wheelbase-v2-2-48x64.png",
+      "sha256": "52c8e29d1a8460ce75b8544ffc71746fcaca47cf14856a05d449b8f58392b045"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-wheelbase-v2-3-48x64.png",
+      "sha256": "27248b65c9a4b932fb508d29b27b3066bd8a547a43fa605701c17590da11d609"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-wheelbase-v2-4-48x64.png",
+      "sha256": "3503344f20b3c598c71c4ef74a4b777c1f7f0b1b40c360ff2b8e74a23e25ea7d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-wheelbase-v2-1-48x64.png",
+      "sha256": "4091dc96e375b3153ead6dc5afa416cba17e1c1b1a00dbb7289516d4bfcda3ce"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-wheelbase-v2-2-48x64.png",
+      "sha256": "a2d9c9044458c5739d64fea2a1bd3a22aebf7e2b1987a64a3ce520b0b1bfd847"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-wheelbase-v2-3-48x64.png",
+      "sha256": "ad1809b475b9e5e9714996e4ad33bf8385d8bf79318878efd188a930dc16f8ae"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-wheelbase-v2-4-48x64.png",
+      "sha256": "77cd0752a360c251879658297b4b88eb5ea702352dfc13dbc2a4b5ffb5dec9a5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-wheelbase-v2-1-48x64.png",
+      "sha256": "8db51dadb49768341615150e793d891315fa51989c2225025e852ec59202f7af"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-wheelbase-v2-2-48x64.png",
+      "sha256": "c93b190db36b7b18dcc7b0d5d5e68e1cd56e839a111db578f4cd941b91942106"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-wheelbase-v2-3-48x64.png",
+      "sha256": "63b8a115a00dd030425f6fc575f765e4dfbe0fbae70d2a443f3a06cab24a0090"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-wheelbase-v2-4-48x64.png",
+      "sha256": "0786c193c91655b3fdea6d0a75c2e49857752f306c84bdb9848f88c44a5c1eb1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-wheelbase-v2-48x64.png",
+      "sha256": "a830364f5a40edc48012d8977160cc3b348c2403439be9e978f8f3d726b91803"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-wheelbase-v2-meta.json",
+      "sha256": "5e529cb95cdd71cb09c90d7430411b8b8d376ad521f3d17334b42bd8e57df68d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-8dir-4frame-wheelbase-v2-preview-4x.png",
+      "sha256": "913303ae725247851f65315d25e0eed7523a6563ac5eb0860de0fd36e264ede7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-down-wheelbase-v2-48x64.gif",
+      "sha256": "08880b2956bef592fb566dcd4a6b2b71092cedf184409043b880adfc9df03a68"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-down-wheelbase-v2-preview-6x.gif",
+      "sha256": "cfdf2fdcc3e4f2c05c5a036764f8e82045beac2e99e2c30c09baa5970cc3d014"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-down_left-wheelbase-v2-48x64.gif",
+      "sha256": "825f495a808b3f6521d84df8b2bc6b61f60019f5cc7361a08fbaa7b6de0b4ed0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-down_left-wheelbase-v2-preview-6x.gif",
+      "sha256": "9f163da799c799ca22f284df171b82b9bb79f489866ff1534ff0a0ff72e3864f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-down_right-wheelbase-v2-48x64.gif",
+      "sha256": "409f24ff9a0b5a864a0965c49621bbd369043bb5eb702dd8f6c75b31b31986a6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-down_right-wheelbase-v2-preview-6x.gif",
+      "sha256": "2ee287018b735802f5c3f404b534598a548b7f08d820250adaaec29ee65d79fc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-left-wheelbase-v2-48x64.gif",
+      "sha256": "3b1eebbc56e04d3e6a38a7db58a8d0500e97c26978a539b803e9e2bd6db8f6bc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-left-wheelbase-v2-preview-6x.gif",
+      "sha256": "abd1d020d7dfed044bc2063500f1086445b9d6be2d7335d9da0b548f39f87248"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-right-wheelbase-v2-48x64.gif",
+      "sha256": "a78adf3e791e32910f1a9029870173ff77122daacda88ef0cba3ee0fdbdc2285"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-right-wheelbase-v2-preview-6x.gif",
+      "sha256": "d7f7bdb9e86d0f5f48b6c750a657a521dd9c04934b370fb2af53df5203f31317"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-up-wheelbase-v2-48x64.gif",
+      "sha256": "03949549ae0f1eb03e93a1b555325d0f153d0721a507bca6d60abf065af3673e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-up-wheelbase-v2-preview-6x.gif",
+      "sha256": "5644f095a9611c82fe60abf26af67bcd2189fdd4950ab4e6d63a9e4aecf06c8b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-up_left-wheelbase-v2-48x64.gif",
+      "sha256": "943e52d32f47d85e6c281d7271ebba6511342934f8b918d382116f4fd4b092c0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-up_left-wheelbase-v2-preview-6x.gif",
+      "sha256": "c11ccf766af41a812765e36dc74d5507705c80d0eb58e1d9dd9bc705b46e9bd0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-up_right-wheelbase-v2-48x64.gif",
+      "sha256": "9e6330099ce02cc5ebc432ebe645a6535564f7aa05b9962df0112815013a8303"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/previews/genderless-child-move-up_right-wheelbase-v2-preview-6x.gif",
+      "sha256": "c704e5748dff0a3e08e5084879dc542a6e070e9ab13713d6aa41462f45b8056c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down-wheelbase-v2-strip-48x64.png",
+      "sha256": "7c301a6a269c722f77d99315cdd66d87acc88ba9aa1ceabe1dec0ec1550d5225"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down_left-wheelbase-v2-strip-48x64.png",
+      "sha256": "36057715633bdff5793bc9d778db44cda6613c30883d142f51469b6308b7b94a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down_right-wheelbase-v2-strip-48x64.png",
+      "sha256": "1db2a7fd2ea90ca845331655d779b9f09024b4ddbe3599abda7126c5d35024ff"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-left-wheelbase-v2-strip-48x64.png",
+      "sha256": "1211399b8ed6af033b161c6cb42732c8573d67ea3d794579285812f554f1ad89"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-right-wheelbase-v2-strip-48x64.png",
+      "sha256": "4b8294d30763d3bcb412f74860616c01c34a6b657f691bc61cf140d7f424816d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up-wheelbase-v2-strip-48x64.png",
+      "sha256": "1943dcc8b1dec02af42164582bf6d54f620dcc878031d4a32e38be502472c03c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up_left-wheelbase-v2-strip-48x64.png",
+      "sha256": "d846bfd706a6e2bc705687182a575be46a82eb7f06b19260e8e885da8a02c99b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up_right-wheelbase-v2-strip-48x64.png",
+      "sha256": "71be6e37f2bb70482d30075901c87bf9fcac86fd90408c9eeeb52c66e681b8cd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-1-48x64.png",
+      "sha256": "cf57b64a88a9cbcfd20ba571a98ddd18d0efd22b9d7b7d627ec01a38c850a698"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-2-48x64.png",
+      "sha256": "2ca7c41f1918624b8139a7367818225b8fb97ccbf4a5408e60881ce6cde0dec5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-3-48x64.png",
+      "sha256": "7427f4a0b2e2496dd8ab55693d683662f901c146fede8c3a203d352d750ad805"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-4-48x64.png",
+      "sha256": "8966b56a922747e8e5f7abec6e8496af8eb88e05f3572ad96abbad8d7fc8fdc5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-2x2-48x64.png",
+      "sha256": "c8b498b8b3361483e2f1953e2a659bfc1d4672df798a597aaa15830f56760d1a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-meta.json",
+      "sha256": "6b86618a1f707f85021c1607b1fa22cfa9ee06eb41b7b72c6c38e65b6ff973fb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-strip-48x64.png",
+      "sha256": "8aebf3cfe6b74b4a2a12608a02ad6363ab42ecaa595b6089d7660503949bfd0e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/previews/girl-child-executing-wheelbase-v2-48x64.gif",
+      "sha256": "28377679f4532ef802d8d1818c9fbaccd1df49af1e0fefdafa69678a7c8532e0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/previews/girl-child-executing-wheelbase-v2-preview-6x.gif",
+      "sha256": "94aca8c4404720aaeb00f83a90be9f412b9a78c9370bed199ec85a0b3467a50b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/previews/girl-child-executing-wheelbase-v2-preview-6x.png",
+      "sha256": "65d45082d200a51c2faa2f7108604f4ba6e840eeba800dbe7023d2ab85a32610"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-1-48x64.png",
+      "sha256": "4f96d8783615feb9e93b9b653663e36098882a21c6e1a83105dfe09a80f9fbfb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-2-48x64.png",
+      "sha256": "138e24b7c5c359d43a88a462b0fcce3ad821cab959b473fda24433b6f3188286"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-3-48x64.png",
+      "sha256": "8f2c01f4178e6a1cd85260059e5d54c5b294604c7e70d14f6377ef397a088f7a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-4-48x64.png",
+      "sha256": "92b0eba346b79079b7500c97aad9ba23624aff612e77d63b341824720a3157dc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/girl-child-researching-4frame-wheelbase-v2-2x2-48x64.png",
+      "sha256": "409f50cd9021624fdcbc34d2c1d62ccb015a79454fa6413bb6b8d9dafe56499d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/girl-child-researching-4frame-wheelbase-v2-meta.json",
+      "sha256": "0be95dbd5395e2bca712968b2fc6cee2b4515f4354a32cce552972f7fd265cec"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/girl-child-researching-4frame-wheelbase-v2-strip-48x64.png",
+      "sha256": "aea23fa973f445787328b307ad3401dfd2eebc3483f637569fd64854801375f6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/previews/girl-child-researching-wheelbase-v2-48x64.gif",
+      "sha256": "d8ac261b085743d0ec3d67bd22cc1fb23a83f7820918bbb9131d32669673a74e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/previews/girl-child-researching-wheelbase-v2-preview-6x.gif",
+      "sha256": "dec611fd6fe3c343bc78e8ca6bd62205366a3cfaf534cea17d99549c9716dfef"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/previews/girl-child-researching-wheelbase-v2-preview-6x.png",
+      "sha256": "8dd0d2daccb59cc92f11d152caffcaedc4bc0e7d0f3f8dd912138b97910c65c1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-1-48x64.png",
+      "sha256": "073bc5d0214b70edc2fcffaa5f0a9b13c37f01cfc615260b60dd07ec06f55c84"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-2-48x64.png",
+      "sha256": "d797ebf51d76fbf61e0a7751a0644a6f272c641202f868df68e55f9a8729e97a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-3-48x64.png",
+      "sha256": "b7b886b483e8db47ce13e6ee1f12e682847dc670ddc012b46ae6e984957dbed6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-wheelbase-v2-4-48x64.png",
+      "sha256": "474d7838745330c336bbe07d90253524fca7fea4e01fb6192a6865f78bef068f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-1-48x64.png",
+      "sha256": "a0e2614291eac48805918056702df1263ed464733ba30c9c2a858b68ad0f92e4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-2-48x64.png",
+      "sha256": "ef3ba8fcf5fbcbe9f6abeac9de1105695a8a8bac5868698aeb06faa9018a9805"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-3-48x64.png",
+      "sha256": "f3d92b2d59fce8217df16caf89054a39e1b9a4e99d9ebf26676abbee3d2b3ad7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-wheelbase-v2-4-48x64.png",
+      "sha256": "5e831f0c089640e34ba9dae2d8b2e9aa4c6f30e744cc5166fc0cbf89e9b2b1d0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-1-48x64.png",
+      "sha256": "39ef4ed88f2f52960cc40e04d93f4e15d062cc867865f41adc6f90a0c5582fae"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-2-48x64.png",
+      "sha256": "37d64c668e25d8cd1ef9e4ab7fcba6f35ce3fa90839b689e7f18d7b97830e3a6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-3-48x64.png",
+      "sha256": "2d98020c088e5390e65613e2ef00efee032ba117178de6ad71bf62a9bfc82277"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-wheelbase-v2-4-48x64.png",
+      "sha256": "f5ecf8c2b4124fc8a36d30f255c8c43b9f3ad4fc53aa6cb8a36f16752fb29514"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-1-48x64.png",
+      "sha256": "31629e5b80c8e8f834935b999ca197a72c4c016c062822f1733a658d6c7873d2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-2-48x64.png",
+      "sha256": "30f7c0c5a2c8dd4f2995411a10d25d56cd277cd9fb49fd72c78a7efd4d58fcd4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-3-48x64.png",
+      "sha256": "dc6da633fb5011a6cd9f702fe34052254366bda1cd2bba05b60ef0fd0e5c2501"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-wheelbase-v2-4-48x64.png",
+      "sha256": "1381bf7122f8c913575727f7ccb89e3b81bd403b71c1e409494f4e170bfd0bde"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-1-48x64.png",
+      "sha256": "93b7a0b2e19475bbbd7998b32f07bf1ca51dac2acc231ddfdb072e8934b36475"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-2-48x64.png",
+      "sha256": "3254ce041c3ad5e902c1dd0202c4eee41a84cc9ac62f4ccabc78feb15a64a665"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-3-48x64.png",
+      "sha256": "0623bf5dcb8d21c1ee1896f6f343b4dc6d0ad6c8171719e910a289274b8c08e9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-wheelbase-v2-4-48x64.png",
+      "sha256": "82113b8f84004309798f2d9c07043fa8dee260de56cba73d7ff47fe2795d4fed"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-1-48x64.png",
+      "sha256": "dc60f08f25466b0f68d2dbeed623b5832b6bc2e57827482a8e9a90d4f01acbed"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-2-48x64.png",
+      "sha256": "e8b3bed7ddb78753895a61ddfb0473d98292abe0b897f6dc213c7a0fce4be06f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-3-48x64.png",
+      "sha256": "5e1bb8db47b88e10122152720e8258bb58ad9d78f29c91acfdddadceb9a58cce"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-wheelbase-v2-4-48x64.png",
+      "sha256": "ba1036ee6f6aa53e1a3211dd7f03aceb62b31926f9dd3c9ef836a31bf6f42f48"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-1-48x64.png",
+      "sha256": "8e671f06f5f35a02fbf2bf06dfd2e492a066130e18ae8dc356ff688ca9e29a58"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-2-48x64.png",
+      "sha256": "27a33ab04af20b1b7ea75a3c6db8a17d2194cc7a1d73e8c1a8e6d4a30c76894b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-3-48x64.png",
+      "sha256": "2350715fe6e1fb17166258f7d408ff192472b01447e711567a0f57678441de8d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-wheelbase-v2-4-48x64.png",
+      "sha256": "080db9ea4440d7bfdc21337a6209222456d8739b1a932cdc4c34ea8fc64f4e26"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-1-48x64.png",
+      "sha256": "bf779e6c69ef34c09ad4acab868bf9ff8dd673afb5e747163deb7ebc1bb7d85e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-2-48x64.png",
+      "sha256": "6caad2be098465e27c6c72ff18acf2183484890061ed01abb2c78827578dacb9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-3-48x64.png",
+      "sha256": "0874a280580abb0c04d7b3199648b250f001ed2e290ddb89571a96dad1e0fbd3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-wheelbase-v2-4-48x64.png",
+      "sha256": "3302f662b1e3211e1e5f2649a713e543a961a9a490aad38475b3340b6f74123b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-wheelbase-v2-48x64.png",
+      "sha256": "918cf4da9e06d934ea24761648d11fa6b52318d280e97d1e334b03c1065cc7c1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-wheelbase-v2-meta.json",
+      "sha256": "04e3f78fd8ae5a8fe3aff69d2fa2abfcaddf191f74ec9bf6dc4880d436c80805"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-8dir-4frame-wheelbase-v2-preview-4x.png",
+      "sha256": "846414bbad9432371b263f55b08d9354ba0cf7c007a68be95b07e6c00ecbc39c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-down-wheelbase-v2-48x64.gif",
+      "sha256": "206642012e7094769f532e1754d1d7146963f6ffdcc1308a68ad719896ed7648"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-down-wheelbase-v2-preview-6x.gif",
+      "sha256": "6111a7eba4c730db657d0552d97d92a7b47bfd35d6bc3dbc6fc5a1d6e411429a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-down_left-wheelbase-v2-48x64.gif",
+      "sha256": "db3339f92593625f46d14b912d56ca3e891c3841a2d18890b0044dcd8540a767"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-down_left-wheelbase-v2-preview-6x.gif",
+      "sha256": "1d1834bc0b9a41784ea1741070fea38e8cf456a62393466040bc4a395a595ff6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-down_right-wheelbase-v2-48x64.gif",
+      "sha256": "e285ea084166ae7ec28cc2dc9c75cc2c8eb39c9d27820619e5b8d44c3eb836ec"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-down_right-wheelbase-v2-preview-6x.gif",
+      "sha256": "4c9548f14e22bc02927066304a4a05540d098712ca98e4f9a451f42b9516bd9d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-left-wheelbase-v2-48x64.gif",
+      "sha256": "264ed2a184b6b3d9c06bba1630e4bce70f11829fed038328024b9544ad3d949c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-left-wheelbase-v2-preview-6x.gif",
+      "sha256": "83d72f3d8e031d8a312adbdcbce47f0e12622423921562ff609979f6dc0eb39e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-right-wheelbase-v2-48x64.gif",
+      "sha256": "e34a7a9b4ccf0321067c6c30b4ba0bbc96c6836922e2568cd15e0ddce7b472b6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-right-wheelbase-v2-preview-6x.gif",
+      "sha256": "67ad51c708958ab57d88dec3a4bf5c2cc6739bf5dfef1d5b0563edad1fe869f8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-up-wheelbase-v2-48x64.gif",
+      "sha256": "9ac87b49a76ce324b89406f7496b3608fa380d57cb17575a2b88cdf70687ed1d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-up-wheelbase-v2-preview-6x.gif",
+      "sha256": "655119166a0d52e2ca03cdc67d9ca511fc69d227d8596eb286ff516057d652a9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-up_left-wheelbase-v2-48x64.gif",
+      "sha256": "081f35e44db3fd583f909adc05fe2c9eaa7e38a045a9759aba774ab401c5946c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-up_left-wheelbase-v2-preview-6x.gif",
+      "sha256": "79dd134cc9a5379ddfaef82c0ec42f418b66b63664562334ca3810730ba85e99"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-up_right-wheelbase-v2-48x64.gif",
+      "sha256": "6b340df38cef9c58b357c4329a335636f1e83e736614ad6d738bb4d99e0c336e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/previews/girl-child-move-up_right-wheelbase-v2-preview-6x.gif",
+      "sha256": "b795b07b8e4a6a12f9f39bee7c5333cb6d3c779dc419050cfd3e5440728e3046"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-wheelbase-v2-strip-48x64.png",
+      "sha256": "0633087a3283db214e11f60563236c264684296fa6aef8517b4de90f90208148"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-wheelbase-v2-strip-48x64.png",
+      "sha256": "7322fa8f5ef40db8f3034131d662df03adcbefea6542e359bdb6a92d61ec33f8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-wheelbase-v2-strip-48x64.png",
+      "sha256": "8435b5fb6b13af09bd4532712db3803d06420927c0023bfa5995195958808892"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-wheelbase-v2-strip-48x64.png",
+      "sha256": "551a3fc2b9498c04b8439916d9ecc58211d1209dffb0e4b2f8c04c73f1731b3c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-wheelbase-v2-strip-48x64.png",
+      "sha256": "43a8a461f14df039bb67614feaff95cdb62d8d7c81b2830ca7c28e4ffa5639d6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-wheelbase-v2-strip-48x64.png",
+      "sha256": "1c01bf798ac740bb2b1b84f350a24cc37f3e1bdd8401d60d154e2bd631232bf8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-wheelbase-v2-strip-48x64.png",
+      "sha256": "04c1bcf2f15bb7cd3ddb92eeb3adf3d84685e6d521e7838ffa2dfe8c01dc5fe4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-wheelbase-v2-strip-48x64.png",
+      "sha256": "9c53d51facff3e546a42b627fa52a8511d20fa374332bae52953ba39aaf8f70f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/executing/kindergarten-ai-agent-trio-executing-v2-meta.json",
+      "sha256": "6a40df2758048c1c6af18e8ff58c024ef23edca773429b9e097c564ae88a8d96"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/executing/previews/kindergarten-ai-agent-trio-executing-v2-preview-6x.gif",
+      "sha256": "f8fda292f262561b4128d30ab2978262c04cebb8cb9b6fb9401acbeb96ed8ef2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/executing/previews/kindergarten-ai-agent-trio-executing-v2-preview-6x.png",
+      "sha256": "6487df26b887f880c60c4fb24b8f02feb0aa29bbdef71162e83d04de75a9f8ae"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-body-size-guide-8x.png",
+      "sha256": "d8ad1e1d3319aa2db3bb371cd24d7d8e028135e0acb829784fe5773e3369da4c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v1-meta.json",
+      "sha256": "96a65938fd388b5e8124885916eb1697b54cbdaf4e3e0485f6318422b81a3cd1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v1-preview-6x.png",
+      "sha256": "1697c7308c162197b8618d46f6c2a10d620e36eb815f62604631e78695ff7acc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/researching/kindergarten-ai-agent-trio-researching-v2-meta.json",
+      "sha256": "43c78fbcec5e64ef321e64d46165700d7cdc92feb98e946c2486056053269f1c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/researching/previews/kindergarten-ai-agent-trio-researching-v2-preview-6x.gif",
+      "sha256": "9441a4bc2baacedca70c7f8e7ecdc12c5168edc7c929218c10eb17849f0c42b7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/actions/v1/researching/previews/kindergarten-ai-agent-trio-researching-v2-preview-6x.png",
+      "sha256": "c7fe78ec72ed28ccf1ba5de915d46ed1be3d186fce1e10fdf4bcc554d9ed94b2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/kindergarten-ai-agent-trio-move-8dir-v2-meta.json",
+      "sha256": "c42e35829973a527fcf911de6b406bf39e46b757efae02410df2fbbe908bd351"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-8dir-v2-preview-4x.png",
+      "sha256": "2ba9880c61b1d679587d5f182b41afdf34309ad78d5385ff48c10b9c27b777c5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-body-size-guide-8x.png",
+      "sha256": "b9e75612d17885d016654e1d670986ea7f3b0d7c7d7019e41409b9177794b21d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-down-v2-preview-6x.gif",
+      "sha256": "920f584d97daf8c3f45421301c4e2a18e03841a7877e5f49cc40468f0db9a17d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-down_left-v2-preview-6x.gif",
+      "sha256": "0c6367926446316b51e32ad52258542d28fc3257d5787b82875fd467513bcc20"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-down_right-v2-preview-6x.gif",
+      "sha256": "5728674192b9dd397f534a7e901f96520d0bdae71c9f465c610abfc5b016c994"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-left-v2-preview-6x.gif",
+      "sha256": "d41d2a72a018ae881fe3ed0b1772c06c284705791cd3bd592435b45c98206a33"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-right-v2-preview-6x.gif",
+      "sha256": "02774de36c3b345b6c8a82614e8d05c75ec42dd62beebe06c6e8caf13f334b76"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-up-v2-preview-6x.gif",
+      "sha256": "f3a85a543de1243c821cf6eb3ce0cf7956196eaa080de79b8efc434b0e20bb9d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-up_left-v2-preview-6x.gif",
+      "sha256": "055e882357218521312a2f91717bd4f83928414b76fcc613aabea68befc2ce37"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/trio/moving/v1/previews/kindergarten-ai-agent-trio-move-up_right-v2-preview-6x.gif",
+      "sha256": "5b1787ad2cdb663e48c33e768abce72a124360bb58667f90c353a78c860735a2"
+    }
+  ],
+  "extension_policy": "New states such as writing must use new candidate metadata and must not modify files or hashes in this approved lock."
+}

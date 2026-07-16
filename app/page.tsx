@@ -1,8 +1,26 @@
-const modules = [
-  { title: 'Idle', note: 'Agents stand or rest in calm community spaces while waiting for work.' },
-  { title: 'Researching', note: 'Reading corners and bookshelves show agents gathering information.' },
-  { title: 'Executing', note: 'Block tables and craft areas represent active tool execution.' },
-  { title: 'Syncing', note: 'Notice boards and mail stations visualize coordination between agents.' },
+import ClassroomSimulation from '@/components/ClassroomSimulation';
+
+const runtimeSteps = [
+  {
+    number: '01',
+    title: 'State',
+    note: '把 idle、writing、researching、executing 转换为明确的场景目标。',
+  },
+  {
+    number: '02',
+    title: 'Route',
+    note: '在 32px walkability 网格上用 8 邻域 A* 计算安全路径。',
+  },
+  {
+    number: '03',
+    title: 'Move',
+    note: '根据路径向量切换 8 方向轮式动画，到达后播放对应状态动作。',
+  },
+  {
+    number: '04',
+    title: 'Render',
+    note: '使用轮底中心锚点和实时 Y-sort 保持家具前后遮挡。',
+  },
 ];
 
 export default function HomePage() {
@@ -11,31 +29,48 @@ export default function HomePage() {
       <header className="topbar">
         <div className="topbarInner">
           <div>
-            <h1 className="brandTitle">OC Kindergarten</h1>
+            <p className="brandTitle">OC Kindergarten</p>
             <p className="brandSub">AI agent kindergarten community</p>
           </div>
           <div className="statusStrip">
             <span className="pill pillStrong">3 agent children</span>
-            <span className="pill">48x64 sprites</span>
-            <span className="pill">32px world grid</span>
+            <span className="pill">8-dir runtime</span>
+            <span className="pill">A* pathfinding</span>
           </div>
         </div>
       </header>
       <section className="kindergartenHero">
-        <div>
-          <p className="eyebrow">Current production baseline</p>
-          <h2>用幼儿园小社区呈现 AI 助手正在做什么。</h2>
-          <p>角色 planted idle 已完成。下一阶段将用教室、阅读角和积木区验证角色在 32px tile 场景中的比例与状态表达。</p>
+        <p className="eyebrow">Live agent community</p>
+        <h1>看见 AI 助手，正在做什么。</h1>
+        <p>
+          三名轮式 agent 会按照任务状态，在教室写画桌、阅读角和积木区之间自主移动。
+          现在可以直接发送指令，验证完整运行时链路。
+        </p>
+      </section>
+
+      <ClassroomSimulation />
+
+      <section className="runtimeFlow" aria-labelledby="runtime-flow-title">
+        <div className="sectionHeading">
+          <div>
+            <p className="eyebrow">Runtime contract</p>
+            <h2 id="runtime-flow-title">一个状态如何变成场景行为</h2>
+          </div>
+        </div>
+        <div className="runtimeGrid">
+          {runtimeSteps.map((step) => (
+            <article className="runtimeCard" key={step.number}>
+              <span>{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.note}</p>
+            </article>
+          ))}
         </div>
       </section>
-      <section className="kindergartenGrid" aria-label="Planned modules">
-        {modules.map((module) => (
-          <article className="kindergartenCard" key={module.title}>
-            <h3>{module.title}</h3>
-            <p>{module.note}</p>
-          </article>
-        ))}
-      </section>
+
+      <footer className="siteFooter">
+        <p>OC Kindergarten · V2 wheelbase runtime baseline</p>
+      </footer>
     </main>
   );
 }

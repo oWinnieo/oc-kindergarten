@@ -31,19 +31,42 @@
     "transparent_assets_required": true
   },
   "actor_contract": {
+    "revision": "v2-wheelbase",
     "visual_size_px": [
       48,
       64
     ],
-    "anchor": "feet_bottom_center",
+    "visible_wheel_bottom_y_exclusive": 62,
+    "decoration_excluded_core_height_px": 50,
+    "excluded_accessory_by_character": {
+      "boy": "cap",
+      "girl": "flower",
+      "genderless": "antenna"
+    },
+    "accepted_idle_visible_height_px_by_character": {
+      "boy": 55,
+      "girl": 51,
+      "genderless": 58
+    },
+    "anchor": "wheel_bottom_center",
     "anchor_offset_px": [
       24,
       64
     ],
-    "collision_footprint_px": [
-      14,
-      6
-    ]
+    "collision_footprint_px_by_character": {
+      "boy": [
+        30,
+        6
+      ],
+      "girl": [
+        26,
+        6
+      ],
+      "genderless": [
+        30,
+        6
+      ]
+    }
   },
   "objects": [
     {
@@ -184,7 +207,11 @@
         96,
         232
       ],
-      "source": "assets/design/sprites/characters/v1/ai-agent-child-boy/idle/frames/idle-planted-boy-1.png",
+      "source": "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-1-48x64.png",
+      "collision_footprint_px": [
+        30,
+        6
+      ],
       "frame_top_left_px": [
         72,
         168
@@ -201,7 +228,11 @@
         256,
         232
       ],
-      "source": "assets/design/sprites/characters/v1/ai-agent-child-girl/idle/frames/idle-planted-girl-1.png",
+      "source": "assets/design/sprites/characters/v2/ai-agent-child-girl/idle/frames/girl-child-idle-wheelbase-v2-1-48x64.png",
+      "collision_footprint_px": [
+        26,
+        6
+      ],
       "frame_top_left_px": [
         232,
         168
@@ -218,7 +249,11 @@
         416,
         232
       ],
-      "source": "assets/design/sprites/characters/v1/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png",
+      "source": "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-1-48x64.png",
+      "collision_footprint_px": [
+        30,
+        6
+      ],
       "frame_top_left_px": [
         392,
         168
@@ -235,7 +270,7 @@
         376,
         32
       ],
-      "foot_anchor_px": [
+      "wheel_anchor_px": [
         400,
         96
       ],
@@ -247,7 +282,7 @@
         376,
         80
       ],
-      "foot_anchor_px": [
+      "wheel_anchor_px": [
         400,
         144
       ],
@@ -255,10 +290,444 @@
       "expected_relation": "in front of block-table because 144 > 112"
     }
   },
+  "matching_validation": {
+    "revision": "v2-wheelbase",
+    "layers": {
+      "visual_scale": true,
+      "bottom_anchor": true,
+      "collision_clearance": true,
+      "tile_fit": true,
+      "critical_routes": true,
+      "depth_sort": true,
+      "movement_animation": true,
+      "state_actions": true,
+      "body_size_lock": true
+    },
+    "actors": [
+      {
+        "id": "boy-reading-spawn",
+        "character": "boy",
+        "frame_size_px": [
+          48,
+          64
+        ],
+        "visible_bbox": [
+          5,
+          7,
+          42,
+          62
+        ],
+        "wheel_bottom_y_exclusive": 62,
+        "anchor_gap_px": 2,
+        "collision_footprint_px": [
+          30,
+          6
+        ],
+        "fits_single_32px_tile_width": true,
+        "spawn_collision_overlaps": [],
+        "passed": true
+      },
+      {
+        "id": "girl-center-spawn",
+        "character": "girl",
+        "frame_size_px": [
+          48,
+          64
+        ],
+        "visible_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "wheel_bottom_y_exclusive": 62,
+        "anchor_gap_px": 2,
+        "collision_footprint_px": [
+          26,
+          6
+        ],
+        "fits_single_32px_tile_width": true,
+        "spawn_collision_overlaps": [],
+        "passed": true
+      },
+      {
+        "id": "genderless-block-spawn",
+        "character": "genderless",
+        "frame_size_px": [
+          48,
+          64
+        ],
+        "visible_bbox": [
+          7,
+          4,
+          41,
+          62
+        ],
+        "wheel_bottom_y_exclusive": 62,
+        "anchor_gap_px": 2,
+        "collision_footprint_px": [
+          30,
+          6
+        ],
+        "fits_single_32px_tile_width": true,
+        "spawn_collision_overlaps": [],
+        "passed": true
+      }
+    ],
+    "routes": [
+      {
+        "id": "reading_to_center",
+        "start_tile": [
+          3,
+          7
+        ],
+        "goal_tile": [
+          8,
+          7
+        ],
+        "reachable": true,
+        "tile_steps": 5,
+        "path_tiles": [
+          [
+            3,
+            7
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            7
+          ]
+        ]
+      },
+      {
+        "id": "center_to_block",
+        "start_tile": [
+          8,
+          7
+        ],
+        "goal_tile": [
+          13,
+          7
+        ],
+        "reachable": true,
+        "tile_steps": 5,
+        "path_tiles": [
+          [
+            8,
+            7
+          ],
+          [
+            9,
+            7
+          ],
+          [
+            10,
+            7
+          ],
+          [
+            11,
+            7
+          ],
+          [
+            12,
+            7
+          ],
+          [
+            13,
+            7
+          ]
+        ]
+      },
+      {
+        "id": "center_to_reading_approach",
+        "start_tile": [
+          8,
+          7
+        ],
+        "goal_tile": [
+          5,
+          4
+        ],
+        "reachable": true,
+        "tile_steps": 6,
+        "path_tiles": [
+          [
+            8,
+            7
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            4
+          ]
+        ]
+      },
+      {
+        "id": "center_to_block_approach",
+        "start_tile": [
+          8,
+          7
+        ],
+        "goal_tile": [
+          10,
+          5
+        ],
+        "reachable": true,
+        "tile_steps": 4,
+        "path_tiles": [
+          [
+            8,
+            7
+          ],
+          [
+            9,
+            7
+          ],
+          [
+            10,
+            7
+          ],
+          [
+            10,
+            6
+          ],
+          [
+            10,
+            5
+          ]
+        ]
+      }
+    ],
+    "passed": true,
+    "movement": {
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up",
+        "down_left",
+        "down_right",
+        "up_left",
+        "up_right"
+      ],
+      "frames_per_direction": 4,
+      "checked_frame_references": 96,
+      "all_frame_sizes_px": [
+        48,
+        64
+      ],
+      "all_wheel_bottom_y_exclusive": 62,
+      "passed": true
+    },
+    "state_actions": {
+      "actions": {
+        "researching": {
+          "frames": 4,
+          "frame_duration_ms": 220,
+          "anchor_px_by_character": {
+            "boy": [
+              96,
+              168
+            ],
+            "girl": [
+              128,
+              168
+            ],
+            "genderless": [
+              160,
+              168
+            ]
+          },
+          "checked_frame_references": [
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-1-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-1-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-1-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-2-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-2-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-2-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-3-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-3-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-3-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-4-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-4-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-wheelbase-v2-4-48x64.png"
+          ],
+          "passed": true
+        },
+        "executing": {
+          "frames": 4,
+          "frame_duration_ms": 180,
+          "anchor_px_by_character": {
+            "boy": [
+              320,
+              168
+            ],
+            "girl": [
+              384,
+              168
+            ],
+            "genderless": [
+              448,
+              168
+            ]
+          },
+          "checked_frame_references": [
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-1-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-1-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-1-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-2-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-2-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-2-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-3-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-3-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-3-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-4-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-4-48x64.png",
+            "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-4-48x64.png"
+          ],
+          "passed": true
+        }
+      },
+      "checked_frame_references": 24,
+      "all_frame_sizes_px": [
+        48,
+        64
+      ],
+      "all_wheel_bottom_y_exclusive": 62,
+      "genderless_executing_rear_occlusion": {
+        "rule": "rear head/body foreground occludes far-side hands and toy block",
+        "checked_frames": [
+          2,
+          3
+        ],
+        "rear_head_foreground_zone_px": [
+          14,
+          12,
+          34,
+          31
+        ],
+        "frames": [
+          {
+            "frame": 2,
+            "prohibited_block_color_pixels_in_rear_head_zone": 0
+          },
+          {
+            "frame": 3,
+            "prohibited_block_color_pixels_in_rear_head_zone": 0
+          }
+        ],
+        "passed": true
+      },
+      "passed": true
+    },
+    "body_size_lock": {
+      "policy": "cap/flower/antenna excluded; accepted idle body scale reused",
+      "characters": {
+        "boy": {
+          "excluded_accessory": "cap",
+          "decoration_excluded_core_height_px": 50,
+          "accepted_idle_visible_height_px": 55,
+          "idle_visible_height_px": 55,
+          "moving_down_visible_heights_px": [
+            55,
+            55,
+            55,
+            55
+          ],
+          "researching_visible_heights_px": [
+            55,
+            55,
+            55,
+            55
+          ],
+          "shared_processor_scale_multiplier": 0.9649122807017544,
+          "passed": true
+        },
+        "girl": {
+          "excluded_accessory": "flower",
+          "decoration_excluded_core_height_px": 50,
+          "accepted_idle_visible_height_px": 51,
+          "idle_visible_height_px": 51,
+          "moving_down_visible_heights_px": [
+            51,
+            51,
+            51,
+            51
+          ],
+          "researching_visible_heights_px": [
+            51,
+            51,
+            51,
+            51
+          ],
+          "shared_processor_scale_multiplier": 0.8947368421052632,
+          "passed": true
+        },
+        "genderless": {
+          "excluded_accessory": "antenna",
+          "decoration_excluded_core_height_px": 50,
+          "accepted_idle_visible_height_px": 58,
+          "idle_visible_height_px": 58,
+          "moving_down_visible_heights_px": [
+            58,
+            58,
+            58,
+            58
+          ],
+          "researching_visible_heights_px": [
+            58,
+            58,
+            58,
+            58
+          ],
+          "shared_processor_scale_multiplier": 1.0175438596491229,
+          "passed": true
+        }
+      },
+      "passed": true
+    }
+  },
   "qa": {
     "runtime_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-preview-512x288.png",
     "depth_sort_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-depth-sort-qa-2048x576.png",
     "collision_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-collision-qa-1024x576.png",
+    "match_summary_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-v2-match-summary-2048x1152.png",
+    "movement_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-v2-movement-8dir-qa.gif",
+    "state_action_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-v2-state-actions-qa.gif",
     "collision_colors": {
       "furniture_collision": "red",
       "prop_sort_y": "cyan",

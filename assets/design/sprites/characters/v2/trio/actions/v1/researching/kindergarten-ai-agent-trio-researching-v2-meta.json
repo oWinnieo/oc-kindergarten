@@ -1,0 +1,20 @@
+{
+  "asset": "kindergarten_ai_agent_trio_researching",
+  "revision": "v2-wheelbase-researching-v1",
+  "status": "approved",
+  "action": "researching",
+  "characters": [
+    "boy",
+    "girl",
+    "genderless"
+  ],
+  "frames": 4,
+  "frame_duration_ms": 220,
+  "preview_gif": "assets/design/sprites/characters/v2/trio/actions/v1/researching/previews/kindergarten-ai-agent-trio-researching-v2-preview-6x.gif",
+  "character_metadata": {
+    "boy": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-meta.json",
+    "girl": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/girl-child-researching-4frame-wheelbase-v2-meta.json",
+    "genderless": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-4frame-wheelbase-v2-meta.json"
+  },
+  "technical_qc_passed": true
+}

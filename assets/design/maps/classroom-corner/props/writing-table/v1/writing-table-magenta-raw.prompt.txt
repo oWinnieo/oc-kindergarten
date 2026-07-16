@@ -1,0 +1,8 @@
+Use case: stylized-concept
+Asset type: one-by-one transparent-ready 2D game map prop for the OC Kindergarten classroom
+Primary request: Create one child-height writing and drawing activity table that will sit in the open center area of the visible classroom map. Match the visible classroom runtime and the visible block-table prop exactly in pixel-art language, outline weight, palette discipline, lighting, scale, and mostly front-facing top-down RPG perspective.
+Subject: one horizontal low classroom table, straight left-to-right, with a warm cream/yellow tabletop, coral-red or blue structural accents, two short visible front legs, one clean white drawing sheet centered on the tabletop, and two or three compact crayons/pencils laid neatly beside it. Make the writing purpose immediately readable without any letters or symbols.
+Composition/framing: single prop only, centered, horizontal, generous empty padding on all four sides; target runtime aspect roughly 96x56 after downscaling; show a shallow top face and front apron, no strong isometric rotation.
+Style/medium: project-native crisp high-resolution pixel art designed to downscale cleanly, readable clusters, limited colors, crisp silhouette, no painterly noise.
+Scene/backdrop: perfectly flat solid #FF00FF chroma-key background, exactly uniform edge to edge.
+Constraints: no chairs, no people, no room background, no floor, no wall, no shadow, no cast shadow, no reflection, no floating pieces, no detached decorations, no text, no labels, no UI, no watermark. Do not use #FF00FF anywhere in the prop. Keep every part fully inside the canvas with substantial magenta margin. The paper and crayons are tabletop details and must remain compact enough that the table silhouette stays collision-readable.

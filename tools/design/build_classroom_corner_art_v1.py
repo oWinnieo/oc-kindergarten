@@ -68,7 +68,7 @@ def main() -> None:
 
     meta = {
         "map_id": "classroom-corner-art-v1",
-        "status": "dressed_reference_for_visual_approval",
+        "status": "approved_dressed_reference",
         "map_mode": "tile_mode",
         "visual_model": "layered_tilemap",
         "runtime_object_model": ["separate_props", "interactive_scene_objects"],
@@ -94,6 +94,7 @@ def main() -> None:
             (ART_DIR / "classroom-corner-dressed-reference-raw.prompt.txt").relative_to(ROOT)
         ),
         "character_preview": str(CHARACTER_PREVIEW.relative_to(ROOT)),
+        "actor_revision": "v2-wheelbase",
         "actor_sources": [actor["source"] for actor in layout["actor_spawns"]],
         "prop_candidates": [
             {"id": "reading-bookshelf", "asset_strategy": "one_by_one"},

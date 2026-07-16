@@ -1,1 +1,537 @@
-:root{--bg:#f7f4ee;--panel:#fff;--line:#ded8cc;--text:#1e2328;--muted:#68717b;--accent:#e96f3a;--green:#138a47;--shadow:0 8px 22px rgba(35,31,26,.08)}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.appShell{min-height:100vh}.topbar{border-bottom:1px solid var(--line);background:#fff7ef}.topbarInner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;gap:18px;align-items:center}.brandTitle{margin:0;font-size:22px;line-height:1.15}.brandSub{margin:2px 0 0;color:var(--muted);font-size:13px}.statusStrip{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;font-size:12px;color:var(--muted);white-space:nowrap}.pillStrong{color:var(--text);font-weight:700}.kindergartenHero{max-width:1180px;margin:0 auto;padding:42px 20px 22px;display:grid;grid-template-columns:minmax(0,760px);gap:16px}.eyebrow{margin:0 0 10px;color:var(--accent);font-size:12px;font-weight:800;text-transform:uppercase}.kindergartenHero h2{margin:0;font-size:34px;line-height:1.12;letter-spacing:0}.kindergartenHero p{color:var(--muted);line-height:1.6}.kindergartenGrid{max-width:1180px;margin:0 auto;padding:8px 20px 40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.kindergartenCard{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:18px;min-height:160px}.kindergartenCard h3{margin:0 0 10px;font-size:17px}.kindergartenCard p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}@media(max-width:900px){.kindergartenGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.topbarInner{align-items:flex-start;flex-direction:column}.statusStrip{justify-content:flex-start}.kindergartenHero h2{font-size:26px}.kindergartenGrid{grid-template-columns:1fr}}
+:root {
+  --ink: #17324a;
+  --muted: #5f7180;
+  --paper: #fffdf6;
+  --cream: #fff6dc;
+  --sky: #dff4ff;
+  --sky-strong: #b9e7fb;
+  --yellow: #f9c846;
+  --yellow-dark: #d69b19;
+  --coral: #f27d67;
+  --blue: #297db6;
+  --mint: #63c69a;
+  --line: rgba(33, 79, 110, 0.16);
+  --shadow: 0 18px 46px rgba(67, 86, 94, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 12% 4%, rgba(255, 220, 126, 0.36), transparent 25rem),
+    linear-gradient(180deg, #eefaff 0, #fffaf0 38rem, #fffdf8 100%);
+  color: var(--ink);
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 3px solid rgba(41, 125, 182, 0.35);
+  outline-offset: 2px;
+}
+
+.appShell {
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  border-bottom: 1px solid rgba(50, 97, 126, 0.12);
+  background: rgba(255, 253, 246, 0.9);
+  backdrop-filter: blur(14px);
+}
+
+.topbarInner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.brandTitle {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.brandSub {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.statusStrip,
+.runtimeBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.pill,
+.runtimeBadges span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.pillStrong {
+  border-color: rgba(214, 155, 25, 0.28);
+  background: #fff1b9;
+  color: #75500c;
+  font-weight: 800;
+}
+
+.kindergartenHero {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 64px 24px 36px;
+}
+
+.kindergartenHero h1 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.kindergartenHero > p:last-child {
+  max-width: 720px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #a96c00;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.simulationSection,
+.runtimeFlow {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 24px 70px;
+}
+
+.sectionHeading {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sectionHeading h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.5vw, 38px);
+  letter-spacing: -0.035em;
+}
+
+.sectionHeading > div > p:last-child {
+  margin: 9px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.simulationShell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 16px;
+  align-items: start;
+}
+
+.sceneColumn,
+.agentPanel {
+  min-width: 0;
+}
+
+.sceneViewport {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(42, 93, 123, 0.18);
+  border-radius: 18px 18px 6px 6px;
+  background: #dff4ff;
+  box-shadow: var(--shadow);
+}
+
+.sceneViewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.sceneViewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.sceneLoading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(223, 244, 255, 0.9);
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sceneError {
+  background: rgba(255, 235, 230, 0.94);
+  color: #b03535;
+}
+
+.sceneToolbar {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  box-shadow: 0 12px 34px rgba(67, 86, 94, 0.08);
+}
+
+.commandGroup,
+.utilityGroup {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.toolbarLabel {
+  margin-right: 2px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.commandButton,
+.utilityButton,
+.agentCommands button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 7px 11px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 750;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.commandButton:hover:not(:disabled),
+.utilityButton:hover:not(:disabled),
+.agentCommands button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(41, 125, 182, 0.45);
+}
+
+.commandButton:disabled,
+.utilityButton:disabled,
+.agentCommands button:disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+.command-idle {
+  background: #f4f8fa;
+}
+
+.command-writing {
+  background: #fff0e6;
+}
+
+.command-researching {
+  background: #e5f5ff;
+}
+
+.command-executing {
+  background: #fff0b5;
+}
+
+.utilityButton {
+  color: var(--muted);
+}
+
+.utilityButton.isActive {
+  border-color: rgba(41, 125, 182, 0.45);
+  background: var(--sky);
+  color: var(--blue);
+}
+
+.routeError {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #ffe8e4;
+  color: #a23939;
+  font-size: 13px;
+}
+
+.agentPanel {
+  display: grid;
+  gap: 10px;
+}
+
+.agentCard {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 32px rgba(67, 86, 94, 0.08);
+}
+
+.agentCardHeader {
+  display: grid;
+  grid-template-columns: 9px 1fr auto;
+  gap: 9px;
+  align-items: center;
+}
+
+.agentDot {
+  width: 9px;
+  height: 30px;
+  border-radius: 999px;
+}
+
+.agentCard h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.agentCardHeader p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.motionStatus {
+  border-radius: 999px;
+  padding: 5px 7px;
+  background: #e8f7ee;
+  color: #27754f;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.motionStatus.isMoving {
+  background: #e5f3fb;
+  color: #216c9b;
+}
+
+.agentStateLine {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.agentStateLine strong {
+  font-size: 13px;
+}
+
+.agentStateLine span,
+.agentMeta {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.agentMeta {
+  min-height: 16px;
+  margin: 4px 0 10px;
+}
+
+.agentCommands {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.agentCommands button {
+  min-height: 30px;
+  padding: 5px 4px;
+  font-size: 10px;
+}
+
+.agentCommands button.isSelected {
+  border-color: rgba(214, 155, 25, 0.48);
+  background: #fff1b9;
+  color: #75500c;
+}
+
+.runtimeFlow {
+  padding-top: 10px;
+}
+
+.runtimeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.runtimeCard {
+  min-height: 180px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.runtimeCard > span {
+  display: inline-grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--sky);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.runtimeCard h3 {
+  margin: 28px 0 7px;
+  font-size: 17px;
+}
+
+.runtimeCard p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.siteFooter {
+  max-width: 1192px;
+  margin: 0 auto;
+  padding: 20px 0 42px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 1040px) {
+  .simulationShell {
+    grid-template-columns: 1fr;
+  }
+
+  .agentPanel {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .topbarInner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .statusStrip {
+    justify-content: flex-start;
+  }
+
+  .kindergartenHero {
+    padding-top: 44px;
+  }
+
+  .sectionHeading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .runtimeBadges {
+    justify-content: flex-start;
+  }
+
+  .agentPanel,
+  .runtimeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .topbarInner,
+  .kindergartenHero,
+  .simulationSection,
+  .runtimeFlow {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .kindergartenHero h1 {
+    font-size: 40px;
+  }
+
+  .sceneViewport {
+    border-radius: 12px 12px 4px 4px;
+  }
+
+  .sceneToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .agentPanel,
+  .runtimeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .siteFooter {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .commandButton,
+  .utilityButton,
+  .agentCommands button {
+    transition: none;
+  }
+}

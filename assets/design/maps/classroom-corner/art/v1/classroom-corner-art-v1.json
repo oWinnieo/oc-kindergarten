@@ -34,10 +34,11 @@
   "dressed_reference_raw": "assets/design/maps/classroom-corner/art/v1/classroom-corner-dressed-reference-raw.png",
   "dressed_reference_prompt": "assets/design/maps/classroom-corner/art/v1/classroom-corner-dressed-reference-raw.prompt.txt",
   "character_preview": "assets/design/maps/classroom-corner/art/v1/classroom-corner-character-preview-512x288.png",
+  "actor_revision": "v2-wheelbase",
   "actor_sources": [
-    "assets/design/sprites/characters/v1/ai-agent-child-boy/idle/frames/idle-planted-boy-1.png",
-    "assets/design/sprites/characters/v1/ai-agent-child-girl/idle/frames/idle-planted-girl-1.png",
-    "assets/design/sprites/characters/v1/ai-agent-child-genderless/idle/frames/idle-planted-antenna-v7-wide38-1.png"
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/idle/frames/girl-child-idle-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-1-48x64.png"
   ],
   "prop_candidates": [
     {

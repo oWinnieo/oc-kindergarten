@@ -1,0 +1,105 @@
+{
+  "prop_id": "writing-table-v1",
+  "status": "visual_approval_candidate",
+  "classification": [
+    "wide_or_long_object",
+    "collision_bearing_object"
+  ],
+  "asset_strategy": "one_by_one",
+  "view": "mostly front-facing top-down RPG classroom prop",
+  "perspective": {
+    "camera_position": "centered_slightly_above_object",
+    "look_direction": "front_to_back",
+    "visible_face": "shallow_top_and_front_apron"
+  },
+  "raw": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-magenta-raw.png",
+  "prompt": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-magenta-raw.prompt.txt",
+  "chroma_clean": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-magenta-clean.png",
+  "transparent_prop": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-96x56.png",
+  "preview": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-preview-8x.png",
+  "map_qa_preview": "assets/design/maps/classroom-corner/art/v1/classroom-corner-writing-table-qa-preview-512x288.png",
+  "runtime_size_px": [
+    96,
+    56
+  ],
+  "map_placement": {
+    "top_left_px": [
+      208,
+      56
+    ],
+    "anchor": "center_bottom",
+    "anchor_px": [
+      256,
+      112
+    ],
+    "sort_y": 112,
+    "render_layer": "floor_props"
+  },
+  "collision": {
+    "type": "rect",
+    "x": 208,
+    "y": 102,
+    "w": 96,
+    "h": 10
+  },
+  "writing_targets": {
+    "boy": {
+      "tile": [
+        7,
+        5
+      ],
+      "anchor_px": [
+        224,
+        168
+      ]
+    },
+    "girl": {
+      "tile": [
+        8,
+        5
+      ],
+      "anchor_px": [
+        256,
+        168
+      ]
+    },
+    "genderless": {
+      "tile": [
+        9,
+        5
+      ],
+      "anchor_px": [
+        288,
+        168
+      ]
+    }
+  },
+  "processing": {
+    "visual_asset_source": "built_in_image_gen",
+    "runtime_palette_colors": 48,
+    "resize": "premultiplied-alpha contain, centered and bottom-aligned",
+    "alpha_remove_below": 24,
+    "alpha_snap_opaque_at": 224,
+    "chroma_key": "#FF00FF"
+  },
+  "qc": {
+    "source_alpha_box": [
+      411,
+      259,
+      1231,
+      670
+    ],
+    "runtime_alpha_box": [
+      1,
+      8,
+      95,
+      55
+    ],
+    "visible_pixels": 3490,
+    "opaque_pixels": 3320,
+    "semi_transparent_pixels": 170,
+    "visible_magenta_pixels": 0,
+    "transparent_corners": true,
+    "technical_qc_passed": true
+  }
+}

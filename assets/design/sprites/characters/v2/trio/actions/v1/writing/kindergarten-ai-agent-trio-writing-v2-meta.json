@@ -1,0 +1,20 @@
+{
+  "asset": "kindergarten_ai_agent_trio_writing",
+  "revision": "v2-wheelbase-writing-v1",
+  "status": "visual_approval_candidate",
+  "action": "writing",
+  "characters": [
+    "boy",
+    "girl",
+    "genderless"
+  ],
+  "frames": 4,
+  "frame_duration_ms": 200,
+  "preview_gif": "assets/design/sprites/characters/v2/trio/actions/v1/writing/previews/kindergarten-ai-agent-trio-writing-v2-preview-6x.gif",
+  "character_metadata": {
+    "boy": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/boy-child-writing-4frame-wheelbase-v2-meta.json",
+    "girl": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/girl-child-writing-4frame-wheelbase-v2-meta.json",
+    "genderless": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-4frame-wheelbase-v2-meta.json"
+  },
+  "technical_qc_passed": true
+}
