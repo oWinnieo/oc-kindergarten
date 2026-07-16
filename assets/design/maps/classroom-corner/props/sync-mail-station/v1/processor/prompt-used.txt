@@ -1,0 +1,11 @@
+Use the classroom map and the two furniture images just shown as the active visual references.
+
+Create one separate transparent-ready 2D game prop for the same OC Kindergarten classroom: a low child-sized synchronization mail station, shaped like a friendly compact classroom message counter with a subtle toy-train identity. It is a single horizontal object, straight left-to-right, intended to downscale to approximately 96x48 pixels.
+
+Preserve the visible project's crisp high-resolution pixel-art language, cluster size, outline weight, limited warm palette, light from above-left, and mostly front-facing top-down RPG perspective. Match the existing writing table and block table in scale and material language. Use a warm golden-yellow top and body, coral-red/orange trim, medium-blue structural details, and three clearly readable blue mail/message slots across the front. Add one small round cyan status lamp centered on top. The station must read as a kindergarten message exchange point without using any letters, icons, symbols, screens, or text.
+
+Composition: one prop only, centered horizontally, shallow visible top face, dominant front face, two short feet or tiny wheels near the bottom, generous empty padding on every side. Keep the silhouette compact, collision-readable, and nearly symmetric. No strong isometric rotation.
+
+Background: perfectly flat, uniform solid #FF00FF chroma-key background, edge to edge, with no gradient or texture.
+
+Constraints: no children, no characters, no hands, no cards outside the slots, no room, no floor, no wall, no shadow, no cast shadow, no reflection, no detached parts, no labels, no numbers, no letters, no UI, no watermark. Do not use #FF00FF anywhere in the prop. Keep the whole object fully inside the canvas with substantial magenta margin.

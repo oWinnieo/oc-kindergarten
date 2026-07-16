@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the candidate writing-state extension without mutating runtime v1."""
+"""Build the approved writing-state extension without mutating runtime v1."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ FOUNDATION = MAP_DIR / "art/v1/classroom-corner-foundation-512x288.png"
 WRITING_PROP = MAP_DIR / "props/writing-table/v1/writing-table-96x56.png"
 WRITING_PROP_META = MAP_DIR / "props/writing-table/v1/writing-table-meta.json"
 APPROVAL_LOCK = (
-    SPRITE_DIR / "approved/v2-wheelbase-animation-baseline-lock-v1.json"
+    SPRITE_DIR / "approved/v2-wheelbase-animation-baseline-lock-v2.json"
 )
 OUTPUT_DIR = MAP_DIR / "extensions/writing/v1"
 MANIFEST = OUTPUT_DIR / "classroom-corner-writing-extension-v1.json"
@@ -35,7 +35,7 @@ CHARACTERS = {
         "directory": "ai-agent-child-boy",
         "prefix": "boy-child",
         "target_tile": (7, 5),
-        "target_anchor": (224, 168),
+        "target_anchor": (224, 128),
         "footprint": (30, 6),
         "accepted_visible_height": 55,
     },
@@ -43,7 +43,7 @@ CHARACTERS = {
         "directory": "ai-agent-child-girl",
         "prefix": "girl-child",
         "target_tile": (8, 5),
-        "target_anchor": (256, 168),
+        "target_anchor": (256, 128),
         "footprint": (26, 6),
         "accepted_visible_height": 51,
     },
@@ -51,7 +51,7 @@ CHARACTERS = {
         "directory": "ai-agent-child-genderless",
         "prefix": "genderless-child",
         "target_tile": (9, 5),
-        "target_anchor": (288, 168),
+        "target_anchor": (288, 128),
         "footprint": (30, 6),
         "accepted_visible_height": 58,
     },
@@ -62,6 +62,9 @@ FRAME_SIZE = (48, 64)
 ANCHOR_OFFSET = (24, 64)
 VISIBLE_BOTTOM_Y_EXCLUSIVE = 62
 FRAME_DURATION_MS = 200
+TILE_SIZE = 32
+TILE_ANCHOR_Y_OFFSET = 8
+VISUAL_OFFSET_Y = -40
 
 
 def relative(path: Path) -> str:
@@ -114,7 +117,7 @@ def validate_writing_actions() -> dict[str, Any]:
     for role, character in CHARACTERS.items():
         metadata_path = writing_meta_path(role)
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-        if metadata.get("status") != "visual_approval_candidate":
+        if metadata.get("status") != "approved":
             raise RuntimeError(f"Unexpected writing status: {relative(metadata_path)}")
         if not metadata.get("qc", {}).get("technical_qc_passed"):
             raise RuntimeError(f"Writing technical QC failed: {relative(metadata_path)}")
@@ -161,6 +164,18 @@ def extension_walkability() -> list[list[int]]:
     for x, y in BLOCKED_TILE_OVERRIDES:
         rows[y][x] = 0
     return rows
+
+
+def point_to_tile(point: tuple[int, int], rows: list[list[int]]) -> tuple[int, int]:
+    x = max(0, min(len(rows[0]) - 1, int(point[0] / TILE_SIZE + 0.5)))
+    y = max(
+        0,
+        min(
+            len(rows) - 1,
+            int((point[1] - TILE_ANCHOR_Y_OFFSET) / TILE_SIZE + 0.5),
+        ),
+    )
+    return (x, y)
 
 
 def find_path(
@@ -238,14 +253,23 @@ def validate_routes_and_collisions(rows: list[list[int]], prop_meta: dict) -> di
     results = {}
     for role, character in CHARACTERS.items():
         path = find_path(rows, START_TILES[role], character["target_tile"])
+        departure_tile = point_to_tile(character["target_anchor"], rows)
+        departure_path = find_path(rows, departure_tile, START_TILES[role])
         footprint = actor_footprint(character["target_anchor"], character["footprint"])
         overlap = rects_overlap(footprint, prop_rect)
-        if not path or overlap:
+        if not path or not departure_path or departure_tile[1] != 4 or overlap:
             raise RuntimeError(f"Writing target validation failed for {role}")
         results[role] = {
             "start_tile": list(START_TILES[role]),
             "target_tile": list(character["target_tile"]),
             "target_anchor_px": list(character["target_anchor"]),
+            "visual_offset_y_px": VISUAL_OFFSET_Y,
+            "computed_departure_tile": list(departure_tile),
+            "computed_departure_tile_walkable": rows[departure_tile[1]][
+                departure_tile[0]
+            ]
+            == 1,
+            "departure_path_tiles": [list(tile) for tile in departure_path],
             "path_tiles": [list(tile) for tile in path],
             "tile_steps": len(path) - 1,
             "target_footprint_px": list(footprint),
@@ -354,8 +378,8 @@ def main() -> None:
     if base_runtime.get("status") != "approved_runtime_baseline":
         raise RuntimeError("Writing extension requires approved runtime v1")
     prop_meta = json.loads(WRITING_PROP_META.read_text(encoding="utf-8"))
-    if prop_meta.get("status") != "visual_approval_candidate":
-        raise RuntimeError("Writing table must remain a visual candidate")
+    if prop_meta.get("status") != "approved_visual":
+        raise RuntimeError("Writing table must be visually approved")
     if not prop_meta.get("qc", {}).get("technical_qc_passed"):
         raise RuntimeError("Writing table technical QC failed")
 
@@ -367,7 +391,7 @@ def main() -> None:
 
     manifest = {
         "extension_id": "classroom-corner-writing-extension-v1",
-        "status": "visual_approval_candidate",
+        "status": "approved",
         "base_runtime_manifest": relative(BASE_RUNTIME),
         "map_mode": "tile_mode",
         "visual_model": "layered_tilemap",
@@ -375,7 +399,7 @@ def main() -> None:
         "collision_model": ["precise_shapes", "tile_collision"],
         "canvas_px": [512, 288],
         "tile_size_px": 32,
-        "candidate_object": {
+        "object": {
             "id": "writing-table",
             "asset": relative(WRITING_PROP),
             "metadata": relative(WRITING_PROP_META),
@@ -398,12 +422,18 @@ def main() -> None:
             "orientation": "up_back",
             "frames": 4,
             "frame_duration_ms": FRAME_DURATION_MS,
+            "visual_offset_y_px": VISUAL_OFFSET_Y,
+            "departure_tile_source": "pointToTile(current_visual_anchor)",
             "target_tile_by_character": {
                 role: list(character["target_tile"])
                 for role, character in CHARACTERS.items()
             },
             "target_anchor_px_by_character": {
                 role: list(character["target_anchor"])
+                for role, character in CHARACTERS.items()
+            },
+            "computed_departure_tile_by_character": {
+                role: list(point_to_tile(character["target_anchor"], rows))
                 for role, character in CHARACTERS.items()
             },
         },
@@ -434,7 +464,7 @@ def main() -> None:
         json.dumps(
             {
                 "manifest": relative(MANIFEST),
-                "candidate_object": "writing-table",
+                "approved_object": "writing-table",
                 "targets": {
                     role: list(character["target_tile"])
                     for role, character in CHARACTERS.items()

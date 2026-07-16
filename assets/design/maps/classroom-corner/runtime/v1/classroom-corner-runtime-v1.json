@@ -298,6 +298,7 @@
       "collision_clearance": true,
       "tile_fit": true,
       "critical_routes": true,
+      "right_furniture_collision_normalization": true,
       "depth_sort": true,
       "movement_animation": true,
       "state_actions": true,
@@ -532,6 +533,762 @@
         ]
       }
     ],
+    "right_furniture_collision_normalization": {
+      "model": "precise furniture base collision projected through actor footprints with zero-clearance contact to tile_collision",
+      "blocked_row_3": [
+        {
+          "tile": [
+            11,
+            3
+          ],
+          "walkable": false,
+          "footprint_overlaps_by_character": {
+            "boy": [
+              "block-table"
+            ],
+            "girl": [
+              "block-table"
+            ],
+            "genderless": [
+              "block-table"
+            ]
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            12,
+            3
+          ],
+          "walkable": false,
+          "footprint_overlaps_by_character": {
+            "boy": [
+              "block-table"
+            ],
+            "girl": [
+              "block-table"
+            ],
+            "genderless": [
+              "block-table"
+            ]
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            13,
+            3
+          ],
+          "walkable": false,
+          "footprint_overlaps_by_character": {
+            "boy": [
+              "block-table"
+            ],
+            "girl": [
+              "block-table"
+            ],
+            "genderless": [
+              "block-table"
+            ]
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            14,
+            3
+          ],
+          "walkable": false,
+          "footprint_overlaps_by_character": {
+            "boy": [
+              "block-table",
+              "toy-bin"
+            ],
+            "girl": [
+              "block-table",
+              "toy-bin"
+            ],
+            "genderless": [
+              "block-table",
+              "toy-bin"
+            ]
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            15,
+            3
+          ],
+          "walkable": false,
+          "footprint_overlaps_by_character": {
+            "boy": [
+              "toy-bin"
+            ],
+            "girl": [
+              "toy-bin"
+            ],
+            "genderless": [
+              "toy-bin"
+            ]
+          },
+          "passed": true
+        }
+      ],
+      "released_row_4": [
+        {
+          "tile": [
+            11,
+            4
+          ],
+          "walkable": true,
+          "footprint_overlaps_by_character": {
+            "boy": [],
+            "girl": [],
+            "genderless": []
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            12,
+            4
+          ],
+          "walkable": true,
+          "footprint_overlaps_by_character": {
+            "boy": [],
+            "girl": [],
+            "genderless": []
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            13,
+            4
+          ],
+          "walkable": true,
+          "footprint_overlaps_by_character": {
+            "boy": [],
+            "girl": [],
+            "genderless": []
+          },
+          "passed": true
+        },
+        {
+          "tile": [
+            14,
+            4
+          ],
+          "walkable": true,
+          "footprint_overlaps_by_character": {
+            "boy": [],
+            "girl": [],
+            "genderless": []
+          },
+          "passed": true
+        }
+      ],
+      "executing_visual_offset": [
+        {
+          "character": "boy",
+          "arrival_target_tile": [
+            10,
+            5
+          ],
+          "visual_anchor_px": [
+            320,
+            128
+          ],
+          "visual_offset_y_px": -40,
+          "computed_departure_tile": [
+            10,
+            4
+          ],
+          "computed_departure_tile_walkable": true,
+          "footprint_px": [
+            305,
+            122,
+            335,
+            128
+          ],
+          "precise_collision_overlaps": [],
+          "y_sort_in_front_of_right_furniture": true,
+          "passed": true
+        },
+        {
+          "character": "girl",
+          "arrival_target_tile": [
+            12,
+            5
+          ],
+          "visual_anchor_px": [
+            384,
+            128
+          ],
+          "visual_offset_y_px": -40,
+          "computed_departure_tile": [
+            12,
+            4
+          ],
+          "computed_departure_tile_walkable": true,
+          "footprint_px": [
+            371,
+            122,
+            397,
+            128
+          ],
+          "precise_collision_overlaps": [],
+          "y_sort_in_front_of_right_furniture": true,
+          "passed": true
+        },
+        {
+          "character": "genderless",
+          "arrival_target_tile": [
+            14,
+            5
+          ],
+          "visual_anchor_px": [
+            448,
+            128
+          ],
+          "visual_offset_y_px": -40,
+          "computed_departure_tile": [
+            14,
+            4
+          ],
+          "computed_departure_tile_walkable": true,
+          "footprint_px": [
+            433,
+            122,
+            463,
+            128
+          ],
+          "precise_collision_overlaps": [],
+          "y_sort_in_front_of_right_furniture": true,
+          "passed": true
+        }
+      ],
+      "departure_routes": [
+        {
+          "character": "boy",
+          "start_tile": [
+            10,
+            4
+          ],
+          "goal_tile": [
+            3,
+            5
+          ],
+          "path_tiles": [
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "boy",
+          "start_tile": [
+            10,
+            4
+          ],
+          "goal_tile": [
+            7,
+            5
+          ],
+          "path_tiles": [
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "boy",
+          "start_tile": [
+            10,
+            4
+          ],
+          "goal_tile": [
+            10,
+            6
+          ],
+          "path_tiles": [
+            [
+              10,
+              4
+            ],
+            [
+              10,
+              5
+            ],
+            [
+              10,
+              6
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "boy",
+          "start_tile": [
+            10,
+            4
+          ],
+          "goal_tile": [
+            3,
+            7
+          ],
+          "path_tiles": [
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "girl",
+          "start_tile": [
+            12,
+            4
+          ],
+          "goal_tile": [
+            4,
+            5
+          ],
+          "path_tiles": [
+            [
+              12,
+              4
+            ],
+            [
+              11,
+              4
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "girl",
+          "start_tile": [
+            12,
+            4
+          ],
+          "goal_tile": [
+            8,
+            5
+          ],
+          "path_tiles": [
+            [
+              12,
+              4
+            ],
+            [
+              11,
+              4
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              5
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "girl",
+          "start_tile": [
+            12,
+            4
+          ],
+          "goal_tile": [
+            11,
+            6
+          ],
+          "path_tiles": [
+            [
+              12,
+              4
+            ],
+            [
+              11,
+              4
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              11,
+              6
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "girl",
+          "start_tile": [
+            12,
+            4
+          ],
+          "goal_tile": [
+            8,
+            7
+          ],
+          "path_tiles": [
+            [
+              12,
+              4
+            ],
+            [
+              11,
+              4
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              7
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "genderless",
+          "start_tile": [
+            14,
+            4
+          ],
+          "goal_tile": [
+            5,
+            5
+          ],
+          "path_tiles": [
+            [
+              14,
+              4
+            ],
+            [
+              13,
+              4
+            ],
+            [
+              12,
+              4
+            ],
+            [
+              11,
+              4
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "genderless",
+          "start_tile": [
+            14,
+            4
+          ],
+          "goal_tile": [
+            9,
+            5
+          ],
+          "path_tiles": [
+            [
+              14,
+              4
+            ],
+            [
+              13,
+              4
+            ],
+            [
+              12,
+              4
+            ],
+            [
+              11,
+              4
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              5
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "genderless",
+          "start_tile": [
+            14,
+            4
+          ],
+          "goal_tile": [
+            12,
+            6
+          ],
+          "path_tiles": [
+            [
+              14,
+              4
+            ],
+            [
+              13,
+              4
+            ],
+            [
+              12,
+              4
+            ],
+            [
+              12,
+              5
+            ],
+            [
+              12,
+              6
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        },
+        {
+          "character": "genderless",
+          "start_tile": [
+            14,
+            4
+          ],
+          "goal_tile": [
+            13,
+            7
+          ],
+          "path_tiles": [
+            [
+              14,
+              4
+            ],
+            [
+              13,
+              4
+            ],
+            [
+              13,
+              5
+            ],
+            [
+              13,
+              6
+            ],
+            [
+              13,
+              7
+            ]
+          ],
+          "precise_collision_overlap_tiles": [],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
     "passed": true,
     "movement": {
       "directions": [
@@ -594,15 +1351,15 @@
           "anchor_px_by_character": {
             "boy": [
               320,
-              168
+              128
             ],
             "girl": [
               384,
-              168
+              128
             ],
             "genderless": [
               448,
-              168
+              128
             ]
           },
           "checked_frame_references": [
@@ -730,6 +1487,8 @@
     "state_action_preview": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-v2-state-actions-qa.gif",
     "collision_colors": {
       "furniture_collision": "red",
+      "normalized_blocked_tile": "red outline",
+      "normalized_released_tile": "green outline",
       "prop_sort_y": "cyan",
       "prop_anchor": "yellow",
       "actor_footprint": "green"

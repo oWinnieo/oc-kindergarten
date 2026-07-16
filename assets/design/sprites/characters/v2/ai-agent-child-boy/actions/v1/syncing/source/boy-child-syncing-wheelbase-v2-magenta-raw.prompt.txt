@@ -1,0 +1,15 @@
+Use the two approved boy character images just shown as the active identity and scale references. Create a 4-frame syncing body-action sheet for exactly the same OC Kindergarten V2 wheelbase boy character.
+
+Layout: exactly four equal invisible cells in a 2x2 grid, read top-left, top-right, bottom-left, bottom-right. No borders, boxes, dividers, labels, or guide marks.
+
+Identity lock: preserve the white monitor head, black terminal screen, cyan eyes, blue-and-yellow duck cap, light-blue sleeves, yellow clothing and backpack, white-and-blue wheeled lower chassis, two large side wheels and small front caster. Front-facing/down orientation from the same slightly elevated top-down RPG camera. Do not redesign any body part.
+
+Action: syncing with one small flat medium-blue classroom message card held close to the torso. Frame 1 sync_ready: neutral front stance, card low in the character's right hand. Frame 2 card_read: card raised slightly toward the terminal screen. Frame 3 confirm_tap: opposite hand touches the near edge of the card while the card remains close to the body. Frame 4 sync_settle: card lowers slightly and both arms return toward the ready pose for a smooth loop.
+
+The card is a compact body-attached prop with no text, icon, symbol, glow, or detached effect. Keep both hands and the card within the normal body width. No floating signal rings, particles, speech bubbles, UI, or environmental objects.
+
+Scale/containment: same body height and silhouette scale as the approved references in every cell. The full body must stay centered inside the central 60% to 70% of each cell, stable wheel-bottom line, generous magenta padding on all four sides. Nothing may cross a cell edge. The hat remains decoration; do not make the underlying body taller or shorter between frames.
+
+Style: project-native crisp high-resolution pixel art made to downscale cleanly to 48x64, limited palette, readable clusters, transparent-ready silhouette.
+
+Background: perfectly flat uniform solid #FF00FF in every cell, edge to edge, no gradient or texture. Do not use #FF00FF in the character. No text, labels, numbers, watermark, floor, furniture, shadows, or room background.

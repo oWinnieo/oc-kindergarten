@@ -2,7 +2,7 @@
   "character_id": "ai-agent-child-girl",
   "asset": "state_action",
   "revision": "v2-wheelbase-writing-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved",
   "action": "writing",
   "semantic": "draw_on_activity_table",
   "orientation": "up_back",

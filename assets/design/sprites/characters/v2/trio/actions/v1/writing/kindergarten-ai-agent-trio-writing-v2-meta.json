@@ -1,7 +1,7 @@
 {
   "asset": "kindergarten_ai_agent_trio_writing",
   "revision": "v2-wheelbase-writing-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved",
   "action": "writing",
   "characters": [
     "boy",

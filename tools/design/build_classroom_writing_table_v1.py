@@ -132,7 +132,7 @@ def main() -> None:
 
     metadata = {
         "prop_id": "writing-table-v1",
-        "status": "visual_approval_candidate",
+        "status": "approved_visual",
         "classification": ["wide_or_long_object", "collision_bearing_object"],
         "asset_strategy": "one_by_one",
         "view": "mostly front-facing top-down RPG classroom prop",
@@ -158,10 +158,12 @@ def main() -> None:
             "render_layer": "floor_props",
         },
         "collision": {"type": "rect", "x": 208, "y": 102, "w": 96, "h": 10},
+        "writing_visual_offset_y_px": -40,
+        "departure_tile_source": "pointToTile(current_visual_anchor)",
         "writing_targets": {
-            "boy": {"tile": [7, 5], "anchor_px": [224, 168]},
-            "girl": {"tile": [8, 5], "anchor_px": [256, 168]},
-            "genderless": {"tile": [9, 5], "anchor_px": [288, 168]},
+            "boy": {"tile": [7, 5], "anchor_px": [224, 128], "departure_tile": [7, 4]},
+            "girl": {"tile": [8, 5], "anchor_px": [256, 128], "departure_tile": [8, 4]},
+            "genderless": {"tile": [9, 5], "anchor_px": [288, 128], "departure_tile": [9, 4]},
         },
         "processing": {
             "visual_asset_source": "built_in_image_gen",

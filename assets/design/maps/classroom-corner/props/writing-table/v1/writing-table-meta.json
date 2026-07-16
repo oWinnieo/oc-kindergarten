@@ -1,6 +1,6 @@
 {
   "prop_id": "writing-table-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved_visual",
   "classification": [
     "wide_or_long_object",
     "collision_bearing_object"
@@ -42,6 +42,8 @@
     "w": 96,
     "h": 10
   },
+  "writing_visual_offset_y_px": -40,
+  "departure_tile_source": "pointToTile(current_visual_anchor)",
   "writing_targets": {
     "boy": {
       "tile": [
@@ -50,7 +52,11 @@
       ],
       "anchor_px": [
         224,
-        168
+        128
+      ],
+      "departure_tile": [
+        7,
+        4
       ]
     },
     "girl": {
@@ -60,7 +66,11 @@
       ],
       "anchor_px": [
         256,
-        168
+        128
+      ],
+      "departure_tile": [
+        8,
+        4
       ]
     },
     "genderless": {
@@ -70,7 +80,11 @@
       ],
       "anchor_px": [
         288,
-        168
+        128
+      ],
+      "departure_tile": [
+        9,
+        4
       ]
     }
   },

@@ -1,6 +1,6 @@
 {
   "extension_id": "classroom-corner-writing-extension-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved",
   "base_runtime_manifest": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-v1.json",
   "map_mode": "tile_mode",
   "visual_model": "layered_tilemap",
@@ -17,7 +17,7 @@
     288
   ],
   "tile_size_px": 32,
-  "candidate_object": {
+  "object": {
     "id": "writing-table",
     "asset": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-96x56.png",
     "metadata": "assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-meta.json",
@@ -130,7 +130,7 @@
         0,
         0,
         0,
-        1
+        0
       ],
       [
         1,
@@ -144,10 +144,10 @@
         1,
         1,
         1,
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        1,
         1
       ],
       [
@@ -231,6 +231,8 @@
     "orientation": "up_back",
     "frames": 4,
     "frame_duration_ms": 200,
+    "visual_offset_y_px": -40,
+    "departure_tile_source": "pointToTile(current_visual_anchor)",
     "target_tile_by_character": {
       "boy": [
         7,
@@ -248,22 +250,36 @@
     "target_anchor_px_by_character": {
       "boy": [
         224,
-        168
+        128
       ],
       "girl": [
         256,
-        168
+        128
       ],
       "genderless": [
         288,
-        168
+        128
+      ]
+    },
+    "computed_departure_tile_by_character": {
+      "boy": [
+        7,
+        4
+      ],
+      "girl": [
+        8,
+        4
+      ],
+      "genderless": [
+        9,
+        4
       ]
     }
   },
   "validation": {
     "approved_baseline": {
-      "lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v1.json",
-      "checked_files": 257,
+      "lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v2.json",
+      "checked_files": 287,
       "hash_mismatches": [],
       "passed": true
     },
@@ -271,7 +287,7 @@
       "characters": {
         "boy": {
           "metadata": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/boy-child-writing-4frame-wheelbase-v2-meta.json",
-          "status": "visual_approval_candidate",
+          "status": "approved",
           "rear_occlusion": {
             "rule": "rear head/body foreground occludes the far-side writing hand and crayon",
             "checked_frames": [
@@ -360,7 +376,7 @@
         },
         "girl": {
           "metadata": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/girl-child-writing-4frame-wheelbase-v2-meta.json",
-          "status": "visual_approval_candidate",
+          "status": "approved",
           "rear_occlusion": {
             "rule": "rear head/body foreground occludes the far-side writing hand and crayon",
             "checked_frames": [
@@ -449,7 +465,7 @@
         },
         "genderless": {
           "metadata": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-4frame-wheelbase-v2-meta.json",
-          "status": "visual_approval_candidate",
+          "status": "approved",
           "rear_occlusion": {
             "rule": "rear head/body foreground occludes the far-side writing hand and crayon",
             "checked_frames": [
@@ -552,7 +568,35 @@
           ],
           "target_anchor_px": [
             224,
-            168
+            128
+          ],
+          "visual_offset_y_px": -40,
+          "computed_departure_tile": [
+            7,
+            4
+          ],
+          "computed_departure_tile_walkable": true,
+          "departure_path_tiles": [
+            [
+              7,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              3,
+              7
+            ]
           ],
           "path_tiles": [
             [
@@ -579,9 +623,9 @@
           "tile_steps": 4,
           "target_footprint_px": [
             209,
-            162,
+            122,
             239,
-            168
+            128
           ],
           "writing_table_collision_overlap": false,
           "passed": true
@@ -597,7 +641,31 @@
           ],
           "target_anchor_px": [
             256,
-            168
+            128
+          ],
+          "visual_offset_y_px": -40,
+          "computed_departure_tile": [
+            8,
+            4
+          ],
+          "computed_departure_tile_walkable": true,
+          "departure_path_tiles": [
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              7
+            ]
           ],
           "path_tiles": [
             [
@@ -616,9 +684,9 @@
           "tile_steps": 2,
           "target_footprint_px": [
             243,
-            162,
+            122,
             269,
-            168
+            128
           ],
           "writing_table_collision_overlap": false,
           "passed": true
@@ -634,7 +702,35 @@
           ],
           "target_anchor_px": [
             288,
-            168
+            128
+          ],
+          "visual_offset_y_px": -40,
+          "computed_departure_tile": [
+            9,
+            4
+          ],
+          "computed_departure_tile_walkable": true,
+          "departure_path_tiles": [
+            [
+              9,
+              4
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              11,
+              5
+            ],
+            [
+              12,
+              6
+            ],
+            [
+              13,
+              7
+            ]
           ],
           "path_tiles": [
             [
@@ -661,9 +757,9 @@
           "tile_steps": 4,
           "target_footprint_px": [
             273,
-            162,
+            122,
             303,
-            168
+            128
           ],
           "writing_table_collision_overlap": false,
           "passed": true

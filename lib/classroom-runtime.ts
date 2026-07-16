@@ -15,7 +15,12 @@ export const DIRECTION_ORDER = [
 
 export type Direction = (typeof DIRECTION_ORDER)[number];
 export type CharacterId = 'boy' | 'girl' | 'genderless';
-export type AgentTaskState = 'idle' | 'writing' | 'researching' | 'executing';
+export type AgentTaskState =
+  | 'idle'
+  | 'writing'
+  | 'researching'
+  | 'executing'
+  | 'syncing';
 export type Tile = readonly [number, number];
 
 export interface Point {
@@ -27,11 +32,11 @@ export const WALKABILITY: readonly (readonly number[])[] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+  [1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
@@ -73,6 +78,13 @@ export const STATE_CONFIG: Record<
     description: '寻路到积木桌前的安全交互位置并放置积木。',
     arrivalAnimation: '播放 4 帧积木动作',
   },
+  syncing: {
+    label: '同步中',
+    shortLabel: 'Syncing',
+    location: '同步邮件站',
+    description: '寻路到教室邮件站前，读取消息卡并完成同步确认。',
+    arrivalAnimation: '播放 4 帧同步动作',
+  },
 };
 
 export const AGENT_TARGET_TILES: Record<
@@ -99,6 +111,19 @@ export const AGENT_TARGET_TILES: Record<
     girl: [12, 5],
     genderless: [14, 5],
   },
+  syncing: {
+    boy: [10, 6],
+    girl: [11, 6],
+    genderless: [12, 6],
+  },
+};
+
+export const STATE_ARRIVAL_OFFSET_Y: Record<AgentTaskState, number> = {
+  idle: 0,
+  writing: -40,
+  researching: 0,
+  executing: -40,
+  syncing: 8,
 };
 
 const NEIGHBORS = [

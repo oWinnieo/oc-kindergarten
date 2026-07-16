@@ -1,0 +1,606 @@
+{
+  "extension_id": "classroom-corner-syncing-extension-v1",
+  "status": "visual_approval_candidate",
+  "base_runtime_manifest": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-v1.json",
+  "depends_on_extensions": [
+    "assets/design/maps/classroom-corner/extensions/writing/v1/classroom-corner-writing-extension-v1.json"
+  ],
+  "map_mode": "tile_mode",
+  "visual_model": "layered_tilemap",
+  "runtime_object_model": [
+    "separate_props",
+    "y_sorted_props",
+    "interactive_scene_objects",
+    "scene_hooks"
+  ],
+  "collision_model": [
+    "precise_shapes",
+    "tile_collision",
+    "trigger_zones"
+  ],
+  "canvas_px": [
+    512,
+    288
+  ],
+  "tile_size_px": 32,
+  "candidate_object": {
+    "id": "sync-mail-station",
+    "asset": "assets/design/maps/classroom-corner/props/sync-mail-station/v1/sync-mail-station-96x48.png",
+    "metadata": "assets/design/maps/classroom-corner/props/sync-mail-station/v1/sync-mail-station-meta.json",
+    "position_px": [
+      304,
+      200
+    ],
+    "sort_y": 248,
+    "collision": {
+      "type": "rect",
+      "x": 312,
+      "y": 240,
+      "w": 80,
+      "h": 8
+    },
+    "trigger_zone": {
+      "type": "rect",
+      "x": 304,
+      "y": 184,
+      "w": 96,
+      "h": 56
+    }
+  },
+  "walkability": {
+    "base": "assets/design/maps/classroom-corner/blockout/classroom-corner-layout.json",
+    "overrides": [
+      {
+        "tile": [
+          7,
+          3
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          8,
+          3
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          9,
+          3
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          10,
+          7
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          11,
+          7
+        ],
+        "walkable": false
+      },
+      {
+        "tile": [
+          12,
+          7
+        ],
+        "walkable": false
+      }
+    ],
+    "rows": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  },
+  "state": {
+    "id": "syncing",
+    "location": "同步邮件站",
+    "semantic": "confirm_shared_message_card",
+    "orientation": "down_front",
+    "frames": 4,
+    "frame_duration_ms": 200,
+    "target_tile_by_character": {
+      "boy": [
+        10,
+        6
+      ],
+      "girl": [
+        11,
+        6
+      ],
+      "genderless": [
+        12,
+        6
+      ]
+    },
+    "target_anchor_px_by_character": {
+      "boy": [
+        320,
+        208
+      ],
+      "girl": [
+        352,
+        208
+      ],
+      "genderless": [
+        384,
+        208
+      ]
+    }
+  },
+  "validation": {
+    "approved_baseline": {
+      "lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v2.json",
+      "checked_files": 287,
+      "hash_mismatches": [],
+      "passed": true
+    },
+    "syncing_actions": {
+      "characters": {
+        "boy": {
+          "metadata": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-4frame-wheelbase-v2-meta.json",
+          "frames": [
+            {
+              "frame": 1,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-1-48x64.png",
+              "bbox": [
+                6,
+                7,
+                41,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 2,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-2-48x64.png",
+              "bbox": [
+                7,
+                7,
+                41,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 3,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-3-48x64.png",
+              "bbox": [
+                6,
+                7,
+                41,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 4,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-4-48x64.png",
+              "bbox": [
+                7,
+                7,
+                41,
+                62
+              ],
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "girl": {
+          "metadata": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-4frame-wheelbase-v2-meta.json",
+          "frames": [
+            {
+              "frame": 1,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-1-48x64.png",
+              "bbox": [
+                5,
+                11,
+                42,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 2,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-2-48x64.png",
+              "bbox": [
+                7,
+                11,
+                40,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 3,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-3-48x64.png",
+              "bbox": [
+                7,
+                11,
+                41,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 4,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-4-48x64.png",
+              "bbox": [
+                5,
+                11,
+                42,
+                62
+              ],
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "genderless": {
+          "metadata": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-4frame-wheelbase-v2-meta.json",
+          "frames": [
+            {
+              "frame": 1,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-1-48x64.png",
+              "bbox": [
+                7,
+                4,
+                40,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 2,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-2-48x64.png",
+              "bbox": [
+                7,
+                4,
+                41,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 3,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-3-48x64.png",
+              "bbox": [
+                7,
+                4,
+                40,
+                62
+              ],
+              "passed": true
+            },
+            {
+              "frame": 4,
+              "path": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-4-48x64.png",
+              "bbox": [
+                7,
+                4,
+                40,
+                62
+              ],
+              "passed": true
+            }
+          ],
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "routes_and_collisions": {
+      "characters": {
+        "boy": {
+          "start_tile": [
+            3,
+            7
+          ],
+          "target_tile": [
+            10,
+            6
+          ],
+          "target_anchor_px": [
+            320,
+            208
+          ],
+          "path_tiles": [
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              10,
+              6
+            ]
+          ],
+          "tile_steps": 7,
+          "target_footprint_px": [
+            305,
+            202,
+            335,
+            208
+          ],
+          "station_collision_overlap": false,
+          "passed": true
+        },
+        "girl": {
+          "start_tile": [
+            8,
+            7
+          ],
+          "target_tile": [
+            11,
+            6
+          ],
+          "target_anchor_px": [
+            352,
+            208
+          ],
+          "path_tiles": [
+            [
+              8,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              10,
+              6
+            ],
+            [
+              11,
+              6
+            ]
+          ],
+          "tile_steps": 3,
+          "target_footprint_px": [
+            339,
+            202,
+            365,
+            208
+          ],
+          "station_collision_overlap": false,
+          "passed": true
+        },
+        "genderless": {
+          "start_tile": [
+            13,
+            7
+          ],
+          "target_tile": [
+            12,
+            6
+          ],
+          "target_anchor_px": [
+            384,
+            208
+          ],
+          "path_tiles": [
+            [
+              13,
+              7
+            ],
+            [
+              13,
+              6
+            ],
+            [
+              12,
+              6
+            ]
+          ],
+          "tile_steps": 2,
+          "target_footprint_px": [
+            369,
+            202,
+            399,
+            208
+          ],
+          "station_collision_overlap": false,
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "passed": true
+  },
+  "qa": {
+    "preview": "assets/design/maps/classroom-corner/extensions/syncing/v1/classroom-corner-syncing-preview-512x288.png",
+    "collision_preview": "assets/design/maps/classroom-corner/extensions/syncing/v1/classroom-corner-syncing-collision-qa-1024x576.png",
+    "action_preview": "assets/design/maps/classroom-corner/extensions/syncing/v1/classroom-corner-syncing-actions-qa.gif"
+  }
+}

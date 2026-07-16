@@ -6,22 +6,26 @@ import foundationUrl from '@/assets/design/maps/classroom-corner/art/v1/classroo
 import blockTableUrl from '@/assets/design/maps/classroom-corner/props/block-table/v2/block-table-96x56-left-to-right.png';
 import readingBookBinUrl from '@/assets/design/maps/classroom-corner/props/reading-book-bin/v1/reading-book-bin-48x40.png';
 import readingBookshelfUrl from '@/assets/design/maps/classroom-corner/props/reading-bookshelf/v1/reading-bookshelf-96x44.png';
+import syncMailStationUrl from '@/assets/design/maps/classroom-corner/props/sync-mail-station/v1/sync-mail-station-96x48.png';
 import toyBinUrl from '@/assets/design/maps/classroom-corner/props/toy-bin/v2/toy-bin-40x48-left-to-right.png';
 import writingTableUrl from '@/assets/design/maps/classroom-corner/props/writing-table/v1/writing-table-96x56.png';
 import boyIdleUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-boy/idle/boy-child-idle-wheelbase-v2-strip-48x64.png';
 import boyMoveUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-wheelbase-v2-48x64.png';
 import boyExecutingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/boy-child-executing-4frame-wheelbase-v2-strip-48x64.png';
 import boyResearchingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/boy-child-researching-4frame-wheelbase-v2-strip-48x64.png';
+import boySyncingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-4frame-wheelbase-v2-strip-48x64.png';
 import boyWritingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/writing/boy-child-writing-4frame-wheelbase-v2-strip-48x64.png';
 import genderlessIdleUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/genderless-child-idle-wheelbase-v2-strip-48x64.png';
 import genderlessMoveUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-wheelbase-v2-48x64.png';
 import genderlessExecutingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-4frame-wheelbase-v2-strip-48x64.png';
 import genderlessResearchingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-4frame-wheelbase-v2-strip-48x64.png';
+import genderlessSyncingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-4frame-wheelbase-v2-strip-48x64.png';
 import genderlessWritingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-4frame-wheelbase-v2-strip-48x64.png';
 import girlIdleUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-girl/idle/girl-child-idle-wheelbase-v2-strip-48x64.png';
 import girlMoveUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-wheelbase-v2-48x64.png';
 import girlExecutingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/girl-child-executing-4frame-wheelbase-v2-strip-48x64.png';
 import girlResearchingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/girl-child-researching-4frame-wheelbase-v2-strip-48x64.png';
+import girlSyncingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-4frame-wheelbase-v2-strip-48x64.png';
 import girlWritingUrl from '@/assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/girl-child-writing-4frame-wheelbase-v2-strip-48x64.png';
 import {
   AGENT_TARGET_TILES,
@@ -33,6 +37,7 @@ import {
   findPath,
   pointToTile,
   Point,
+  STATE_ARRIVAL_OFFSET_Y,
   STATE_CONFIG,
   tileToAnchor,
   WALKABILITY,
@@ -48,6 +53,7 @@ const STATE_FRAME_MS: Record<AgentTaskState, number> = {
   writing: 200,
   researching: 220,
   executing: 180,
+  syncing: 200,
 };
 
 type ImageKey =
@@ -57,21 +63,25 @@ type ImageKey =
   | 'blockTable'
   | 'toyBin'
   | 'writingTable'
+  | 'syncMailStation'
   | 'boyIdle'
   | 'boyMove'
   | 'boyResearching'
   | 'boyWriting'
   | 'boyExecuting'
+  | 'boySyncing'
   | 'girlIdle'
   | 'girlMove'
   | 'girlResearching'
   | 'girlWriting'
   | 'girlExecuting'
+  | 'girlSyncing'
   | 'genderlessIdle'
   | 'genderlessMove'
   | 'genderlessResearching'
   | 'genderlessWriting'
-  | 'genderlessExecuting';
+  | 'genderlessExecuting'
+  | 'genderlessSyncing';
 
 interface AgentSpec {
   id: string;
@@ -122,6 +132,7 @@ const AGENT_SPECS: readonly AgentSpec[] = [
       writing: 'boyWriting',
       researching: 'boyResearching',
       executing: 'boyExecuting',
+      syncing: 'boySyncing',
     },
   },
   {
@@ -138,6 +149,7 @@ const AGENT_SPECS: readonly AgentSpec[] = [
       writing: 'girlWriting',
       researching: 'girlResearching',
       executing: 'girlExecuting',
+      syncing: 'girlSyncing',
     },
   },
   {
@@ -154,6 +166,7 @@ const AGENT_SPECS: readonly AgentSpec[] = [
       writing: 'genderlessWriting',
       researching: 'genderlessResearching',
       executing: 'genderlessExecuting',
+      syncing: 'genderlessSyncing',
     },
   },
 ] as const;
@@ -199,6 +212,14 @@ const PROP_SPECS = [
     sortY: 112,
     stableOrder: 50,
   },
+  {
+    id: 'sync-mail-station',
+    image: 'syncMailStation' as const,
+    x: 304,
+    y: 200,
+    sortY: 248,
+    stableOrder: 60,
+  },
 ] as const;
 
 const IMAGE_URLS: Record<ImageKey, string> = {
@@ -208,21 +229,25 @@ const IMAGE_URLS: Record<ImageKey, string> = {
   blockTable: blockTableUrl.src,
   toyBin: toyBinUrl.src,
   writingTable: writingTableUrl.src,
+  syncMailStation: syncMailStationUrl.src,
   boyIdle: boyIdleUrl.src,
   boyMove: boyMoveUrl.src,
   boyResearching: boyResearchingUrl.src,
   boyWriting: boyWritingUrl.src,
   boyExecuting: boyExecutingUrl.src,
+  boySyncing: boySyncingUrl.src,
   girlIdle: girlIdleUrl.src,
   girlMove: girlMoveUrl.src,
   girlResearching: girlResearchingUrl.src,
   girlWriting: girlWritingUrl.src,
   girlExecuting: girlExecutingUrl.src,
+  girlSyncing: girlSyncingUrl.src,
   genderlessIdle: genderlessIdleUrl.src,
   genderlessMove: genderlessMoveUrl.src,
   genderlessResearching: genderlessResearchingUrl.src,
   genderlessWriting: genderlessWritingUrl.src,
   genderlessExecuting: genderlessExecutingUrl.src,
+  genderlessSyncing: genderlessSyncingUrl.src,
 };
 
 function createAgents(): RuntimeAgent[] {
@@ -315,16 +340,25 @@ export default function ClassroomSimulation() {
       return false;
     }
 
+    const baseTarget = tileToAnchor(goal);
+    const finalTarget = {
+      x: baseTarget.x,
+      y: baseTarget.y + STATE_ARRIVAL_OFFSET_Y[state],
+    };
+
     const waypoints = route.slice(1).map(tileToAnchor);
+    if (waypoints.length > 0) {
+      waypoints[waypoints.length - 1] = finalTarget;
+    }
+
     agent.taskState = state;
     agent.path = waypoints;
     agent.pathIndex = 0;
     agent.routeLength = Math.max(0, route.length - 1);
     agent.moving = waypoints.length > 0;
     if (!agent.moving) {
-      const target = tileToAnchor(goal);
-      agent.x = target.x;
-      agent.y = target.y;
+      agent.x = finalTarget.x;
+      agent.y = finalTarget.y;
     }
     setRouteError(null);
     setAgentViews(toAgentViews(agentsRef.current));
@@ -344,6 +378,7 @@ export default function ClassroomSimulation() {
       'writing',
       'researching',
       'executing',
+      'syncing',
       'idle',
     ];
     let index = 0;

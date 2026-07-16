@@ -290,6 +290,10 @@ button:focus-visible {
   background: #fff0b5;
 }
 
+.command-syncing {
+  background: #e9e6ff;
+}
+
 .utilityButton {
   color: var(--muted);
 }

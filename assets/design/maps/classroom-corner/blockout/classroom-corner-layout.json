@@ -121,6 +121,12 @@
         3,
         2
       ],
+      "collision_rect_tiles": [
+        11,
+        3,
+        4,
+        1
+      ],
       "collision": true,
       "render_layer": "floor_props"
     },
@@ -133,12 +139,19 @@
         1,
         2
       ],
+      "collision_rect_tiles": [
+        14,
+        3,
+        2,
+        1
+      ],
       "collision": true,
       "render_layer": "floor_props"
     }
   ],
   "walkability": {
     "encoding": "1=walkable, 0=blocked",
+    "collision_tile_projection": "right-side furniture uses precise base collision expanded by the largest 30x6 actor footprint; visual rect_tiles remain unchanged",
     "rows": [
       [
         0,
@@ -210,7 +223,7 @@
         0,
         0,
         0,
-        1
+        0
       ],
       [
         1,
@@ -224,10 +237,10 @@
         1,
         1,
         1,
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        1,
         1
       ],
       [

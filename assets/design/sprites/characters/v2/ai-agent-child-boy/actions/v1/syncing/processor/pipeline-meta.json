@@ -1,0 +1,175 @@
+{
+  "target": "player",
+  "mode": "syncing",
+  "prompt": "",
+  "role": "",
+  "input": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/source/boy-child-syncing-wheelbase-v2-magenta-raw.png",
+  "threshold": 100,
+  "edge_threshold": 150,
+  "duration": 200,
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 128,
+  "fit_scale": 0.88,
+  "trim_border": 4,
+  "edge_clean_depth": 3,
+  "align": "bottom",
+  "shared_scale": true,
+  "component_mode": "largest",
+  "component_padding": 12,
+  "min_component_area": 1,
+  "edge_touch_margin": 0,
+  "frame_labels": [
+    "syncing-1",
+    "syncing-2",
+    "syncing-3",
+    "syncing-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "source_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 88213,
+      "selected_component_bbox": [
+        206,
+        93,
+        469,
+        510
+      ],
+      "crop_bbox": [
+        194,
+        81,
+        481,
+        522
+      ],
+      "edge_touch": false,
+      "output_size": [
+        73,
+        112
+      ],
+      "paste_position": [
+        27,
+        9
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "source_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 87017,
+      "selected_component_bbox": [
+        151,
+        93,
+        412,
+        510
+      ],
+      "crop_bbox": [
+        139,
+        81,
+        424,
+        522
+      ],
+      "edge_touch": false,
+      "output_size": [
+        72,
+        112
+      ],
+      "paste_position": [
+        28,
+        9
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "source_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 87503,
+      "selected_component_bbox": [
+        206,
+        67,
+        469,
+        484
+      ],
+      "crop_bbox": [
+        194,
+        55,
+        481,
+        496
+      ],
+      "edge_touch": false,
+      "output_size": [
+        73,
+        112
+      ],
+      "paste_position": [
+        27,
+        9
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "source_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 87963,
+      "selected_component_bbox": [
+        151,
+        67,
+        412,
+        484
+      ],
+      "crop_bbox": [
+        139,
+        55,
+        424,
+        496
+      ],
+      "edge_touch": false,
+      "output_size": [
+        72,
+        112
+      ],
+      "paste_position": [
+        28,
+        9
+      ]
+    }
+  ],
+  "edge_touch_frames": []
+}

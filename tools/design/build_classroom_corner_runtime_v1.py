@@ -77,6 +77,16 @@ ACTOR_FOOTPRINT_SIZES = {
     "girl": (26, 6),
     "genderless": (30, 6),
 }
+TILE_SIZE = 32
+TILE_ANCHOR_Y_OFFSET = 8
+RIGHT_FURNITURE_BLOCKED_TILES = tuple((x, 3) for x in range(11, 16))
+RIGHT_FURNITURE_RELEASED_TILES = tuple((x, 4) for x in range(11, 15))
+EXECUTING_TARGET_TILES = {
+    "boy": (10, 5),
+    "girl": (12, 5),
+    "genderless": (14, 5),
+}
+EXECUTING_VISUAL_OFFSET_Y = -40
 MOVEMENT_PREFIXES = {
     "boy": ("ai-agent-child-boy", "boy-child"),
     "girl": ("ai-agent-child-girl", "girl-child"),
@@ -104,9 +114,9 @@ STATE_ACTIONS = {
     "executing": {
         "duration_ms": 180,
         "anchor_px_by_character": {
-            "boy": (320, 168),
-            "girl": (384, 168),
-            "genderless": (448, 168),
+            "boy": (320, 128),
+            "girl": (384, 128),
+            "genderless": (448, 128),
         },
     },
 }
@@ -259,6 +269,17 @@ def rects_overlap(
     )
 
 
+def rects_touch_or_overlap(
+    first: tuple[int, int, int, int], second: tuple[int, int, int, int]
+) -> bool:
+    return not (
+        first[2] < second[0]
+        or second[2] < first[0]
+        or first[3] < second[1]
+        or second[3] < first[1]
+    )
+
+
 def shortest_tile_route(
     rows: list[list[int]], start: tuple[int, int], goal: tuple[int, int]
 ) -> list[tuple[int, int]]:
@@ -287,6 +308,163 @@ def shortest_tile_route(
         cursor = previous[cursor]
     path.reverse()
     return path
+
+
+def tile_anchor(tile: tuple[int, int]) -> tuple[int, int]:
+    return (tile[0] * TILE_SIZE, tile[1] * TILE_SIZE + TILE_ANCHOR_Y_OFFSET)
+
+
+def point_to_tile(point: tuple[int, int], rows: list[list[int]]) -> tuple[int, int]:
+    x = max(0, min(len(rows[0]) - 1, int(point[0] / TILE_SIZE + 0.5)))
+    y = max(
+        0,
+        min(
+            len(rows) - 1,
+            int((point[1] - TILE_ANCHOR_Y_OFFSET) / TILE_SIZE + 0.5),
+        ),
+    )
+    return (x, y)
+
+
+def validate_right_furniture_collision(layout: dict, props: list[dict]) -> dict:
+    rows = layout["walkability"]["rows"]
+    right_props = {
+        prop["id"]: prop
+        for prop in props
+        if prop["id"] in {"block-table", "toy-bin"}
+    }
+    if set(right_props) != {"block-table", "toy-bin"}:
+        raise RuntimeError("Right-side furniture collision props are incomplete")
+
+    prop_rects = {
+        prop_id: (
+            prop["collision"]["x"],
+            prop["collision"]["y"],
+            prop["collision"]["x"] + prop["collision"]["w"],
+            prop["collision"]["y"] + prop["collision"]["h"],
+        )
+        for prop_id, prop in right_props.items()
+    }
+
+    def footprint_overlaps(tile: tuple[int, int], character: str) -> list[str]:
+        footprint = actor_footprint(tile_anchor(tile), ACTOR_FOOTPRINT_SIZES[character])
+        return [
+            prop_id
+            for prop_id, collision in prop_rects.items()
+            if rects_touch_or_overlap(footprint, collision)
+        ]
+
+    blocked_results = []
+    for tile in RIGHT_FURNITURE_BLOCKED_TILES:
+        overlaps = {
+            character: footprint_overlaps(tile, character)
+            for character in ACTOR_FOOTPRINT_SIZES
+        }
+        blocked_results.append(
+            {
+                "tile": list(tile),
+                "walkable": rows[tile[1]][tile[0]] == 1,
+                "footprint_overlaps_by_character": overlaps,
+                "passed": rows[tile[1]][tile[0]] == 0
+                and all(overlaps.values()),
+            }
+        )
+
+    released_results = []
+    for tile in RIGHT_FURNITURE_RELEASED_TILES:
+        overlaps = {
+            character: footprint_overlaps(tile, character)
+            for character in ACTOR_FOOTPRINT_SIZES
+        }
+        released_results.append(
+            {
+                "tile": list(tile),
+                "walkable": rows[tile[1]][tile[0]] == 1,
+                "footprint_overlaps_by_character": overlaps,
+                "passed": rows[tile[1]][tile[0]] == 1
+                and all(not value for value in overlaps.values()),
+            }
+        )
+
+    action_results = []
+    for character, target_tile in EXECUTING_TARGET_TILES.items():
+        safe_anchor = tile_anchor(target_tile)
+        action_anchor = (safe_anchor[0], safe_anchor[1] + EXECUTING_VISUAL_OFFSET_Y)
+        computed_departure_tile = point_to_tile(action_anchor, rows)
+        footprint = actor_footprint(action_anchor, ACTOR_FOOTPRINT_SIZES[character])
+        overlaps = [
+            prop_id
+            for prop_id, collision in prop_rects.items()
+            if rects_overlap(footprint, collision)
+        ]
+        in_front = all(action_anchor[1] > prop["sort_y"] for prop in right_props.values())
+        action_results.append(
+            {
+                "character": character,
+                "arrival_target_tile": list(target_tile),
+                "visual_anchor_px": list(action_anchor),
+                "visual_offset_y_px": EXECUTING_VISUAL_OFFSET_Y,
+                "computed_departure_tile": list(computed_departure_tile),
+                "computed_departure_tile_walkable": (
+                    rows[computed_departure_tile[1]][computed_departure_tile[0]] == 1
+                ),
+                "footprint_px": list(footprint),
+                "precise_collision_overlaps": overlaps,
+                "y_sort_in_front_of_right_furniture": in_front,
+                "passed": not overlaps
+                and in_front
+                and computed_departure_tile[1] == 4
+                and rows[computed_departure_tile[1]][computed_departure_tile[0]] == 1,
+            }
+        )
+
+    route_goals = {
+        "boy": ((3, 5), (7, 5), (10, 6), (3, 7)),
+        "girl": ((4, 5), (8, 5), (11, 6), (8, 7)),
+        "genderless": ((5, 5), (9, 5), (12, 6), (13, 7)),
+    }
+    route_results = []
+    for character, target_tile in EXECUTING_TARGET_TILES.items():
+        safe_anchor = tile_anchor(target_tile)
+        action_anchor = (safe_anchor[0], safe_anchor[1] + EXECUTING_VISUAL_OFFSET_Y)
+        start = point_to_tile(action_anchor, rows)
+        for goal in route_goals[character]:
+            path = shortest_tile_route(rows, start, goal)
+            overlap_tiles = []
+            for tile in path:
+                footprint = actor_footprint(
+                    tile_anchor(tile), ACTOR_FOOTPRINT_SIZES[character]
+                )
+                if any(
+                    rects_touch_or_overlap(footprint, rect)
+                    for rect in prop_rects.values()
+                ):
+                    overlap_tiles.append(list(tile))
+            route_results.append(
+                {
+                    "character": character,
+                    "start_tile": list(start),
+                    "goal_tile": list(goal),
+                    "path_tiles": [list(tile) for tile in path],
+                    "precise_collision_overlap_tiles": overlap_tiles,
+                    "passed": bool(path) and not overlap_tiles,
+                }
+            )
+
+    passed = (
+        all(result["passed"] for result in blocked_results)
+        and all(result["passed"] for result in released_results)
+        and all(result["passed"] for result in action_results)
+        and all(result["passed"] for result in route_results)
+    )
+    return {
+        "model": "precise furniture base collision projected through actor footprints with zero-clearance contact to tile_collision",
+        "blocked_row_3": blocked_results,
+        "released_row_4": released_results,
+        "executing_visual_offset": action_results,
+        "departure_routes": route_results,
+        "passed": passed,
+    }
 
 
 def validate_v2_matching(layout: dict, props: list[dict], actors: list[dict]) -> dict:
@@ -351,6 +529,8 @@ def validate_v2_matching(layout: dict, props: list[dict], actors: list[dict]) ->
             }
         )
 
+    right_collision_validation = validate_right_furniture_collision(layout, props)
+
     return {
         "revision": "v2-wheelbase",
         "layers": {
@@ -359,17 +539,22 @@ def validate_v2_matching(layout: dict, props: list[dict], actors: list[dict]) ->
             "collision_clearance": all(not result["spawn_collision_overlaps"] for result in actor_results),
             "tile_fit": all(result["fits_single_32px_tile_width"] for result in actor_results),
             "critical_routes": all(result["reachable"] for result in route_results),
+            "right_furniture_collision_normalization": right_collision_validation[
+                "passed"
+            ],
             "depth_sort": True,
         },
         "actors": actor_results,
         "routes": route_results,
+        "right_furniture_collision_normalization": right_collision_validation,
         "passed": all(result["passed"] for result in actor_results)
-        and all(result["reachable"] for result in route_results),
+        and all(result["reachable"] for result in route_results)
+        and right_collision_validation["passed"],
     }
 
 
 def build_collision_qa(
-    props: list[dict], actors: list[dict], runtime_scene: Image.Image
+    layout: dict, props: list[dict], actors: list[dict], runtime_scene: Image.Image
 ) -> None:
     debug = runtime_scene.copy()
     overlay = Image.new("RGBA", debug.size, (0, 0, 0, 0))
@@ -379,6 +564,24 @@ def build_collision_qa(
         draw.line((x, 0, x, debug.height), fill=(70, 130, 160, 62), width=1)
     for y in range(0, debug.height + 1, 32):
         draw.line((0, y, debug.width, y), fill=(70, 130, 160, 62), width=1)
+
+    rows = layout["walkability"]["rows"]
+    normalized_tiles = (
+        RIGHT_FURNITURE_BLOCKED_TILES + RIGHT_FURNITURE_RELEASED_TILES
+    )
+    for column, row in normalized_tiles:
+        walkable = rows[row][column] == 1
+        draw.rectangle(
+            (
+                column * TILE_SIZE,
+                row * TILE_SIZE,
+                (column + 1) * TILE_SIZE - 1,
+                (row + 1) * TILE_SIZE - 1,
+            ),
+            fill=(48, 220, 120, 48) if walkable else (244, 66, 66, 48),
+            outline=(10, 120, 68, 210) if walkable else (156, 20, 20, 210),
+            width=1,
+        )
 
     for prop in props:
         collision = prop["collision"]
@@ -700,7 +903,7 @@ def main() -> None:
     runtime_scene = compose_scene(props, actors)
     runtime_scene.convert("RGB").save(RUNTIME_PREVIEW)
     depth_tests = build_depth_qa(props)
-    build_collision_qa(props, actors, runtime_scene)
+    build_collision_qa(layout, props, actors, runtime_scene)
     matching_validation = validate_v2_matching(layout, props, actors)
     movement_validation = build_movement_qa(props, layout)
     state_action_validation = build_state_action_qa(props)
@@ -776,6 +979,8 @@ def main() -> None:
             "state_action_preview": str(STATE_ACTION_QA.relative_to(ROOT)),
             "collision_colors": {
                 "furniture_collision": "red",
+                "normalized_blocked_tile": "red outline",
+                "normalized_released_tile": "green outline",
                 "prop_sort_y": "cyan",
                 "prop_anchor": "yellow",
                 "actor_footprint": "green",

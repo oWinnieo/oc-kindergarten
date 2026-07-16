@@ -1,7 +1,7 @@
 {
   "asset": "kindergarten_ai_agent_trio_state_actions",
   "revision": "v2-wheelbase-state-actions-v2",
-  "status": "visual_approval_candidate",
+  "status": "approved",
   "actions": [
     "researching",
     "executing",

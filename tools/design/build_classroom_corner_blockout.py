@@ -75,6 +75,7 @@ OBJECTS = [
         "id": "block-table",
         "type": "activity_table",
         "rect_tiles": [11, 3, 3, 2],
+        "collision_rect_tiles": [11, 3, 4, 1],
         "collision": True,
         "render_layer": "floor_props",
         "label": "BLOCK TABLE",
@@ -84,6 +85,7 @@ OBJECTS = [
         "id": "toy-bin",
         "type": "toy_storage",
         "rect_tiles": [14, 3, 1, 2],
+        "collision_rect_tiles": [14, 3, 2, 1],
         "collision": True,
         "render_layer": "floor_props",
         "label": "TOYS",
@@ -142,7 +144,7 @@ def build_walkability() -> list[list[int]]:
     for item in OBJECTS:
         if not item["collision"]:
             continue
-        x, y, width, height = item["rect_tiles"]
+        x, y, width, height = item.get("collision_rect_tiles", item["rect_tiles"])
         for row in range(y, y + height):
             for column in range(x, x + width):
                 grid[row][column] = 0
@@ -219,6 +221,10 @@ def write_layout_data(walkability: list[list[int]]) -> None:
         ],
         "walkability": {
             "encoding": "1=walkable, 0=blocked",
+            "collision_tile_projection": (
+                "right-side furniture uses precise base collision expanded by the "
+                "largest 30x6 actor footprint; visual rect_tiles remain unchanged"
+            ),
             "rows": walkability,
         },
         "actor_spawns": CHARACTERS,

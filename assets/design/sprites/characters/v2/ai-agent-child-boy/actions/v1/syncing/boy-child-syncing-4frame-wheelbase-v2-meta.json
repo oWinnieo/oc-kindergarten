@@ -1,0 +1,121 @@
+{
+  "asset": "boy_child_syncing",
+  "revision": "v2-wheelbase-syncing-v1",
+  "status": "visual_approval_candidate",
+  "action": "syncing",
+  "semantic": "confirm_shared_message_card",
+  "orientation": "down_front",
+  "frames": 4,
+  "frame_duration_ms": 200,
+  "frame_phases": [
+    "sync_ready",
+    "card_read",
+    "confirm_tap",
+    "sync_settle"
+  ],
+  "runtime_frame_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "accepted_idle_visible_height_px": 55,
+  "decoration_excluded_core_height_px": 50,
+  "excluded_accessory": "cap",
+  "source_raw": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/source/boy-child-syncing-wheelbase-v2-magenta-raw.png",
+  "source_prompt": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/source/boy-child-syncing-wheelbase-v2-magenta-raw.prompt.txt",
+  "processor_metadata": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/processor/pipeline-meta.json",
+  "runtime_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-4-48x64.png"
+  ],
+  "strip": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-4frame-wheelbase-v2-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-4frame-wheelbase-v2-2x2-48x64.png",
+  "preview_gif": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/previews/boy-child-syncing-wheelbase-v2-preview-6x.gif",
+  "qc": {
+    "frames": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          6,
+          7,
+          41,
+          62
+        ],
+        "visible_width_px": 35,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          7,
+          41,
+          62
+        ],
+        "visible_width_px": 34,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          6,
+          7,
+          41,
+          62
+        ],
+        "visible_width_px": 35,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          7,
+          41,
+          62
+        ],
+        "visible_width_px": 34,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "adjacent_changed_pixels_including_wrap": [
+      1569,
+      1564,
+      1563,
+      1574
+    ],
+    "all_frames_distinct": true,
+    "approved_baseline_unchanged": true,
+    "technical_qc_passed": true
+  }
+}

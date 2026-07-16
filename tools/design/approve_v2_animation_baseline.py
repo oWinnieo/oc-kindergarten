@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Approve and hash-lock the accepted V2 movement/state-action baseline."""
+"""Approve and hash-lock the V2 movement and three accepted state actions."""
 
 from __future__ import annotations
 
@@ -15,14 +15,20 @@ RUNTIME_MANIFEST = (
     / "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-v1.json"
 )
 LOCK_DIR = SPRITE_ROOT / "approved"
-LOCK_PATH = LOCK_DIR / "v2-wheelbase-animation-baseline-lock-v1.json"
+PREVIOUS_LOCK_PATH = LOCK_DIR / "v2-wheelbase-animation-baseline-lock-v1.json"
+LOCK_PATH = LOCK_DIR / "v2-wheelbase-animation-baseline-lock-v2.json"
+WRITING_EXTENSION = (
+    ROOT
+    / "assets/design/maps/classroom-corner/extensions/writing/v1"
+    / "classroom-corner-writing-extension-v1.json"
+)
 
 CHARACTERS = {
     "boy": ("ai-agent-child-boy", "boy-child"),
     "girl": ("ai-agent-child-girl", "girl-child"),
     "genderless": ("ai-agent-child-genderless", "genderless-child"),
 }
-APPROVED_ACTIONS = ("researching", "executing")
+APPROVED_ACTIONS = ("researching", "executing", "writing")
 
 
 def relative(path: Path) -> str:
@@ -50,12 +56,15 @@ def metadata_paths() -> list[Path]:
         [
             SPRITE_ROOT
             / "trio/moving/v1/kindergarten-ai-agent-trio-move-8dir-v2-meta.json",
+            *(
+                SPRITE_ROOT
+                / "trio/actions/v1"
+                / action
+                / f"kindergarten-ai-agent-trio-{action}-v2-meta.json"
+                for action in APPROVED_ACTIONS
+            ),
             SPRITE_ROOT
-            / "trio/actions/v1/researching/kindergarten-ai-agent-trio-researching-v2-meta.json",
-            SPRITE_ROOT
-            / "trio/actions/v1/executing/kindergarten-ai-agent-trio-executing-v2-meta.json",
-            SPRITE_ROOT
-            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v1-meta.json",
+            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v2-meta.json",
         ]
     )
     return paths
@@ -67,6 +76,12 @@ def verify_technical_qc(path: Path, metadata: dict) -> None:
         raise RuntimeError(f"Technical QC failed: {relative(path)}")
     if metadata.get("technical_qc_passed") is False:
         raise RuntimeError(f"Technical QC failed: {relative(path)}")
+    if (
+        metadata.get("action") == "writing"
+        and "ai-agent-child-" in relative(path)
+        and not qc.get("rear_occlusion", {}).get("passed")
+    ):
+        raise RuntimeError(f"Writing rear-occlusion QC failed: {relative(path)}")
 
 
 def approve_metadata() -> list[str]:
@@ -78,11 +93,12 @@ def approve_metadata() -> list[str]:
                 f"Unexpected approval status {metadata.get('status')!r}: {relative(path)}"
             )
         verify_technical_qc(path, metadata)
-        metadata["status"] = "approved"
-        path.write_text(
-            json.dumps(metadata, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-        )
+        if metadata["status"] != "approved":
+            metadata["status"] = "approved"
+            path.write_text(
+                json.dumps(metadata, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
         approved.append(relative(path))
     return approved
 
@@ -111,11 +127,11 @@ def approved_asset_paths() -> list[Path]:
     paths.update(
         {
             SPRITE_ROOT
-            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v1-meta.json",
+            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v2-meta.json",
             SPRITE_ROOT
-            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v1-preview-6x.png",
+            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v2-preview-6x.png",
             SPRITE_ROOT
-            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-body-size-guide-8x.png",
+            / "trio/actions/v1/kindergarten-ai-agent-trio-state-actions-body-size-guide-v2-8x.png",
         }
     )
     return sorted(paths)
@@ -129,7 +145,45 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def validate_lock(path: Path) -> dict:
+    lock = json.loads(path.read_text(encoding="utf-8"))
+    mismatches = []
+    for item in lock["files"]:
+        asset = ROOT / item["path"]
+        if not asset.exists() or sha256(asset) != item["sha256"]:
+            mismatches.append(item["path"])
+    if mismatches:
+        raise RuntimeError(f"Previous approved lock changed: {mismatches[:10]}")
+    return {
+        "lock": relative(path),
+        "checked_files": len(lock["files"]),
+        "hash_mismatches": mismatches,
+        "passed": True,
+    }
+
+
+def validate_writing_extension() -> dict:
+    extension = json.loads(WRITING_EXTENSION.read_text(encoding="utf-8"))
+    validation = extension.get("validation", {})
+    if extension.get("status") not in {"visual_approval_candidate", "approved"}:
+        raise RuntimeError("Writing extension is not ready for approval")
+    if not validation.get("passed"):
+        raise RuntimeError("Writing extension validation has not passed")
+    if not validation.get("writing_actions", {}).get("passed"):
+        raise RuntimeError("Writing action validation has not passed")
+    if not validation.get("routes_and_collisions", {}).get("passed"):
+        raise RuntimeError("Writing route/collision validation has not passed")
+    return {
+        "manifest": relative(WRITING_EXTENSION),
+        "visual_approval_confirmed": True,
+        "technical_qc_passed": True,
+        "routes_and_collisions_passed": True,
+    }
+
+
 def main() -> None:
+    previous_lock_validation = validate_lock(PREVIOUS_LOCK_PATH)
+    writing_validation = validate_writing_extension()
     runtime = json.loads(RUNTIME_MANIFEST.read_text(encoding="utf-8"))
     matching = runtime.get("matching_validation", {})
     if runtime.get("status") != "approved_runtime_baseline" or not matching.get(
@@ -151,7 +205,7 @@ def main() -> None:
 
     LOCK_DIR.mkdir(parents=True, exist_ok=True)
     manifest = {
-        "lock_id": "v2-wheelbase-animation-baseline-lock-v1",
+        "lock_id": "v2-wheelbase-animation-baseline-lock-v2",
         "status": "approved",
         "approved_on": "2026-07-16",
         "scope": {
@@ -165,7 +219,7 @@ def main() -> None:
                 "actions": list(APPROVED_ACTIONS),
                 "frames_per_action": 4,
                 "characters": 3,
-                "runtime_frames": 24,
+                "runtime_frames": 36,
             },
         },
         "character_contract": {
@@ -188,6 +242,9 @@ def main() -> None:
             "runtime_manifest": relative(RUNTIME_MANIFEST),
             "runtime_matching_validation_passed": True,
             "genderless_executing_rear_occlusion_passed": True,
+            "writing_rear_occlusion_passed": True,
+            "previous_lock_validation": previous_lock_validation,
+            "writing_extension_validation": writing_validation,
             "metadata": approved_metadata,
         },
         "locked_file_count": len(assets),
@@ -195,8 +252,8 @@ def main() -> None:
             {"path": relative(path), "sha256": sha256(path)} for path in assets
         ],
         "extension_policy": (
-            "New states such as writing must use new candidate metadata and must not "
-            "modify files or hashes in this approved lock."
+            "New states such as syncing and error must use new candidate metadata and "
+            "a new lock revision; files or hashes in this approved lock are immutable."
         ),
     }
     LOCK_PATH.write_text(
