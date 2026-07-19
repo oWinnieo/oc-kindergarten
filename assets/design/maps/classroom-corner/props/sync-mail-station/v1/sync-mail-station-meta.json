@@ -1,6 +1,8 @@
 {
   "prop_id": "sync-mail-station-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved_visual",
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v3.json",
+  "visual_approved_on": "2026-07-17",
   "classification": [
     "wide_or_long_object",
     "collision_bearing_object",

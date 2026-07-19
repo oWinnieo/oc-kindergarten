@@ -113,6 +113,24 @@
       "render_layer": "floor_detail"
     },
     {
+      "id": "entrance-door",
+      "type": "animated_entrance",
+      "rect_px": [
+        296,
+        0,
+        64,
+        72
+      ],
+      "collision": false,
+      "render_layer": "wall_props",
+      "states": [
+        "closed",
+        "opening",
+        "open",
+        "closing"
+      ]
+    },
+    {
       "id": "block-table",
       "type": "activity_table",
       "rect_tiles": [
@@ -317,13 +335,47 @@
       ]
     ]
   },
+  "scene_hooks": {
+    "player_join": {
+      "door_id": "entrance-door",
+      "spawn_anchor_px": [
+        320,
+        72
+      ],
+      "spawn_tile": [
+        10,
+        2
+      ],
+      "entry_landing_anchor_px": [
+        328,
+        136
+      ],
+      "entry_landing_tile": [
+        10,
+        4
+      ],
+      "characters": [
+        "boy",
+        "girl",
+        "genderless"
+      ],
+      "sequence": [
+        "door_opening",
+        "door_open",
+        "player_spawns_inside_door",
+        "player_walks_to_entry_landing",
+        "door_closing",
+        "door_closed"
+      ]
+    }
+  },
   "actor_spawns": [
     {
-      "id": "boy-reading-spawn",
+      "id": "boy-entrance-spawn",
       "character": "boy",
       "anchor_px": [
-        96,
-        232
+        320,
+        72
       ],
       "source": "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-1-48x64.png",
       "collision_footprint_px": [
@@ -331,20 +383,20 @@
         6
       ],
       "frame_top_left_px": [
-        72,
-        168
+        296,
+        8
       ],
       "anchor_tile": [
-        3.0,
-        7.25
+        10.0,
+        2.25
       ]
     },
     {
-      "id": "girl-center-spawn",
+      "id": "girl-entrance-spawn",
       "character": "girl",
       "anchor_px": [
-        256,
-        232
+        320,
+        72
       ],
       "source": "assets/design/sprites/characters/v2/ai-agent-child-girl/idle/frames/girl-child-idle-wheelbase-v2-1-48x64.png",
       "collision_footprint_px": [
@@ -352,20 +404,20 @@
         6
       ],
       "frame_top_left_px": [
-        232,
-        168
+        296,
+        8
       ],
       "anchor_tile": [
-        8.0,
-        7.25
+        10.0,
+        2.25
       ]
     },
     {
-      "id": "genderless-block-spawn",
+      "id": "genderless-entrance-spawn",
       "character": "genderless",
       "anchor_px": [
-        416,
-        232
+        320,
+        72
       ],
       "source": "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-1-48x64.png",
       "collision_footprint_px": [
@@ -373,12 +425,12 @@
         6
       ],
       "frame_top_left_px": [
-        392,
-        168
+        296,
+        8
       ],
       "anchor_tile": [
-        13.0,
-        7.25
+        10.0,
+        2.25
       ]
     }
   ],

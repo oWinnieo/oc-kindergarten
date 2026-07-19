@@ -1,7 +1,7 @@
 {
   "asset": "kindergarten_ai_agent_trio_syncing",
   "revision": "v2-wheelbase-syncing-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved",
   "action": "syncing",
   "characters": [
     "boy",
@@ -16,5 +16,7 @@
     "girl": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-4frame-wheelbase-v2-meta.json",
     "genderless": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-4frame-wheelbase-v2-meta.json"
   },
-  "technical_qc_passed": true
+  "technical_qc_passed": true,
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v3.json",
+  "approved_on": "2026-07-17"
 }

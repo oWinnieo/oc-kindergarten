@@ -68,6 +68,61 @@
       ]
     }
   },
+  "activity_placement": {
+    "revision": "dynamic-region-v1",
+    "character_independent": true,
+    "navigation_grid_px": 32,
+    "social_ground_occupancy_px": [
+      14,
+      8
+    ],
+    "spot_offsets_from_tile_anchor_px": [
+      [-8, -4],
+      [8, -4],
+      [-8, 4],
+      [8, 4]
+    ],
+    "spots_per_walkable_tile": 4,
+    "full_region_policy": "wait_queue",
+    "regions": {
+      "idle": {
+        "bounds_inclusive_tiles": [1, 7, 14, 8],
+        "arrival_offset_y_px": 0,
+        "walkable_tiles": 22,
+        "standing_capacity": 88
+      },
+      "writing": {
+        "bounds_inclusive_tiles": [7, 5, 9, 5],
+        "arrival_offset_y_px": -40,
+        "walkable_tiles": 3,
+        "standing_capacity": 12
+      },
+      "researching": {
+        "bounds_inclusive_tiles": [2, 4, 5, 6],
+        "arrival_offset_y_px": 0,
+        "walkable_tiles": 12,
+        "standing_capacity": 48
+      },
+      "executing": {
+        "bounds_inclusive_tiles": [10, 5, 14, 5],
+        "arrival_offset_y_px": -40,
+        "walkable_tiles": 5,
+        "standing_capacity": 20
+      },
+      "syncing": {
+        "bounds_inclusive_tiles": [9, 6, 13, 6],
+        "arrival_offset_y_px": 8,
+        "walkable_tiles": 5,
+        "standing_capacity": 20
+      },
+      "error": {
+        "bounds_inclusive_tiles": [4, 6, 8, 6],
+        "arrival_offset_y_px": 8,
+        "walkable_tiles": 5,
+        "standing_capacity": 20
+      }
+    }
+  },
   "objects": [
     {
       "id": "reading-bookshelf",

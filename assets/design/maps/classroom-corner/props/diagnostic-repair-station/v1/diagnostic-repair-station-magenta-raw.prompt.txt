@@ -1,0 +1,15 @@
+Use case: stylized-concept
+Asset type: isolated production 2D game map prop
+Input images: Image 1 is the current OC Kindergarten classroom map; Image 2 is the approved synchronization mail station; Image 3 is the approved writing table. Use them only as active art-style, scale, palette, camera, material, and pixel-cluster references.
+
+Create one separate child-sized diagnostic repair station for the same classroom. It is a single low horizontal workbench, straight left-to-right, designed to downscale to approximately 96x48 pixels. It must be visually distinct from the mail station.
+
+Design: pale blue rounded body, warm orange worktop, coral-red structural trim, one central dark-blue diagnostic dock on the front, two round cyan ventilation ports, two tiny gray feet or wheels, two compact toy-like repair tools secured flat along the top, and one small amber status lamp. No loose or detached parts. The silhouette is compact, collision-readable, friendly, nearly symmetric, with a shallow visible top face and dominant front face.
+
+Perspective and style: match the visible classroom references exactly—project-native crisp high-resolution pixel art, limited warm kindergarten palette, clean readable clusters, controlled outline weight, light from above-left, mostly front-facing top-down RPG perspective. No strong isometric rotation.
+
+Composition: exactly one isolated prop centered horizontally, whole object fully inside the canvas, generous empty padding on all sides. One-by-one collision-bearing asset, not a prop pack and not an in-world room scene.
+
+Background: perfectly flat uniform solid #FF00FF chroma-key background, edge to edge, no gradient, texture, lighting variation, floor plane, shadow, or reflection. Do not use #FF00FF anywhere in the prop.
+
+Constraints: no characters, children, hands, cards, paper, room, wall, floor, labels, letters, numbers, symbols, warning triangle, UI, watermark, cast shadow, reflection, floating particles, detached tools, or extra objects.

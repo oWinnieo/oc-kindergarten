@@ -1,0 +1,13 @@
+.git
+.hidden
+.env
+.env.local
+.env.*.local
+.next
+.verify-build
+node_modules
+npm-debug.log*
+yarn-error.log*
+.DS_Store
+**/.DS_Store
+**/._*

@@ -1,0 +1,110 @@
+{
+  "prop_id": "classroom-entrance-door-v1",
+  "status": "approved_visual",
+  "asset_strategy": "one_by_one_two_state_source",
+  "source": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-two-state-clean.png",
+  "prompt": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-two-state-magenta-raw.prompt.txt",
+  "raw": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-two-state-magenta-raw.png",
+  "split_x_px": 836,
+  "states": [
+    {
+      "state": "closed",
+      "source_alpha_bbox": [
+        203,
+        118,
+        736,
+        804
+      ],
+      "crop_box": [
+        187,
+        102,
+        752,
+        820
+      ],
+      "output": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-closed-64x72.png",
+      "canvas_px": [
+        64,
+        72
+      ],
+      "paste_at_px": [
+        5,
+        4
+      ],
+      "opaque_bbox": [
+        5,
+        4,
+        59,
+        72
+      ]
+    },
+    {
+      "state": "open",
+      "source_alpha_bbox": [
+        45,
+        118,
+        627,
+        827
+      ],
+      "crop_box": [
+        29,
+        102,
+        643,
+        843
+      ],
+      "output": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-open-64x72.png",
+      "canvas_px": [
+        64,
+        72
+      ],
+      "paste_at_px": [
+        4,
+        4
+      ],
+      "opaque_bbox": [
+        4,
+        4,
+        60,
+        72
+      ]
+    }
+  ],
+  "runtime": {
+    "position_px": [
+      296,
+      0
+    ],
+    "spawn_anchor_px": [
+      320,
+      72
+    ],
+    "spawn_tile": [
+      10,
+      2
+    ],
+    "entry_landing_anchor_px": [
+      328,
+      136
+    ],
+    "entry_landing_tile": [
+      10,
+      4
+    ],
+    "render_layer": "wall_props",
+    "collision": false,
+    "join_sequence": [
+      "opening",
+      "open",
+      "player_spawns_inside_door",
+      "player_walks_to_entry_landing",
+      "closing",
+      "closed"
+    ]
+  },
+  "visual_approved_on": "2026-07-17",
+  "approval_manifest": "assets/design/maps/classroom-corner/extensions/entrance/v1/classroom-corner-entrance-extension-v1.json",
+  "approval_evidence": {
+    "user_confirmed": true,
+    "confirmation_summary": "Door visual and shared spawn tile (10,2) accepted.",
+    "qa_preview": "assets/design/maps/classroom-corner/extensions/entrance/v1/classroom-corner-entrance-spawn-qa-512x288.png"
+  }
+}

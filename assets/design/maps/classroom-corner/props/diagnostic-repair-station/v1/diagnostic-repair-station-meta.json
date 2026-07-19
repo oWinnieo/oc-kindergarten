@@ -1,0 +1,98 @@
+{
+  "prop_id": "diagnostic-repair-station-v1",
+  "status": "approved_visual",
+  "classification": [
+    "wide_or_long_object",
+    "collision_bearing_object",
+    "interactive_scene_object"
+  ],
+  "asset_strategy": "one_by_one",
+  "semantic": "classroom_agent_diagnostic_repair_station",
+  "raw": "assets/design/maps/classroom-corner/props/diagnostic-repair-station/v1/diagnostic-repair-station-magenta-raw.png",
+  "prompt": "assets/design/maps/classroom-corner/props/diagnostic-repair-station/v1/diagnostic-repair-station-magenta-raw.prompt.txt",
+  "processor_output": "assets/design/maps/classroom-corner/props/diagnostic-repair-station/v1/processor/clean.png",
+  "transparent_prop": "assets/design/maps/classroom-corner/props/diagnostic-repair-station/v1/diagnostic-repair-station-96x48.png",
+  "preview": "assets/design/maps/classroom-corner/props/diagnostic-repair-station/v1/diagnostic-repair-station-preview-8x.png",
+  "runtime_size_px": [
+    96,
+    48
+  ],
+  "map_placement": {
+    "top_left_px": [
+      144,
+      200
+    ],
+    "anchor": "center_bottom",
+    "anchor_px": [
+      192,
+      248
+    ],
+    "sort_y": 248,
+    "render_layer": "floor_props"
+  },
+  "collision": {
+    "type": "rect",
+    "x": 152,
+    "y": 240,
+    "w": 80,
+    "h": 8
+  },
+  "trigger_zone": {
+    "type": "rect",
+    "x": 144,
+    "y": 184,
+    "w": 96,
+    "h": 56
+  },
+  "error_targets": {
+    "boy": {
+      "tile": [
+        5,
+        6
+      ],
+      "anchor_px": [
+        160,
+        208
+      ]
+    },
+    "girl": {
+      "tile": [
+        6,
+        6
+      ],
+      "anchor_px": [
+        192,
+        208
+      ]
+    },
+    "genderless": {
+      "tile": [
+        7,
+        6
+      ],
+      "anchor_px": [
+        224,
+        208
+      ]
+    }
+  },
+  "qc": {
+    "source_alpha_box": [
+      387,
+      225,
+      1276,
+      721
+    ],
+    "runtime_alpha_box": [
+      8,
+      3,
+      87,
+      47
+    ],
+    "visible_magenta_pixels": 0,
+    "transparent_corners": true,
+    "technical_qc_passed": true
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v4.json",
+  "visual_approved_on": "2026-07-17"
+}

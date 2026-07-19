@@ -1,6 +1,8 @@
 {
   "extension_id": "classroom-corner-syncing-extension-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved",
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v3.json",
+  "approved_on": "2026-07-17",
   "base_runtime_manifest": "assets/design/maps/classroom-corner/runtime/v1/classroom-corner-runtime-v1.json",
   "depends_on_extensions": [
     "assets/design/maps/classroom-corner/extensions/writing/v1/classroom-corner-writing-extension-v1.json"
@@ -23,7 +25,7 @@
     288
   ],
   "tile_size_px": 32,
-  "candidate_object": {
+  "object": {
     "id": "sync-mail-station",
     "asset": "assets/design/maps/classroom-corner/props/sync-mail-station/v1/sync-mail-station-96x48.png",
     "metadata": "assets/design/maps/classroom-corner/props/sync-mail-station/v1/sync-mail-station-meta.json",
@@ -296,8 +298,8 @@
   },
   "validation": {
     "approved_baseline": {
-      "lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v2.json",
-      "checked_files": 287,
+      "lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v3.json",
+      "checked_files": 358,
       "hash_mismatches": [],
       "passed": true
     },
@@ -305,6 +307,7 @@
       "characters": {
         "boy": {
           "metadata": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-4frame-wheelbase-v2-meta.json",
+          "status": "approved",
           "frames": [
             {
               "frame": 1,
@@ -355,6 +358,7 @@
         },
         "girl": {
           "metadata": "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-4frame-wheelbase-v2-meta.json",
+          "status": "approved",
           "frames": [
             {
               "frame": 1,
@@ -405,6 +409,7 @@
         },
         "genderless": {
           "metadata": "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-4frame-wheelbase-v2-meta.json",
+          "status": "approved",
           "frames": [
             {
               "frame": 1,

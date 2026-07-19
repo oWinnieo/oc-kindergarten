@@ -22,7 +22,7 @@ LAYOUT = MAP_DIR / "blockout/classroom-corner-layout.json"
 BASE_RUNTIME = MAP_DIR / "runtime/v1/classroom-corner-runtime-v1.json"
 WRITING_META = MAP_DIR / "props/writing-table/v1/writing-table-meta.json"
 WRITING_PROP = MAP_DIR / "props/writing-table/v1/writing-table-96x56.png"
-APPROVAL_LOCK = SPRITE_DIR / "approved/v2-wheelbase-animation-baseline-lock-v2.json"
+APPROVAL_LOCK = SPRITE_DIR / "approved/v2-wheelbase-animation-baseline-lock-v3.json"
 
 PROP_DIR = MAP_DIR / "props/sync-mail-station/v1"
 PROP_SOURCE = PROP_DIR / "processor/clean.png"
@@ -170,7 +170,9 @@ def build_prop() -> dict[str, Any]:
 
     metadata = {
         "prop_id": "sync-mail-station-v1",
-        "status": "visual_approval_candidate",
+        "status": "approved_visual",
+        "approval_lock": relative(APPROVAL_LOCK),
+        "visual_approved_on": "2026-07-17",
         "classification": ["wide_or_long_object", "collision_bearing_object", "interactive_scene_object"],
         "asset_strategy": "one_by_one",
         "semantic": "classroom_message_exchange_station",
@@ -239,7 +241,7 @@ def validate_syncing_actions() -> dict[str, Any]:
     for role, spec in CHARACTERS.items():
         metadata_path = syncing_meta_path(role)
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-        if metadata.get("status") != "visual_approval_candidate":
+        if metadata.get("status") != "approved":
             raise RuntimeError(f"Unexpected syncing status: {relative(metadata_path)}")
         if not metadata.get("qc", {}).get("technical_qc_passed"):
             raise RuntimeError(f"Syncing QC failed: {relative(metadata_path)}")
@@ -258,7 +260,12 @@ def validate_syncing_actions() -> dict[str, Any]:
             if not passed:
                 raise RuntimeError(f"Syncing frame contract failed: {relative(path)}")
             frames.append({"frame": phase, "path": relative(path), "bbox": list(bbox), "passed": True})
-        results[role] = {"metadata": relative(metadata_path), "frames": frames, "passed": True}
+        results[role] = {
+            "metadata": relative(metadata_path),
+            "status": metadata["status"],
+            "frames": frames,
+            "passed": True,
+        }
     return {"characters": results, "passed": True}
 
 
@@ -418,7 +425,9 @@ def main() -> None:
 
     manifest = {
         "extension_id": "classroom-corner-syncing-extension-v1",
-        "status": "visual_approval_candidate",
+        "status": "approved",
+        "approval_lock": relative(APPROVAL_LOCK),
+        "approved_on": "2026-07-17",
         "base_runtime_manifest": relative(BASE_RUNTIME),
         "depends_on_extensions": ["assets/design/maps/classroom-corner/extensions/writing/v1/classroom-corner-writing-extension-v1.json"],
         "map_mode": "tile_mode",
@@ -427,7 +436,7 @@ def main() -> None:
         "collision_model": ["precise_shapes", "tile_collision", "trigger_zones"],
         "canvas_px": [512, 288],
         "tile_size_px": 32,
-        "candidate_object": {
+        "object": {
             "id": "sync-mail-station",
             "asset": relative(PROP_RUNTIME),
             "metadata": relative(PROP_META),
@@ -469,7 +478,7 @@ def main() -> None:
     MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({
         "manifest": relative(MANIFEST),
-        "candidate_object": "sync-mail-station",
+        "object": "sync-mail-station",
         "targets": {role: list(spec["target_tile"]) for role, spec in CHARACTERS.items()},
         "approved_baseline_hash_mismatches": 0,
     }, indent=2, ensure_ascii=False))

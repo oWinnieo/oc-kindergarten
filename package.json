@@ -6,18 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify:types": "tsc --noEmit",
+    "verify:runtime": "tsc -p tools/tsconfig.verify.json && node .verify-build/tools/verify-openclaw-adapters.js && node .verify-build/tools/verify-agent-registry.js && node .verify-build/tools/verify-provider-binding.js && node .verify-build/tools/verify-parent-profile.js && node .verify-build/tools/verify-agent-enrollment.js",
+    "verify": "npm run verify:types && npm run verify:runtime && npm run build",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node scripts/migrate-database.mjs"
   },
   "dependencies": {
     "@types/node": "20.11.30",
     "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22",
+    "drizzle-orm": "^0.45.2",
     "next": "14.2.23",
+    "next-auth": "4.24.11",
+    "postgres": "^3.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.4.2"
   },
   "devDependencies": {
+    "drizzle-kit": "^0.31.10",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.23"
   }

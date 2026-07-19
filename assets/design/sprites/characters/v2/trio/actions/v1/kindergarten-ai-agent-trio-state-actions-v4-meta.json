@@ -1,0 +1,33 @@
+{
+  "asset": "kindergarten_ai_agent_trio_state_actions",
+  "revision": "v2-wheelbase-state-actions-v4",
+  "status": "approved",
+  "actions": [
+    "researching",
+    "executing",
+    "writing",
+    "syncing",
+    "error"
+  ],
+  "characters": [
+    "boy",
+    "girl",
+    "genderless"
+  ],
+  "runtime_frame_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "decoration_excluded_core_height_px": 50,
+  "preview": "assets/design/sprites/characters/v2/trio/actions/v1/kindergarten-ai-agent-trio-state-actions-v4-preview-6x.png",
+  "approved_baseline": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v3.json",
+  "approved_baseline_unchanged": true,
+  "technical_qc_passed": true,
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v4.json",
+  "approved_on": "2026-07-17"
+}

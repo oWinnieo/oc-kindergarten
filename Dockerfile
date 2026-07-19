@@ -14,6 +14,14 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn build
 
+FROM base AS migrator
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json ./package.json
+COPY scripts/migrate-database.mjs ./scripts/migrate-database.mjs
+COPY drizzle ./drizzle
+CMD ["node", "scripts/migrate-database.mjs"]
+
 FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV production
@@ -29,4 +37,4 @@ USER nextjs
 EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
-CMD sh -c "sleep 5 && node server.js"
+CMD ["node", "server.js"]

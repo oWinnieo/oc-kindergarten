@@ -1,0 +1,101 @@
+[
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:1",
+    "hook": "gateway_start",
+    "classroomAgentId": "agent-scout",
+    "observedAt": "2026-07-17T12:00:00.000Z",
+    "data": { "port": 18789 },
+    "expected": "enter"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:2",
+    "hook": "before_agent_run",
+    "classroomAgentId": "agent-scout",
+    "nativeAgentId": "main",
+    "runId": "run-1",
+    "sessionKey": "agent:main:main",
+    "observedAt": "2026-07-17T12:00:01.000Z",
+    "data": { "promptSummary": "核对资料并更新页面" },
+    "expected": "writing"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:3",
+    "hook": "before_tool_call",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:02.000Z",
+    "data": { "toolName": "web_search", "toolCallId": "call-1" },
+    "expected": "researching"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:4",
+    "hook": "after_tool_call",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:03.000Z",
+    "data": { "toolName": "web_search", "toolCallId": "call-1" },
+    "expected": "writing"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:5",
+    "hook": "before_tool_call",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:04.000Z",
+    "data": { "toolName": "exec", "toolCallId": "call-2" },
+    "expected": "executing"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:6",
+    "hook": "after_tool_call",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:05.000Z",
+    "data": { "toolName": "exec", "toolCallId": "call-2", "error": "exit 1" },
+    "expected": "error"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:7",
+    "hook": "message_sending",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:06.000Z",
+    "data": {},
+    "expected": "syncing"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:8",
+    "hook": "message_sent",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:07.000Z",
+    "data": { "success": true },
+    "expected": "idle"
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:9",
+    "hook": "gateway_stop",
+    "classroomAgentId": "agent-scout",
+    "observedAt": "2026-07-17T12:00:08.000Z",
+    "data": { "reason": "shutdown" },
+    "expected": "leave"
+  }
+]

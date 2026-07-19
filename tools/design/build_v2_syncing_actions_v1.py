@@ -16,6 +16,9 @@ SPRITE_ROOT = ROOT / "assets/design/sprites/characters/v2"
 APPROVED_LOCK = (
     SPRITE_ROOT / "approved/v2-wheelbase-animation-baseline-lock-v2.json"
 )
+FINAL_APPROVED_LOCK = (
+    SPRITE_ROOT / "approved/v2-wheelbase-animation-baseline-lock-v3.json"
+)
 FRAME_SIZE = (48, 64)
 VISIBLE_BOTTOM_Y_EXCLUSIVE = 62
 FRAME_DURATION_MS = 200
@@ -51,21 +54,34 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def validate_approved_lock() -> dict:
-    lock = json.loads(APPROVED_LOCK.read_text(encoding="utf-8"))
+def validate_lock(path: Path) -> tuple[dict, dict]:
+    lock = json.loads(path.read_text(encoding="utf-8"))
     mismatches = []
     for item in lock["files"]:
-        path = ROOT / item["path"]
-        if not path.exists() or sha256(path) != item["sha256"]:
+        asset = ROOT / item["path"]
+        if not asset.exists() or sha256(asset) != item["sha256"]:
             mismatches.append(item["path"])
     if mismatches:
         raise RuntimeError(f"Approved V2 baseline changed: {mismatches[:10]}")
-    return {
-        "lock": relative(APPROVED_LOCK),
+    return lock, {
+        "lock": relative(path),
         "checked_files": len(lock["files"]),
         "hash_mismatches": mismatches,
         "passed": True,
     }
+
+
+def validate_approved_lock() -> dict:
+    _lock, validation = validate_lock(APPROVED_LOCK)
+    return validation
+
+
+def validate_final_approved_lock() -> dict:
+    lock, validation = validate_lock(FINAL_APPROVED_LOCK)
+    actions = lock.get("scope", {}).get("state_actions", {}).get("actions", [])
+    if "syncing" not in actions:
+        raise RuntimeError("Final V3 approval lock does not include syncing")
+    return validation
 
 
 def resize_premultiplied(image: Image.Image, size: tuple[int, int]) -> Image.Image:
@@ -381,6 +397,20 @@ def build_state_action_preview(character_frames: dict[str, list[Image.Image]]) -
 
 
 def main() -> None:
+    if FINAL_APPROVED_LOCK.exists():
+        final_validation = validate_final_approved_lock()
+        print(
+            json.dumps(
+                {
+                    "status": "approved_immutable",
+                    "message": "syncing v1 is locked; no candidate assets were rewritten",
+                    "approval_lock": final_validation,
+                },
+                indent=2,
+                ensure_ascii=False,
+            )
+        )
+        return
     baseline_validation = validate_approved_lock()
     character_frames = {}
     for role, spec in CHARACTERS.items():

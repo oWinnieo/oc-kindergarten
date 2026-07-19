@@ -1,0 +1,123 @@
+{
+  "asset": "boy_child_error",
+  "revision": "v2-wheelbase-error-v1",
+  "status": "approved",
+  "action": "error",
+  "semantic": "inspect_diagnostic_reader",
+  "orientation": "down_front",
+  "frames": 4,
+  "frame_duration_ms": 240,
+  "frame_phases": [
+    "error_alert",
+    "fault_scan",
+    "issue_confirm",
+    "wait_repair"
+  ],
+  "runtime_frame_px": [
+    48,
+    64
+  ],
+  "anchor_px": [
+    24,
+    64
+  ],
+  "visible_wheel_bottom_y_exclusive": 62,
+  "accepted_idle_visible_height_px": 55,
+  "decoration_excluded_core_height_px": 50,
+  "excluded_accessory": "cap",
+  "source_raw": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/source/boy-child-error-wheelbase-v2-magenta-raw.png",
+  "source_prompt": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/source/boy-child-error-wheelbase-v2-magenta-raw.prompt.txt",
+  "processor_metadata": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/processor/pipeline-meta.json",
+  "runtime_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-4-48x64.png"
+  ],
+  "strip": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/boy-child-error-4frame-wheelbase-v2-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/boy-child-error-4frame-wheelbase-v2-2x2-48x64.png",
+  "preview_gif": "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/previews/boy-child-error-wheelbase-v2-preview-6x.gif",
+  "qc": {
+    "frames": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          7,
+          40,
+          62
+        ],
+        "visible_width_px": 33,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          7,
+          41,
+          62
+        ],
+        "visible_width_px": 34,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          7,
+          40,
+          62
+        ],
+        "visible_width_px": 33,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          7,
+          41,
+          62
+        ],
+        "visible_width_px": 34,
+        "visible_height_px": 55,
+        "wheel_bottom_y_exclusive": 62,
+        "visible_magenta_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "adjacent_changed_pixels_including_wrap": [
+      1493,
+      1497,
+      1497,
+      1485
+    ],
+    "all_frames_distinct": true,
+    "approved_baseline_unchanged": true,
+    "technical_qc_passed": true
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v4.json",
+  "approved_on": "2026-07-17"
+}

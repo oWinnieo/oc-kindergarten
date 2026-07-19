@@ -9,8 +9,14 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 coverage
+.verify-build/
 *.tsbuildinfo
 __pycache__/
 *.pyc
 .hidden/
 !assets/design/README.md
+
+# macOS metadata
+.DS_Store
+._*
+**/._*

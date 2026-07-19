@@ -1,7 +1,7 @@
 {
   "asset": "genderless_child_syncing",
   "revision": "v2-wheelbase-syncing-v1",
-  "status": "visual_approval_candidate",
+  "status": "approved",
   "action": "syncing",
   "semantic": "confirm_shared_message_card",
   "orientation": "down_front",
@@ -117,5 +117,7 @@
     "all_frames_distinct": true,
     "approved_baseline_unchanged": true,
     "technical_qc_passed": true
-  }
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v3.json",
+  "approved_on": "2026-07-17"
 }

@@ -1,0 +1,108 @@
+{
+  "extension_id": "classroom-corner-entrance-extension-v1",
+  "status": "approved",
+  "approved_on": "2026-07-17",
+  "map_mode": "tile_mode",
+  "visual_model": "layered_tilemap",
+  "runtime_object_model": [
+    "interactive_scene_objects",
+    "scene_hooks"
+  ],
+  "collision_model": [
+    "tile_collision",
+    "trigger_zones"
+  ],
+  "canvas_px": [
+    512,
+    288
+  ],
+  "tile_size_px": 32,
+  "source_layout": "assets/design/maps/classroom-corner/blockout/classroom-corner-layout.json",
+  "runtime_sources": [
+    "lib/classroom-runtime.ts",
+    "components/ClassroomSimulation.tsx"
+  ],
+  "object": {
+    "id": "entrance-door",
+    "metadata": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-meta.json",
+    "position_px": [
+      296,
+      0
+    ],
+    "render_layer": "wall_props",
+    "states": {
+      "closed": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-closed-64x72.png",
+      "open": "assets/design/maps/classroom-corner/props/entrance-door/v1/entrance-door-open-64x72.png"
+    }
+  },
+  "scene_hook": {
+    "door_id": "entrance-door",
+    "spawn_anchor_px": [
+      320,
+      72
+    ],
+    "spawn_tile": [
+      10,
+      2
+    ],
+    "entry_landing_anchor_px": [
+      328,
+      136
+    ],
+    "entry_landing_tile": [
+      10,
+      4
+    ],
+    "characters": [
+      "boy",
+      "girl",
+      "genderless"
+    ],
+    "sequence": [
+      "door_opening",
+      "door_open",
+      "player_spawns_inside_door",
+      "player_walks_to_entry_landing",
+      "door_closing",
+      "door_closed"
+    ]
+  },
+  "actor_spawn_policy": {
+    "shared_across_characters": [
+      "boy",
+      "girl",
+      "genderless"
+    ],
+    "spawn_tile": [
+      10,
+      2
+    ],
+    "spawn_anchor_px": [
+      320,
+      72
+    ],
+    "entry_landing_tile": [
+      10,
+      4
+    ],
+    "entry_landing_anchor_px": [
+      328,
+      136
+    ]
+  },
+  "validation": {
+    "door_state_assets_present": true,
+    "door_alpha_qc_passed": true,
+    "shared_spawn_contract_passed": true,
+    "spawn_tile_walkable": true,
+    "entry_landing_walkable": true,
+    "next_production_build_passed": true,
+    "qa_preview": "assets/design/maps/classroom-corner/extensions/entrance/v1/classroom-corner-entrance-spawn-qa-512x288.png"
+  },
+  "approval_evidence": {
+    "user_confirmation": true,
+    "confirmation_summary": "User accepted the door and shared spawn behavior at tile (10,2).",
+    "visual_approval_confirmed": true,
+    "runtime_contract_confirmed": true
+  }
+}

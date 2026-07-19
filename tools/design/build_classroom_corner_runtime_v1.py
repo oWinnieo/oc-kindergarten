@@ -77,6 +77,24 @@ ACTOR_FOOTPRINT_SIZES = {
     "girl": (26, 6),
     "genderless": (30, 6),
 }
+SOCIAL_GROUND_OCCUPANCY = (14, 8)
+ACTIVITY_SPOT_OFFSETS = ((-8, -4), (8, -4), (-8, 4), (8, 4))
+ACTIVITY_REGIONS = {
+    "idle": (1, 14, 7, 8),
+    "writing": (7, 9, 5, 5),
+    "researching": (2, 5, 4, 6),
+    "executing": (10, 14, 5, 5),
+    "syncing": (9, 13, 6, 6),
+    "error": (4, 8, 6, 6),
+}
+ACTIVITY_ARRIVAL_OFFSET_Y = {
+    "idle": 0,
+    "writing": -40,
+    "researching": 0,
+    "executing": -40,
+    "syncing": 8,
+    "error": 8,
+}
 TILE_SIZE = 32
 TILE_ANCHOR_Y_OFFSET = 8
 RIGHT_FURNITURE_BLOCKED_TILES = tuple((x, 3) for x in range(11, 16))
@@ -324,6 +342,24 @@ def point_to_tile(point: tuple[int, int], rows: list[list[int]]) -> tuple[int, i
         ),
     )
     return (x, y)
+
+
+def serialize_activity_regions(layout: dict) -> dict:
+    rows = layout["walkability"]["rows"]
+    regions = {}
+    for state, (min_column, max_column, min_row, max_row) in ACTIVITY_REGIONS.items():
+        walkable_tiles = sum(
+            rows[row][column] == 1
+            for row in range(min_row, max_row + 1)
+            for column in range(min_column, max_column + 1)
+        )
+        regions[state] = {
+            "bounds_inclusive_tiles": [min_column, min_row, max_column, max_row],
+            "arrival_offset_y_px": ACTIVITY_ARRIVAL_OFFSET_Y[state],
+            "walkable_tiles": walkable_tiles,
+            "standing_capacity": walkable_tiles * len(ACTIVITY_SPOT_OFFSETS),
+        }
+    return regions
 
 
 def validate_right_furniture_collision(layout: dict, props: list[dict]) -> dict:
@@ -965,6 +1001,18 @@ def main() -> None:
                 character: list(size)
                 for character, size in ACTOR_FOOTPRINT_SIZES.items()
             },
+        },
+        "activity_placement": {
+            "revision": "dynamic-region-v1",
+            "character_independent": True,
+            "navigation_grid_px": TILE_SIZE,
+            "social_ground_occupancy_px": list(SOCIAL_GROUND_OCCUPANCY),
+            "spot_offsets_from_tile_anchor_px": [
+                list(offset) for offset in ACTIVITY_SPOT_OFFSETS
+            ],
+            "spots_per_walkable_tile": len(ACTIVITY_SPOT_OFFSETS),
+            "full_region_policy": "wait_queue",
+            "regions": serialize_activity_regions(layout),
         },
         "objects": [serialize_prop(prop) for prop in props],
         "actor_spawns": layout["actor_spawns"],

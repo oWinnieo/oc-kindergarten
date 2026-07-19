@@ -1,3 +1,5 @@
+import type { AgentCharacterVariant } from './agent-registry-contract';
+
 export const WORLD_SIZE = { width: 512, height: 288 } as const;
 export const TILE_SIZE = 32;
 export const TILE_ANCHOR_Y_OFFSET = 8;
@@ -14,19 +16,29 @@ export const DIRECTION_ORDER = [
 ] as const;
 
 export type Direction = (typeof DIRECTION_ORDER)[number];
-export type CharacterId = 'boy' | 'girl' | 'genderless';
-export type AgentTaskState =
-  | 'idle'
-  | 'writing'
-  | 'researching'
-  | 'executing'
-  | 'syncing';
+export type CharacterId = AgentCharacterVariant;
+export const AGENT_TASK_STATES = [
+  'idle',
+  'writing',
+  'researching',
+  'executing',
+  'syncing',
+  'error',
+] as const;
+export type AgentTaskState = (typeof AGENT_TASK_STATES)[number];
 export type Tile = readonly [number, number];
 
 export interface Point {
   x: number;
   y: number;
 }
+
+// Stable scene ID from the approved entrance v1 extension manifest.
+export const CLASSROOM_ENTRANCE_ID = 'entrance-door' as const;
+export const PLAYER_JOIN_SPAWN_TILE: Tile = [10, 2];
+export const PLAYER_JOIN_SPAWN: Point = { x: 320, y: 72 };
+export const PLAYER_ENTRY_LANDING_TILE: Tile = [10, 4];
+export const PLAYER_ENTRY_LANDING: Point = { x: 328, y: 136 };
 
 export const WALKABILITY: readonly (readonly number[])[] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -36,7 +48,7 @@ export const WALKABILITY: readonly (readonly number[])[] = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1],
+  [1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
@@ -54,68 +66,88 @@ export const STATE_CONFIG: Record<
     label: '待机',
     shortLabel: 'Idle',
     location: '教室日常位置',
-    description: '返回各自的稳定出生点并播放 idle。',
+    description: '从统一入口前往日常活动区域内的随机可用位置并播放 idle。',
     arrivalAnimation: '播放 4 帧 idle',
   },
   writing: {
     label: '写画中',
     shortLabel: 'Writing',
     location: '写画桌',
-    description: '寻路到中央写画桌前，用画笔完成连续的书写或绘画动作。',
+    description: '寻路到写画区域内的随机可用位置，完成书写或绘画动作。',
     arrivalAnimation: '播放 4 帧写画动作',
   },
   researching: {
     label: '研究中',
     shortLabel: 'Researching',
     location: '阅读角',
-    description: '寻路到书架与地毯前的阅读区域并翻阅绘本。',
+    description: '寻路到阅读区域内的随机可用位置并翻阅绘本。',
     arrivalAnimation: '播放 4 帧阅读动作',
   },
   executing: {
     label: '执行中',
     shortLabel: 'Executing',
     location: '积木区',
-    description: '寻路到积木桌前的安全交互位置并放置积木。',
+    description: '寻路到积木区域内的随机可用位置并放置积木。',
     arrivalAnimation: '播放 4 帧积木动作',
   },
   syncing: {
     label: '同步中',
     shortLabel: 'Syncing',
     location: '同步邮件站',
-    description: '寻路到教室邮件站前，读取消息卡并完成同步确认。',
+    description: '寻路到同步区域内的随机可用位置，读取消息卡并完成同步。',
     arrivalAnimation: '播放 4 帧同步动作',
+  },
+  error: {
+    label: '故障中',
+    shortLabel: 'Error',
+    location: '诊断修理站',
+    description: '寻路到修理区域内的随机可用位置，检查故障并等待修复。',
+    arrivalAnimation: '播放 4 帧诊断动作',
   },
 };
 
-export const AGENT_TARGET_TILES: Record<
-  AgentTaskState,
-  Record<CharacterId, Tile>
-> = {
-  idle: {
-    boy: [3, 7],
-    girl: [8, 7],
-    genderless: [13, 7],
-  },
-  writing: {
-    boy: [7, 5],
-    girl: [8, 5],
-    genderless: [9, 5],
-  },
-  researching: {
-    boy: [3, 5],
-    girl: [4, 5],
-    genderless: [5, 5],
-  },
-  executing: {
-    boy: [10, 5],
-    girl: [12, 5],
-    genderless: [14, 5],
-  },
-  syncing: {
-    boy: [10, 6],
-    girl: [11, 6],
-    genderless: [12, 6],
-  },
+export interface ActivityRegion {
+  minColumn: number;
+  maxColumn: number;
+  minRow: number;
+  maxRow: number;
+}
+
+export interface ActivityTarget {
+  tile: Tile;
+  point: Point;
+}
+
+export class ActivityRegionFullError extends Error {
+  readonly state: AgentTaskState;
+
+  constructor(state: AgentTaskState) {
+    super(`${STATE_CONFIG[state].location}当前没有可用站位`);
+    this.name = 'ActivityRegionFullError';
+    this.state = state;
+  }
+}
+
+// Only the wheel contact area reserves floor space. The 48x64 body sprite may
+// overlap neighboring sprites and is ordered visually by its ground anchor Y.
+export const AGENT_GROUND_OCCUPANCY = { width: 14, height: 8 } as const;
+
+const ACTIVITY_SPOT_OFFSETS: readonly Point[] = [
+  { x: -8, y: -4 },
+  { x: 8, y: -4 },
+  { x: -8, y: 4 },
+  { x: 8, y: 4 },
+];
+
+// Functional areas belong to task states, never to a character's gender.
+// Bounds are inclusive grid rectangles; a free walkable tile is sampled on entry.
+export const ACTIVITY_REGIONS: Record<AgentTaskState, ActivityRegion> = {
+  idle: { minColumn: 1, maxColumn: 14, minRow: 7, maxRow: 8 },
+  writing: { minColumn: 7, maxColumn: 9, minRow: 5, maxRow: 5 },
+  researching: { minColumn: 2, maxColumn: 5, minRow: 4, maxRow: 6 },
+  executing: { minColumn: 10, maxColumn: 14, minRow: 5, maxRow: 5 },
+  syncing: { minColumn: 9, maxColumn: 13, minRow: 6, maxRow: 6 },
+  error: { minColumn: 4, maxColumn: 8, minRow: 6, maxRow: 6 },
 };
 
 export const STATE_ARRIVAL_OFFSET_Y: Record<AgentTaskState, number> = {
@@ -124,6 +156,7 @@ export const STATE_ARRIVAL_OFFSET_Y: Record<AgentTaskState, number> = {
   researching: 0,
   executing: -40,
   syncing: 8,
+  error: 8,
 };
 
 const NEIGHBORS = [
@@ -150,6 +183,69 @@ function isWalkable(tile: Tile): boolean {
     x < WALKABILITY[0].length &&
     WALKABILITY[y][x] === 1
   );
+}
+
+export function activityRegionTiles(state: AgentTaskState): Tile[] {
+  const region = ACTIVITY_REGIONS[state];
+  const tiles: Tile[] = [];
+  for (let row = region.minRow; row <= region.maxRow; row += 1) {
+    for (
+      let column = region.minColumn;
+      column <= region.maxColumn;
+      column += 1
+    ) {
+      const tile: Tile = [column, row];
+      if (isWalkable(tile)) tiles.push(tile);
+    }
+  }
+  return tiles;
+}
+
+export function activityRegionTargets(state: AgentTaskState): ActivityTarget[] {
+  return activityRegionTiles(state).flatMap((tile) => {
+    const anchor = tileToAnchor(tile);
+    return ACTIVITY_SPOT_OFFSETS.map((offset) => ({
+      tile,
+      point: {
+        x: anchor.x + offset.x,
+        y: anchor.y + offset.y + STATE_ARRIVAL_OFFSET_Y[state],
+      },
+    }));
+  });
+}
+
+function overlapsOccupiedGround(
+  point: Point,
+  occupiedPoints: readonly Point[],
+): boolean {
+  return occupiedPoints.some(
+    (occupied) =>
+      Math.abs(point.x - occupied.x) < AGENT_GROUND_OCCUPANCY.width &&
+      Math.abs(point.y - occupied.y) < AGENT_GROUND_OCCUPANCY.height,
+  );
+}
+
+export function selectActivityTarget(
+  state: AgentTaskState,
+  occupiedPoints: readonly Point[] = [],
+  random: () => number = Math.random,
+): ActivityTarget {
+  const candidates = activityRegionTargets(state);
+  if (candidates.length === 0) {
+    throw new Error(`状态 ${state} 没有可通行的活动坐标`);
+  }
+
+  const available = candidates.filter(
+    (candidate) => !overlapsOccupiedGround(candidate.point, occupiedPoints),
+  );
+  if (available.length === 0) {
+    throw new ActivityRegionFullError(state);
+  }
+  const index = Math.min(
+    available.length - 1,
+    Math.max(0, Math.floor(random() * available.length)),
+  );
+  return available[index];
 }
 
 function octileDistance(from: Tile, to: Tile): number {

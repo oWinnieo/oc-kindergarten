@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: two-state animated door sprite source for a 512x288 children's classroom game
+Primary request: Create exactly two matching views of one small child-sized classroom entrance door: LEFT is fully closed, RIGHT is fully open with a dark but welcoming empty doorway visible. Use the visible classroom foundation image as the exact visual style reference.
+Scene/backdrop: perfectly flat solid #ff00ff chroma-key background, uniform edge-to-edge
+Subject: compact rounded wooden classroom door and simple frame, friendly proportions, tiny round handle, same front-facing three-quarter/pixel-inspired 2D game perspective as the reference; both states must have identical outer frame dimensions and alignment
+Style/medium: clean modern pixel-inspired hand-painted 2D game asset, crisp low-resolution shapes, matching the reference's warm peach-orange wood palette and dark blue outlines, no retro chunkiness
+Composition/framing: two objects only, side by side with generous separation and equal padding; each object fully visible; no dividers, no labels
+Lighting/mood: soft cheerful classroom lighting consistent with the visible reference
+Constraints: the left and right door frames must match exactly in size, camera angle, palette, and proportions; no floor plane; no cast shadow; no children or furniture; no wall; no text; no watermark; do not use #ff00ff anywhere in the subject
+Avoid: extra doors, labels, numbers, sprite-sheet grid lines, background texture, gradients, shadows, cropped edges

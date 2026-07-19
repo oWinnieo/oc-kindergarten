@@ -1,0 +1,17 @@
+Use case: stylized-concept
+Asset type: production 2D game character action sheet
+Input images: Image 1 is the approved OC Kindergarten V2 wheelbase genderless child idle sheet and is the active identity, scale, palette, and camera reference.
+
+Create a new four-frame error-diagnostic action sheet for exactly the same genderless character. Layout: exactly four equal invisible cells in a 2x2 grid, read top-left, top-right, bottom-left, bottom-right. No visible borders, boxes, dividers, labels, or guide marks.
+
+Identity lock: preserve the white rounded monitor head, black terminal screen, cyan eyes and mouth, single blue antenna with round tip, light-blue sleeves, yellow-and-blue clothing and backpack, white-and-blue wheeled lower chassis, gray wheels and small caster. Front-facing/down orientation from the same slightly elevated top-down RPG camera. Do not redesign any body part. The antenna is decoration; keep the underlying body size unchanged.
+
+Action semantic: inspect_diagnostic_reader. The character holds one compact orange-red diagnostic reader tightly against the lower torso. Frame 1 error_alert: reader low, hands ready, slightly concerned cyan-eye expression. Frame 2 fault_scan: reader raised toward the terminal screen, one small amber indicator bar on the device. Frame 3 issue_confirm: opposite hand taps the side of the reader, its indicator bar becomes red. Frame 4 wait_repair: reader lowers slightly, hands settle close to the torso, pose returns smoothly toward frame 1.
+
+The reader is a compact body-attached prop. It has no text, letters, numbers, warning symbol, icon, screen UI, glow, or detached effect. Keep both hands and the reader within normal body width. No floating exclamation mark, signal rings, particles, speech bubble, furniture, floor, or environment.
+
+Scale and containment: the same body height and silhouette scale as Image 1 in all four cells. Full body centered inside the central 60% to 70% of each cell, stable wheel-bottom line, generous magenta padding on all four sides. Nothing may cross a cell edge. Same character identity and same bounding-box scale in every frame.
+
+Style: match Image 1 exactly—project-native crisp high-resolution pixel art designed to downscale cleanly to 48x64, limited palette, readable pixel clusters, clean transparent-ready silhouette.
+
+Background: perfectly flat uniform solid #FF00FF in every cell, edge to edge, no gradient or texture. Do not use #FF00FF in the character. No text, watermark, shadow, reflection, room background, or extra object.

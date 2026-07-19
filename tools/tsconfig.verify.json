@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "../.verify-build",
+    "noEmit": false,
+    "isolatedModules": false,
+    "incremental": false
+  },
+  "include": [
+    "./verify-openclaw-adapters.ts",
+    "./verify-agent-registry.ts",
+    "./verify-provider-binding.ts",
+    "./verify-parent-profile.ts",
+    "./verify-agent-enrollment.ts"
+  ]
+}
