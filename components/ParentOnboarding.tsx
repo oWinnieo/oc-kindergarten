@@ -143,9 +143,12 @@ export default function ParentOnboarding() {
           <p className="eyebrow">Parent profile</p>
           <h2>确认你的家长资料</h2>
         </div>
-        <a className="parentTextLink" href="/api/auth/signout?callbackUrl=%2F">
-          退出登录
-        </a>
+        <div className="parentHeadingLinks">
+          <a className="parentTextLink" href="/family">我的家庭</a>
+          <a className="parentTextLink" href="/api/auth/signout?callbackUrl=%2F">
+            退出登录
+          </a>
+        </div>
       </div>
       <p className="parentIntro">
         只填写社区需要的最少资料。邮箱来自 Casdoor，不能用来判断你拥有哪个 Agent。

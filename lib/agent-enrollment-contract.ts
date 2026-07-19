@@ -24,6 +24,20 @@ export const AGENT_ENROLLMENT_STATUSES = [
 export type AgentEnrollmentStatus =
   (typeof AGENT_ENROLLMENT_STATUSES)[number];
 
+export type AgentEnrollmentLifecycleAction =
+  | 'suspend'
+  | 'resume'
+  | 'archive';
+
+export function nextAgentEnrollmentStatus(
+  status: AgentEnrollmentStatus,
+  action: AgentEnrollmentLifecycleAction,
+): AgentEnrollmentStatus | null {
+  if (action === 'suspend') return status === 'active' ? 'suspended' : null;
+  if (action === 'resume') return status === 'suspended' ? 'active' : null;
+  return status === 'archived' ? null : 'archived';
+}
+
 export interface EnrolledAgentSummary extends ProviderAgentDraft {
   agentId: string;
   displayName: string;

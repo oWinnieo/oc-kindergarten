@@ -47,6 +47,12 @@ export async function POST(request: Request) {
     );
   }
   const stored = await storeAgentEvent(parsed.event);
+  if (stored.reason === 'inactive_agent') {
+    return NextResponse.json(
+      { ok: false, error: 'Agent 当前未处于 active 状态' },
+      { status: 409 },
+    );
+  }
   if (stored.accepted) await dispatchPendingOutbox();
   return NextResponse.json({
     ok: true,

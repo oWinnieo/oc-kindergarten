@@ -9,6 +9,7 @@ export const AGENT_EVENT_SCHEMA_VERSION = 1 as const;
 export const AGENT_EVENT_SOURCES = [
   'openclaw',
   'hermes',
+  'command',
   'mock',
   'replay',
 ] as const;

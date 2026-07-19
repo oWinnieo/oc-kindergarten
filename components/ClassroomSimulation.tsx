@@ -1111,16 +1111,6 @@ export default function ClassroomSimulation({
     };
   }, [clearEventTimers, profilesReady, ready, startJoinSequence]);
 
-  const publishStateForAll = useCallback(
-    (state: AgentTaskState) => {
-      for (const agent of agentsRef.current) {
-        const event = mockAdapterRef.current?.createStateEvent(agent.id, state);
-        if (event) dispatchAgentEvent(event);
-      }
-    },
-    [dispatchAgentEvent],
-  );
-
   const startLeaveSequence = useCallback(() => {
     clearEventTimers();
     setPresenceTransition('leaving');
@@ -1420,20 +1410,67 @@ export default function ClassroomSimulation({
     setAdminToken('');
   };
 
-  const handleAllState = (state: AgentTaskState) => {
+  const publishAdminAction = useCallback(
+    async (agentId: string, state: AgentTaskState) => {
+      const response = await fetch(
+        `/api/agents/${encodeURIComponent(agentId)}/actions`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-OC-Kindergarten-Actor': 'admin',
+          },
+          body: JSON.stringify({
+            schemaVersion: 1,
+            action: state,
+            requestId: crypto.randomUUID(),
+          }),
+        },
+      );
+      const body = (await response.json()) as {
+        error?: string;
+        event?: unknown;
+      };
+      if (!response.ok || !body.event) {
+        throw new Error(body.error ?? '行为指令发送失败');
+      }
+      dispatchAgentEvent(body.event);
+    },
+    [dispatchAgentEvent],
+  );
+
+  const handleAllState = async (state: AgentTaskState) => {
     if (!isAdmin || !adminPanelOpen) return;
     setAutoMode(false);
-    publishStateForAll(state);
+    setSceneActionStatus(null);
+    try {
+      await Promise.all(
+        agentsRef.current
+          .filter((agent) => agent.visible)
+          .map((agent) => publishAdminAction(agent.id, state)),
+      );
+      setSceneActionStatus(`全体 Agent 已收到${STATE_CONFIG[state].label}指令`);
+    } catch (error) {
+      setSceneActionStatus(
+        error instanceof Error ? error.message : '全体行为指令发送失败',
+      );
+    }
   };
 
-  const handleAgentState = (agentId: string, state: AgentTaskState) => {
+  const handleAgentState = async (agentId: string, state: AgentTaskState) => {
     if (!isAdmin || !adminPanelOpen) return;
     setAutoMode(false);
-    const event = mockAdapterRef.current?.createStateEvent(agentId, state);
-    if (event) dispatchAgentEvent(event);
+    setSceneActionStatus(null);
+    try {
+      await publishAdminAction(agentId, state);
+    } catch (error) {
+      setSceneActionStatus(
+        error instanceof Error ? error.message : '行为指令发送失败',
+      );
+    }
   };
 
-  const handleCanvasClick = (event: ReactMouseEvent<HTMLCanvasElement>) => {
+  const handleCanvasClick = async (event: ReactMouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (
       !canvas ||
@@ -1467,14 +1504,14 @@ export default function ClassroomSimulation({
     }
 
     setAutoMode(false);
-    const runtimeEvent = mockAdapterRef.current?.createStateEvent(
-      targetAgent.id,
-      prop.actionState,
-      `用户点击场景物件 ${prop.id}`,
-    );
-    if (runtimeEvent && dispatchAgentEvent(runtimeEvent)) {
+    try {
+      await publishAdminAction(targetAgent.id, prop.actionState);
       setSceneActionStatus(
         `已让 ${targetAgent.name} 前往${STATE_CONFIG[prop.actionState].location}`,
+      );
+    } catch (error) {
+      setSceneActionStatus(
+        error instanceof Error ? error.message : '场景行为指令发送失败',
       );
     }
   };

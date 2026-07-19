@@ -217,6 +217,12 @@ button:focus-visible {
   font-weight: 800;
 }
 
+.parentHeadingLinks {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .parentStatus,
 .parentError,
 .parentSuccess {
@@ -464,6 +470,297 @@ button:focus-visible {
   margin-bottom: 5px;
 }
 
+.familyShell {
+  width: min(1080px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 38px 0 72px;
+}
+
+.familyBrand {
+  margin-bottom: 26px;
+}
+
+.familyHeader {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0 26px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.familyHeader h1 {
+  margin: 3px 0 7px;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.familyCounts {
+  margin: 0;
+  display: flex;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.familyNav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.familyNav a,
+.familyEmptyState a,
+.familyPendingRow a {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.familyStatus,
+.familyAuthState {
+  border-top: 1px solid var(--line);
+  padding: 56px 0;
+}
+
+.familyAuthState h2 {
+  margin: 0 0 18px;
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+.familyNotice {
+  margin: 18px 0 0;
+  border-left: 3px solid var(--blue);
+  padding: 10px 14px;
+  background: #edf8fc;
+  color: #205f82;
+  font-size: 13px;
+}
+
+.familySection {
+  padding: 34px 0;
+}
+
+.familyPendingSection {
+  border-top: 1px solid var(--line);
+}
+
+.familySectionHeading {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.familySectionHeading h2 {
+  margin: 3px 0 0;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.familyAgentList {
+  display: grid;
+  gap: 10px;
+}
+
+.familyAgentCard {
+  min-height: 138px;
+  border: 1px solid rgba(23, 50, 74, 0.16);
+  border-radius: 8px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(300px, 1.25fr) auto;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.familyAgentIdentity {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.familyAgentSwatch {
+  width: 9px;
+  height: 48px;
+  flex: 0 0 auto;
+  border-radius: 3px;
+}
+
+.familyAgentNameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.familyAgentNameRow h3 {
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.familyAgentIdentity p {
+  margin: 5px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.familyAgentIdentity code {
+  color: #496371;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.familyBehaviorControl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(72px, 1fr));
+  gap: 6px;
+}
+
+.familyBehaviorControl button {
+  height: 38px;
+  border: 1px solid rgba(23, 50, 74, 0.16);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyBehaviorControl button:hover:not(:disabled),
+.familyBehaviorControl button.isSelected {
+  border-color: var(--blue);
+  background: var(--sky);
+  color: #145b83;
+}
+
+.familyBehaviorControl button:disabled,
+.familyAgentLifecycle button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.familyAgentLifecycle {
+  width: 104px;
+  display: grid;
+  gap: 7px;
+}
+
+.familyAgentLifecycle .parentSecondaryAction,
+.familyDangerAction {
+  width: 100%;
+  min-height: 38px;
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyDangerAction {
+  border: 1px solid rgba(176, 53, 53, 0.32);
+  background: #fff8f7;
+  color: #a23333;
+}
+
+.familyEmptyState {
+  border: 1px dashed rgba(23, 50, 74, 0.25);
+  border-radius: 8px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--muted);
+}
+
+.familyEmptyState p,
+.familyEmptyLine {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.familyPendingList {
+  border-top: 1px solid var(--line);
+}
+
+.familyPendingRow {
+  min-height: 58px;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.familyPendingRow > div {
+  display: grid;
+  gap: 4px;
+}
+
+.familyPendingRow span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.familyPendingActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.familyPendingActions button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #a23333;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyPendingActions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.familyArchive {
+  border-top: 1px solid var(--line);
+  padding: 22px 0;
+  color: var(--muted);
+}
+
+.familyArchive summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.familyArchive ul {
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.familyArchive li {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 12px;
+}
+
 @media (max-width: 620px) {
   .parentOnboardingShell {
     padding-top: 28px;
@@ -481,6 +778,11 @@ button:focus-visible {
     display: grid;
   }
 
+  .parentHeadingLinks,
+  .familyNav {
+    flex-wrap: wrap;
+  }
+
   .agentConfirmForm,
   .agentVariantOptions {
     grid-template-columns: 1fr;
@@ -494,6 +796,34 @@ button:focus-visible {
   .agentEnrollmentTitle {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .familyShell {
+    width: min(100% - 24px, 1080px);
+    padding-top: 24px;
+  }
+
+  .familyHeader,
+  .familySectionHeading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .familyHeader h1 {
+    font-size: 28px;
+  }
+
+  .familyAgentCard {
+    grid-template-columns: 1fr;
+  }
+
+  .familyBehaviorControl {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .familyAgentLifecycle {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
   }
 }
 

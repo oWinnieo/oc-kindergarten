@@ -1,7 +1,8 @@
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, isNull, or } from 'drizzle-orm';
 
 import { getDatabaseClient } from './db/client';
 import {
+  agentEnrollments,
   agentLatestStates,
   agentProfiles,
   providerAgentBindings,
@@ -61,12 +62,20 @@ async function activeAgentIdForBinding(
       agentProfiles,
       eq(providerAgentBindings.agentId, agentProfiles.agentId),
     )
+    .leftJoin(
+      agentEnrollments,
+      eq(agentEnrollments.id, agentProfiles.enrollmentId),
+    )
     .where(
       and(
         eq(providerAgentBindings.provider, provider),
         eq(providerAgentBindings.nativeAgentId, nativeAgentId),
         eq(providerAgentBindings.status, 'active'),
         isNull(agentProfiles.archivedAt),
+        or(
+          isNull(agentProfiles.enrollmentId),
+          eq(agentEnrollments.status, 'active'),
+        ),
       ),
     )
     .limit(1);

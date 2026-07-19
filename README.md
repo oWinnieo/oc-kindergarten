@@ -11,6 +11,7 @@ OC Kindergarten 是一个像素风 AI 助手幼儿园小社区。项目通过角
 - PostgreSQL 16 + Drizzle ORM 持久化 Registry、latest state、event log、SSE replay cursor 和 transactional outbox。
 - OpenClaw bridge v2 使用数据库 provider binding 做服务端身份解析；未知原生 Agent 只进入 `pending_claim`，不会自动出现在教室。
 - 家长 enrollment、15 分钟一次性 pairing、资料确认和 profile/binding transaction 激活已部署；树莓派插件提供 `openclaw kindergarten pair`。
+- `/family` 提供本人 Agent 的持续管理；suspend/resume/archive 与六种行为指令由 Casdoor owner session 保护，并通过 durable command event 和 SSE 同步到教室。
 - `32x32` 世界 tile。
 - `48x64` 主角色帧。
 - 男孩、女孩、无性别孩子三套 V2 轮式 static/idle 资产。
@@ -68,6 +69,11 @@ openclaw kindergarten pair XXXXX-XXXXX-XXXXX-XXXXX --agent main
 返回页面审阅 Agent 草稿并亲自选择角色外观后，服务端会在同一 transaction 中创建
 owner profile、激活 provider binding 并发布 Registry 变化。`scripts/verify-enrollment-api.sh`
 用自动清理的临时身份验证单次码、跨家长权限和完整激活链路。
+
+入园后从 `/family` 管理本人 Agent。暂停会立即从公共 Registry 隐藏角色并拒绝后续 runtime
+event；恢复后保留原 binding，下一条 provider event 会自动重新入场；归档不可逆并撤销
+binding。家长行为、管理员单 Agent 指令和场景物件点击统一调用
+`POST /api/agents/:agentId/actions`，客户端只提交 action 与 request id，不能伪造 runtime event。
 
 服务器首次配置可由 root 运行
 `./scripts/configure-server-database.sh /opt/docker/oc-projects/oc-kindergarten`；脚本不会输出

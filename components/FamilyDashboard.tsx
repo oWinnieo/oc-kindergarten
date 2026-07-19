@@ -1,0 +1,423 @@
+'use client';
+
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
+type EnrollmentStatus =
+  | 'draft'
+  | 'awaiting_pairing'
+  | 'pending_parent_confirmation'
+  | 'active'
+  | 'suspended'
+  | 'archived';
+
+type AgentAction =
+  | 'idle'
+  | 'writing'
+  | 'researching'
+  | 'executing'
+  | 'syncing'
+  | 'error';
+
+interface ParentProfile {
+  id: string;
+  displayName: string;
+}
+
+interface EnrollmentAgent {
+  agentId: string;
+  displayName: string;
+  characterVariant: 'boy' | 'girl' | 'genderless';
+  role?: string;
+  color?: string;
+}
+
+interface Enrollment {
+  id: string;
+  status: EnrollmentStatus;
+  provider?: string;
+  nativeAgentId?: string;
+  pairingExpired?: boolean;
+  updatedAt: string;
+  agent?: EnrollmentAgent;
+}
+
+type DashboardState =
+  | { kind: 'loading' }
+  | { kind: 'signed-out' }
+  | { kind: 'ready'; parent: ParentProfile; enrollments: Enrollment[] }
+  | { kind: 'error'; message: string };
+
+const ACTIONS: readonly { id: AgentAction; label: string; location: string }[] = [
+  { id: 'idle', label: '休息', location: '休息区' },
+  { id: 'writing', label: '写画', location: '写画区' },
+  { id: 'researching', label: '阅读', location: '阅读区' },
+  { id: 'executing', label: '手工', location: '积木区' },
+  { id: 'syncing', label: '交流', location: '邮件站' },
+  { id: 'error', label: '检查', location: '修理区' },
+] as const;
+
+const STATUS_LABELS: Record<EnrollmentStatus, string> = {
+  draft: '待生成配对码',
+  awaiting_pairing: '等待配对',
+  pending_parent_confirmation: '等待确认',
+  active: '在园',
+  suspended: '已暂停',
+  archived: '已归档',
+};
+
+const VARIANT_LABELS: Record<EnrollmentAgent['characterVariant'], string> = {
+  boy: '男孩角色',
+  girl: '女孩角色',
+  genderless: '无性别角色',
+};
+
+function requestId() {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  return `family-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+export default function FamilyDashboard() {
+  const [state, setState] = useState<DashboardState>({ kind: 'loading' });
+  const [busyKey, setBusyKey] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [lastActions, setLastActions] = useState<Record<string, AgentAction>>({});
+
+  const load = useCallback(async () => {
+    setState({ kind: 'loading' });
+    try {
+      const [profileResponse, enrollmentsResponse] = await Promise.all([
+        fetch('/api/me', { cache: 'no-store' }),
+        fetch('/api/enrollments', { cache: 'no-store' }),
+      ]);
+      if (profileResponse.status === 401 || enrollmentsResponse.status === 401) {
+        setState({ kind: 'signed-out' });
+        return;
+      }
+      const profileBody = (await profileResponse.json()) as {
+        parent?: ParentProfile;
+        error?: string;
+      };
+      const enrollmentBody = (await enrollmentsResponse.json()) as {
+        enrollments?: Enrollment[];
+        error?: string;
+      };
+      if (!profileResponse.ok || !profileBody.parent) {
+        throw new Error(profileBody.error ?? '无法读取家长资料');
+      }
+      if (!enrollmentsResponse.ok || !enrollmentBody.enrollments) {
+        throw new Error(enrollmentBody.error ?? '无法读取家庭 Agent');
+      }
+      setState({
+        kind: 'ready',
+        parent: profileBody.parent,
+        enrollments: enrollmentBody.enrollments,
+      });
+    } catch (error) {
+      setState({
+        kind: 'error',
+        message: error instanceof Error ? error.message : '家庭页载入失败',
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  const groups = useMemo(() => {
+    const enrollments = state.kind === 'ready' ? state.enrollments : [];
+    return {
+      managed: enrollments.filter(
+        (item) => item.status === 'active' || item.status === 'suspended',
+      ),
+      pending: enrollments.filter(
+        (item) =>
+          item.status === 'draft' ||
+          item.status === 'awaiting_pairing' ||
+          item.status === 'pending_parent_confirmation',
+      ),
+      archived: enrollments.filter((item) => item.status === 'archived'),
+    };
+  }, [state]);
+
+  const replaceEnrollment = (next: Enrollment) => {
+    setState((current) =>
+      current.kind !== 'ready'
+        ? current
+        : {
+            ...current,
+            enrollments: current.enrollments.map((item) =>
+              item.id === next.id ? next : item,
+            ),
+          },
+    );
+  };
+
+  const changeLifecycle = async (
+    enrollment: Enrollment,
+    action: 'suspend' | 'resume' | 'archive',
+  ) => {
+    if (
+      action === 'archive' &&
+      !window.confirm(`归档 ${enrollment.agent?.displayName ?? '这个 Agent'}？此操作不可撤销。`)
+    ) {
+      return;
+    }
+    const key = `${enrollment.id}:${action}`;
+    setBusyKey(key);
+    setNotice(null);
+    try {
+      const response = await fetch(
+        `/api/enrollments/${encodeURIComponent(enrollment.id)}/${action}`,
+        { method: 'POST' },
+      );
+      const body = (await response.json()) as {
+        enrollment?: Enrollment;
+        error?: string;
+      };
+      if (!response.ok || !body.enrollment) {
+        throw new Error(body.error ?? '无法更新 Agent 状态');
+      }
+      replaceEnrollment(body.enrollment);
+      setNotice(
+        action === 'suspend'
+          ? 'Agent 已暂停。'
+          : action === 'resume'
+            ? 'Agent 已恢复，下一条运行事件会让它重新入场。'
+            : 'Agent 已归档。',
+      );
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '无法更新 Agent 状态');
+    } finally {
+      setBusyKey(null);
+    }
+  };
+
+  const issueAction = async (enrollment: Enrollment, action: AgentAction) => {
+    if (!enrollment.agent) return;
+    const key = `${enrollment.id}:action:${action}`;
+    setBusyKey(key);
+    setNotice(null);
+    try {
+      const response = await fetch(
+        `/api/agents/${encodeURIComponent(enrollment.agent.agentId)}/actions`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            schemaVersion: 1,
+            action,
+            requestId: requestId(),
+          }),
+        },
+      );
+      const body = (await response.json()) as { error?: string };
+      if (!response.ok) throw new Error(body.error ?? '行为指令发送失败');
+      setLastActions((current) => ({
+        ...current,
+        [enrollment.agent!.agentId]: action,
+      }));
+      const selected = ACTIONS.find((item) => item.id === action);
+      setNotice(
+        `${enrollment.agent.displayName} 正在前往${selected?.location ?? '目标区域'}。`,
+      );
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '行为指令发送失败');
+    } finally {
+      setBusyKey(null);
+    }
+  };
+
+  if (state.kind === 'loading') {
+    return <p className="familyStatus">正在读取家庭资料...</p>;
+  }
+
+  if (state.kind === 'signed-out') {
+    return (
+      <section className="familyAuthState">
+        <h2>登录后查看你的家庭</h2>
+        <a
+          className="parentPrimaryAction"
+          href="/api/auth/signin/casdoor?callbackUrl=%2Ffamily"
+        >
+          使用 Casdoor 登录
+        </a>
+      </section>
+    );
+  }
+
+  if (state.kind === 'error') {
+    return (
+      <section className="familyAuthState">
+        <h2>家庭资料暂时不可用</h2>
+        <p className="parentError">{state.message}</p>
+        <button className="parentSecondaryAction" type="button" onClick={() => void load()}>
+          重新加载
+        </button>
+      </section>
+    );
+  }
+
+  return (
+    <>
+      <header className="familyHeader">
+        <div>
+          <p className="eyebrow">Family</p>
+          <h1>{state.parent.displayName}的家庭</h1>
+          <p className="familyCounts">
+            {groups.managed.filter((item) => item.status === 'active').length} 名在园
+            <span aria-hidden="true">/</span>
+            {groups.pending.length} 项待处理
+          </p>
+        </div>
+        <nav className="familyNav" aria-label="家庭页导航">
+          <a href="/">教室</a>
+          <a href="/onboarding/parent">添加 Agent</a>
+          <a href="/api/auth/signout?callbackUrl=%2F">退出</a>
+        </nav>
+      </header>
+
+      {notice ? (
+        <p className="familyNotice" role="status">{notice}</p>
+      ) : null}
+
+      <section className="familySection" aria-labelledby="managed-agents-title">
+        <div className="familySectionHeading">
+          <div>
+            <p className="eyebrow">Agents</p>
+            <h2 id="managed-agents-title">在园 Agent</h2>
+          </div>
+          <a className="parentPrimaryAction" href="/onboarding/parent">
+            添加 Agent
+          </a>
+        </div>
+
+        {groups.managed.length === 0 ? (
+          <div className="familyEmptyState">
+            <p>还没有已入园的 Agent。</p>
+            <a href="/onboarding/parent">开始入园</a>
+          </div>
+        ) : (
+          <div className="familyAgentList">
+            {groups.managed.map((enrollment) => {
+              const agent = enrollment.agent;
+              if (!agent) return null;
+              const suspended = enrollment.status === 'suspended';
+              return (
+                <article className="familyAgentCard" key={enrollment.id}>
+                  <div className="familyAgentIdentity">
+                    <span
+                      className="familyAgentSwatch"
+                      style={{ background: agent.color ?? '#297db6' }}
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <div className="familyAgentNameRow">
+                        <h3>{agent.displayName}</h3>
+                        <span className={`agentEnrollmentBadge status-${enrollment.status}`}>
+                          {STATUS_LABELS[enrollment.status]}
+                        </span>
+                      </div>
+                      <p>
+                        {agent.role ?? 'AI Agent'} · {VARIANT_LABELS[agent.characterVariant]}
+                      </p>
+                      <code>{enrollment.provider}/{enrollment.nativeAgentId}</code>
+                    </div>
+                  </div>
+
+                  <div className="familyBehaviorControl" aria-label={`${agent.displayName}的行为`}>
+                    {ACTIONS.map((action) => (
+                      <button
+                        className={lastActions[agent.agentId] === action.id ? 'isSelected' : ''}
+                        type="button"
+                        key={action.id}
+                        disabled={suspended || busyKey !== null}
+                        onClick={() => void issueAction(enrollment, action.id)}
+                        title={`前往${action.location}`}
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="familyAgentLifecycle">
+                    <button
+                      className="parentSecondaryAction"
+                      type="button"
+                      disabled={busyKey !== null}
+                      onClick={() =>
+                        void changeLifecycle(
+                          enrollment,
+                          suspended ? 'resume' : 'suspend',
+                        )
+                      }
+                    >
+                      {suspended ? '恢复入园' : '暂停入园'}
+                    </button>
+                    <button
+                      className="familyDangerAction"
+                      type="button"
+                      disabled={busyKey !== null}
+                      onClick={() => void changeLifecycle(enrollment, 'archive')}
+                    >
+                      归档
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      <section className="familySection familyPendingSection" aria-labelledby="pending-enrollments-title">
+        <div className="familySectionHeading">
+          <div>
+            <p className="eyebrow">Enrollment</p>
+            <h2 id="pending-enrollments-title">待处理</h2>
+          </div>
+        </div>
+        {groups.pending.length === 0 ? (
+          <p className="familyEmptyLine">没有待处理的入园申请。</p>
+        ) : (
+          <div className="familyPendingList">
+            {groups.pending.map((enrollment) => (
+              <div className="familyPendingRow" key={enrollment.id}>
+                <div>
+                  <strong>{enrollment.nativeAgentId ?? '新的 Agent'}</strong>
+                  <span>{STATUS_LABELS[enrollment.status]}</span>
+                </div>
+                <div className="familyPendingActions">
+                  <a href="/onboarding/parent">继续处理</a>
+                  <button
+                    type="button"
+                    disabled={busyKey !== null}
+                    onClick={() => void changeLifecycle(enrollment, 'archive')}
+                  >
+                    撤销申请
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {groups.archived.length > 0 ? (
+        <details className="familyArchive">
+          <summary>已归档 ({groups.archived.length})</summary>
+          <ul>
+            {groups.archived.map((enrollment) => (
+              <li key={enrollment.id}>
+                <span>{enrollment.agent?.displayName ?? enrollment.nativeAgentId ?? 'Agent'}</span>
+                <time dateTime={enrollment.updatedAt}>
+                  {new Date(enrollment.updatedAt).toLocaleDateString('zh-CN')}
+                </time>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </>
+  );
+}

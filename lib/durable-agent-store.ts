@@ -1,4 +1,4 @@
-import { and, asc, eq, gt, isNull, sql } from 'drizzle-orm';
+import { and, asc, eq, gt, isNull, or, sql } from 'drizzle-orm';
 
 import {
   AGENT_REGISTRY_SCHEMA_VERSION,
@@ -12,11 +12,13 @@ import type { AgentRuntimeEvent } from './agent-event-contract';
 import type { AgentRegistryChange } from './agent-registry';
 import { getDatabaseClient } from './db/client';
 import {
+  agentEnrollments,
   agentEventCursors,
   agentEventLog,
   agentLatestStates,
   agentProfiles,
   eventOutbox,
+  providerAgentBindings,
 } from './db/schema';
 import {
   DurableAgentEvent,
@@ -79,11 +81,23 @@ function parseRegistryChange(value: unknown): AgentRegistryChange | null {
 export async function snapshotAgentProfiles(): Promise<AgentProfile[]> {
   const { database } = getDatabaseClient();
   const rows = await database
-    .select()
+    .select({ profile: agentProfiles })
     .from(agentProfiles)
-    .where(isNull(agentProfiles.archivedAt))
+    .leftJoin(
+      agentEnrollments,
+      eq(agentEnrollments.id, agentProfiles.enrollmentId),
+    )
+    .where(
+      and(
+        isNull(agentProfiles.archivedAt),
+        or(
+          isNull(agentProfiles.enrollmentId),
+          eq(agentEnrollments.status, 'active'),
+        ),
+      ),
+    )
     .orderBy(asc(agentProfiles.agentId));
-  return rows.map(rowToProfile);
+  return rows.map((row) => rowToProfile(row.profile));
 }
 
 export async function hasActiveAgentProfile(agentId: string): Promise<boolean> {
@@ -91,10 +105,18 @@ export async function hasActiveAgentProfile(agentId: string): Promise<boolean> {
   const rows = await database
     .select({ agentId: agentProfiles.agentId })
     .from(agentProfiles)
+    .leftJoin(
+      agentEnrollments,
+      eq(agentEnrollments.id, agentProfiles.enrollmentId),
+    )
     .where(
       and(
         eq(agentProfiles.agentId, agentId),
         isNull(agentProfiles.archivedAt),
+        or(
+          isNull(agentProfiles.enrollmentId),
+          eq(agentEnrollments.status, 'active'),
+        ),
       ),
     )
     .limit(1);
@@ -175,12 +197,30 @@ export async function archiveAgentProfile(
           isNull(agentProfiles.archivedAt),
         ),
       )
-      .returning({ revision: agentProfiles.revision });
+      .returning({
+        revision: agentProfiles.revision,
+        enrollmentId: agentProfiles.enrollmentId,
+      });
     const row = rows[0];
     if (!row) return false;
     await transaction
       .delete(agentLatestStates)
       .where(eq(agentLatestStates.agentId, agentId));
+    if (row.enrollmentId) {
+      await transaction
+        .update(agentEnrollments)
+        .set({
+          status: 'archived',
+          pairingCodeHash: null,
+          pairingExpiresAt: null,
+          updatedAt: now,
+        })
+        .where(eq(agentEnrollments.id, row.enrollmentId));
+      await transaction
+        .update(providerAgentBindings)
+        .set({ status: 'revoked', updatedAt: now })
+        .where(eq(providerAgentBindings.agentId, agentId));
+    }
     const change: AgentRegistryChange = {
       type: 'agent.profile.removed',
       agentId,
@@ -197,14 +237,16 @@ export async function archiveAgentProfile(
 }
 
 class RejectedStoredEventError extends Error {
-  constructor(readonly reason: 'duplicate_event' | 'stale_sequence') {
+  constructor(
+    readonly reason: 'duplicate_event' | 'stale_sequence' | 'inactive_agent',
+  ) {
     super(reason);
   }
 }
 
 export interface StoreAgentEventResult {
   accepted: boolean;
-  reason?: 'duplicate_event' | 'stale_sequence';
+  reason?: 'duplicate_event' | 'stale_sequence' | 'inactive_agent';
   stored?: DurableAgentEvent;
 }
 
@@ -214,6 +256,31 @@ export async function storeAgentEvent(
   const { database } = getDatabaseClient();
   try {
     const stored = await database.transaction(async (transaction) => {
+      const profileRows = await transaction
+        .select({ enrollmentId: agentProfiles.enrollmentId })
+        .from(agentProfiles)
+        .where(
+          and(
+            eq(agentProfiles.agentId, event.agentId),
+            isNull(agentProfiles.archivedAt),
+          ),
+        )
+        .limit(1)
+        .for('key share');
+      const profile = profileRows[0];
+      if (!profile) throw new RejectedStoredEventError('inactive_agent');
+      if (profile.enrollmentId) {
+        const enrollmentRows = await transaction
+          .select({ status: agentEnrollments.status })
+          .from(agentEnrollments)
+          .where(eq(agentEnrollments.id, profile.enrollmentId))
+          .limit(1)
+          .for('key share');
+        if (enrollmentRows[0]?.status !== 'active') {
+          throw new RejectedStoredEventError('inactive_agent');
+        }
+      }
+
       const duplicateRows = await transaction
         .select({ id: agentEventLog.id })
         .from(agentEventLog)

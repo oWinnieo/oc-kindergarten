@@ -130,6 +130,16 @@ export async function POST(request: Request) {
   const storedResults = await storeAgentEvents(result.events);
   const accepted = storedResults.filter((stored) => stored.accepted).length;
   if (accepted > 0) await dispatchPendingOutbox();
+  if (storedResults.some((stored) => stored.reason === 'inactive_agent')) {
+    return NextResponse.json(
+      {
+        ok: false,
+        accepted,
+        error: 'Agent 当前未处于 active 状态',
+      },
+      { status: 409 },
+    );
+  }
   const databaseIgnored = storedResults.find((stored) => !stored.accepted)?.reason;
   return NextResponse.json({
     ok: true,

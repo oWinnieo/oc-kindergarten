@@ -187,6 +187,32 @@ export const agentEventLog = pgTable(
   ],
 );
 
+export const agentActionCommands = pgTable(
+  'agent_action_commands',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    requestId: text('request_id').notNull().unique(),
+    agentId: text('agent_id')
+      .notNull()
+      .references(() => agentProfiles.agentId),
+    actorType: text('actor_type').notNull(),
+    actorParentUserId: uuid('actor_parent_user_id').references(
+      () => parentUsers.id,
+    ),
+    action: text('action').notNull(),
+    status: text('status').notNull().default('accepted'),
+    eventId: text('event_id').notNull().unique(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index('agent_action_commands_agent_created_idx').on(
+      table.agentId,
+      table.createdAt,
+    ),
+    index('agent_action_commands_parent_idx').on(table.actorParentUserId),
+  ],
+);
+
 export const eventOutbox = pgTable(
   'event_outbox',
   {
