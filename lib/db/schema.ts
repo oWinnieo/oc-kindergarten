@@ -77,6 +77,7 @@ export const agentProfiles = pgTable(
       .references(() => agentEnrollments.id),
     ownerId: uuid('owner_id').references(() => parentUsers.id),
     legacyOwnerId: text('legacy_owner_id'),
+    source: text('source').notNull().default('runtime'),
     displayName: text('display_name').notNull(),
     characterVariant: text('character_variant').notNull(),
     registeredBy: text('registered_by').notNull(),
@@ -94,6 +95,7 @@ export const agentProfiles = pgTable(
   (table) => [
     index('agent_profiles_owner_idx').on(table.ownerId),
     index('agent_profiles_active_idx').on(table.archivedAt),
+    index('agent_profiles_source_idx').on(table.source),
   ],
 );
 

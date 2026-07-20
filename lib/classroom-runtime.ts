@@ -214,14 +214,22 @@ export function activityRegionTargets(state: AgentTaskState): ActivityTarget[] {
   });
 }
 
+export function activityPointsOverlap(
+  first: Point,
+  second: Point,
+): boolean {
+  return (
+    Math.abs(first.x - second.x) < AGENT_GROUND_OCCUPANCY.width &&
+    Math.abs(first.y - second.y) < AGENT_GROUND_OCCUPANCY.height
+  );
+}
+
 function overlapsOccupiedGround(
   point: Point,
   occupiedPoints: readonly Point[],
 ): boolean {
-  return occupiedPoints.some(
-    (occupied) =>
-      Math.abs(point.x - occupied.x) < AGENT_GROUND_OCCUPANCY.width &&
-      Math.abs(point.y - occupied.y) < AGENT_GROUND_OCCUPANCY.height,
+  return occupiedPoints.some((occupied) =>
+    activityPointsOverlap(point, occupied),
   );
 }
 

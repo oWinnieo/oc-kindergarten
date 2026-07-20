@@ -19,6 +19,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json ./package.json
 COPY scripts/migrate-database.mjs ./scripts/migrate-database.mjs
+COPY scripts/verify-capacity-stress.mjs ./scripts/verify-capacity-stress.mjs
 COPY drizzle ./drizzle
 CMD ["node", "scripts/migrate-database.mjs"]
 

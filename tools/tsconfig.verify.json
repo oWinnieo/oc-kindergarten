@@ -15,6 +15,7 @@
     "./verify-provider-binding.ts",
     "./verify-parent-profile.ts",
     "./verify-agent-enrollment.ts",
-    "./verify-agent-actions.ts"
+    "./verify-agent-actions.ts",
+    "./verify-capacity-stress.ts"
   ]
 }

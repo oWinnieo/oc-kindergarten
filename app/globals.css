@@ -1362,6 +1362,29 @@ button:focus-visible {
   box-shadow: 0 24px 80px rgba(38, 74, 92, 0.2);
 }
 
+.stressObserver {
+  position: fixed;
+  z-index: 75;
+  left: 20px;
+  bottom: 20px;
+  max-width: min(520px, calc(100vw - 40px));
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 8px;
+  padding: 9px 11px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 28px rgba(23, 50, 74, 0.14);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.stressObserver strong {
+  color: var(--ink);
+}
+
 .debugPanelToggle {
   position: fixed;
   z-index: 80;

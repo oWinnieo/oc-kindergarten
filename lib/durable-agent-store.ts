@@ -126,6 +126,7 @@ export async function hasActiveAgentProfile(agentId: string): Promise<boolean> {
 export async function upsertAgentProfile(
   input: AgentProfileInput,
   now = new Date(),
+  source: 'runtime' | 'test' = 'runtime',
 ): Promise<AgentProfile> {
   const { database } = getDatabaseClient();
   return database.transaction(async (transaction) => {
@@ -135,6 +136,7 @@ export async function upsertAgentProfile(
         agentId: input.agentId,
         schemaVersion: input.schemaVersion,
         legacyOwnerId: input.ownerId,
+        source,
         displayName: input.displayName,
         characterVariant: input.characterVariant,
         registeredBy: input.registeredBy,
@@ -148,6 +150,7 @@ export async function upsertAgentProfile(
         set: {
           schemaVersion: input.schemaVersion,
           legacyOwnerId: input.ownerId ?? null,
+          source,
           displayName: input.displayName,
           characterVariant: input.characterVariant,
           registeredBy: input.registeredBy,

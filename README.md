@@ -91,6 +91,13 @@ event；恢复后保留原 binding，下一条 provider event 会自动重新入
 `OC_KINDERGARTEN_ADMIN_SESSION_SECRET` 来独立签名 8 小时的 HttpOnly 管理员会话。
 未配置管理员令牌时，调试面板保持锁定。
 
+受控开发服务器可临时设置 `OC_KINDERGARTEN_ENABLE_STRESS_TEST=1`，并在 migrator 镜像中
+运行 `scripts/verify-capacity-stress.mjs`。该工具只接受 3 或 20 个 `source=test` Agent，
+要求管理员凭据，覆盖容量、FIFO、事件幂等、SSE `Last-Event-ID` 重放与完整清理。浏览器
+诊断只在带 `?stressRun=<runId>` 的教室 URL 出现，页面没有公开入口。正式执行必须先跑
+3 Agent 预检，再跑 20 Agent，并在结束后确认 profile、latest state、event、cursor、outbox、
+binding 和 command 计数全部归零。
+
 ## Repository Layout
 
 - `app/`：Web 应用。

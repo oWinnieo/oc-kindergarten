@@ -54,11 +54,17 @@ import {
   parseAgentProfile,
 } from '@/lib/agent-registry-contract';
 import {
+  enqueueActivityWaiter,
+  removeAgentFromActivityWaitQueues,
+  shiftActivityWaiter,
+} from '@/lib/activity-wait-queue';
+import {
   ACTIVITY_REGIONS,
   ActivityRegionFullError,
   AGENT_GROUND_OCCUPANCY,
   AGENT_TASK_STATES,
   AgentTaskState,
+  activityPointsOverlap,
   activityRegionTargets,
   CharacterId,
   DIRECTION_ORDER,
@@ -191,6 +197,7 @@ interface AgentView {
   moving: boolean;
   routeLength: number;
   visible: boolean;
+  targetPoint: Point | null;
   waitingForState: AgentTaskState | null;
 }
 
@@ -495,21 +502,9 @@ function toAgentViews(agents: RuntimeAgent[]): AgentView[] {
     moving: agent.moving,
     routeLength: agent.routeLength,
     visible: agent.visible,
+    targetPoint: agent.targetPoint,
     waitingForState: agent.waitingForState,
   }));
-}
-
-function removeAgentFromWaitQueues(
-  waitQueues: Map<AgentTaskState, string[]>,
-  agentId: string,
-) {
-  for (const state of AGENT_TASK_STATES) {
-    const queue = waitQueues.get(state);
-    if (!queue) continue;
-    const nextQueue = queue.filter((candidate) => candidate !== agentId);
-    if (nextQueue.length > 0) waitQueues.set(state, nextQueue);
-    else waitQueues.delete(state);
-  }
 }
 
 function loadImage(url: string): Promise<HTMLImageElement> {
@@ -523,10 +518,12 @@ function loadImage(url: string): Promise<HTMLImageElement> {
 
 interface ClassroomSimulationProps {
   initialIsAdmin: boolean;
+  stressRunId?: string;
 }
 
 export default function ClassroomSimulation({
   initialIsAdmin,
+  stressRunId,
 }: ClassroomSimulationProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const profilesRef = useRef(new Map<string, AgentProfile>());
@@ -591,7 +588,7 @@ export default function ClassroomSimulation({
     const registeredIds = new Set(profiles.map((profile) => profile.agentId));
     for (const agentId of Array.from(existingById.keys())) {
       if (!registeredIds.has(agentId)) {
-        removeAgentFromWaitQueues(waitQueuesRef.current, agentId);
+        removeAgentFromActivityWaitQueues(waitQueuesRef.current, agentId);
       }
     }
     profilesRef.current = new Map(
@@ -745,13 +742,7 @@ export default function ClassroomSimulation({
       target = selectActivityTarget(state, occupiedTargets);
     } catch (error) {
       if (error instanceof ActivityRegionFullError) {
-        const currentQueue = waitQueuesRef.current.get(state) ?? [];
-        if (!currentQueue.includes(agent.id)) {
-          removeAgentFromWaitQueues(waitQueuesRef.current, agent.id);
-          const queue = waitQueuesRef.current.get(state) ?? [];
-          queue.push(agent.id);
-          waitQueuesRef.current.set(state, queue);
-        }
+        enqueueActivityWaiter(waitQueuesRef.current, state, agent.id);
         agent.waitingForState = state;
         setRouteError(null);
         setAgentViews(toAgentViews(agentsRef.current));
@@ -774,7 +765,7 @@ export default function ClassroomSimulation({
       waypoints[waypoints.length - 1] = finalTarget;
     }
 
-    removeAgentFromWaitQueues(waitQueuesRef.current, agent.id);
+    removeAgentFromActivityWaitQueues(waitQueuesRef.current, agent.id);
     agent.waitingForState = null;
     agent.taskState = state;
     agent.targetPoint = finalTarget;
@@ -808,8 +799,7 @@ export default function ClassroomSimulation({
             (candidate) => candidate.id === agentId,
           );
           if (!agent || !agent.visible || agent.waitingForState !== state) {
-            queue?.shift();
-            if (queue && queue.length === 0) waitQueuesRef.current.delete(state);
+            shiftActivityWaiter(waitQueuesRef.current, state);
             continue;
           }
           const applied = applyAgentStateRef.current(agentId, state);
@@ -881,7 +871,7 @@ export default function ClassroomSimulation({
 
       if (!agent.visible) {
         pendingStateRef.current.delete(agent.id);
-        removeAgentFromWaitQueues(waitQueuesRef.current, agent.id);
+        removeAgentFromActivityWaitQueues(waitQueuesRef.current, agent.id);
         agent.waitingForState = null;
         setRouteError(null);
         return true;
@@ -896,7 +886,7 @@ export default function ClassroomSimulation({
         setRouteError(`${agent.name} 无法到达教室出口`);
         return false;
       }
-      removeAgentFromWaitQueues(waitQueuesRef.current, agent.id);
+      removeAgentFromActivityWaitQueues(waitQueuesRef.current, agent.id);
       agent.waitingForState = null;
       agent.targetPoint = null;
       queueMicrotask(() => drainWaitQueuesRef.current());
@@ -1533,6 +1523,36 @@ export default function ClassroomSimulation({
   const selectedAgentView =
     agentViews.find((agent) => agent.id === selectedAgentId && agent.visible) ??
     agentViews.find((agent) => agent.visible);
+  const stressPrefix = stressRunId ? `test-${stressRunId}-` : null;
+  const stressAgents = stressPrefix
+    ? agentViews.filter((agent) => agent.id.startsWith(stressPrefix))
+    : [];
+  const stressOccupied = stressAgents.filter(
+    (agent) =>
+      agent.visible &&
+      agent.taskState === 'writing' &&
+      agent.waitingForState === null &&
+      agent.targetPoint !== null,
+  );
+  const stressWaitOrder = stressRunId
+    ? (waitQueuesRef.current.get('writing') ?? []).filter((agentId) =>
+        agentId.startsWith(`test-${stressRunId}-`),
+      )
+    : [];
+  const occupiedWritingPoints = agentViews
+    .filter(
+      (agent) =>
+        agent.visible &&
+        agent.taskState === 'writing' &&
+        agent.waitingForState === null &&
+        agent.targetPoint !== null,
+    )
+    .map((agent) => agent.targetPoint!);
+  const stressNoOverlap = occupiedWritingPoints.every((point, index) =>
+    occupiedWritingPoints
+      .slice(index + 1)
+      .every((candidate) => !activityPointsOverlap(point, candidate)),
+  );
 
   useEffect(() => {
     if (
@@ -1559,6 +1579,30 @@ export default function ClassroomSimulation({
         )}
         {loadError && <div className="sceneLoading sceneError">{loadError}</div>}
       </div>
+
+      {stressRunId && (
+        <output
+          className="stressObserver"
+          aria-live="polite"
+          data-stress-run={stressRunId}
+          data-stress-total={stressAgents.length}
+          data-stress-visible={stressAgents.filter((agent) => agent.visible).length}
+          data-stress-occupied={stressOccupied.length}
+          data-stress-waiting={stressWaitOrder.length}
+          data-stress-wait-order={stressWaitOrder.join(',')}
+          data-stress-no-overlap={stressNoOverlap ? 'true' : 'false'}
+        >
+          <strong>{stressRunId}</strong>
+          <span>
+            Visible {stressAgents.filter((agent) => agent.visible).length}/{stressAgents.length}
+          </span>
+          <span>
+            Writing {stressOccupied.length}/{REGION_CAPACITIES.writing}
+          </span>
+          <span>Queue {stressWaitOrder.length}</span>
+          <span>{stressNoOverlap ? 'No overlap' : 'Overlap detected'}</span>
+        </output>
+      )}
 
       <button
         className={`debugPanelToggle ${adminPanelOpen ? 'isOpen' : ''}`}
