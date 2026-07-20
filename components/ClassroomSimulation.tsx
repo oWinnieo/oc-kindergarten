@@ -59,6 +59,11 @@ import {
   shiftActivityWaiter,
 } from '@/lib/activity-wait-queue';
 import {
+  moveSelectedLayerToFront,
+  selectSceneAgentAtPoint,
+  type SceneAgentHitLayer,
+} from '@/lib/scene-agent-selection';
+import {
   ACTIVITY_REGIONS,
   ActivityRegionFullError,
   AGENT_GROUND_OCCUPANCY,
@@ -210,6 +215,14 @@ interface EventStatusView {
   detail: string;
 }
 
+interface AgentNameTagLayout {
+  label: string;
+  x: number;
+  y: number;
+  width: number;
+  pointerX: number;
+}
+
 function fitCanvasText(
   context: CanvasRenderingContext2D,
   value: string,
@@ -232,15 +245,11 @@ function fitCanvasText(
   return `${characters.slice(0, lower).join('')}${ellipsis}`;
 }
 
-function drawAgentNameTag(
+function agentNameTagLayout(
   context: CanvasRenderingContext2D,
   agent: RuntimeAgent,
-) {
-  context.save();
+): AgentNameTagLayout {
   context.font = NAME_TAG_FONT;
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
-
   const label = fitCanvasText(
     context,
     agent.name,
@@ -263,6 +272,19 @@ function drawAgentNameTag(
     ),
   );
   const pointerX = Math.max(x + 6, Math.min(x + width - 6, agent.x));
+  return { label, x, y, width, pointerX };
+}
+
+function drawAgentNameTag(
+  context: CanvasRenderingContext2D,
+  agent: RuntimeAgent,
+  layout = agentNameTagLayout(context, agent),
+) {
+  context.save();
+  context.font = NAME_TAG_FONT;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  const { label, x, y, width, pointerX } = layout;
 
   context.fillStyle = 'rgba(255, 255, 255, 0.94)';
   context.strokeStyle = agent.color;
@@ -566,6 +588,7 @@ export default function ClassroomSimulation({
   const [debug, setDebug] = useState(false);
   const [autoMode, setAutoMode] = useState(false);
   const [selectedAgentId, setSelectedAgentId] = useState('');
+  const selectedAgentIdRef = useRef('');
   const [sceneActionStatus, setSceneActionStatus] = useState<string | null>(null);
   const [presenceTransition, setPresenceTransition] = useState<
     'joining' | 'leaving' | null
@@ -580,6 +603,10 @@ export default function ClassroomSimulation({
   useEffect(() => {
     debugRef.current = debug;
   }, [debug]);
+
+  useEffect(() => {
+    selectedAgentIdRef.current = selectedAgentId;
+  }, [selectedAgentId]);
 
   const reconcileProfiles = useCallback((profiles: readonly AgentProfile[]) => {
     const existingById = new Map(
@@ -1315,9 +1342,13 @@ export default function ClassroomSimulation({
         )
         .forEach((renderable) => renderable.draw());
 
-      for (const agent of agentsRef.current) {
-        if (agent.visible) drawAgentNameTag(context, agent);
-      }
+      const nameTagLayers = moveSelectedLayerToFront(
+        agentsRef.current
+          .filter((agent) => agent.visible)
+          .map((agent) => ({ agentId: agent.id, agent })),
+        selectedAgentIdRef.current,
+      );
+      for (const { agent } of nameTagLayers) drawAgentNameTag(context, agent);
 
       if (time - previousUiUpdate > 160) {
         setAgentViews(toAgentViews(agentsRef.current));
@@ -1462,16 +1493,63 @@ export default function ClassroomSimulation({
 
   const handleCanvasClick = async (event: ReactMouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
-    if (
-      !canvas ||
-      !ready ||
-      !isAdmin ||
-      !adminPanelOpen ||
-      presenceTransition !== null
-    ) return;
+    if (!canvas || !ready) return;
     const bounds = canvas.getBoundingClientRect();
     const x = ((event.clientX - bounds.left) / bounds.width) * canvas.width;
     const y = ((event.clientY - bounds.top) / bounds.height) * canvas.height;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    const visibleAgents = agentsRef.current.filter((agent) => agent.visible);
+    const nameTagLayers = moveSelectedLayerToFront(
+      visibleAgents.map((agent) => {
+        const layout = agentNameTagLayout(context, agent);
+        return {
+          agentId: agent.id,
+          bounds: {
+            x: layout.x,
+            y: layout.y,
+            width: layout.width,
+            height: NAME_TAG_HEIGHT + 2,
+          },
+        } satisfies SceneAgentHitLayer;
+      }),
+      selectedAgentId,
+    );
+    const characterLayers = visibleAgents
+      .map((agent, index) => ({ agent, index }))
+      .sort((first, second) =>
+        first.agent.y === second.agent.y
+          ? first.index - second.index
+          : first.agent.y - second.agent.y,
+      )
+      .map(({ agent }) => ({
+        agentId: agent.id,
+        bounds: {
+          x: agent.x - FRAME_SIZE.width / 2,
+          y: agent.y - FRAME_SIZE.height,
+          width: FRAME_SIZE.width,
+          height: FRAME_SIZE.height,
+        },
+      }));
+    const clickedAgentId = selectSceneAgentAtPoint(
+      { x, y },
+      nameTagLayers,
+      characterLayers,
+    );
+    if (clickedAgentId) {
+      const clickedAgent = visibleAgents.find(
+        (agent) => agent.id === clickedAgentId,
+      );
+      selectedAgentIdRef.current = clickedAgentId;
+      setSelectedAgentId(clickedAgentId);
+      if (clickedAgent && isAdmin && adminPanelOpen) {
+        setSceneActionStatus(`${clickedAgent.name} 已成为场景操作对象`);
+      }
+      return;
+    }
+
+    if (!isAdmin || !adminPanelOpen || presenceTransition !== null) return;
     const prop = [...PROP_SPECS]
       .reverse()
       .find(
@@ -1570,8 +1648,9 @@ export default function ClassroomSimulation({
           ref={canvasRef}
           width={WORLD_SIZE.width}
           height={WORLD_SIZE.height}
-          onClick={isAdmin && adminPanelOpen ? handleCanvasClick : undefined}
-          className={isAdmin && adminPanelOpen ? 'isDebugInteractive' : ''}
+          onClick={(event) => void handleCanvasClick(event)}
+          className={agentViews.some((agent) => agent.visible) || (isAdmin && adminPanelOpen) ? 'isSceneInteractive' : ''}
+          data-selected-agent={selectedAgentView?.id ?? ''}
           aria-label="动态注册的 AI agent 从教室入口入场，并在不同功能区之间移动的实时场景"
         />
         {!ready && !loadError && (

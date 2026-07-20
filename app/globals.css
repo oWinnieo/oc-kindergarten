@@ -979,7 +979,7 @@ button:focus-visible {
   image-rendering: crisp-edges;
 }
 
-.sceneViewport canvas.isDebugInteractive {
+.sceneViewport canvas.isSceneInteractive {
   cursor: pointer;
 }
 
