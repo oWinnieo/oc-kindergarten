@@ -159,7 +159,7 @@ export default function FamilyDashboard() {
   ) => {
     if (
       action === 'archive' &&
-      !window.confirm(`归档 ${enrollment.agent?.displayName ?? '这个 Agent'}？此操作不可撤销。`)
+      !window.confirm('撤销这个入园申请？此操作不可撤销。')
     ) {
       return;
     }
@@ -184,7 +184,7 @@ export default function FamilyDashboard() {
           ? 'Agent 已暂停。'
           : action === 'resume'
             ? 'Agent 已恢复，下一条运行事件会让它重新入场。'
-            : 'Agent 已归档。',
+            : '入园申请已撤销。',
       );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '无法更新 Agent 状态');
@@ -353,14 +353,6 @@ export default function FamilyDashboard() {
                       }
                     >
                       {suspended ? '恢复入园' : '暂停入园'}
-                    </button>
-                    <button
-                      className="familyDangerAction"
-                      type="button"
-                      disabled={busyKey !== null}
-                      onClick={() => void changeLifecycle(enrollment, 'archive')}
-                    >
-                      归档
                     </button>
                   </div>
                 </article>

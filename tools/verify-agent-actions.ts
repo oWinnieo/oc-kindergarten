@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 
 import { parseAgentAction } from '../lib/agent-action-contract';
-import { nextAgentEnrollmentStatus } from '../lib/agent-enrollment-contract';
+import {
+  canParentArchiveEnrollment,
+  nextAgentEnrollmentStatus,
+} from '../lib/agent-enrollment-contract';
 
 const valid = parseAgentAction({
   schemaVersion: 1,
@@ -45,7 +48,13 @@ assert.equal(nextAgentEnrollmentStatus('suspended', 'resume'), 'active');
 assert.equal(nextAgentEnrollmentStatus('active', 'resume'), null);
 assert.equal(nextAgentEnrollmentStatus('draft', 'archive'), 'archived');
 assert.equal(nextAgentEnrollmentStatus('archived', 'archive'), null);
+assert.equal(canParentArchiveEnrollment('draft'), true);
+assert.equal(canParentArchiveEnrollment('awaiting_pairing'), true);
+assert.equal(canParentArchiveEnrollment('pending_parent_confirmation'), true);
+assert.equal(canParentArchiveEnrollment('active'), false);
+assert.equal(canParentArchiveEnrollment('suspended'), false);
+assert.equal(canParentArchiveEnrollment('archived'), false);
 
 process.stdout.write(
-  'Agent action regression passed: command whitelist, request id and lifecycle transitions\n',
+  'Agent action regression passed: command whitelist, request id, lifecycle transitions and archive safety\n',
 );

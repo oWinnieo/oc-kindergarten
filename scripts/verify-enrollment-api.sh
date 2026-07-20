@@ -111,6 +111,13 @@ if [[ -z "${agent_token}" ]]; then
   exit 1
 fi
 
+cancel_create_json="$(curl -fsS -X POST -H "Cookie: ${session_cookie}" "${PUBLIC_ORIGIN}/api/enrollments")"
+cancel_enrollment_id="$(printf '%s' "${cancel_create_json}" | jq -er '.enrollment.id')"
+cancel_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/enrollments/${cancel_enrollment_id}/archive")"
+test "$(printf '%s' "${cancel_result}" | jq -r '.enrollment.status')" = "archived"
+
 create_json="$(curl -fsS -X POST -H "Cookie: ${session_cookie}" "${PUBLIC_ORIGIN}/api/enrollments")"
 enrollment_id="$(printf '%s' "${create_json}" | jq -er '.enrollment.id')"
 
@@ -227,19 +234,26 @@ resumed_registry_count="$(curl -fsS "${PUBLIC_ORIGIN}/api/agents" | \
   jq --arg agent_id "${agent_id}" '[.profiles[] | select(.agentId == $agent_id)] | length')"
 test "${resumed_registry_count}" = "1"
 
-archive_result="$(curl -fsS -X POST \
+archive_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
   -H "Cookie: ${session_cookie}" \
   "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/archive")"
-test "$(printf '%s' "${archive_result}" | jq -r '.enrollment.status')" = "archived"
+test "${archive_status}" = "409"
+
+archive_result="$(curl -sS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/archive")"
+test "$(printf '%s' "${archive_result}" | jq -r '.code')" = "archive_deferred"
 
 archive_count="$(docker compose exec -T postgres psql \
   -U "${POSTGRES_USER:-oc_kindergarten_user}" \
   -d "${POSTGRES_DB:-oc_kindergarten}" \
   -v ON_ERROR_STOP=1 \
-  -At -c "SELECT count(*) FROM agent_profiles p JOIN provider_agent_bindings b ON b.agent_id = p.agent_id WHERE p.agent_id = '${agent_id}' AND p.archived_at IS NOT NULL AND b.status = 'revoked';")"
+  -At -c "SELECT count(*) FROM agent_profiles p JOIN agent_enrollments e ON e.id = p.enrollment_id JOIN provider_agent_bindings b ON b.agent_id = p.agent_id WHERE p.agent_id = '${agent_id}' AND p.archived_at IS NULL AND e.status = 'active' AND b.status = 'active';")"
 test "${archive_count}" = "1"
 
 printf 'enrollment_api_verification=passed\n'
 printf 'create_pair_activate_owner_lifecycle=passed\n'
 printf 'single_use_and_cross_parent_isolation=passed\n'
 printf 'owner_action_idempotency_and_suspension=passed\n'
+printf 'owner_pending_enrollment_cancellation=passed\n'
+printf 'owner_active_archive_safety_guard=passed\n'

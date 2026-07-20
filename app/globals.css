@@ -654,8 +654,7 @@ button:focus-visible {
   gap: 7px;
 }
 
-.familyAgentLifecycle .parentSecondaryAction,
-.familyDangerAction {
+.familyAgentLifecycle .parentSecondaryAction {
   width: 100%;
   min-height: 38px;
   border-radius: 6px;
@@ -663,12 +662,6 @@ button:focus-visible {
   cursor: pointer;
   font-size: 12px;
   font-weight: 800;
-}
-
-.familyDangerAction {
-  border: 1px solid rgba(176, 53, 53, 0.32);
-  background: #fff8f7;
-  color: #a23333;
 }
 
 .familyEmptyState {
@@ -823,7 +816,7 @@ button:focus-visible {
 
   .familyAgentLifecycle {
     width: 100%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 

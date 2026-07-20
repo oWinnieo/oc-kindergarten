@@ -8,6 +8,7 @@ import type {
   RuntimeEnrollmentPairingInput,
 } from './agent-enrollment-contract';
 import {
+  canParentArchiveEnrollment,
   generatePairingCode,
   hashPairingCode,
   nextAgentEnrollmentStatus,
@@ -46,6 +47,7 @@ export type AgentEnrollmentErrorCode =
   | 'pairing_code_invalid'
   | 'pairing_code_expired'
   | 'native_agent_claimed'
+  | 'archive_deferred'
   | 'too_many_open_enrollments';
 
 export class AgentEnrollmentError extends Error {
@@ -702,6 +704,15 @@ export async function changeAgentEnrollmentLifecycle(
       throw new AgentEnrollmentError(
         'invalid_state',
         `当前入园状态不能执行 ${action}`,
+      );
+    }
+    if (
+      action === 'archive' &&
+      !canParentArchiveEnrollment(currentStatus)
+    ) {
+      throw new AgentEnrollmentError(
+        'archive_deferred',
+        '已入园 Agent 的归档暂未开放，请先使用暂停入园',
       );
     }
     if (action !== 'archive' && !profile) {

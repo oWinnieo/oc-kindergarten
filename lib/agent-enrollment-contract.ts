@@ -38,6 +38,16 @@ export function nextAgentEnrollmentStatus(
   return status === 'archived' ? null : 'archived';
 }
 
+export function canParentArchiveEnrollment(
+  status: AgentEnrollmentStatus,
+): boolean {
+  return (
+    status === 'draft' ||
+    status === 'awaiting_pairing' ||
+    status === 'pending_parent_confirmation'
+  );
+}
+
 export interface EnrolledAgentSummary extends ProviderAgentDraft {
   agentId: string;
   displayName: string;
