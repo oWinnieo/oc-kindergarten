@@ -1,0 +1,968 @@
+{
+  "asset": "girl_movement_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 125,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "direction_order": [
+    "down",
+    "left",
+    "right",
+    "up",
+    "down_left",
+    "down_right",
+    "up_left",
+    "up_right"
+  ],
+  "phase_count": 4,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-5.png",
+  "semantic_policy": "exact classic direction, wheel phase, silhouette and anchor",
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-4-48x64.png"
+  ],
+  "strips": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-berry-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-berry-v1-strip-48x64.png"
+  ],
+  "atlas": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-berry-v1-48x64.png",
+  "qc": {
+    "down": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          6,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          6,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 281,
+        "rgb_changed_pixels": 281,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          6,
+          11,
+          42,
+          62
+        ],
+        "output_bbox": [
+          6,
+          11,
+          42,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 284,
+        "rgb_changed_pixels": 284,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 283,
+        "rgb_changed_pixels": 283,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 280,
+        "rgb_changed_pixels": 280,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "left": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 201,
+        "rgb_changed_pixels": 201,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 201,
+        "rgb_changed_pixels": 201,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 200,
+        "rgb_changed_pixels": 200,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 209,
+        "rgb_changed_pixels": 209,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "right": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 208,
+        "rgb_changed_pixels": 208,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 210,
+        "rgb_changed_pixels": 210,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 208,
+        "rgb_changed_pixels": 208,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "output_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 207,
+        "rgb_changed_pixels": 207,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "up": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 336,
+        "rgb_changed_pixels": 336,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 335,
+        "rgb_changed_pixels": 335,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 336,
+        "rgb_changed_pixels": 336,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 333,
+        "rgb_changed_pixels": 333,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "down_left": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 278,
+        "rgb_changed_pixels": 278,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 273,
+        "rgb_changed_pixels": 273,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 254,
+        "rgb_changed_pixels": 254,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 258,
+        "rgb_changed_pixels": 258,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "down_right": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 278,
+        "rgb_changed_pixels": 278,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 273,
+        "rgb_changed_pixels": 273,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 254,
+        "rgb_changed_pixels": 254,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "output_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 258,
+        "rgb_changed_pixels": 258,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "up_left": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          9,
+          15,
+          40,
+          62
+        ],
+        "output_bbox": [
+          9,
+          15,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 288,
+        "rgb_changed_pixels": 288,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "output_bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 289,
+        "rgb_changed_pixels": 289,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "output_bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 278,
+        "rgb_changed_pixels": 278,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "output_bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 285,
+        "rgb_changed_pixels": 285,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ],
+    "up_right": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          8,
+          15,
+          39,
+          62
+        ],
+        "output_bbox": [
+          8,
+          15,
+          39,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 288,
+        "rgb_changed_pixels": 288,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "output_bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 289,
+        "rgb_changed_pixels": 289,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "output_bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 278,
+        "rgb_changed_pixels": 278,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "source_bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "output_bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "alpha_exact_match": true,
+        "bbox_exact_match": true,
+        "cap_pixels_recolored": 0,
+        "clothing_pixels_recolored": 285,
+        "rgb_changed_pixels": 285,
+        "changed_pixels_outside_target_masks": 0,
+        "unchanged_target_pixels": 0,
+        "touches_edge": false
+      }
+    ]
+  },
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-1-48x64.png": "a1557d0871caa1621057d59e349e290dcc1465db90abe6159e5ad32c3bb7c36f",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-2-48x64.png": "43724fac851ad712405303f17b0f4eea8aa3213edb6f8e61a7b0490ac59e8c4a",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-3-48x64.png": "fcd6338cba97ecff2fdc7655d02e336bf8074ef5c9ea9bb1121a4e5f6c13749b",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-4-48x64.png": "793eac3e7124d54922c068b0b7255ba3598e15461f7ed0330f8941488e5d8c31",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-1-48x64.png": "4bb44830c4621afa1960374e72dd7c5a82e6e5bffbeff97ff15162122494d390",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-2-48x64.png": "dbe5b378cfc2bafc0fe3071bc65f0b7bf147f3a67e648ce1ef2ef20044887ac2",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-3-48x64.png": "92ac72cdc87969dbcd29b317a9fe750f40e0b81c66ffd752045a209ba182797f",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-4-48x64.png": "a182d292a861fdf66fe076367d69d84b539ac6de64e6ce11e7e895faac6d5461",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-1-48x64.png": "f0cb787299f909bb2dbf06639779b6f5bf69a40ea8af0b5a7f08522c9974e070",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-2-48x64.png": "3f688a94be345551d3a00c7e04ec54a688aaaddc17e1a1e2fbb95f8b4f18f6b4",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-3-48x64.png": "a4c196eabbb7e30d05f6b1a8e0fbbe9844fb1f8f96b7b910302dad26e0da76fa",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-4-48x64.png": "718c2394954d496dd2ac4e8fc41d3ba20b89f0b886abf5c3ef7025f83709afc8",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-1-48x64.png": "0391f8b1a07d4f7c5159e6739aa1b49ff788c27cee9cc5969f8c726764053f61",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-2-48x64.png": "8c2ca5b017d3e9d2076862f4411a6d79f614531e43e48a003aa1c93255e31e6a",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-3-48x64.png": "557bed1258f009a7c48ca26baa8160e8190710856e40563dd964d3394cfc2fff",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-4-48x64.png": "21b6fe50287e074584ea5144797d2e51a33e9255144e81337db22c51e1695586",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-1-48x64.png": "62d273d5727076f0dd77149ebe82cdaeda851f047b993c8f8be7e8edba7856b5",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-2-48x64.png": "f495209503f88a7d68c0f75c65db8b8db6294b30341ea3360dbf82f1c4dfe4db",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-3-48x64.png": "295c3ebe3d66600ae412e6bfe2d4b66a7c2bb3f5916956e7b3f8cfe86d8285af",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-4-48x64.png": "706798274249a0d6fa5cf95316c93009d88ee99999207260770870d116d77426",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-1-48x64.png": "284f905a29be1b6d6563208f8dce0a49435e6a7b273d8014bcbfc239386e71b2",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-2-48x64.png": "bcf4526651290a2138bbf1721f0790aab0e6dc77ba3dbff0a8e739abbb84feda",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-3-48x64.png": "3c73b8908930856938a8a0046bb5a44fa8f75d6df05bac272997bfd5be6f5ceb",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-4-48x64.png": "3e90cb13f359ac5539c320b1d75f5633e355e2d30eca9b96bcf8e416c36ba691",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-1-48x64.png": "871700332c77d4c95e23aefb99762c5717cf04b3f3cd8d61848e4feba8c85869",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-2-48x64.png": "f4f061d10a4d6aa27141434c089427adaee691a9e3c163977a1a061948de2c7f",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-3-48x64.png": "9eaa8abfe15a6e21595795766918ffa7162679aef1827e3a8d3ff604176fa710",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-4-48x64.png": "88f8f03350e2baae26a040f1d8238ac37f9bcd6c4a75accd48a8f7e5dafa84f7",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-1-48x64.png": "8227e05ff07a91a90c8f3ecb445601b4f57c35a7da9d9aa39c3772c640e7daff",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-2-48x64.png": "b9b4172c1379e8742261f3832a0e4636ddaa3a27177abd940e15b3231998354b",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-3-48x64.png": "ac982dc4e392517f4a80e9cf581a1bd2323fba40f25270fbe2bb00b01e00a705",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-4-48x64.png": "c1a9ed4939bb0a75d0659caaaf02e99f3d1cb69641051ac55896b00c4e6cbf41",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-berry-v1-strip-48x64.png": "5cafba98204cb43dd16d3dbd975a262054f5a1cb5b7994e4583448005601ddca",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-berry-v1-strip-48x64.png": "4ac191ce587da5f21008e5778d90df25db01faddb7f23e65ebc9df8ef61656b3",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-berry-v1-strip-48x64.png": "3370d05fe67d823a1ba8c579886e35668076dd95df132b4baf627c426adf5009",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-berry-v1-strip-48x64.png": "85f7ee5ec135888ea8b4a461d6e125ab324ee46eba80de4be234065e4f93834b",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-berry-v1-strip-48x64.png": "13eca3871a337167145000e271d5db887e432d6466c9a0265013e0bbb872ca0d",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-berry-v1-strip-48x64.png": "a28ab7bb6c655fe7aba2fd19fd674af6c03c13cba9fb0991e7c95593adf60453",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-berry-v1-strip-48x64.png": "3d85539c6dade00312d21148d8b2e3cb2b89e646d61c762ec16e7f0a31c4eba0",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-berry-v1-strip-48x64.png": "f75e035327ce61e6dc0d3ab70dd3e96a2805dd223dcefe217c0c93585700c577",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-berry-v1-48x64.png": "7ac3d3b0f570860a759b5705d87be7bed43ae3b386372ea82597067aa159accf"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

@@ -1,0 +1,7 @@
+Edit the approved genderless idle 2x2 sprite sheet into the Meadow colorway
+while preserving the same four poses, identity, blue antenna, proportions,
+wheelbase, pixel-art rendering, and reading order. Recolor only the yellow
+tunic/coat and backpack fabric to the approved mint/teal/emerald palette.
+Preserve the white shell, black screen, cyan eyes, pale-blue sleeves, blue
+buttons, wheels, and device details. Render one complete centered sprite per
+cell on flat #FF00FF with generous margins, no text, no grid, and no objects.

@@ -1,0 +1,138 @@
+{
+  "asset": "boy_syncing_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 200,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 172,
+      "purple_palette_pixels": 273,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 249,
+      "purple_palette_pixels": 268,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 237,
+      "purple_palette_pixels": 207,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 191,
+      "purple_palette_pixels": 273,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-1-48x64.png": "02fe6fc150b2ee3b59d06f62c7969627d7ae9aaf7c826d018de9ea7b822ecd9b",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-2-48x64.png": "046911ecc1be2e2ab3eb6c09f15030123eaacd239a53d98ffe64991d3a6db939",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-3-48x64.png": "7c803b244cd4f42a22021a33f581b7dcd5b408a254e18dc553871e75a06ac53e",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-4-48x64.png": "a7f8dc6973daac9d9817ec4d01d4b39084c0d60246a250cc5b962630118bac51",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-meadow-v1-strip-48x64.png": "abdf27a61247ef05cf182ff16883d96e79f5d055228d9e3a366c79a0487208f5",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-meadow-v1-2x2-48x64.png": "6ad9a81c320f9c65e584ee65edfc4c5de2a0d7ccce305aa5d928e87ab8199490"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

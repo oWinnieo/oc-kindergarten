@@ -18,6 +18,7 @@ const ownerProfile = {
   agentId: 'owner-42:reader',
   displayName: '小阅',
   characterVariant: 'girl' as const,
+  appearancePreset: 'meadow' as const,
   registeredBy: 'owner' as const,
   ownerId: 'owner-42',
   role: 'Reading agent',
@@ -28,6 +29,25 @@ const parsedOwner = parseAgentProfileInput(ownerProfile);
 assert.equal(parsedOwner.ok, true);
 if (!parsedOwner.ok) process.exit(1);
 assert.equal(parsedOwner.profile.color, '#7b61c9');
+assert.equal(parsedOwner.profile.appearancePreset, 'meadow');
+
+const berryAppearance = parseAgentProfileInput({
+  ...ownerProfile,
+  appearancePreset: 'berry',
+});
+assert.equal(berryAppearance.ok, true);
+if (berryAppearance.ok) {
+  assert.equal(berryAppearance.profile.appearancePreset, 'berry');
+}
+
+const legacyAppearance = parseAgentProfileInput({
+  ...ownerProfile,
+  appearancePreset: undefined,
+});
+assert.equal(legacyAppearance.ok, true);
+if (legacyAppearance.ok) {
+  assert.equal(legacyAppearance.profile.appearancePreset, 'classic');
+}
 
 assert.equal(
   parseAgentProfileInput({ ...ownerProfile, ownerId: undefined }).ok,
@@ -35,6 +55,10 @@ assert.equal(
 );
 assert.equal(
   parseAgentProfileInput({ ...ownerProfile, characterVariant: 'robot' }).ok,
+  false,
+);
+assert.equal(
+  parseAgentProfileInput({ ...ownerProfile, appearancePreset: 'neon' }).ok,
   false,
 );
 assert.equal(

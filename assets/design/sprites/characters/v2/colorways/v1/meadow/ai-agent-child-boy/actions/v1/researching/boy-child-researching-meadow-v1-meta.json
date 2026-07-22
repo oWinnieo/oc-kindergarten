@@ -1,0 +1,138 @@
+{
+  "asset": "boy_researching_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/boy-child-researching-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/boy-child-researching-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 133,
+      "purple_palette_pixels": 274,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 141,
+      "purple_palette_pixels": 279,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 149,
+      "purple_palette_pixels": 278,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 138,
+      "purple_palette_pixels": 272,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-1-48x64.png": "fda15e3aedba6e056ca0e3bfdd13448797f99c6d8f8eb04fc72fce4de2d0013e",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-2-48x64.png": "3fe47c2b4fb307b5effdee9ed696a048410c4d35e16a5487e00376acddc59561",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-3-48x64.png": "94d3e792e7edd23e93d1b86d11598a82425446bbb6594abd5fd6d8e491bc0c46",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-4-48x64.png": "db9717fd281297a9483ba1f5493764fa48fc20d75e9c70bc939fa75f25448f79",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/boy-child-researching-meadow-v1-strip-48x64.png": "c1cfead4ddf2d526ac4c44301869593f70da789d6ef39833394d8776b6f444e7",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/boy-child-researching-meadow-v1-2x2-48x64.png": "864409f51a64cadfcf93509692fdf6dc174eeabeb1811c3aefe4a9f6d66946c5"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

@@ -1,6 +1,23 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
+import {
+  AGENT_ACTION_LOCATIONS,
+  agentActionNotice,
+} from '@/lib/agent-action-notice';
+import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import AgentAppearancePicker, {
+  APPEARANCE_PRESET_LABELS,
+} from './AgentAppearancePicker';
+import AgentActivityTimeline from './AgentActivityTimeline';
+import CasdoorSignInButton from './CasdoorSignInButton';
 
 type EnrollmentStatus =
   | 'draft'
@@ -18,6 +35,8 @@ type AgentAction =
   | 'syncing'
   | 'error';
 
+type CharacterVariant = 'boy' | 'girl' | 'genderless';
+
 interface ParentProfile {
   id: string;
   displayName: string;
@@ -26,9 +45,22 @@ interface ParentProfile {
 interface EnrollmentAgent {
   agentId: string;
   displayName: string;
-  characterVariant: 'boy' | 'girl' | 'genderless';
+  characterVariant: CharacterVariant;
+  appearancePreset?: AgentAppearancePreset;
   role?: string;
+  personalitySummary?: string;
+  capabilities?: string[];
   color?: string;
+}
+
+interface AgentProfileDraft {
+  displayName: string;
+  role: string;
+  personalitySummary: string;
+  capabilities: string;
+  characterVariant: CharacterVariant;
+  appearancePreset: AgentAppearancePreset;
+  color: string;
 }
 
 interface Enrollment {
@@ -48,12 +80,12 @@ type DashboardState =
   | { kind: 'error'; message: string };
 
 const ACTIONS: readonly { id: AgentAction; label: string; location: string }[] = [
-  { id: 'idle', label: '休息', location: '休息区' },
-  { id: 'writing', label: '写画', location: '写画区' },
-  { id: 'researching', label: '阅读', location: '阅读区' },
-  { id: 'executing', label: '手工', location: '积木区' },
-  { id: 'syncing', label: '交流', location: '邮件站' },
-  { id: 'error', label: '检查', location: '修理区' },
+  { id: 'idle', label: '休息', location: AGENT_ACTION_LOCATIONS.idle },
+  { id: 'writing', label: '写画', location: AGENT_ACTION_LOCATIONS.writing },
+  { id: 'researching', label: '阅读', location: AGENT_ACTION_LOCATIONS.researching },
+  { id: 'executing', label: '手工', location: AGENT_ACTION_LOCATIONS.executing },
+  { id: 'syncing', label: '交流', location: AGENT_ACTION_LOCATIONS.syncing },
+  { id: 'error', label: '检查', location: AGENT_ACTION_LOCATIONS.error },
 ] as const;
 
 const STATUS_LABELS: Record<EnrollmentStatus, string> = {
@@ -76,11 +108,32 @@ function requestId() {
   return `family-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
+function profileDraftFor(agent: EnrollmentAgent): AgentProfileDraft {
+  return {
+    displayName: agent.displayName,
+    role: agent.role ?? '',
+    personalitySummary: agent.personalitySummary ?? '',
+    capabilities: agent.capabilities?.join(', ') ?? '',
+    characterVariant: agent.characterVariant,
+    appearancePreset: agent.appearancePreset ?? 'classic',
+    color: agent.color ?? '#297db6',
+  };
+}
+
 export default function FamilyDashboard() {
   const [state, setState] = useState<DashboardState>({ kind: 'loading' });
   const [busyKey, setBusyKey] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [lastActions, setLastActions] = useState<Record<string, AgentAction>>({});
+  const [activityRefreshes, setActivityRefreshes] = useState<
+    Record<string, number>
+  >({});
+  const [editingEnrollmentId, setEditingEnrollmentId] = useState<string | null>(
+    null,
+  );
+  const [profileDrafts, setProfileDrafts] = useState<
+    Record<string, AgentProfileDraft>
+  >({});
 
   const load = useCallback(async () => {
     setState({ kind: 'loading' });
@@ -155,11 +208,15 @@ export default function FamilyDashboard() {
 
   const changeLifecycle = async (
     enrollment: Enrollment,
-    action: 'suspend' | 'resume' | 'archive',
+    action: 'suspend' | 'resume' | 'archive' | 'restore',
   ) => {
     if (
       action === 'archive' &&
-      !window.confirm('撤销这个入园申请？此操作不可撤销。')
+      !window.confirm(
+        enrollment.agent
+          ? '归档这个 Agent？归档后它会离开教室并停止接收事件，你之后可以从已归档列表恢复。'
+          : '撤销这个入园申请？此操作不可撤销。',
+      )
     ) {
       return;
     }
@@ -184,7 +241,11 @@ export default function FamilyDashboard() {
           ? 'Agent 已暂停。'
           : action === 'resume'
             ? 'Agent 已恢复，下一条运行事件会让它重新入场。'
-            : '入园申请已撤销。',
+            : action === 'restore'
+              ? 'Agent 已恢复到暂停状态，请确认后再恢复入园。'
+              : enrollment.agent
+                ? 'Agent 已归档，可从已归档列表恢复。'
+                : '入园申请已撤销。',
       );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '无法更新 Agent 状态');
@@ -217,12 +278,91 @@ export default function FamilyDashboard() {
         ...current,
         [enrollment.agent!.agentId]: action,
       }));
-      const selected = ACTIONS.find((item) => item.id === action);
-      setNotice(
-        `${enrollment.agent.displayName} 正在前往${selected?.location ?? '目标区域'}。`,
-      );
+      setActivityRefreshes((current) => ({
+        ...current,
+        [enrollment.id]: (current[enrollment.id] ?? 0) + 1,
+      }));
+      setNotice(agentActionNotice(enrollment.agent.displayName, action));
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '行为指令发送失败');
+    } finally {
+      setBusyKey(null);
+    }
+  };
+
+  const toggleProfileEditor = (enrollment: Enrollment) => {
+    if (!enrollment.agent) return;
+    if (editingEnrollmentId === enrollment.id) {
+      setEditingEnrollmentId(null);
+      return;
+    }
+    setProfileDrafts((current) => ({
+      ...current,
+      [enrollment.id]: profileDraftFor(enrollment.agent!),
+    }));
+    setEditingEnrollmentId(enrollment.id);
+    setNotice(null);
+  };
+
+  const updateProfileDraft = (
+    enrollmentId: string,
+    patch: Partial<AgentProfileDraft>,
+  ) => {
+    setProfileDrafts((current) => ({
+      ...current,
+      [enrollmentId]: { ...current[enrollmentId]!, ...patch },
+    }));
+  };
+
+  const saveProfile = async (
+    event: FormEvent<HTMLFormElement>,
+    enrollment: Enrollment,
+  ) => {
+    event.preventDefault();
+    const draft = profileDrafts[enrollment.id];
+    if (!draft?.displayName.trim()) {
+      setNotice('Agent 展示名不能为空。');
+      return;
+    }
+
+    const key = `${enrollment.id}:profile`;
+    setBusyKey(key);
+    setNotice(null);
+    try {
+      const capabilities = draft.capabilities
+        .split(/[,，\n]/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+      const response = await fetch(
+        `/api/enrollments/${encodeURIComponent(enrollment.id)}/profile`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            displayName: draft.displayName,
+            characterVariant: draft.characterVariant,
+            appearancePreset: draft.appearancePreset,
+            color: draft.color,
+            ...(draft.role.trim() ? { role: draft.role } : {}),
+            ...(draft.personalitySummary.trim()
+              ? { personalitySummary: draft.personalitySummary }
+              : {}),
+            ...(capabilities.length ? { capabilities } : {}),
+          }),
+        },
+      );
+      const body = (await response.json()) as {
+        enrollment?: Enrollment;
+        error?: string;
+      };
+      if (!response.ok || !body.enrollment?.agent) {
+        throw new Error(body.error ?? '无法更新 Agent 资料');
+      }
+      replaceEnrollment(body.enrollment);
+      setEditingEnrollmentId(null);
+      setNotice(`${body.enrollment.agent.displayName} 的资料已更新。`);
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '无法更新 Agent 资料');
     } finally {
       setBusyKey(null);
     }
@@ -236,12 +376,7 @@ export default function FamilyDashboard() {
     return (
       <section className="familyAuthState">
         <h2>登录后查看你的家庭</h2>
-        <a
-          className="parentPrimaryAction"
-          href="/api/auth/signin/casdoor?callbackUrl=%2Ffamily"
-        >
-          使用 Casdoor 登录
-        </a>
+        <CasdoorSignInButton callbackUrl="/family" />
       </section>
     );
   }
@@ -303,6 +438,8 @@ export default function FamilyDashboard() {
               const agent = enrollment.agent;
               if (!agent) return null;
               const suspended = enrollment.status === 'suspended';
+              const editing = editingEnrollmentId === enrollment.id;
+              const profileDraft = profileDrafts[enrollment.id];
               return (
                 <article className="familyAgentCard" key={enrollment.id}>
                   <div className="familyAgentIdentity">
@@ -319,7 +456,8 @@ export default function FamilyDashboard() {
                         </span>
                       </div>
                       <p>
-                        {agent.role ?? 'AI Agent'} · {VARIANT_LABELS[agent.characterVariant]}
+                        {agent.role ?? 'AI Agent'} · {VARIANT_LABELS[agent.characterVariant]} ·{' '}
+                        {APPEARANCE_PRESET_LABELS[agent.appearancePreset ?? 'classic']}
                       </p>
                       <code>{enrollment.provider}/{enrollment.nativeAgentId}</code>
                     </div>
@@ -345,6 +483,16 @@ export default function FamilyDashboard() {
                       className="parentSecondaryAction"
                       type="button"
                       disabled={busyKey !== null}
+                      aria-expanded={editing}
+                      aria-controls={`agent-profile-${enrollment.id}`}
+                      onClick={() => toggleProfileEditor(enrollment)}
+                    >
+                      {editing ? '收起编辑' : '编辑资料'}
+                    </button>
+                    <button
+                      className="parentSecondaryAction"
+                      type="button"
+                      disabled={busyKey !== null}
                       onClick={() =>
                         void changeLifecycle(
                           enrollment,
@@ -352,9 +500,149 @@ export default function FamilyDashboard() {
                         )
                       }
                     >
-                      {suspended ? '恢复入园' : '暂停入园'}
+                      {suspended ? '恢复入园' : '暂时出园'}
+                    </button>
+                    <button
+                      className="familyArchiveAction"
+                      type="button"
+                      disabled={busyKey !== null}
+                      onClick={() => void changeLifecycle(enrollment, 'archive')}
+                    >
+                      归档
                     </button>
                   </div>
+
+                  <AgentActivityTimeline
+                    enrollmentId={enrollment.id}
+                    agentName={agent.displayName}
+                    refreshToken={activityRefreshes[enrollment.id] ?? 0}
+                  />
+
+                  {editing && profileDraft ? (
+                    <form
+                      className="familyAgentEditForm"
+                      id={`agent-profile-${enrollment.id}`}
+                      aria-busy={busyKey === `${enrollment.id}:profile`}
+                      onSubmit={(event) => void saveProfile(event, enrollment)}
+                    >
+                      <h4>编辑 Agent 资料</h4>
+                      <label>
+                        <span>展示名</span>
+                        <input
+                          required
+                          maxLength={48}
+                          value={profileDraft.displayName}
+                          onChange={(event) =>
+                            updateProfileDraft(enrollment.id, {
+                              displayName: event.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                      <label>
+                        <span>角色／职责（可选）</span>
+                        <input
+                          maxLength={80}
+                          value={profileDraft.role}
+                          onChange={(event) =>
+                            updateProfileDraft(enrollment.id, {
+                              role: event.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                      <label className="familyAgentEditWideField">
+                        <span>性格简介（可选）</span>
+                        <textarea
+                          maxLength={240}
+                          value={profileDraft.personalitySummary}
+                          onChange={(event) =>
+                            updateProfileDraft(enrollment.id, {
+                              personalitySummary: event.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                      <label className="familyAgentEditWideField">
+                        <span>公开能力标签（可选）</span>
+                        <input
+                          maxLength={820}
+                          value={profileDraft.capabilities}
+                          onChange={(event) =>
+                            updateProfileDraft(enrollment.id, {
+                              capabilities: event.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                      <fieldset className="agentVariantField familyAgentEditWideField">
+                        <legend>角色外观</legend>
+                        <div className="agentVariantOptions">
+                          {(Object.keys(VARIANT_LABELS) as CharacterVariant[]).map(
+                            (variant) => (
+                              <label key={variant}>
+                                <input
+                                  type="radio"
+                                  name={`profile-variant-${enrollment.id}`}
+                                  value={variant}
+                                  checked={profileDraft.characterVariant === variant}
+                                  onChange={() =>
+                                    updateProfileDraft(enrollment.id, {
+                                      characterVariant: variant,
+                                    })
+                                  }
+                                />
+                                <span>{VARIANT_LABELS[variant]}</span>
+                              </label>
+                            ),
+                          )}
+                        </div>
+                      </fieldset>
+                      <AgentAppearancePicker
+                        idPrefix={`profile-${enrollment.id}`}
+                        characterVariant={profileDraft.characterVariant}
+                        value={profileDraft.appearancePreset}
+                        disabled={busyKey !== null}
+                        onChange={(appearancePreset) =>
+                          updateProfileDraft(enrollment.id, { appearancePreset })
+                        }
+                      />
+                      <label className="familyAgentColorField">
+                        <span>标识色</span>
+                        <div>
+                          <input
+                            type="color"
+                            value={profileDraft.color}
+                            onChange={(event) =>
+                              updateProfileDraft(enrollment.id, {
+                                color: event.target.value,
+                              })
+                            }
+                          />
+                          <output>{profileDraft.color.toUpperCase()}</output>
+                        </div>
+                      </label>
+                      <div className="familyAgentEditActions">
+                        <button
+                          className="parentPrimaryAction"
+                          type="submit"
+                          disabled={busyKey !== null}
+                        >
+                          {busyKey === `${enrollment.id}:profile`
+                            ? '保存中…'
+                            : '保存资料'}
+                        </button>
+                        <button
+                          className="parentSecondaryAction"
+                          type="button"
+                          disabled={busyKey !== null}
+                          onClick={() => setEditingEnrollmentId(null)}
+                        >
+                          取消
+                        </button>
+                      </div>
+                    </form>
+                  ) : null}
                 </article>
               );
             })}
@@ -401,10 +689,30 @@ export default function FamilyDashboard() {
           <ul>
             {groups.archived.map((enrollment) => (
               <li key={enrollment.id}>
-                <span>{enrollment.agent?.displayName ?? enrollment.nativeAgentId ?? 'Agent'}</span>
-                <time dateTime={enrollment.updatedAt}>
-                  {new Date(enrollment.updatedAt).toLocaleDateString('zh-CN')}
-                </time>
+                <div className="familyArchivedAgentRow">
+                  <div>
+                    <span>{enrollment.agent?.displayName ?? enrollment.nativeAgentId ?? 'Agent'}</span>
+                    <time dateTime={enrollment.updatedAt}>
+                      {new Date(enrollment.updatedAt).toLocaleDateString('zh-CN')}
+                    </time>
+                  </div>
+                  {enrollment.agent ? (
+                    <button
+                      type="button"
+                      disabled={busyKey !== null}
+                      onClick={() => void changeLifecycle(enrollment, 'restore')}
+                    >
+                      恢复到暂停
+                    </button>
+                  ) : null}
+                </div>
+                {enrollment.agent ? (
+                  <AgentActivityTimeline
+                    compact
+                    enrollmentId={enrollment.id}
+                    agentName={enrollment.agent.displayName}
+                  />
+                ) : null}
               </li>
             ))}
           </ul>

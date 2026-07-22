@@ -1,0 +1,138 @@
+{
+  "asset": "girl_executing_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 180,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/girl-child-executing-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/girl-child-executing-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        4,
+        11,
+        44,
+        62
+      ],
+      "reference_bbox": [
+        4,
+        11,
+        44,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 319,
+      "purple_palette_pixels": 3,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 296,
+      "purple_palette_pixels": 4,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        11,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        11,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 316,
+      "purple_palette_pixels": 4,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        11,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        11,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 326,
+      "purple_palette_pixels": 10,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-1-48x64.png": "bed6ced37112ca1f1c9cc6cd10e66bd843b6564253156893fa35c48a04c923db",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-2-48x64.png": "a7d46e114c76f40062bc6948291badaf19d9942cd54ab63098ead8daf0308430",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-3-48x64.png": "e7fb4f28961120023f2f9f6caf2a6dc24496aed7ada35ef0014fadabbac98c54",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-4-48x64.png": "6401d755c3bfa99c598934bef77863aba3d5da76f1aacaf521cbf04fd00e267b",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/girl-child-executing-meadow-v1-strip-48x64.png": "5050b9af3359300c92ba026e51a0446650b6876f2ee04dd27eb92e6874c34819",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/girl-child-executing-meadow-v1-2x2-48x64.png": "2458c42df7f4b316a9ee5658d27fcd6e067996f7974b4aa09517932fe41b9428"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

@@ -1,0 +1,983 @@
+{
+  "lock_id": "berry-runtime-lock-v1",
+  "status": "approved",
+  "approved_on": "2026-07-22",
+  "preset": "berry",
+  "classic_baseline_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v4.json",
+  "scope": {
+    "characters": 3,
+    "runtime_sheet_count": 21,
+    "idle_frames": 12,
+    "movement_frames": 96,
+    "state_action_frames": 60,
+    "runtime_frames": 168,
+    "movement_direction_strips": 24,
+    "movement_atlases": 3,
+    "idle_and_action_strips": 18,
+    "idle_and_action_2x2_sheets": 18
+  },
+  "character_contract": {
+    "frame_size_px": [
+      48,
+      64
+    ],
+    "anchor_px": [
+      24,
+      64
+    ],
+    "appearance_selection": "not exposed until application contract rollout",
+    "runtime_tinting": false
+  },
+  "palette_contract": {
+    "clothing_and_backpack": "coral highlights, berry midtones and raspberry shadows",
+    "boy_cap_crown": "berry and raspberry; yellow bill remains classic",
+    "unchanged": [
+      "face and eyes",
+      "white shell",
+      "pale-blue sleeves",
+      "girl flower",
+      "genderless antenna",
+      "wheels",
+      "waist status light",
+      "task props"
+    ]
+  },
+  "shape_contract": {
+    "alpha": "byte-exact classic frame",
+    "bbox": "exact classic frame",
+    "non_target_pixels": "byte-exact classic frame",
+    "action_semantics": "exact classic action, orientation and phase order",
+    "movement_semantics": "exact classic direction and wheel phase"
+  },
+  "action_semantic_locks": {
+    "boy_executing": "up_back place_toy_block",
+    "boy_error": "down_front inspect_diagnostic_reader"
+  },
+  "locked_file_count": 231,
+  "files": [
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/boy-child-error-berry-v1-2x2-48x64.png",
+      "sha256": "da84edb64c4ff067ae486ded69c952de240bfda6f4246b60516dc932f66914b5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/boy-child-error-berry-v1-strip-48x64.png",
+      "sha256": "5df6678250942f6e34c4cb6fac2931bc8abdc9a13efc2e238a1b82cc71c7076c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-1-48x64.png",
+      "sha256": "d6ec81a0a956fb872b365aa1e4e09ad14cfd1c4e95092a7447aa5f4cbc729529"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-2-48x64.png",
+      "sha256": "4a2126da650b02c95e037afbe32e8925824c24572475d6bfb8926352f8c9551e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-3-48x64.png",
+      "sha256": "ffadac17122c21c743b762b6fcc68ca7c88fcee5ca7bc427e4cf3f33c30c160d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-4-48x64.png",
+      "sha256": "de9d34d9cd11c0ed8e5446f6dc7a5d37ebc65f88c12e9f5500411f014a6af19b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/executing/boy-child-executing-berry-v1-2x2-48x64.png",
+      "sha256": "de9e74b5d93f87891369444d79337feb7ee67810fcc04622b74661390e4a759c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/executing/boy-child-executing-berry-v1-strip-48x64.png",
+      "sha256": "fe24eb8ce7346007ff3f037e5ed1c5e3e14ad5e220804a6741d429838106050d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-v1-1-48x64.png",
+      "sha256": "aeb4685b87a66f0fab2f1bec80950a554050eeec438eec2629ba3ab12fdf2345"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-v1-2-48x64.png",
+      "sha256": "5ce716f95cd10cc60fcb2c9ad65ae7909c2bd368128f70065f9ed1401fc15e14"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-v1-3-48x64.png",
+      "sha256": "a1e9599951f38d94f3667f42ff610b08cc35e5a23de36931b74a543f38e7ac31"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-v1-4-48x64.png",
+      "sha256": "3f049698859e4bc30072736056135e1f5f875529711e0a921ee8a938ba2a0465"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/boy-child-researching-berry-v1-2x2-48x64.png",
+      "sha256": "c751c0009ebf2039e7a13a8c40eb4bb631a2645b7f1e73194eacd40cfc830f59"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/boy-child-researching-berry-v1-strip-48x64.png",
+      "sha256": "03fc190f81e44abfbe6a77efb33b18854fab14ea54219fe252819a0cd2d5c7aa"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-1-48x64.png",
+      "sha256": "ccaca81224c29595dd8a780721d81c6134321681f3fba2d6c852db3faa5cee68"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-2-48x64.png",
+      "sha256": "603ebb134358af437d4d884459f252975ed449abd906802c3e77002a73d9f615"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-3-48x64.png",
+      "sha256": "0ec15aaa7db21984e491ae56158fa7c6fdb5c314be223ccaadce037ee772f0e9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-4-48x64.png",
+      "sha256": "9f0d065660bf2877b09cd449152a594d06553f50e066a99b952a069f7e5f4df3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-berry-v1-2x2-48x64.png",
+      "sha256": "fb550e4de7ee57587c7c84793f75ff98a18f41fdbafac7a99f31a0360c102ede"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-berry-v1-strip-48x64.png",
+      "sha256": "6519e15454a9298b99c39d8da9713c5ec23813c78df437417b809884e7046f29"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-1-48x64.png",
+      "sha256": "0a6f421ef4d378f455032746301d92fd266cee254aa61a7b3a0489a4298b4418"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-2-48x64.png",
+      "sha256": "33837accc8697a82ec2c4c9e5174baa71b4c131e180d0313220dea2ce23feb04"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-3-48x64.png",
+      "sha256": "9cad3b8641a94e4e8cdd22096498bc78c30b3a602c4bbcce0e44f5a3b8de4827"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-4-48x64.png",
+      "sha256": "d965e320f978860926f45f2282a7eb98b1c17d2b7354551eaa1dcbbb115c5e5c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/writing/boy-child-writing-berry-v1-2x2-48x64.png",
+      "sha256": "ce4ccbdfdf0f4b037bea6daa8a1b616f815096602cc601c4ff53915085a212ad"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/writing/boy-child-writing-berry-v1-strip-48x64.png",
+      "sha256": "b4d2b2ef904a02d318a90e71467942dc17332f3d95d272af0487d0f6429ec399"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-berry-v1-1-48x64.png",
+      "sha256": "018e8b3ac8cb07c6446c421f76c51ac20f0e1569b3401bed32143ec333ea91e6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-berry-v1-2-48x64.png",
+      "sha256": "ac74c9ffc94419b3fe6cbb2e042a5c6ba2a64e2dee4a6c4f87bec0027a59825c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-berry-v1-3-48x64.png",
+      "sha256": "1e351d89a937d025003b0c03999b3ffdeed628060870407373b7e39b30c683e4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-berry-v1-4-48x64.png",
+      "sha256": "cce6bfc62fd6c2c959f64b94749cf7fcaa68c742bd511cc49e314cf54b6e5b42"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/idle/boy-child-idle-berry-v1-2x2-48x64.png",
+      "sha256": "fdb436d16c461a0ffaa36e8165f591037eb416c6b62ed8f5c6e879f0407680a5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/idle/boy-child-idle-berry-v1-strip-48x64.png",
+      "sha256": "a4b9038b3e06a5838affa1ade20a230a92a4f545c0f84a1c483732d45650226c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/idle/frames/boy-child-idle-berry-v1-1-48x64.png",
+      "sha256": "c21b230de52d3fdc6d090e7a22ff91e21bb93e22038bc2f3fa8afc706eaae9ae"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/idle/frames/boy-child-idle-berry-v1-2-48x64.png",
+      "sha256": "cdf927619e75f9b1970f98220e78c997eb9164e04c9b8109599ea128d2fd86dc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/idle/frames/boy-child-idle-berry-v1-3-48x64.png",
+      "sha256": "42add17835fbe7ae183c8359f8ab1ff2c7adfa9856513ea32a38b10305b7fcc3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/idle/frames/boy-child-idle-berry-v1-4-48x64.png",
+      "sha256": "54a5f9dabb8d7047ea959b3238960ccf95f6173545ef513f05bdbf63a93f03f9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-berry-v1-48x64.png",
+      "sha256": "adaf880c18a5fe2e00337df6aabf2ee63ca00be22cdf3b27902cb78421f2e74c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-berry-v1-1-48x64.png",
+      "sha256": "b6cf310528c374b598e7fb03a143298bd79c329bd7dea40b379ad0e53fda2f82"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-berry-v1-2-48x64.png",
+      "sha256": "bfc5ac9f5772aae96aaa8527f55253ae2fedf6372399779f73bf0a68fdf4c6c7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-berry-v1-3-48x64.png",
+      "sha256": "2af1d8de9cedd7eaae5e92968575b0acdf5f3087a8c21562e8d16d2668f2d36a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-berry-v1-4-48x64.png",
+      "sha256": "820444528048c6cf1894818b0ff906b64b8c41c0ea89009074e93d43a8872cb6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-berry-v1-1-48x64.png",
+      "sha256": "d62de1c14cdaed13c27df9c37e8baefb5ec2efc0cbb8de6714b15010c0d15fed"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-berry-v1-2-48x64.png",
+      "sha256": "1522c96ccb3cfd71babcd6b56583b1f3141124341e619a1243f7f6b1516bc621"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-berry-v1-3-48x64.png",
+      "sha256": "d132f3e798fb34d4a949874279f94f9a8ac8fd92f2faa0dc4c51d94e1cab78c3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-berry-v1-4-48x64.png",
+      "sha256": "cab2a2ac0e741f63a808fa51bfde89ee3c3edf29970b3427d3475fe1be2847f9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-berry-v1-1-48x64.png",
+      "sha256": "6b0edbcbf2f5bb1d61cb5cc9e6fb2ecb518a09b7b13d47c7595fabedd34bf2ab"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-berry-v1-2-48x64.png",
+      "sha256": "3061432838ee1a9e985b4a1ec490e1afd14d0974c9a309d98f8a729ff2ef7e38"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-berry-v1-3-48x64.png",
+      "sha256": "d6c9a2d3560dbfd4887012f038d169071c44c14c164b64c3ba13990894819e51"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-berry-v1-4-48x64.png",
+      "sha256": "4c48f3ba20990a5ffe9ac343a7d141192c5aa139e76cd8a955fa970cfbf05816"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-berry-v1-1-48x64.png",
+      "sha256": "a5305c6119b4cfa9418ddaeb04feaeff1efeea0b22f872f241809244af0092fb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-berry-v1-2-48x64.png",
+      "sha256": "875c87f4c3e260fbdf704a88b311163337fc15cf9f4c5469506c470603b49196"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-berry-v1-3-48x64.png",
+      "sha256": "38a02dae6ee22752d290f84fbdbf0dee3c20f11d8726dcda41eb565ff7b8bb65"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-berry-v1-4-48x64.png",
+      "sha256": "4b7a2e9bf9b4d8acf4f870e962790988aa13cc0d7430e723f96e158edbd94d0d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-berry-v1-1-48x64.png",
+      "sha256": "bb47de8a6805209f355b3756a67214634f72b87aa94400b958afbcae7895b133"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-berry-v1-2-48x64.png",
+      "sha256": "344fff066f300e461859d2dc4c83917d97f7160a78b59b482a4e9181425a2bb9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-berry-v1-3-48x64.png",
+      "sha256": "79e67171b9fa68af0bd3588c14f9690af7a0f5d5ad57ebf91d6d6bf995577dce"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-berry-v1-4-48x64.png",
+      "sha256": "d8f95f21b12fcbe488dbf0cbf1d92fc0f68560ed17e7d54c4dd3eae757aac5ca"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-berry-v1-1-48x64.png",
+      "sha256": "cdd1d7b410e167de0b8bed95c33728cb332007d069cbac6a5c0f43000bca8689"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-berry-v1-2-48x64.png",
+      "sha256": "dc0ec1d6f15cadbe55c19c7310e91b9d3ebf3f54ef44250b876dc63aac666a73"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-berry-v1-3-48x64.png",
+      "sha256": "294771eeb1894e1aa10477415f559df095a9ad034e4199cc8ecf85f05ee55e66"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-berry-v1-4-48x64.png",
+      "sha256": "5a03b23850cc163de3f081b415c967053ff1742300655da667f06df8454a3072"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-berry-v1-1-48x64.png",
+      "sha256": "c3031fff7a585e32e0ce1ec4e1b98b3fd8a4263d094dc83f9e9e009b982bac1e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-berry-v1-2-48x64.png",
+      "sha256": "5236d6574c7c869e009b1872c6a08cdbf999a3b56a6a57bed55df995b8337464"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-berry-v1-3-48x64.png",
+      "sha256": "42a9b3cdfb922e95cbcd05b9d766e902cae3b267be77aa77de51721c4bcda50b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-berry-v1-4-48x64.png",
+      "sha256": "e246d0ffaa205b8c4be49fba39d7dff77f4eabf5a67652662cd28437803184aa"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-berry-v1-1-48x64.png",
+      "sha256": "bfdd4ace4c1f0ae7723aaed2f5f6f5e8d24b3a18cec622443cf2efbfe0c4ee88"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-berry-v1-2-48x64.png",
+      "sha256": "f6b27def85a63925aab265bbbdbff5b66e558e4e32329c19ce624bb9d46fc8d2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-berry-v1-3-48x64.png",
+      "sha256": "95eb92f4e33c212d5cbe58e7200e36da32f7aacfbf1b93b7c70e9a5fb9f25824"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-berry-v1-4-48x64.png",
+      "sha256": "72294a9e3dd9edf620012c48e449d630213e4e6d10b686234540f461ad677298"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-down-berry-v1-strip-48x64.png",
+      "sha256": "7cdb09e8e0af000c87f9ae2928f7bb670ac05f7e9f8bf1ce1b0187fc54132ef9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-down_left-berry-v1-strip-48x64.png",
+      "sha256": "e512384dff83c26455521718cae61e33abcddc31ea9411d49afaef7cf2e7d72a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-down_right-berry-v1-strip-48x64.png",
+      "sha256": "86b4d8d64b5d0cae621eb6cf5082a2dce889613ca711eac299545ad322166865"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-left-berry-v1-strip-48x64.png",
+      "sha256": "71882416704fd8191a81dbfac8976348eaeb59541679f1938a7451a456b566c9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-right-berry-v1-strip-48x64.png",
+      "sha256": "1d09d1ece58960b00579d788a257b0f89e9f2fab71af599e5b7c0fbe3ee6d83b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-up-berry-v1-strip-48x64.png",
+      "sha256": "a83716684414550ec16e38c530f3a5ff185a6a3097c9d380bd2b3ebdf1001fd1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-up_left-berry-v1-strip-48x64.png",
+      "sha256": "fad6b4421d3a01287928cfe91ff6c821e1bb3663c7399ea8d6ead0ded3da7449"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/moving/v1/strips/boy-child-move-up_right-berry-v1-strip-48x64.png",
+      "sha256": "81c3d5491036a0bc12672ecd911f49b4f83799979b09c1d1119fdb77d5d9b24e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-berry-v1-1-48x64.png",
+      "sha256": "ae4d0d91e48763bcedd4659eb170eac838abf6212761082941a480aa4b7f8942"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-berry-v1-2-48x64.png",
+      "sha256": "6e55e1f1980c4b2bb5b6c1be979856b246ea898ae183f22f3449f83806262108"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-berry-v1-3-48x64.png",
+      "sha256": "1fe37e96c3b1bebb3a2b1d63717332f183791e2bccbca9d7fb874c3bde53ecb7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-berry-v1-4-48x64.png",
+      "sha256": "8b9b0fee5eeb94b6d972fb9d8c4a1a7b14ae41264d96c152b3f68b2970815adf"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/error/genderless-child-error-berry-v1-2x2-48x64.png",
+      "sha256": "642d053b8c065aa1294389d7b213bd744c5a6a2cb7527970ac0ab8d2b02f1937"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/error/genderless-child-error-berry-v1-strip-48x64.png",
+      "sha256": "f3470c3bf89d7374ecec2e368d6683f40061570021f689e601c53aef8650b2b4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-1-48x64.png",
+      "sha256": "d334d8bf80833e5c904753cfad1ec05097be1b1e3693ea55f7bc444841e5698a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-2-48x64.png",
+      "sha256": "362711852cac77db453c79c0a7b7c4c6c9e679dc19c0346f84ac31cc92801aca"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-3-48x64.png",
+      "sha256": "49605c5b26c45507e9b1e79acaa296a7254680a3461e940575ad53afe8815f82"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-4-48x64.png",
+      "sha256": "98a3e1cd5a1285a33936ec3752e8181c6d7586a5b013764e4d9290f0a199d692"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-berry-v1-2x2-48x64.png",
+      "sha256": "e0353ce1a328c566c4399e08dc72392458a3992f0817ee2d7a63fc6412771962"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-berry-v1-strip-48x64.png",
+      "sha256": "6b26987222b29bc67e57f6a3c88627ff9bfcb6cbe8250f64819a3e16421a25b9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-berry-v1-1-48x64.png",
+      "sha256": "6aca47bcac042fddf19bcdb874cbc183671de1eef4bc52a9a906b5baa9237387"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-berry-v1-2-48x64.png",
+      "sha256": "abb1dff54d71ed285d5e1412319f12357b01f20299c76f555681bc57c4f421d6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-berry-v1-3-48x64.png",
+      "sha256": "8f81aeed3194a75efe81da68768db315f8b5e4ae4b68b1b04691041ffc5dc35f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-berry-v1-4-48x64.png",
+      "sha256": "15dba16961fa051f0b702ad4f0b63a5e77f6785e5d50bfcf2e8b9e19d32bff06"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-berry-v1-2x2-48x64.png",
+      "sha256": "adc7190a19ceda146efff5607ce6ece2ca389d40374cec6c9b08e764f4b7ed9d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-berry-v1-strip-48x64.png",
+      "sha256": "a4340d923eeb55d06833d92aff9bd962625c7aca37959cf7056e45fd1c5283f0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-berry-v1-1-48x64.png",
+      "sha256": "c08b7bad0e3fb0c9d919ce0ec81dad56e3000141baeff43283523856e9d128ad"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-berry-v1-2-48x64.png",
+      "sha256": "5d7a1d2a8a8a06098ad5e93f6e1398859ceb588a6365fd548556d8ee482d6fc8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-berry-v1-3-48x64.png",
+      "sha256": "9de7a3af633ac314bf07e6dd10219f41048ad524d798e28b1d7c5d2b461d9cf0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-berry-v1-4-48x64.png",
+      "sha256": "5a30ecd9aa4a7f4e17c1ac4e00e1d0f4fb4e7995f6f31d56fabe9e32eda3d18c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-berry-v1-2x2-48x64.png",
+      "sha256": "8f105bf05eac367efae5b2fd71bf4427c34f0cb22d16daa8a73d8df4bbeea5d4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-berry-v1-strip-48x64.png",
+      "sha256": "31927808589dcd4b1dbce0d9f3c40a96ed6f9b285533c2a6433ca403db82c906"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-berry-v1-1-48x64.png",
+      "sha256": "a30c79fdeffbc4824ad9f80288d44c0d83f17e038088a5be03dc2d6ea332a7b4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-berry-v1-2-48x64.png",
+      "sha256": "faccc9bb5510f03789fe39308d28e67b44ef9ef84ead8897ea9377baa2ace800"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-berry-v1-3-48x64.png",
+      "sha256": "590707556e5afa4185c572229d4827860d3e77d9d14000ad38600045d9b1ee53"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-berry-v1-4-48x64.png",
+      "sha256": "e1ebf4986653d5f9d60587927112cc95a6604a0cf41fabdbbdc8554f18ae755f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-berry-v1-2x2-48x64.png",
+      "sha256": "e1b2ae3ab4aaec60b96cbbf2d14b5a1eeb26769234017db78d30b45d3b7a2ae6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-berry-v1-strip-48x64.png",
+      "sha256": "cc7316444ff95093fc6dd0193cffec4c8c2c43595cea1ccb28cf39c9b4ba3234"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-1-48x64.png",
+      "sha256": "36cd40bdbc7ed22fe713672043c98a7dcecaf6da03761419edca994f8d16f52e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-2-48x64.png",
+      "sha256": "eb7988b0b7e4f0ef798be01b891e70a69aaa4258bc06681ab87d45fbe18ce0f6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-3-48x64.png",
+      "sha256": "f8527fac92f6c8ee6289770754f42e87195bb65b895a126a1016a029e48ccba2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-4-48x64.png",
+      "sha256": "4f7c38a0ab45b7698e21150311477432365a668c7ba09926d76ba0beafe13fd5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/genderless-child-idle-berry-v1-2x2-48x64.png",
+      "sha256": "970dcd076aa3e1fad03143fc8f625d086ea47132edaac803474c74ee35fddf39"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/genderless-child-idle-berry-v1-strip-48x64.png",
+      "sha256": "aa1f5bafa13039ef09244345cf0e69cd8dfbb2e85a3f3c7495fd7fe60174f35c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-berry-v1-1-48x64.png",
+      "sha256": "943bbc748f12f78a2c387869f5edd8ef0959e9cc72b52f67086279aa28b4bf4f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-berry-v1-2-48x64.png",
+      "sha256": "54993168268b9b35f94e4bd55a06a3fc8c3b42998e89633313c358e12d78bd67"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-berry-v1-3-48x64.png",
+      "sha256": "a22ea3c86a123c7ab8218af60df95a20f8434fcac774aabdad0c59b67f930d98"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-berry-v1-4-48x64.png",
+      "sha256": "e5dadac1e2ba5d37c89365d2780d45f1f078a5863ff1ba20d0a89b9b69c1e064"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-berry-v1-1-48x64.png",
+      "sha256": "90622f465ef7176f0ef82ab4cf6dd8210c7d07eb30fe399e2a3adf20ab972952"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-berry-v1-2-48x64.png",
+      "sha256": "686b1144eb93365f05bd75a004748f58aa26bbc276d0eb7b1c630c82600685c5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-berry-v1-3-48x64.png",
+      "sha256": "36bbddcb75d7364a4ae1bea80e406efff1605459986ddb102607e6e5c366ed1b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-berry-v1-4-48x64.png",
+      "sha256": "2cace745b118bdba2770be16d5b0ac1c2ad3e2f86302f243d66d58fab2aec637"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-berry-v1-1-48x64.png",
+      "sha256": "49b9ba3e2a6d8a47b0da8c443523f452d2ce7accb6904f4f29b4e740bf492a71"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-berry-v1-2-48x64.png",
+      "sha256": "d5d9fea68b04c55ea698fba35e6a53ffb40b27150c1c2969d9e40e39344e2fe3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-berry-v1-3-48x64.png",
+      "sha256": "c2b232478373d6496db8bf5125f083b15c4db384ed8450960588394255583978"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-berry-v1-4-48x64.png",
+      "sha256": "5689ea8113c539299c44d8dbb4c11a28f0acef9e8c5785066895b71e2cd4a69b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-berry-v1-1-48x64.png",
+      "sha256": "1c5014abecd7edeafa6025d4e859a3015e5c3e444cc97a8b79c1b04fbec13f65"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-berry-v1-2-48x64.png",
+      "sha256": "ea28882554156b7eeebb0112a587589f59eae3ca0d16d9bd2ad758fee863424b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-berry-v1-3-48x64.png",
+      "sha256": "155f491924f0bdd380c663243530ab6ef878133b06d242a8e8f0dbb597380460"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-berry-v1-4-48x64.png",
+      "sha256": "1832af04da0ae73e72c5464bd0c0e6aeb9d9a47588826f135d7af0d5314a61c0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-berry-v1-1-48x64.png",
+      "sha256": "1d7e13f86f912bb4df5361192ed257a9ca9581f599a7a006f335ee93dd27ab6a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-berry-v1-2-48x64.png",
+      "sha256": "ed3d833755fe52926bad88d7a260354741319b9ddd00428d6b8eb9d4df07b4ea"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-berry-v1-3-48x64.png",
+      "sha256": "5ade46245ae8ba199fac03a5704965e872088e9665d66bbd1bb398950d08af51"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-berry-v1-4-48x64.png",
+      "sha256": "71988c9d900d013e9f4dd90c481a40d46c368597f95baa5f61385f4e6a822396"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-berry-v1-1-48x64.png",
+      "sha256": "1025dec7dfa63ebf560b54fcf4d36bc8d2395b10996de9c7218b6852b6a5f069"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-berry-v1-2-48x64.png",
+      "sha256": "4541269f18cc59d3e162c91eca731c2c6c812fb501a90225eb3ee8ef509e0c88"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-berry-v1-3-48x64.png",
+      "sha256": "9dc0818c05432faef34ffd734944505e609833053e397c19c6e28a11a30115a2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-berry-v1-4-48x64.png",
+      "sha256": "0d60a6f867d21f9633eae307b744e5f6d7f3229aeae72cae0a604866ea7c7ab8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-berry-v1-1-48x64.png",
+      "sha256": "291e6acbe183fa3517cf61b51d22110aa17d6d408db2070ebef29c175a5b310f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-berry-v1-2-48x64.png",
+      "sha256": "8e180b6379643e26f71a43641a8441d1544d7e70674c6310a387ad73e66ac5dd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-berry-v1-3-48x64.png",
+      "sha256": "a1182616a7635723d2ec356fa7e3f4c3e842c1a4b60b60b9ba05702162d0fee5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-berry-v1-4-48x64.png",
+      "sha256": "aca5ac172717aaffcd8027eeacab7b87e8d856e146313f4d5f8d478deea6fe63"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-berry-v1-1-48x64.png",
+      "sha256": "e0ec0d4893dcd3ff2700b628080c9a0789e7a155a65e1dca4d7c932fff098e15"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-berry-v1-2-48x64.png",
+      "sha256": "9d5628775cfdcf7dc41f0dc997dbd0d531c7c6cc8baf3f16fb06a7b51cddc6df"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-berry-v1-3-48x64.png",
+      "sha256": "4cdf7b11fafe599c9051a9e389ac7392eea981305a0515701908c2281e5926bf"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-berry-v1-4-48x64.png",
+      "sha256": "f78967d774af3da2964bac10c42559ae890bf1a9871ada4784b432b1916cba19"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-berry-v1-48x64.png",
+      "sha256": "81ae0554addaa2bfc839ae48e67f770394c2e4550db747e243cfdf079711e9dd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down-berry-v1-strip-48x64.png",
+      "sha256": "375e796006fbc45cd7a8933685dd81898489b315bd8e7312ee6207c92488a6ab"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down_left-berry-v1-strip-48x64.png",
+      "sha256": "8eb07a755ec66ebfc4d1ad5a113864c051494c07424322981e476f33e5c45e02"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down_right-berry-v1-strip-48x64.png",
+      "sha256": "f5fc85d1d610fad35b2da29c4cc1192b55082687c7cee3201442b504a782567f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-left-berry-v1-strip-48x64.png",
+      "sha256": "a874aaa932e364b34a542c1d5b1fba84599a46873ae454310d95340cb910c4db"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-right-berry-v1-strip-48x64.png",
+      "sha256": "81b2407376cac0d2fbeb49fb1816d61b1c99e4e7ac2935fdb51b25c4f2f26813"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up-berry-v1-strip-48x64.png",
+      "sha256": "7faba343a9d1093e0e589174ebedc66f3ecf4139fa186b11d4372fb66c44edee"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up_left-berry-v1-strip-48x64.png",
+      "sha256": "061688e559090410d83523f3315ce7a1fac99c6018f1779b15724bad692a3645"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up_right-berry-v1-strip-48x64.png",
+      "sha256": "8bbaa8ab6c95ace6557752e1671d23b64034e88e01f159c863abf4f8fbe7ef55"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-berry-v1-1-48x64.png",
+      "sha256": "a6c5c4b6ce2d3373815ab1fca262ccd5e3cfef4c739ecca8d1c1088e49cd01d1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-berry-v1-2-48x64.png",
+      "sha256": "eeb1e2097ec5c7162f530642a07af32fb06781e9bc52b2737f7c0febb8b7c3c0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-berry-v1-3-48x64.png",
+      "sha256": "0ffbf4b5d96f546d27b1e5e5391f5bebb1011766202255bf5c5d333d37694ed4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-berry-v1-4-48x64.png",
+      "sha256": "7e9ca49016dfb0d9a57fa3ac3a8c5032844cd1311e1c80624ed50be05a14848d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/error/girl-child-error-berry-v1-2x2-48x64.png",
+      "sha256": "6ade2859765050ba349dff289517cf8b4a9de956510359afa7af1cbaf46859a0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/error/girl-child-error-berry-v1-strip-48x64.png",
+      "sha256": "6d0bf7ef8a2ba53f4581444adff06bb4bbe7acd01972c461c2356907a68d7c26"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-1-48x64.png",
+      "sha256": "602087436de0acb0f62cb88969714a0b40b2eecc2e3d1112d161a1d1cbbd9cb2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-2-48x64.png",
+      "sha256": "cb4970a745e5ba8c69c6977b67a81908610b4bc42723b56baec29291f5e8742e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-3-48x64.png",
+      "sha256": "13ffcbca5909c6d83fbad7aa6668e4d3b1931f7001d2a6b30c509f3869ef410f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-4-48x64.png",
+      "sha256": "760c035f265bbacf726b3e9e528b47959045013506c83bdd8dc4d187aa7df93b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/girl-child-executing-berry-v1-2x2-48x64.png",
+      "sha256": "7990f76fda61eb679ba2e4cfa341d6e9ef815cf28add775e8ce779695e1b7d83"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/girl-child-executing-berry-v1-strip-48x64.png",
+      "sha256": "2e759177b414d7d01a9f163c2595d47e6192285055dacd2bac01e3b0bae6e766"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-1-48x64.png",
+      "sha256": "67464c103fc19e85fa7d4323deb1c4b01b402ef0b920116d292499454a936cb4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-2-48x64.png",
+      "sha256": "4065831d5dc9050edc0f5330fb252237ec373e5cc6d263590becf2f149cc36e2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-3-48x64.png",
+      "sha256": "5b3de55b9a4a51ec43db349ac2abe56e11f851dbfe0051d5742d2f372a9d4fe9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-4-48x64.png",
+      "sha256": "b24a4fe8a2cb7a4fce948ec74949ccb4358db4d779b375faceec25e436e0bcba"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-2x2-48x64.png",
+      "sha256": "51fe977b1540d262e9c7e34b883195470917ab5a8dfbf04fe24ed58d1e8c2790"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-strip-48x64.png",
+      "sha256": "5f8af09bd4a41847a0670f84f4999be15322e2f9ec1bce5644cb0e1bb3bc24f0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-berry-v1-1-48x64.png",
+      "sha256": "ff187bfd6f987fa554f5fa53f4de31dc4782348a3b4c477823a8e8ef7e7fb43f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-berry-v1-2-48x64.png",
+      "sha256": "0105a31345b9df32cbe540ba49e607fd1c6656f00af53ed54604cc830e10a9be"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-berry-v1-3-48x64.png",
+      "sha256": "f5f61220d7d1eca223935ff40536ef5056dc57cf71416d57b22fdf3f9bd6c0d5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-berry-v1-4-48x64.png",
+      "sha256": "c4e3a2fec13c364bfe992a2ea29f0eb0b63254607586084c342a5e52dff8bc45"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-berry-v1-2x2-48x64.png",
+      "sha256": "94c543e64cb3113bb0be184b45245860996abe5bfc41137184aeb316bd4ea47b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-berry-v1-strip-48x64.png",
+      "sha256": "9bbcca6984e52713f9f975ca788f79f2293d18281c0031e3f958bc2ab38b1074"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-berry-v1-1-48x64.png",
+      "sha256": "a65760ec392904afb6a746ac4bb99cb8e11a48c3e010751a9da6078e557b6f0e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-berry-v1-2-48x64.png",
+      "sha256": "b0a0309822e4ec0efe9d1edaaa2b247a06fcbf9d969dc0cddedc3fabe496dbb0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-berry-v1-3-48x64.png",
+      "sha256": "be34a72dd1d913c0d6bad120439cf9daf5f6ad14e2a0ac1b1eb793595e212970"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-berry-v1-4-48x64.png",
+      "sha256": "797a96f2d939c3fc9aa4abc4f5171bde9f844aa570cb4546d9afba62cf9b8b68"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/girl-child-writing-berry-v1-2x2-48x64.png",
+      "sha256": "314904306a3f42a9e0c37ad644f8d8d764f94ee626675c86d342ef45695a8144"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/girl-child-writing-berry-v1-strip-48x64.png",
+      "sha256": "18dd9273edcb29bf797b23e57e6d30b008222df4d10197edca7a11997438c298"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/idle/frames/girl-child-idle-berry-v1-1-48x64.png",
+      "sha256": "63860a8e2f9388581c4de02181e22c420b03e4cc77122f6228e2e8b35ad6ff7a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/idle/frames/girl-child-idle-berry-v1-2-48x64.png",
+      "sha256": "f2849ce890e3a0ee13105c6c4762572f65204f33ecf777ae3606ae92c15161d9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/idle/frames/girl-child-idle-berry-v1-3-48x64.png",
+      "sha256": "59062dc2362f2c3bd1b7ec04688ee69770a886132349b3a96059d82a674511e2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/idle/frames/girl-child-idle-berry-v1-4-48x64.png",
+      "sha256": "59bf5f2e3aa5ac238840acf4761d32bc3b6efe3e1d1d51406069b0881c55be42"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/idle/girl-child-idle-berry-v1-2x2-48x64.png",
+      "sha256": "9f4036e9c2286e65c4a3b486b91c76314ed1f2235272f5b1966b28b8167d11c5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/idle/girl-child-idle-berry-v1-strip-48x64.png",
+      "sha256": "bb00497ee6c3ac31d443235182b3ccb1c4d745f00776953b5fcbab77b4e16656"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-1-48x64.png",
+      "sha256": "a1557d0871caa1621057d59e349e290dcc1465db90abe6159e5ad32c3bb7c36f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-2-48x64.png",
+      "sha256": "43724fac851ad712405303f17b0f4eea8aa3213edb6f8e61a7b0490ac59e8c4a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-3-48x64.png",
+      "sha256": "fcd6338cba97ecff2fdc7655d02e336bf8074ef5c9ea9bb1121a4e5f6c13749b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-berry-v1-4-48x64.png",
+      "sha256": "793eac3e7124d54922c068b0b7255ba3598e15461f7ed0330f8941488e5d8c31"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-1-48x64.png",
+      "sha256": "62d273d5727076f0dd77149ebe82cdaeda851f047b993c8f8be7e8edba7856b5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-2-48x64.png",
+      "sha256": "f495209503f88a7d68c0f75c65db8b8db6294b30341ea3360dbf82f1c4dfe4db"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-3-48x64.png",
+      "sha256": "295c3ebe3d66600ae412e6bfe2d4b66a7c2bb3f5916956e7b3f8cfe86d8285af"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-berry-v1-4-48x64.png",
+      "sha256": "706798274249a0d6fa5cf95316c93009d88ee99999207260770870d116d77426"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-1-48x64.png",
+      "sha256": "284f905a29be1b6d6563208f8dce0a49435e6a7b273d8014bcbfc239386e71b2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-2-48x64.png",
+      "sha256": "bcf4526651290a2138bbf1721f0790aab0e6dc77ba3dbff0a8e739abbb84feda"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-3-48x64.png",
+      "sha256": "3c73b8908930856938a8a0046bb5a44fa8f75d6df05bac272997bfd5be6f5ceb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-berry-v1-4-48x64.png",
+      "sha256": "3e90cb13f359ac5539c320b1d75f5633e355e2d30eca9b96bcf8e416c36ba691"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-1-48x64.png",
+      "sha256": "4bb44830c4621afa1960374e72dd7c5a82e6e5bffbeff97ff15162122494d390"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-2-48x64.png",
+      "sha256": "dbe5b378cfc2bafc0fe3071bc65f0b7bf147f3a67e648ce1ef2ef20044887ac2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-3-48x64.png",
+      "sha256": "92ac72cdc87969dbcd29b317a9fe750f40e0b81c66ffd752045a209ba182797f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-berry-v1-4-48x64.png",
+      "sha256": "a182d292a861fdf66fe076367d69d84b539ac6de64e6ce11e7e895faac6d5461"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-1-48x64.png",
+      "sha256": "f0cb787299f909bb2dbf06639779b6f5bf69a40ea8af0b5a7f08522c9974e070"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-2-48x64.png",
+      "sha256": "3f688a94be345551d3a00c7e04ec54a688aaaddc17e1a1e2fbb95f8b4f18f6b4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-3-48x64.png",
+      "sha256": "a4c196eabbb7e30d05f6b1a8e0fbbe9844fb1f8f96b7b910302dad26e0da76fa"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-berry-v1-4-48x64.png",
+      "sha256": "718c2394954d496dd2ac4e8fc41d3ba20b89f0b886abf5c3ef7025f83709afc8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-1-48x64.png",
+      "sha256": "0391f8b1a07d4f7c5159e6739aa1b49ff788c27cee9cc5969f8c726764053f61"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-2-48x64.png",
+      "sha256": "8c2ca5b017d3e9d2076862f4411a6d79f614531e43e48a003aa1c93255e31e6a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-3-48x64.png",
+      "sha256": "557bed1258f009a7c48ca26baa8160e8190710856e40563dd964d3394cfc2fff"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-berry-v1-4-48x64.png",
+      "sha256": "21b6fe50287e074584ea5144797d2e51a33e9255144e81337db22c51e1695586"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-1-48x64.png",
+      "sha256": "871700332c77d4c95e23aefb99762c5717cf04b3f3cd8d61848e4feba8c85869"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-2-48x64.png",
+      "sha256": "f4f061d10a4d6aa27141434c089427adaee691a9e3c163977a1a061948de2c7f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-3-48x64.png",
+      "sha256": "9eaa8abfe15a6e21595795766918ffa7162679aef1827e3a8d3ff604176fa710"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-berry-v1-4-48x64.png",
+      "sha256": "88f8f03350e2baae26a040f1d8238ac37f9bcd6c4a75accd48a8f7e5dafa84f7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-1-48x64.png",
+      "sha256": "8227e05ff07a91a90c8f3ecb445601b4f57c35a7da9d9aa39c3772c640e7daff"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-2-48x64.png",
+      "sha256": "b9b4172c1379e8742261f3832a0e4636ddaa3a27177abd940e15b3231998354b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-3-48x64.png",
+      "sha256": "ac982dc4e392517f4a80e9cf581a1bd2323fba40f25270fbe2bb00b01e00a705"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-berry-v1-4-48x64.png",
+      "sha256": "c1a9ed4939bb0a75d0659caaaf02e99f3d1cb69641051ac55896b00c4e6cbf41"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-berry-v1-48x64.png",
+      "sha256": "7ac3d3b0f570860a759b5705d87be7bed43ae3b386372ea82597067aa159accf"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-berry-v1-strip-48x64.png",
+      "sha256": "5cafba98204cb43dd16d3dbd975a262054f5a1cb5b7994e4583448005601ddca"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-berry-v1-strip-48x64.png",
+      "sha256": "13eca3871a337167145000e271d5db887e432d6466c9a0265013e0bbb872ca0d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-berry-v1-strip-48x64.png",
+      "sha256": "a28ab7bb6c655fe7aba2fd19fd674af6c03c13cba9fb0991e7c95593adf60453"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-berry-v1-strip-48x64.png",
+      "sha256": "4ac191ce587da5f21008e5778d90df25db01faddb7f23e65ebc9df8ef61656b3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-berry-v1-strip-48x64.png",
+      "sha256": "3370d05fe67d823a1ba8c579886e35668076dd95df132b4baf627c426adf5009"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-berry-v1-strip-48x64.png",
+      "sha256": "85f7ee5ec135888ea8b4a461d6e125ab324ee46eba80de4be234065e4f93834b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-berry-v1-strip-48x64.png",
+      "sha256": "3d85539c6dade00312d21148d8b2e3cb2b89e646d61c762ec16e7f0a31c4eba0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-berry-v1-strip-48x64.png",
+      "sha256": "f75e035327ce61e6dc0d3ab70dd3e96a2805dd223dcefe217c0c93585700c577"
+    }
+  ]
+}

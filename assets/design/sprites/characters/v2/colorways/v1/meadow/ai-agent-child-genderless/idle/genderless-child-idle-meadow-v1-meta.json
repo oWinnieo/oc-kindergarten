@@ -1,0 +1,138 @@
+{
+  "asset": "genderless_idle_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/genderless-child-idle-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/genderless-child-idle-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 285,
+      "purple_palette_pixels": 14,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 291,
+      "purple_palette_pixels": 28,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        5,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        5,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 277,
+      "purple_palette_pixels": 18,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        6,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        6,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 291,
+      "purple_palette_pixels": 23,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-1-48x64.png": "e0c5462f406b5c32c889219fdf5abf280332476e4116b634d67b7048afdc877b",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-2-48x64.png": "90e3c320875471fca40078f961a8774b26c130c13c4650c06256eea7e4a5b5fb",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-3-48x64.png": "45221ed5568e2914a2eab58162ef4759ff6c6e8fec8e437de98287ea57027fe8",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-4-48x64.png": "a39d221c04400edf76fa6625d0fecc0b12b291db859605a2786b381a4a4ad19b",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/genderless-child-idle-meadow-v1-strip-48x64.png": "97ba6d020d6a737718d2796f52dae6029538dfea631a6ff93e782e8e2358a548",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/genderless-child-idle-meadow-v1-2x2-48x64.png": "d9ab0048d7d7377b4c7dab85089e61f4d66601767cee6ac258c278c9af2d944b"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

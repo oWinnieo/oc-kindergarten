@@ -1,5 +1,6 @@
 import {
   AGENT_REGISTRY_SCHEMA_VERSION,
+  DEFAULT_AGENT_APPEARANCE_PRESET,
   AgentProfile,
   AgentProfileInput,
 } from './agent-registry-contract';
@@ -63,6 +64,8 @@ export class AgentRegistry {
       this.revisionClock += 1;
       this.profiles.set(input.agentId, {
         ...input,
+        appearancePreset:
+          input.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
         revision: this.revisionClock,
         updatedAt: DEFAULT_UPDATED_AT,
       });
@@ -87,6 +90,8 @@ export class AgentRegistry {
     this.revisionClock += 1;
     const profile: AgentProfile = {
       ...input,
+      appearancePreset:
+        input.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
       revision: this.revisionClock,
       updatedAt: now.toISOString(),
     };

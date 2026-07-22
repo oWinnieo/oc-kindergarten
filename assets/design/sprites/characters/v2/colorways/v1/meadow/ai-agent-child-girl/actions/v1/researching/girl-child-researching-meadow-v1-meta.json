@@ -1,0 +1,138 @@
+{
+  "asset": "girl_researching_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/girl-child-researching-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/girl-child-researching-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 310,
+      "purple_palette_pixels": 9,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 315,
+      "purple_palette_pixels": 11,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 315,
+      "purple_palette_pixels": 16,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 323,
+      "purple_palette_pixels": 15,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-1-48x64.png": "25012ccb7f929b526a1e6d10d2ff217ca53bd24a7dca4b22a6151fce40e97ad6",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-2-48x64.png": "8d91d581de083cf6c006827bfe9c7220298944309cc705eee07069c99a3286ff",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-3-48x64.png": "e192606e647735fa533cc5a98a8adf82792d3c81cae13dc3319171afde44c82f",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-4-48x64.png": "50689b179b0140f5a021e5295a3c844b1b7a3cbcead6b4c06623b61e130c195a",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/girl-child-researching-meadow-v1-strip-48x64.png": "2b5c252081db4ce1174b84d6ec77ff99efb04d10520918fb82d17a3a43dbbff6",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/girl-child-researching-meadow-v1-2x2-48x64.png": "7db2ae1da043014bf973826e70aab610ee1ad15e05704b50f5a0f23818c73dec"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

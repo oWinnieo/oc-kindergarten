@@ -1,0 +1,146 @@
+{
+  "asset": "boy_executing_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 180,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/boy-child-executing-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/boy-child-executing-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        2,
+        12,
+        46,
+        62
+      ],
+      "reference_bbox": [
+        2,
+        12,
+        46,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 257,
+      "purple_palette_pixels": 225,
+      "reference_alpha_iou": 0.9825016202203499,
+      "reference_alpha_changed_pixels": 27,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        4,
+        12,
+        44,
+        62
+      ],
+      "reference_bbox": [
+        4,
+        12,
+        44,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 251,
+      "purple_palette_pixels": 220,
+      "reference_alpha_iou": 0.9800531914893617,
+      "reference_alpha_changed_pixels": 30,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 246,
+      "purple_palette_pixels": 222,
+      "reference_alpha_iou": 0.9799857040743388,
+      "reference_alpha_changed_pixels": 28,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 246,
+      "purple_palette_pixels": 220,
+      "reference_alpha_iou": 0.9801178203240059,
+      "reference_alpha_changed_pixels": 27,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-1-48x64.png": "8169bcf21f17edf8dcda63c6dde036c79698c335a31c6d11eef862b968dab89c",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-2-48x64.png": "d12edd095282479df5f27e95f4f76a0f96e6f06522ff188934c5f87e0c22c195",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-3-48x64.png": "b241682fa1360c6040a006d3958f3b24dcf1695b7779a541d3f5335d70c35c0c",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-4-48x64.png": "55321c927c5a4a42d9f736cf36be39581ffbe58c13557110fdb7cf3664922ce0",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/boy-child-executing-meadow-v1-strip-48x64.png": "67a799fad8c2a1ff8a8fd69be46edd02cf1b89db0c1cd36802bbabebc1912ad7",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/boy-child-executing-meadow-v1-2x2-48x64.png": "c8acf2b73c3224d4edbbfcfc88121b5c3c34a836ac198adb3f1ab7d87e973876"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

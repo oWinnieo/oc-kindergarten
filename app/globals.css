@@ -455,6 +455,108 @@ button:focus-visible {
   color: #12547c;
 }
 
+.agentAppearanceField {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid rgba(23, 50, 74, 0.13);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.agentAppearanceField legend {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.agentAppearanceField > p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.agentAppearanceOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.agentAppearanceOptions > label {
+  position: relative;
+  min-width: 0;
+  min-height: 154px;
+  border: 1px solid rgba(23, 50, 74, 0.16);
+  border-radius: 11px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.agentAppearanceOptions > label.isSelected {
+  border-color: var(--blue);
+  background: var(--sky);
+  box-shadow: 0 0 0 2px rgba(41, 125, 182, 0.1);
+}
+
+.agentAppearanceOptions input,
+.agentConfirmForm .agentAppearanceOptions input {
+  position: absolute;
+  width: 1px;
+  min-height: 1px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+.agentAppearancePreview {
+  width: 96px;
+  height: 128px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(45deg, #eff5f2 25%, transparent 25%),
+    linear-gradient(-45deg, #eff5f2 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eff5f2 75%),
+    linear-gradient(-45deg, transparent 75%, #eff5f2 75%),
+    #fff;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-size: 16px 16px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.agentAppearancePreview img {
+  width: 96px;
+  height: 128px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.agentAppearanceCopy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.agentAppearanceCopy strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.agentAppearanceCopy small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 .agentActiveSummary {
   display: flex;
   align-items: flex-start;
@@ -664,6 +766,251 @@ button:focus-visible {
   font-weight: 800;
 }
 
+.familyArchiveAction {
+  min-height: 32px;
+  border: 0;
+  padding: 4px 8px;
+  background: transparent;
+  color: #8b3d3d;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyArchiveAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.familyActivityTimeline {
+  min-width: 0;
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.familyActivityToggle {
+  width: 100%;
+  min-height: 34px;
+  border: 0;
+  padding: 3px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 850;
+  text-align: left;
+}
+
+.familyActivityToggle span:last-child {
+  color: var(--blue);
+  font-size: 11px;
+}
+
+.familyActivityPanel {
+  padding: 8px 0 2px;
+}
+
+.familyActivityStatus {
+  margin: 4px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.familyActivityList {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  list-style: none;
+}
+
+.familyActivityList li {
+  min-width: 0;
+  border-bottom: 1px solid rgba(23, 50, 74, 0.09);
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.familyActivityList li:last-child {
+  border-bottom: 0;
+}
+
+.familyActivityMarker {
+  width: 8px;
+  height: 8px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: #7d929d;
+  box-shadow: 0 0 0 3px rgba(125, 146, 157, 0.12);
+}
+
+.familyActivityList .tone-positive .familyActivityMarker {
+  background: #2f8a61;
+  box-shadow: 0 0 0 3px rgba(47, 138, 97, 0.12);
+}
+
+.familyActivityList .tone-attention .familyActivityMarker {
+  background: #c78614;
+  box-shadow: 0 0 0 3px rgba(199, 134, 20, 0.14);
+}
+
+.familyActivityList .tone-danger .familyActivityMarker {
+  background: #bd4a45;
+  box-shadow: 0 0 0 3px rgba(189, 74, 69, 0.13);
+}
+
+.familyActivityList li > div {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.familyActivityList strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.familyActivityList li > div > span,
+.familyActivityList time {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.familyActivityList time {
+  white-space: nowrap;
+}
+
+.familyActivityMore,
+.familyActivityError button {
+  min-height: 32px;
+  border: 1px solid rgba(41, 125, 182, 0.28);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: #fff;
+  color: #145b83;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.familyActivityMore {
+  margin-top: 6px;
+}
+
+.familyActivityMore:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.familyActivityError {
+  border-left: 3px solid #bd4a45;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff2ef;
+}
+
+.familyActivityError p {
+  margin: 0;
+  color: #8b3d3d;
+  font-size: 12px;
+}
+
+.familyAgentEditForm {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.familyAgentEditForm h4 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.familyAgentEditForm > label {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.familyAgentEditForm > label > span,
+.familyAgentEditForm legend {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyAgentEditForm > label > input,
+.familyAgentEditForm textarea {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 6px;
+  padding: 9px 11px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.familyAgentEditForm textarea {
+  min-height: 78px;
+  resize: vertical;
+}
+
+.familyAgentEditWideField,
+.familyAgentEditActions {
+  grid-column: 1 / -1;
+}
+
+.familyAgentColorField > div,
+.familyAgentEditActions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.familyAgentColorField input[type="color"] {
+  width: 54px;
+  height: 42px;
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 6px;
+  padding: 3px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.familyAgentColorField output {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+}
+
+.familyAgentEditActions {
+  justify-content: flex-end;
+}
+
+.familyAgentEditActions .parentPrimaryAction,
+.familyAgentEditActions .parentSecondaryAction {
+  min-height: 38px;
+  border-radius: 6px;
+  padding: 8px 13px;
+  font-size: 12px;
+}
+
 .familyEmptyState {
   border: 1px dashed rgba(23, 50, 74, 0.25);
   border-radius: 8px;
@@ -748,10 +1095,49 @@ button:focus-visible {
 }
 
 .familyArchive li {
-  display: flex;
-  justify-content: space-between;
+  border-bottom: 1px solid rgba(23, 50, 74, 0.09);
+  padding-bottom: 8px;
+  display: grid;
   gap: 18px;
   font-size: 12px;
+}
+
+.familyArchivedAgentRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.familyArchivedAgentRow > div {
+  display: grid;
+  gap: 3px;
+}
+
+.familyArchive li time {
+  color: #71818a;
+}
+
+.familyArchivedAgentRow > button {
+  min-height: 32px;
+  border: 1px solid rgba(41, 125, 182, 0.28);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: #fff;
+  color: #145b83;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyArchivedAgentRow > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.familyActivityTimeline.isCompact {
+  border-top-style: dashed;
+  padding-top: 6px;
 }
 
 @media (max-width: 620px) {
@@ -778,6 +1164,10 @@ button:focus-visible {
 
   .agentConfirmForm,
   .agentVariantOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .agentAppearanceOptions {
     grid-template-columns: 1fr;
   }
 
@@ -817,6 +1207,37 @@ button:focus-visible {
   .familyAgentLifecycle {
     width: 100%;
     grid-template-columns: 1fr;
+  }
+
+  .familyAgentEditForm {
+    grid-template-columns: 1fr;
+  }
+
+  .familyAgentEditForm h4,
+  .familyAgentEditWideField,
+  .familyAgentEditActions {
+    grid-column: auto;
+  }
+
+  .familyAgentEditActions {
+    justify-content: stretch;
+  }
+
+  .familyAgentEditActions > button {
+    flex: 1;
+  }
+
+  .familyActivityList li {
+    grid-template-columns: 8px minmax(0, 1fr);
+  }
+
+  .familyActivityList time {
+    grid-column: 2;
+  }
+
+  .familyArchivedAgentRow {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
@@ -1355,11 +1776,45 @@ button:focus-visible {
   place-items: center;
 }
 
-.canvasOnlyViewport {
-  width: min(100%, calc((100dvh - 48px) * 16 / 9));
+.classroomStage {
+  width: min(100%, calc((100dvh - 112px) * 16 / 9));
   max-width: 1440px;
+  display: grid;
+  gap: 10px;
+}
+
+.canvasOnlyViewport {
+  width: 100%;
   border-radius: 20px;
   box-shadow: 0 24px 80px rgba(38, 74, 92, 0.2);
+}
+
+.classroomNotice {
+  min-width: 0;
+  min-height: 42px;
+  border: 1px solid rgba(23, 50, 74, 0.16);
+  border-radius: 6px;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  background: rgba(255, 253, 246, 0.96);
+  box-shadow: 0 8px 24px rgba(38, 74, 92, 0.1);
+  color: #205f82;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.classroomNotice::before {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px rgba(41, 125, 182, 0.12);
+  content: "";
 }
 
 .stressObserver {
@@ -1691,9 +2146,19 @@ button:focus-visible {
     padding: 8px;
   }
 
-  .canvasOnlyViewport {
+  .classroomStage {
     width: 100%;
+    gap: 8px;
+  }
+
+  .canvasOnlyViewport {
     border-radius: 12px;
+  }
+
+  .classroomNotice {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 12px;
   }
 
   .debugPanel {

@@ -6,9 +6,17 @@ export const AGENT_CHARACTER_VARIANTS = [
   'genderless',
 ] as const;
 
+export const AGENT_APPEARANCE_PRESETS = [
+  'classic',
+  'meadow',
+  'berry',
+] as const;
+export const DEFAULT_AGENT_APPEARANCE_PRESET = 'classic' as const;
+
 export const AGENT_REGISTRATION_ACTORS = ['owner', 'agent', 'system'] as const;
 
 export type AgentCharacterVariant = (typeof AGENT_CHARACTER_VARIANTS)[number];
+export type AgentAppearancePreset = (typeof AGENT_APPEARANCE_PRESETS)[number];
 export type AgentRegistrationActor = (typeof AGENT_REGISTRATION_ACTORS)[number];
 
 export interface AgentProfileInput {
@@ -16,13 +24,15 @@ export interface AgentProfileInput {
   agentId: string;
   displayName: string;
   characterVariant: AgentCharacterVariant;
+  appearancePreset?: AgentAppearancePreset;
   registeredBy: AgentRegistrationActor;
   ownerId?: string;
   role?: string;
   color?: string;
 }
 
-export interface AgentProfile extends AgentProfileInput {
+export interface AgentProfile extends Omit<AgentProfileInput, 'appearancePreset'> {
+  appearancePreset: AgentAppearancePreset;
   revision: number;
   updatedAt: string;
 }
@@ -92,6 +102,12 @@ export function parseAgentProfileInput(input: unknown): AgentProfileParseResult 
   if (!includesValue(AGENT_CHARACTER_VARIANTS, input.characterVariant)) {
     return { ok: false, error: 'characterVariant 不受支持' };
   }
+  if (
+    input.appearancePreset !== undefined &&
+    !includesValue(AGENT_APPEARANCE_PRESETS, input.appearancePreset)
+  ) {
+    return { ok: false, error: 'appearancePreset 不受支持' };
+  }
   if (!includesValue(AGENT_REGISTRATION_ACTORS, input.registeredBy)) {
     return { ok: false, error: 'registeredBy 不受支持' };
   }
@@ -116,6 +132,8 @@ export function parseAgentProfileInput(input: unknown): AgentProfileParseResult 
       agentId: agentId.value,
       displayName: displayName.value,
       characterVariant: input.characterVariant,
+      appearancePreset:
+        input.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
       registeredBy: input.registeredBy,
       ...(ownerId.value === undefined ? {} : { ownerId: ownerId.value }),
       ...(role.value === undefined ? {} : { role: role.value }),
@@ -143,6 +161,8 @@ export function parseAgentProfile(input: unknown): StoredAgentProfileParseResult
     ok: true,
     profile: {
       ...parsed.profile,
+      appearancePreset:
+        parsed.profile.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
       revision: Number(input.revision),
       updatedAt: input.updatedAt,
     },

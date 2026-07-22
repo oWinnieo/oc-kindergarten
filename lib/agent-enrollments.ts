@@ -9,12 +9,16 @@ import type {
 } from './agent-enrollment-contract';
 import {
   canParentArchiveEnrollment,
+  canParentEditAgentProfile,
   generatePairingCode,
   hashPairingCode,
   nextAgentEnrollmentStatus,
 } from './agent-enrollment-contract';
 import type { AgentProfile } from './agent-registry-contract';
-import { AGENT_REGISTRY_SCHEMA_VERSION } from './agent-registry-contract';
+import {
+  AGENT_REGISTRY_SCHEMA_VERSION,
+  DEFAULT_AGENT_APPEARANCE_PRESET,
+} from './agent-registry-contract';
 import { getDatabaseClient } from './db/client';
 import {
   agentEnrollments,
@@ -47,7 +51,6 @@ export type AgentEnrollmentErrorCode =
   | 'pairing_code_invalid'
   | 'pairing_code_expired'
   | 'native_agent_claimed'
-  | 'archive_deferred'
   | 'too_many_open_enrollments';
 
 export class AgentEnrollmentError extends Error {
@@ -81,6 +84,7 @@ type EnrollmentViewRow = {
   profileAgentId: string | null;
   profileDisplayName: string | null;
   profileCharacterVariant: string | null;
+  profileAppearancePreset: string | null;
   profileRole: string | null;
   profilePersonalitySummary: string | null;
   profileCapabilities: unknown;
@@ -105,6 +109,7 @@ const enrollmentViewSelection = {
   profileAgentId: agentProfiles.agentId,
   profileDisplayName: agentProfiles.displayName,
   profileCharacterVariant: agentProfiles.characterVariant,
+  profileAppearancePreset: agentProfiles.appearancePreset,
   profileRole: agentProfiles.role,
   profilePersonalitySummary: agentProfiles.personalitySummary,
   profileCapabilities: agentProfiles.capabilities,
@@ -124,6 +129,8 @@ function profileRowToPublicProfile(row: AgentProfileRow): AgentProfile {
     agentId: row.agentId,
     displayName: row.displayName,
     characterVariant: row.characterVariant as AgentProfile['characterVariant'],
+    appearancePreset:
+      row.appearancePreset as AgentProfile['appearancePreset'],
     registeredBy: row.registeredBy as AgentProfile['registeredBy'],
     ...(row.ownerId === null ? {} : { ownerId: row.ownerId }),
     ...(row.role === null ? {} : { role: row.role }),
@@ -201,6 +208,11 @@ function rowToEnrollmentView(
           row.profileCharacterVariant as NonNullable<
             AgentEnrollmentView['agent']
           >['characterVariant'],
+        appearancePreset:
+          (row.profileAppearancePreset ??
+            DEFAULT_AGENT_APPEARANCE_PRESET) as NonNullable<
+            AgentEnrollmentView['agent']
+          >['appearancePreset'],
         ...(row.profileRole === null ? {} : { role: row.profileRole }),
         ...(row.profilePersonalitySummary === null
           ? {}
@@ -592,6 +604,8 @@ export async function activateAgentEnrollment(
         ownerId: parentUserId,
         displayName: activation.displayName,
         characterVariant: activation.characterVariant,
+        appearancePreset:
+          activation.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
         registeredBy: 'owner',
         role: activation.role,
         personalitySummary: activation.personalitySummary,
@@ -646,18 +660,15 @@ export async function activateAgentEnrollment(
   return view;
 }
 
-export async function changeAgentEnrollmentLifecycle(
+export async function updateAgentEnrollmentProfile(
   parentUserId: string,
   enrollmentId: string,
-  action: AgentEnrollmentLifecycleAction,
+  profileInput: AgentActivationInput,
 ): Promise<AgentEnrollmentView> {
   const { database } = getDatabaseClient();
   await database.transaction(async (transaction) => {
-    const initialRows = await transaction
-      .select({
-        id: agentEnrollments.id,
-        status: agentEnrollments.status,
-      })
+    const enrollmentRows = await transaction
+      .select()
       .from(agentEnrollments)
       .where(
         and(
@@ -665,24 +676,91 @@ export async function changeAgentEnrollmentLifecycle(
           eq(agentEnrollments.parentUserId, parentUserId),
         ),
       )
-      .limit(1);
-    if (!initialRows[0]) {
-      throw new AgentEnrollmentError('not_found', 'Agent 入园申请不存在');
+      .limit(1)
+      .for('update');
+    const enrollment = enrollmentRows[0];
+    if (!enrollment) {
+      throw new AgentEnrollmentError('not_found', 'Agent 入园记录不存在');
+    }
+    if (
+      !canParentEditAgentProfile(
+        enrollment.status as AgentEnrollmentStatus,
+      )
+    ) {
+      throw new AgentEnrollmentError(
+        'invalid_state',
+        '当前入园状态不能修改 Agent 资料',
+      );
     }
 
+    const now = new Date();
     const profileRows = await transaction
-      .select()
-      .from(agentProfiles)
+      .update(agentProfiles)
+      .set({
+        displayName: profileInput.displayName,
+        characterVariant: profileInput.characterVariant,
+        appearancePreset:
+          profileInput.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
+        role: profileInput.role ?? null,
+        personalitySummary: profileInput.personalitySummary ?? null,
+        capabilities: profileInput.capabilities ?? null,
+        color: profileInput.color ?? null,
+        revision: sql`nextval('agent_profile_revision_seq')`,
+        updatedAt: now,
+      })
       .where(
         and(
           eq(agentProfiles.enrollmentId, enrollmentId),
           eq(agentProfiles.ownerId, parentUserId),
+          isNull(agentProfiles.archivedAt),
         ),
       )
-      .limit(1)
-      .for('update');
+      .returning();
     const profile = profileRows[0];
+    if (!profile) {
+      throw new AgentEnrollmentError(
+        'invalid_state',
+        'Agent profile 不存在或不属于当前家庭',
+      );
+    }
 
+    await transaction
+      .update(agentEnrollments)
+      .set({ draftProfile: profileInput, updatedAt: now })
+      .where(eq(agentEnrollments.id, enrollmentId));
+    const bindingRows = await transaction
+      .update(providerAgentBindings)
+      .set({ discoveryDraft: profileInput, updatedAt: now })
+      .where(
+        and(
+          eq(providerAgentBindings.agentId, profile.agentId),
+          eq(providerAgentBindings.status, 'active'),
+        ),
+      )
+      .returning({ id: providerAgentBindings.id });
+    if (!bindingRows[0]) {
+      throw new AgentEnrollmentError(
+        'invalid_state',
+        'Agent runtime binding 已失效，不能修改资料',
+      );
+    }
+    if (enrollment.status === 'active') {
+      await appendRegistryUpsert(transaction, profile);
+    }
+  });
+
+  const view = await enrollmentViewById(parentUserId, enrollmentId);
+  if (!view) throw new Error('Agent 资料更新后无法读取 enrollment');
+  return view;
+}
+
+export async function changeAgentEnrollmentLifecycle(
+  parentUserId: string,
+  enrollmentId: string,
+  action: AgentEnrollmentLifecycleAction,
+): Promise<AgentEnrollmentView> {
+  const { database } = getDatabaseClient();
+  await database.transaction(async (transaction) => {
     const enrollmentRows = await transaction
       .select()
       .from(agentEnrollments)
@@ -698,8 +776,30 @@ export async function changeAgentEnrollmentLifecycle(
     if (!enrollment) {
       throw new AgentEnrollmentError('not_found', 'Agent 入园申请不存在');
     }
+
+    const profileRows = await transaction
+      .select()
+      .from(agentProfiles)
+      .where(
+        and(
+          eq(agentProfiles.enrollmentId, enrollmentId),
+          eq(agentProfiles.ownerId, parentUserId),
+        ),
+      )
+      .limit(1)
+      .for('update');
+    const profile = profileRows[0];
     const currentStatus = enrollment.status as AgentEnrollmentStatus;
-    const nextStatus = nextAgentEnrollmentStatus(currentStatus, action);
+    const idempotentArchive =
+      action === 'archive' && currentStatus === 'archived';
+    const idempotentRestore =
+      action === 'restore' &&
+      currentStatus === 'suspended' &&
+      profile?.archivedAt === null;
+
+    const nextStatus = idempotentArchive || idempotentRestore
+      ? currentStatus
+      : nextAgentEnrollmentStatus(currentStatus, action);
     if (!nextStatus) {
       throw new AgentEnrollmentError(
         'invalid_state',
@@ -708,12 +808,10 @@ export async function changeAgentEnrollmentLifecycle(
     }
     if (
       action === 'archive' &&
+      !idempotentArchive &&
       !canParentArchiveEnrollment(currentStatus)
     ) {
-      throw new AgentEnrollmentError(
-        'archive_deferred',
-        '已入园 Agent 的归档暂未开放，请先使用暂停入园',
-      );
+      throw new AgentEnrollmentError('invalid_state', '当前入园状态不能归档');
     }
     if (action !== 'archive' && !profile) {
       throw new AgentEnrollmentError(
@@ -731,25 +829,42 @@ export async function changeAgentEnrollmentLifecycle(
         'Agent 状态刚刚发生变化，请重试归档',
       );
     }
+    if (idempotentArchive && profile?.archivedAt === null) {
+      throw new AgentEnrollmentError(
+        'invalid_state',
+        'Agent 归档数据不完整，请联系管理员',
+      );
+    }
 
-    if (action !== 'archive' && profile) {
+    let binding: typeof providerAgentBindings.$inferSelect | undefined;
+    if (profile) {
       const bindingRows = await transaction
-        .select({ id: providerAgentBindings.id })
+        .select()
         .from(providerAgentBindings)
-        .where(
-          and(
-            eq(providerAgentBindings.agentId, profile.agentId),
-            eq(providerAgentBindings.status, 'active'),
-          ),
-        )
-        .limit(1);
-      if (!bindingRows[0]) {
+        .where(eq(providerAgentBindings.agentId, profile.agentId))
+        .limit(1)
+        .for('update');
+      binding = bindingRows[0];
+      const expectedBindingStatus =
+        (action === 'restore' && !idempotentRestore) || idempotentArchive
+          ? 'revoked'
+          : 'active';
+      if (
+        !binding ||
+        binding.status !== expectedBindingStatus ||
+        binding.provider !== enrollment.provider ||
+        binding.nativeAgentId !== enrollment.nativeAgentId
+      ) {
         throw new AgentEnrollmentError(
           'invalid_state',
-          'Agent runtime binding 已失效，不能更改运行状态',
+          action === 'restore'
+            ? '原 runtime identity 已变化，必须重新配对'
+            : 'Agent runtime binding 已失效，不能更改运行状态',
         );
       }
     }
+
+    if (idempotentArchive || idempotentRestore) return;
 
     const now = new Date();
     await transaction
@@ -791,7 +906,11 @@ export async function changeAgentEnrollmentLifecycle(
       .set({
         revision: sql`nextval('agent_profile_revision_seq')`,
         updatedAt: now,
-        ...(action === 'archive' ? { archivedAt: now } : {}),
+        ...(action === 'archive'
+          ? { archivedAt: now }
+          : action === 'restore'
+            ? { archivedAt: null }
+            : {}),
       })
       .where(eq(agentProfiles.agentId, profile.agentId))
       .returning();
@@ -803,8 +922,13 @@ export async function changeAgentEnrollmentLifecycle(
         .update(providerAgentBindings)
         .set({ status: 'revoked', updatedAt: now })
         .where(eq(providerAgentBindings.agentId, profile.agentId));
+    } else if (action === 'restore' && binding) {
+      await transaction
+        .update(providerAgentBindings)
+        .set({ status: 'active', updatedAt: now })
+        .where(eq(providerAgentBindings.id, binding.id));
     }
-    if (action !== 'resume') {
+    if (action === 'suspend' || action === 'archive') {
       await transaction
         .delete(agentLatestStates)
         .where(eq(agentLatestStates.agentId, profile.agentId));
@@ -814,6 +938,10 @@ export async function changeAgentEnrollmentLifecycle(
         updatedProfile.revision,
         now,
       );
+    } else if (action === 'restore') {
+      await transaction
+        .delete(agentLatestStates)
+        .where(eq(agentLatestStates.agentId, profile.agentId));
     } else {
       await appendRegistryUpsert(transaction, updatedProfile);
     }

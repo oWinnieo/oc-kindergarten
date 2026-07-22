@@ -1,0 +1,45 @@
+{
+  "audit_id": "berry-runtime-gap-v1",
+  "status": "approved_assets_not_exposed",
+  "runtime_contract_status": "not_exposed",
+  "palette_references": {
+    "boy": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-4.png",
+    "girl": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-5.png",
+    "genderless": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-6.png"
+  },
+  "production_target": {
+    "characters": 3,
+    "runtime_sheets": 21,
+    "runtime_frames": 168,
+    "locked_deliverables": 231
+  },
+  "production_approved": {
+    "runtime_sheets": 21,
+    "runtime_frames": 168,
+    "locked_deliverables": 231
+  },
+  "generated_candidate": {
+    "runtime_sheets": 21,
+    "runtime_frames": 168,
+    "deliverables": 231,
+    "reviews": [
+      "assets/design/sprites/characters/v2/colorways/v1/berry/review/boy-idle-and-actions-review-4x.png",
+      "assets/design/sprites/characters/v2/colorways/v1/berry/review/boy-movement-review-4x.png",
+      "assets/design/sprites/characters/v2/colorways/v1/berry/review/girl-idle-and-actions-review-4x.png",
+      "assets/design/sprites/characters/v2/colorways/v1/berry/review/girl-movement-review-4x.png",
+      "assets/design/sprites/characters/v2/colorways/v1/berry/review/genderless-idle-and-actions-review-4x.png",
+      "assets/design/sprites/characters/v2/colorways/v1/berry/review/genderless-movement-review-4x.png"
+    ]
+  },
+  "quality_contract": {
+    "alpha": "exact classic bytes",
+    "bbox_and_anchor": "exact classic match",
+    "non_target_pixels": "unchanged",
+    "action_and_direction": "exact classic semantics and phase order",
+    "runtime_tinting": false
+  },
+  "remaining_gate": [
+    "add berry to the application appearance contract in a separate rollout"
+  ],
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json"
+}

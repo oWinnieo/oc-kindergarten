@@ -1,0 +1,6 @@
+Edit the approved 2x2 error/diagnostic animation into the Meadow colorway.
+Preserve all four front-facing poses, alarm/facial progression, red reader,
+character identity, accessories, wheelbase, and reading order. Recolor only the
+outfit and backpack fabric to mint/teal/emerald. Preserve the reader and all
+shell, screen, eye, sleeve, wheel, flower, antenna, button, and device colors.
+Render one complete sprite per cell on flat #FF00FF with no text or grid.

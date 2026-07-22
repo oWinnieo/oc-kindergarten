@@ -1,0 +1,138 @@
+{
+  "asset": "girl_writing_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 200,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/girl-child-writing-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/girl-child-writing-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 366,
+      "purple_palette_pixels": 9,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 372,
+      "purple_palette_pixels": 9,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 356,
+      "purple_palette_pixels": 10,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 388,
+      "purple_palette_pixels": 15,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-1-48x64.png": "4e5243bdedd4404a8142c569ab2b294998cc2708506f7c1607406fd93b8349c8",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-2-48x64.png": "f85b7b8e3f2597c5acb57dcb08a89621c1fe6548dce8179d9eb709eb5ddd2b43",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-3-48x64.png": "ad73a1b671d1fdc789cce0635f6aa911b66239ed4c9cef6eb9e8b6e07971437d",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-4-48x64.png": "08e897b77079f53d3bcadaa567073bc710ec8ca1b854fed0f70fae6c77095aac",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/girl-child-writing-meadow-v1-strip-48x64.png": "78cc0ba19c142fed892b491e3f287d64adcec8cd3edf5ba7e08e86c7d3123809",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/girl-child-writing-meadow-v1-2x2-48x64.png": "92e26740f59b6dcac89ec09aa3c8e56ae5f8664582cc6cb46fe618075a9ee31c"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

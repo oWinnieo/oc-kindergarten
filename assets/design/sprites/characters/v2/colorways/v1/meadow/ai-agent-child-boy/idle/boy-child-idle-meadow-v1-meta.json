@@ -1,0 +1,138 @@
+{
+  "asset": "boy_idle_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/idle/frames/boy-child-idle-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/boy-child-idle-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/boy-child-idle-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 339,
+      "purple_palette_pixels": 310,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 346,
+      "purple_palette_pixels": 314,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        9,
+        43,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        9,
+        43,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 311,
+      "purple_palette_pixels": 302,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 319,
+      "purple_palette_pixels": 309,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-1-48x64.png": "91f9b00cd00ec67d20996f9acbbddfad35d60d5271801f7e921161f274fd15b3",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-2-48x64.png": "95ff817e55399f99bd364b79199164cb70ba2f44972d69b0c970c68a8cff55ab",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-3-48x64.png": "94ee3091076d32c95694208b0e6675e3e39c3945a3d942122e2fa4dbfc1f6f59",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-4-48x64.png": "1d816c6aac0cc8531066d5f76df53cceeb49862d870f100547b8de33bdb329c2",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/boy-child-idle-meadow-v1-strip-48x64.png": "6acfe8bfd2ac6b0ab04f85997cd497d0f17ffe12ca657d08a761d9a9aa56724b",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/boy-child-idle-meadow-v1-2x2-48x64.png": "738b876811201f6f0abc6cf43275e0b1cfda9e3b138b53a8ced4c01f63192897"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

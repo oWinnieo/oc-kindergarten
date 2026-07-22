@@ -1,0 +1,910 @@
+{
+  "asset": "girl_movement_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 125,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "direction_order": [
+    "down",
+    "left",
+    "right",
+    "up",
+    "down_left",
+    "down_right",
+    "up_left",
+    "up_right"
+  ],
+  "phase_count": 4,
+  "mirror_policy": {
+    "down_left": "exact horizontal mirror of generated down_right",
+    "up_left": "exact horizontal mirror of generated up_right"
+  },
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/cardinal/processor/pipeline-meta.json",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/diagonal-right/processor/pipeline-meta.json"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-4-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-4-48x64.png"
+  ],
+  "strips": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-meadow-v1-strip-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-meadow-v1-strip-48x64.png"
+  ],
+  "atlas": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-meadow-v1-48x64.png",
+  "qc": {
+    "down": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          6,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          6,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 319,
+        "purple_palette_pixels": 70,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          6,
+          11,
+          42,
+          62
+        ],
+        "reference_bbox": [
+          6,
+          11,
+          42,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 331,
+        "purple_palette_pixels": 51,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 321,
+        "purple_palette_pixels": 61,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 320,
+        "purple_palette_pixels": 72,
+        "touches_edge": false
+      }
+    ],
+    "left": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 268,
+        "purple_palette_pixels": 54,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 272,
+        "purple_palette_pixels": 52,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 267,
+        "purple_palette_pixels": 54,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 264,
+        "purple_palette_pixels": 45,
+        "touches_edge": false
+      }
+    ],
+    "right": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 264,
+        "purple_palette_pixels": 52,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 268,
+        "purple_palette_pixels": 55,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 267,
+        "purple_palette_pixels": 61,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "reference_bbox": [
+          10,
+          14,
+          38,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 268,
+        "purple_palette_pixels": 50,
+        "touches_edge": false
+      }
+    ],
+    "up": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 375,
+        "purple_palette_pixels": 71,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 375,
+        "purple_palette_pixels": 66,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 377,
+        "purple_palette_pixels": 61,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 374,
+        "purple_palette_pixels": 62,
+        "touches_edge": false
+      }
+    ],
+    "down_left": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 349,
+        "purple_palette_pixels": 37,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 353,
+        "purple_palette_pixels": 36,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          8,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 354,
+        "purple_palette_pixels": 38,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 323,
+        "purple_palette_pixels": 38,
+        "touches_edge": false
+      }
+    ],
+    "down_right": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 349,
+        "purple_palette_pixels": 37,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 353,
+        "purple_palette_pixels": 36,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 354,
+        "purple_palette_pixels": 38,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "reference_bbox": [
+          7,
+          11,
+          41,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 323,
+        "purple_palette_pixels": 38,
+        "touches_edge": false
+      }
+    ],
+    "up_left": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          9,
+          15,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          9,
+          15,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 349,
+        "purple_palette_pixels": 39,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 344,
+        "purple_palette_pixels": 36,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "reference_bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 334,
+        "purple_palette_pixels": 33,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "reference_bbox": [
+          9,
+          14,
+          40,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 323,
+        "purple_palette_pixels": 32,
+        "touches_edge": false
+      }
+    ],
+    "up_right": [
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          8,
+          15,
+          39,
+          62
+        ],
+        "reference_bbox": [
+          8,
+          15,
+          39,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 349,
+        "purple_palette_pixels": 39,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "reference_bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 344,
+        "purple_palette_pixels": 36,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "reference_bbox": [
+          9,
+          15,
+          39,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 334,
+        "purple_palette_pixels": 33,
+        "touches_edge": false
+      },
+      {
+        "size_px": [
+          48,
+          64
+        ],
+        "bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "reference_bbox": [
+          8,
+          14,
+          39,
+          62
+        ],
+        "anchor_matches_reference": true,
+        "visible_magenta_pixels": 0,
+        "chroma_fringe_pixels": 0,
+        "meadow_pixels": 323,
+        "purple_palette_pixels": 32,
+        "touches_edge": false
+      }
+    ]
+  },
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-1-48x64.png": "d4360f53a47178414fe27f6d81666cebbffe4b235f62658b4681e1e6dc48f3fd",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-2-48x64.png": "034103819c54e05086b33bf4489aabfb8a083fe3061b445c499f1a0b45563519",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-3-48x64.png": "1fb1def486de73268ebc7924f68cab33e4f96fbc01baf2d0762c677e6d63fa39",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-4-48x64.png": "a0b606422d83be1e87985f604b1e92e66d7e97782f723aa828d7979d6e59f5e0",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-1-48x64.png": "57f99c2127ae0829f77c46b7b888bbf531e5d89209ac30d98b11bd47226ad2b7",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-2-48x64.png": "df8d494a2799f2c167256afa67a8ebe2e12ca359a1707728565d68eb5380e5d5",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-3-48x64.png": "08f133135807e2062e6283fd8fa09e3c112ff2df752b0f585cb5417cd6c70f48",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-4-48x64.png": "5ba29b8a17cdd56f6bd654fec6108995bf14bc545a61186632b05e2997d90810",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-1-48x64.png": "2faf45a6bcf89e93d3fca559b52683c30eebc5caf8fa10d46dcb7eb93d2bb8f1",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-2-48x64.png": "7aa156ddb1066180f1f7dd3c32a091e249adf4c38cb60ede2d5b0d540d96df5c",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-3-48x64.png": "3b786c0ec51f8449b08b2c20639f3c9f6690f401704b41edbfd5bab18ed2f78f",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-4-48x64.png": "faa3df277d3ac97a67429bdfe9b1df9fc3a6c80afc21aa421cef1bee6cf816cd",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-1-48x64.png": "9013dab032b15dba5ae4c5986189c9a3c6bf8ee6447aab7b5eb136a72c2e0c34",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-2-48x64.png": "7d39bbb71baf4332a7a66f5df8b7d917dd4226d991ee364e0cf07f5068443134",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-3-48x64.png": "c98dfca42d485858de01435b07515bb953a4f3080ff6e51d9c57445a495b58b1",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-4-48x64.png": "ad75c48a6f9ded821292bae3f17def67916b44f945de4cf948b411d28f471550",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-1-48x64.png": "cc490da82feeb8ab658d09f904eb03b9bf776ef43c661f9cabaf8b128844a862",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-2-48x64.png": "3fb92f069f16c8a54759594b5470ffb4fa05f6e22b33d585c2ad08248c950b2b",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-3-48x64.png": "8ed69babcee0a04afcfbb1719ab8d490292aece3b64330904d8981ff579a44f9",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-4-48x64.png": "23844392e70e615551898c6343598a4620009309d9087c6add5e3ff827edf4da",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-1-48x64.png": "e54ad653bd4b2ac01abf5eda25d8340d5f8e823576bd43a1abffe4fb9c435896",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-2-48x64.png": "ce8d41d8b8b36b18568e6ad6fe24e74454386062cc818a41ada340903be739e9",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-3-48x64.png": "3e9010be3159bf5aef7fbf2904736429460835232b865108d56582bd744bab21",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-4-48x64.png": "c598d5526ab4d385271cf013e95bcc599a02ccc13ac3f752ca014e1393b58b99",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-1-48x64.png": "a3b67cd992bd4b80cd55dbf2d53b83051c40497ed8993d4e36af5eefbb0661c7",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-2-48x64.png": "f995dfaf04975731153ed1e7d7ba538b1fe6998f41979dcc2c622b24766efc22",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-3-48x64.png": "e0d4a404fb4864d1c660a3daca1400adb4e915269d1df4c0f1489cb0d50d7684",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-4-48x64.png": "1901258fee09b27a97736a624fa9888d23b5e8f75ba759f8ecff6a9792fcbf28",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-1-48x64.png": "a9536e407477c70dd40ebab6e438f5aa6f25c7de5205c350d1d159d1b78fbea2",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-2-48x64.png": "e8ebdcc3da5d89b85fff2a22b555d3fe8f8fbdea48d5301f071482e7d3ed3654",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-3-48x64.png": "1432db4208f0bc577d083bcb2a64ca233c38849195bf04e8ffda180f793f5daf",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-4-48x64.png": "e27033b17273eb0e3ea7e4122d3369e17b9fa2c31506e86687786ce60b10561e",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-meadow-v1-strip-48x64.png": "8890c0743f0c93bef64df46ce98e39ed20472d6155c662647a75e5a2a2c86ed6",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-meadow-v1-strip-48x64.png": "6dba383102450d8a9e361c78e4f71d3af24f906b71725bf37f990df9fb360cfe",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-meadow-v1-strip-48x64.png": "65d3ff69c8165beff86f2e6e7e32cc112bcf6085160fe0c69473303f966fe737",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-meadow-v1-strip-48x64.png": "61b654286eed85198df684a9d786ab1eb075b39cfa99ef3a4ed849177b8a5ec7",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-meadow-v1-strip-48x64.png": "f070607a625691fc940b3ad30a179af498732a438486f1dc48a71af0ad49647a",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-meadow-v1-strip-48x64.png": "98abb4ab1afefde54954c351517743c5dec632152cf52887f06471c1091fd8bc",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-meadow-v1-strip-48x64.png": "aef428445ef1e799091bf1aeb75919937798f224fccebbaf69d6bad95b4f3810",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-meadow-v1-strip-48x64.png": "74e918c2d064ac16b0b2f5dbad22b1e361f023035548435ecda079dae8264006",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-meadow-v1-48x64.png": "6bd20b731ea307f94ae1a1d2fc62138be4ef503c46ceca4fa233ec3833140138"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

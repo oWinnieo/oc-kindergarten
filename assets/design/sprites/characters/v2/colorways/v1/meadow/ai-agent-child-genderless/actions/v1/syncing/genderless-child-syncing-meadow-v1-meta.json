@@ -1,0 +1,138 @@
+{
+  "asset": "genderless_syncing_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 200,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        4,
+        40,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        4,
+        40,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 328,
+      "purple_palette_pixels": 18,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 210,
+      "purple_palette_pixels": 19,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        4,
+        40,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        4,
+        40,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 227,
+      "purple_palette_pixels": 16,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        4,
+        40,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        4,
+        40,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 323,
+      "purple_palette_pixels": 17,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-1-48x64.png": "30aa2a1502529619ed8be49a520b5c9b2e76c446ec7f3c4aec74b4fbbd4afdd4",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-2-48x64.png": "7056ba89e6793bdd49f8d0c1727c95924acd1cdb719d23648baa5046f9c49b31",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-3-48x64.png": "b0b56bdc54b236a8b12b4259e4be0ac36f27d5854f23ade92981ede1686c7b53",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-4-48x64.png": "86feff0ffb0b2d114482b07f4cb4ed34fa758d60f7b7cec8140b4078a323f92e",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-meadow-v1-strip-48x64.png": "4231d84d87ef16ce6358a5d63e34a98d61a9aa33be02a1fb9188666252aa604f",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-meadow-v1-2x2-48x64.png": "7a2d1b749f887650f1b5db564dcd826d8ec64f8aca2114c0078bcd1a4204178e"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

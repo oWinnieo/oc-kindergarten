@@ -1,4 +1,7 @@
-import { AGENT_CHARACTER_VARIANTS } from './agent-registry-contract';
+import {
+  AGENT_APPEARANCE_PRESETS,
+  AGENT_CHARACTER_VARIANTS,
+} from './agent-registry-contract';
 
 export const PROVIDER_BINDING_SCHEMA_VERSION = 1 as const;
 export const AGENT_PROVIDERS = ['openclaw'] as const;
@@ -18,6 +21,7 @@ export interface ProviderAgentDraft {
   personalitySummary?: string;
   capabilities?: string[];
   characterVariant?: (typeof AGENT_CHARACTER_VARIANTS)[number];
+  appearancePreset?: (typeof AGENT_APPEARANCE_PRESETS)[number];
   color?: string;
 }
 
@@ -87,6 +91,7 @@ export function parseProviderAgentDraft(
     'personalitySummary',
     'capabilities',
     'characterVariant',
+    'appearancePreset',
     'color',
   ]);
   const unknownKey = Object.keys(value).find((key) => !allowedKeys.has(key));
@@ -125,6 +130,14 @@ export function parseProviderAgentDraft(
   ) {
     return { ok: false, error: 'characterVariant 不受支持' };
   }
+  if (
+    value.appearancePreset !== undefined &&
+    !AGENT_APPEARANCE_PRESETS.includes(
+      value.appearancePreset as (typeof AGENT_APPEARANCE_PRESETS)[number],
+    )
+  ) {
+    return { ok: false, error: 'appearancePreset 不受支持' };
+  }
   const color = optionalString(value.color, 'color', 7);
   if (!color.ok) return color;
   if (color.value !== undefined && !/^#[0-9a-fA-F]{6}$/.test(color.value)) {
@@ -144,6 +157,12 @@ export function parseProviderAgentDraft(
       : {
           characterVariant:
             value.characterVariant as ProviderAgentDraft['characterVariant'],
+        }),
+    ...(value.appearancePreset === undefined
+      ? {}
+      : {
+          appearancePreset:
+            value.appearancePreset as ProviderAgentDraft['appearancePreset'],
         }),
     ...(color.value === undefined
       ? {}

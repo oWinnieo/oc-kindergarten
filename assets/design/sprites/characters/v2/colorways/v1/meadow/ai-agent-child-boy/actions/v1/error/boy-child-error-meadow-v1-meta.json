@@ -1,0 +1,146 @@
+{
+  "asset": "boy_error_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 240,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/boy-child-error-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/boy-child-error-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 107,
+      "purple_palette_pixels": 247,
+      "reference_alpha_iou": 0.9698996655518395,
+      "reference_alpha_changed_pixels": 45,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 183,
+      "purple_palette_pixels": 262,
+      "reference_alpha_iou": 0.9701492537313433,
+      "reference_alpha_changed_pixels": 46,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 175,
+      "purple_palette_pixels": 248,
+      "reference_alpha_iou": 0.9712758851035405,
+      "reference_alpha_changed_pixels": 43,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 116,
+      "purple_palette_pixels": 257,
+      "reference_alpha_iou": 0.9635653871177619,
+      "reference_alpha_changed_pixels": 56,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-1-48x64.png": "a26eb9848a0d342277f50a3c33709a292256cb60e589bc7b5dd8a3c33f248a72",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-2-48x64.png": "0232ccf981a449408ef600dbdd82f73a0f1c831faf3a3c3b3a61626aa5288cad",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-3-48x64.png": "e0c82a5df1aa8ba7670e5c0cc2a0d787f0b17d0e3e7ec706412a1d70b9dd8427",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-4-48x64.png": "0305808f41614bc8ef6522fd8e602ca51fa5b42b83d8d2b03ea784bdbf961db1",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/boy-child-error-meadow-v1-strip-48x64.png": "7d85535d764cbaf6ab42d7e1a03bc58733195de37fbec071284ccd23bddb0f19",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/boy-child-error-meadow-v1-2x2-48x64.png": "c554b9d2c758b326404cb47d457b263c3edbd7efbc026c262f7984453d2c8140"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

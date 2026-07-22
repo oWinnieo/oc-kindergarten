@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 
 import AgentEnrollmentPanel from './AgentEnrollmentPanel';
+import CasdoorSignInButton from './CasdoorSignInButton';
 
 interface ParentProfile {
   id: string;
@@ -113,12 +114,7 @@ export default function ParentOnboarding() {
           Casdoor 只负责确认你是谁。幼儿园会另外保存你的社区展示资料，以及你带来的
           AI Agent，不会保存你的 Casdoor 密码。
         </p>
-        <a
-          className="parentPrimaryAction"
-          href="/api/auth/signin/casdoor?callbackUrl=%2Fonboarding%2Fparent"
-        >
-          使用 Casdoor 登录
-        </a>
+        <CasdoorSignInButton callbackUrl="/onboarding/parent" />
       </section>
     );
   }

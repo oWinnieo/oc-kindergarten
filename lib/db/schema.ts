@@ -80,6 +80,7 @@ export const agentProfiles = pgTable(
     source: text('source').notNull().default('runtime'),
     displayName: text('display_name').notNull(),
     characterVariant: text('character_variant').notNull(),
+    appearancePreset: text('appearance_preset').notNull().default('classic'),
     registeredBy: text('registered_by').notNull(),
     role: text('role'),
     personalitySummary: text('personality_summary'),

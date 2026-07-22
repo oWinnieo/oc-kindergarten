@@ -14,6 +14,7 @@ const parsed = parseProviderAgentDiscovery({
     role: 'Research agent',
     capabilities: ['research', 'research'],
     characterVariant: 'boy',
+    appearancePreset: 'berry',
     color: '#1677B8',
   },
 });
@@ -21,7 +22,18 @@ assert.equal(parsed.ok, true);
 if (parsed.ok) {
   assert.deepEqual(parsed.discovery.profileDraft?.capabilities, ['research']);
   assert.equal(parsed.discovery.profileDraft?.color, '#1677b8');
+  assert.equal(parsed.discovery.profileDraft?.appearancePreset, 'berry');
 }
+
+assert.equal(
+  parseProviderAgentDiscovery({
+    schemaVersion: 1,
+    provider: 'openclaw',
+    nativeAgentId: 'main',
+    profileDraft: { appearancePreset: 'unreviewed' },
+  }).ok,
+  false,
+);
 
 assert.equal(
   parseProviderAgentDiscovery({

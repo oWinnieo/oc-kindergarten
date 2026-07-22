@@ -1,0 +1,148 @@
+{
+  "asset": "genderless_idle_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-6.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/idle/frames/genderless-child-idle-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/genderless-child-idle-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/genderless-child-idle-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 254,
+      "rgb_changed_pixels": 254,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        4,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 255,
+      "rgb_changed_pixels": 255,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        5,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        5,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 246,
+      "rgb_changed_pixels": 246,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        6,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        6,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 242,
+      "rgb_changed_pixels": 242,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-1-48x64.png": "36cd40bdbc7ed22fe713672043c98a7dcecaf6da03761419edca994f8d16f52e",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-2-48x64.png": "eb7988b0b7e4f0ef798be01b891e70a69aaa4258bc06681ab87d45fbe18ce0f6",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-3-48x64.png": "f8527fac92f6c8ee6289770754f42e87195bb65b895a126a1016a029e48ccba2",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/frames/genderless-child-idle-berry-v1-4-48x64.png": "4f7c38a0ab45b7698e21150311477432365a668c7ba09926d76ba0beafe13fd5",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/genderless-child-idle-berry-v1-strip-48x64.png": "aa1f5bafa13039ef09244345cf0e69cd8dfbb2e85a3f3c7495fd7fe60174f35c",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/idle/genderless-child-idle-berry-v1-2x2-48x64.png": "970dcd076aa3e1fad03143fc8f625d086ea47132edaac803474c74ee35fddf39"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

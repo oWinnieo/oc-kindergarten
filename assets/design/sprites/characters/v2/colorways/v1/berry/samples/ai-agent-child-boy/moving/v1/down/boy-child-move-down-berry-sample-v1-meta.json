@@ -1,0 +1,167 @@
+{
+  "asset": "boy_moving_down_berry_sample",
+  "revision": "v2-colorway-berry-sample-v1",
+  "status": "candidate_not_runtime",
+  "semantic": "mechanical_glide",
+  "orientation": "down_front",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 125,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-4.png",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-4-48x64.png"
+  ],
+  "runtime_candidate_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/boy-child-move-down-berry-sample-v1-strip-48x64.png",
+  "review_sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/boy-child-move-down-berry-sample-v1-2x2-48x64.png",
+  "preview_png": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/previews/boy-child-move-down-berry-sample-v1-preview-6x.png",
+  "preview_gif": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/previews/boy-child-move-down-berry-sample-v1-preview-6x.gif",
+  "palette_contract": {
+    "recolored": [
+      "boy_cap_crown",
+      "clothing_and_backpack"
+    ],
+    "unchanged": [
+      "cap_bill",
+      "face_and_eyes",
+      "white_shell",
+      "pale_blue_sleeves",
+      "wheels",
+      "waist_status_light",
+      "task_props"
+    ],
+    "alpha_policy": "exact classic alpha bytes"
+  },
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "output_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 196,
+      "clothing_pixels_recolored": 257,
+      "rgb_changed_pixels": 453,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "output_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 190,
+      "clothing_pixels_recolored": 251,
+      "rgb_changed_pixels": 441,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "output_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 192,
+      "clothing_pixels_recolored": 250,
+      "rgb_changed_pixels": 442,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "output_bbox": [
+        4,
+        7,
+        44,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 192,
+      "clothing_pixels_recolored": 245,
+      "rgb_changed_pixels": 437,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-1-48x64.png": "b6cf310528c374b598e7fb03a143298bd79c329bd7dea40b379ad0e53fda2f82",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-2-48x64.png": "bfc5ac9f5772aae96aaa8527f55253ae2fedf6372399779f73bf0a68fdf4c6c7",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-3-48x64.png": "2af1d8de9cedd7eaae5e92968575b0acdf5f3087a8c21562e8d16d2668f2d36a",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/frames/boy-child-move-down-berry-sample-v1-4-48x64.png": "820444528048c6cf1894818b0ff906b64b8c41c0ea89009074e93d43a8872cb6",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/boy-child-move-down-berry-sample-v1-strip-48x64.png": "7cdb09e8e0af000c87f9ae2928f7bb670ac05f7e9f8bf1ce1b0187fc54132ef9",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/boy-child-move-down-berry-sample-v1-2x2-48x64.png": "58d59b7a947b9e8891bf265e247c350183c101799e7725eda4606713e3be7b22",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/previews/boy-child-move-down-berry-sample-v1-preview-6x.png": "f54967f41dd849ceb387ccf723971e53cc6287f39961eb3d5ffd2a10aa25939a",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/moving/v1/down/previews/boy-child-move-down-berry-sample-v1-preview-6x.gif": "746ee7726575bfb6ce0f2e3b6c99e852b43db8c9a245d586a04ee97ed55d174c"
+  }
+}

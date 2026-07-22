@@ -1,0 +1,148 @@
+{
+  "asset": "boy_researching_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-4.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/boy-child-researching-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/boy-child-researching-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "output_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 202,
+      "clothing_pixels_recolored": 159,
+      "rgb_changed_pixels": 361,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "output_bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 203,
+      "clothing_pixels_recolored": 157,
+      "rgb_changed_pixels": 360,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "output_bbox": [
+        5,
+        7,
+        43,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 208,
+      "clothing_pixels_recolored": 149,
+      "rgb_changed_pixels": 357,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "output_bbox": [
+        5,
+        7,
+        42,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 210,
+      "clothing_pixels_recolored": 162,
+      "rgb_changed_pixels": 372,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-1-48x64.png": "ccaca81224c29595dd8a780721d81c6134321681f3fba2d6c852db3faa5cee68",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-2-48x64.png": "603ebb134358af437d4d884459f252975ed449abd906802c3e77002a73d9f615",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-3-48x64.png": "0ec15aaa7db21984e491ae56158fa7c6fdb5c314be223ccaadce037ee772f0e9",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-berry-v1-4-48x64.png": "9f0d065660bf2877b09cd449152a594d06553f50e066a99b952a069f7e5f4df3",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/boy-child-researching-berry-v1-strip-48x64.png": "03fc190f81e44abfbe6a77efb33b18854fab14ea54219fe252819a0cd2d5c7aa",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/researching/boy-child-researching-berry-v1-2x2-48x64.png": "c751c0009ebf2039e7a13a8c40eb4bb631a2645b7f1e73194eacd40cfc830f59"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

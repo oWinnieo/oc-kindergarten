@@ -1,0 +1,148 @@
+{
+  "asset": "boy_syncing_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 200,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-4.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 216,
+      "clothing_pixels_recolored": 119,
+      "rgb_changed_pixels": 335,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 209,
+      "clothing_pixels_recolored": 124,
+      "rgb_changed_pixels": 333,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        7,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 211,
+      "clothing_pixels_recolored": 68,
+      "rgb_changed_pixels": 279,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 209,
+      "clothing_pixels_recolored": 120,
+      "rgb_changed_pixels": 329,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-1-48x64.png": "0a6f421ef4d378f455032746301d92fd266cee254aa61a7b3a0489a4298b4418",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-2-48x64.png": "33837accc8697a82ec2c4c9e5174baa71b4c131e180d0313220dea2ce23feb04",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-3-48x64.png": "9cad3b8641a94e4e8cdd22096498bc78c30b3a602c4bbcce0e44f5a3b8de4827",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-berry-v1-4-48x64.png": "d965e320f978860926f45f2282a7eb98b1c17d2b7354551eaa1dcbbb115c5e5c",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-berry-v1-strip-48x64.png": "6519e15454a9298b99c39d8da9713c5ec23813c78df437417b809884e7046f29",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-berry-v1-2x2-48x64.png": "fb550e4de7ee57587c7c84793f75ff98a18f41fdbafac7a99f31a0360c102ede"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

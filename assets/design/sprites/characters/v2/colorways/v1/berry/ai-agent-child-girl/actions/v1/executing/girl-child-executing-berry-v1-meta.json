@@ -1,0 +1,148 @@
+{
+  "asset": "girl_executing_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 180,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-5.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/girl-child-executing-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/girl-child-executing-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        4,
+        11,
+        44,
+        62
+      ],
+      "output_bbox": [
+        4,
+        11,
+        44,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 281,
+      "rgb_changed_pixels": 281,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "output_bbox": [
+        6,
+        11,
+        42,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 281,
+      "rgb_changed_pixels": 281,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        11,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        11,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 279,
+      "rgb_changed_pixels": 279,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        11,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        11,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 276,
+      "rgb_changed_pixels": 276,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-1-48x64.png": "602087436de0acb0f62cb88969714a0b40b2eecc2e3d1112d161a1d1cbbd9cb2",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-2-48x64.png": "cb4970a745e5ba8c69c6977b67a81908610b4bc42723b56baec29291f5e8742e",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-3-48x64.png": "13ffcbca5909c6d83fbad7aa6668e4d3b1931f7001d2a6b30c509f3869ef410f",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-berry-v1-4-48x64.png": "760c035f265bbacf726b3e9e528b47959045013506c83bdd8dc4d187aa7df93b",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/girl-child-executing-berry-v1-strip-48x64.png": "2e759177b414d7d01a9f163c2595d47e6192285055dacd2bac01e3b0bae6e766",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/executing/girl-child-executing-berry-v1-2x2-48x64.png": "7990f76fda61eb679ba2e4cfa341d6e9ef815cf28add775e8ce779695e1b7d83"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

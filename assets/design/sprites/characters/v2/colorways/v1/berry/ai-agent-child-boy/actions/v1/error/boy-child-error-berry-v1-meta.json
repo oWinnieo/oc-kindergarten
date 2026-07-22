@@ -1,0 +1,148 @@
+{
+  "asset": "boy_error_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 240,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-4.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/boy-child-error-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/boy-child-error-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "output_bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 185,
+      "clothing_pixels_recolored": 93,
+      "rgb_changed_pixels": 278,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 188,
+      "clothing_pixels_recolored": 172,
+      "rgb_changed_pixels": 360,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "output_bbox": [
+        7,
+        7,
+        40,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 186,
+      "clothing_pixels_recolored": 165,
+      "rgb_changed_pixels": 351,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "output_bbox": [
+        7,
+        7,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 188,
+      "clothing_pixels_recolored": 96,
+      "rgb_changed_pixels": 284,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-1-48x64.png": "d6ec81a0a956fb872b365aa1e4e09ad14cfd1c4e95092a7447aa5f4cbc729529",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-2-48x64.png": "4a2126da650b02c95e037afbe32e8925824c24572475d6bfb8926352f8c9551e",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-3-48x64.png": "ffadac17122c21c743b762b6fcc68ca7c88fcee5ca7bc427e4cf3f33c30c160d",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-berry-v1-4-48x64.png": "de9d34d9cd11c0ed8e5446f6dc7a5d37ebc65f88c12e9f5500411f014a6af19b",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/boy-child-error-berry-v1-strip-48x64.png": "5df6678250942f6e34c4cb6fac2931bc8abdc9a13efc2e238a1b82cc71c7076c",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-boy/actions/v1/error/boy-child-error-berry-v1-2x2-48x64.png": "da84edb64c4ff067ae486ded69c952de240bfda6f4246b60516dc932f66914b5"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

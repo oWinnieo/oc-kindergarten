@@ -34,6 +34,7 @@ const pairing = parseRuntimeEnrollmentPairing({
       role: 'Research helper',
       capabilities: ['research', 'writing', 'research'],
       characterVariant: 'genderless',
+      appearancePreset: 'berry',
       color: '#6576D8',
     },
   },
@@ -46,6 +47,10 @@ assert(
 assert(
   pairing.pairing.discovery.profileDraft?.color === '#6576d8',
   '颜色应规范化',
+);
+assert(
+  pairing.pairing.discovery.profileDraft?.appearancePreset === 'berry',
+  '外观预设应保留',
 );
 
 const sensitiveDraft = parseRuntimeEnrollmentPairing({
@@ -65,6 +70,7 @@ assert(!missingVariant.ok, '家长未选择外观时不能激活');
 const activation = parseAgentActivation({
   displayName: ' 小助手 ',
   characterVariant: 'boy',
+  appearancePreset: 'meadow',
   role: 'Helper',
   personalitySummary: 'Calm and careful',
   capabilities: ['research'],
@@ -73,6 +79,18 @@ const activation = parseAgentActivation({
 assert(activation.ok, '合法家长确认资料应通过');
 assert(activation.activation.displayName === '小助手', '名称应去除首尾空格');
 assert(activation.activation.color === '#1677b8', '确认颜色应规范化');
+assert(
+  activation.activation.appearancePreset === 'meadow',
+  '确认外观预设应保留',
+);
+assert(
+  !parseAgentActivation({
+    displayName: '小助手',
+    characterVariant: 'boy',
+    appearancePreset: 'unreviewed',
+  }).ok,
+  '未审核外观预设必须拒绝',
+);
 
 console.log(
   'Agent enrollment contract regression passed: one-time code, privacy, draft and activation validation',

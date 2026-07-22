@@ -1,0 +1,148 @@
+{
+  "asset": "genderless_executing_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 180,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-6.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        2,
+        4,
+        46,
+        62
+      ],
+      "output_bbox": [
+        2,
+        4,
+        46,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 217,
+      "rgb_changed_pixels": 217,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        4,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        4,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 226,
+      "rgb_changed_pixels": 226,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        4,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        4,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 220,
+      "rgb_changed_pixels": 220,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        4,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        4,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 214,
+      "rgb_changed_pixels": 214,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-1-48x64.png": "d334d8bf80833e5c904753cfad1ec05097be1b1e3693ea55f7bc444841e5698a",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-2-48x64.png": "362711852cac77db453c79c0a7b7c4c6c9e679dc19c0346f84ac31cc92801aca",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-3-48x64.png": "49605c5b26c45507e9b1e79acaa296a7254680a3461e940575ad53afe8815f82",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-berry-v1-4-48x64.png": "98a3e1cd5a1285a33936ec3752e8181c6d7586a5b013764e4d9290f0a199d692",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-berry-v1-strip-48x64.png": "6b26987222b29bc67e57f6a3c88627ff9bfcb6cbe8250f64819a3e16421a25b9",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-berry-v1-2x2-48x64.png": "e0353ce1a328c566c4399e08dc72392458a3992f0817ee2d7a63fc6412771962"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

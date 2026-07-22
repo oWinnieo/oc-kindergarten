@@ -1,0 +1,148 @@
+{
+  "asset": "girl_researching_berry",
+  "revision": "v2-colorway-berry-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 220,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-5.png",
+  "semantic_policy": "exact classic action, orientation, props and phase order",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "output_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 190,
+      "rgb_changed_pixels": 190,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "output_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 203,
+      "rgb_changed_pixels": 203,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "output_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 218,
+      "rgb_changed_pixels": 218,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "output_bbox": [
+        5,
+        11,
+        43,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 0,
+      "clothing_pixels_recolored": 198,
+      "rgb_changed_pixels": 198,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-1-48x64.png": "67464c103fc19e85fa7d4323deb1c4b01b402ef0b920116d292499454a936cb4",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-2-48x64.png": "4065831d5dc9050edc0f5330fb252237ec373e5cc6d263590becf2f149cc36e2",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-3-48x64.png": "5b3de55b9a4a51ec43db349ac2abe56e11f851dbfe0051d5742d2f372a9d4fe9",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-berry-v1-4-48x64.png": "b24a4fe8a2cb7a4fce948ec74949ccb4358db4d779b375faceec25e436e0bcba",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-strip-48x64.png": "5f8af09bd4a41847a0670f84f4999be15322e2f9ec1bce5644cb0e1bb3bc24f0",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-2x2-48x64.png": "51fe977b1540d262e9c7e34b883195470917ab5a8dfbf04fe24ed58d1e8c2790"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/berry-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

@@ -1,0 +1,6 @@
+Edit the approved 2x2 researching/reading animation into the Meadow colorway.
+Preserve all four poses, facial expressions, book interaction, character
+identity, accessories, wheelbase, and reading order. Recolor only the outfit
+and backpack fabric to mint/teal/emerald. Preserve the book and all shell,
+screen, eye, sleeve, wheel, flower, antenna, button, and device colors. Render
+one complete sprite per cell on flat #FF00FF with no text, grid, or objects.

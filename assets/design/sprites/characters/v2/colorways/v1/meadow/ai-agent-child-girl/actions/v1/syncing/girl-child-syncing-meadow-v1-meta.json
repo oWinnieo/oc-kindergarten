@@ -1,0 +1,138 @@
+{
+  "asset": "girl_syncing_meadow",
+  "revision": "v2-colorway-meadow-v1",
+  "status": "approved",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_duration_ms": 200,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "source_kind": "imagegen_edit_then_generate2dsprite_cleanup",
+  "processor_metadata": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/processor/pipeline-meta.json",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-4-48x64.png"
+  ],
+  "runtime_strip": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-meadow-v1-strip-48x64.png",
+  "sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-meadow-v1-2x2-48x64.png",
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 453,
+      "purple_palette_pixels": 23,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        11,
+        40,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        11,
+        40,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 299,
+      "purple_palette_pixels": 16,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        7,
+        11,
+        41,
+        62
+      ],
+      "reference_bbox": [
+        7,
+        11,
+        41,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 296,
+      "purple_palette_pixels": 20,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "bbox": [
+        5,
+        11,
+        42,
+        62
+      ],
+      "reference_bbox": [
+        5,
+        11,
+        42,
+        62
+      ],
+      "anchor_matches_reference": true,
+      "visible_magenta_pixels": 0,
+      "chroma_fringe_pixels": 0,
+      "meadow_pixels": 427,
+      "purple_palette_pixels": 20,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-1-48x64.png": "c12a89e1402595acae21e1ad0e24a6a849fa7c947b06973caa74ad63233e1116",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-2-48x64.png": "64b9501fa7ec76e29b0d8bfbbbab798241af2a2416fe04109d657a671c08d89d",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-3-48x64.png": "8fb25c454b7f63250b97e5e77464c8f7bdbcace49ac2554bff39b03bc3b7693a",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-4-48x64.png": "d98b0a552d89554ac5019d32d0ef468f80f057291e5d8ef898f79b7314cf27ad",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-meadow-v1-strip-48x64.png": "d4628151cc9dca39a03fa3ca1101244ef25fdcea532227b0c7927b2025d06b54",
+    "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-meadow-v1-2x2-48x64.png": "8bbb33ac528296a76f1c777ba686bf655e30fc9907ee92607bed653f7414f89b"
+  },
+  "approval_lock": "assets/design/sprites/characters/v2/colorways/v1/approved/meadow-runtime-lock-v1.json",
+  "approved_on": "2026-07-22"
+}

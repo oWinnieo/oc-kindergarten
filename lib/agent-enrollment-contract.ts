@@ -27,7 +27,8 @@ export type AgentEnrollmentStatus =
 export type AgentEnrollmentLifecycleAction =
   | 'suspend'
   | 'resume'
-  | 'archive';
+  | 'archive'
+  | 'restore';
 
 export function nextAgentEnrollmentStatus(
   status: AgentEnrollmentStatus,
@@ -35,6 +36,7 @@ export function nextAgentEnrollmentStatus(
 ): AgentEnrollmentStatus | null {
   if (action === 'suspend') return status === 'active' ? 'suspended' : null;
   if (action === 'resume') return status === 'suspended' ? 'active' : null;
+  if (action === 'restore') return status === 'archived' ? 'suspended' : null;
   return status === 'archived' ? null : 'archived';
 }
 
@@ -44,8 +46,16 @@ export function canParentArchiveEnrollment(
   return (
     status === 'draft' ||
     status === 'awaiting_pairing' ||
-    status === 'pending_parent_confirmation'
+    status === 'pending_parent_confirmation' ||
+    status === 'active' ||
+    status === 'suspended'
   );
+}
+
+export function canParentEditAgentProfile(
+  status: AgentEnrollmentStatus,
+): boolean {
+  return status === 'active' || status === 'suspended';
 }
 
 export interface EnrolledAgentSummary extends ProviderAgentDraft {

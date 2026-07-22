@@ -1,0 +1,167 @@
+{
+  "asset": "boy_executing_berry_sample",
+  "revision": "v2-colorway-berry-sample-v1",
+  "status": "candidate_not_runtime",
+  "semantic": "place_toy_block",
+  "orientation": "up_back",
+  "frame_size_px": [
+    48,
+    64
+  ],
+  "frame_count": 4,
+  "anchor_px": [
+    24,
+    64
+  ],
+  "frame_duration_ms": 180,
+  "source_kind": "pixel_preserving_palette_transfer_from_approved_classic",
+  "palette_reference": "assets/design/sprites/characters/v2/colorways/v1/palette-board/processor/colorway-4.png",
+  "reference_frames": [
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-1-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-2-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-3-48x64.png",
+    "assets/design/sprites/characters/v2/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-wheelbase-v2-4-48x64.png"
+  ],
+  "frames": [
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-1-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-2-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-3-48x64.png",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-4-48x64.png"
+  ],
+  "runtime_candidate_strip": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/boy-child-executing-berry-sample-v1-strip-48x64.png",
+  "review_sheet_2x2": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/boy-child-executing-berry-sample-v1-2x2-48x64.png",
+  "preview_png": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-berry-sample-v1-preview-6x.png",
+  "preview_gif": "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-berry-sample-v1-preview-6x.gif",
+  "palette_contract": {
+    "recolored": [
+      "boy_cap_crown",
+      "clothing_and_backpack"
+    ],
+    "unchanged": [
+      "cap_bill",
+      "face_and_eyes",
+      "white_shell",
+      "pale_blue_sleeves",
+      "wheels",
+      "waist_status_light",
+      "task_props"
+    ],
+    "alpha_policy": "exact classic alpha bytes"
+  },
+  "qc": [
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        2,
+        12,
+        46,
+        62
+      ],
+      "output_bbox": [
+        2,
+        12,
+        46,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 217,
+      "clothing_pixels_recolored": 242,
+      "rgb_changed_pixels": 459,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        4,
+        12,
+        44,
+        62
+      ],
+      "output_bbox": [
+        4,
+        12,
+        44,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 221,
+      "clothing_pixels_recolored": 236,
+      "rgb_changed_pixels": 457,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 214,
+      "clothing_pixels_recolored": 231,
+      "rgb_changed_pixels": 445,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    },
+    {
+      "size_px": [
+        48,
+        64
+      ],
+      "source_bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "output_bbox": [
+        6,
+        12,
+        41,
+        62
+      ],
+      "alpha_exact_match": true,
+      "bbox_exact_match": true,
+      "cap_pixels_recolored": 213,
+      "clothing_pixels_recolored": 235,
+      "rgb_changed_pixels": 448,
+      "changed_pixels_outside_target_masks": 0,
+      "unchanged_target_pixels": 0,
+      "touches_edge": false
+    }
+  ],
+  "sha256": {
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-1-48x64.png": "aeb4685b87a66f0fab2f1bec80950a554050eeec438eec2629ba3ab12fdf2345",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-2-48x64.png": "5ce716f95cd10cc60fcb2c9ad65ae7909c2bd368128f70065f9ed1401fc15e14",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-3-48x64.png": "a1e9599951f38d94f3667f42ff610b08cc35e5a23de36931b74a543f38e7ac31",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-berry-sample-v1-4-48x64.png": "3f049698859e4bc30072736056135e1f5f875529711e0a921ee8a938ba2a0465",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/boy-child-executing-berry-sample-v1-strip-48x64.png": "fe24eb8ce7346007ff3f037e5ed1c5e3e14ad5e220804a6741d429838106050d",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/boy-child-executing-berry-sample-v1-2x2-48x64.png": "de9e74b5d93f87891369444d79337feb7ee67810fcc04622b74661390e4a759c",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-berry-sample-v1-preview-6x.png": "e850ca77dac380d40cc03fcb5dbf49f37a1fcc9b4d3a797791e577106673e363",
+    "assets/design/sprites/characters/v2/colorways/v1/berry/samples/ai-agent-child-boy/actions/v1/executing/previews/boy-child-executing-berry-sample-v1-preview-6x.gif": "7a1f933ec5f638c21c9d4900df732a4612e54052a608900988099ab1d55b3005"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "target": "player",
+  "mode": "syncing",
+  "prompt": "",
+  "role": "",
+  "input": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/source/girl-child-syncing-meadow-magenta-raw.png",
+  "threshold": 100,
+  "edge_threshold": 150,
+  "duration": 200,
+  "rows": 2,
+  "cols": 2,
+  "cell_size": 384,
+  "fit_scale": 0.82,
+  "trim_border": 4,
+  "edge_clean_depth": 3,
+  "align": "feet",
+  "shared_scale": true,
+  "component_mode": "largest",
+  "component_padding": 0,
+  "min_component_area": 400,
+  "edge_touch_margin": 4,
+  "frame_labels": [
+    "syncing-1",
+    "syncing-2",
+    "syncing-3",
+    "syncing-4"
+  ],
+  "frames": [
+    {
+      "grid": [
+        0,
+        0
+      ],
+      "source_box": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 118117,
+      "selected_component_bbox": [
+        233,
+        96,
+        539,
+        552
+      ],
+      "crop_bbox": [
+        233,
+        96,
+        539,
+        552
+      ],
+      "edge_touch": false,
+      "output_size": [
+        211,
+        314
+      ],
+      "paste_position": [
+        86,
+        36
+      ]
+    },
+    {
+      "grid": [
+        0,
+        1
+      ],
+      "source_box": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 116655,
+      "selected_component_bbox": [
+        94,
+        96,
+        394,
+        552
+      ],
+      "crop_bbox": [
+        94,
+        96,
+        394,
+        552
+      ],
+      "edge_touch": false,
+      "output_size": [
+        207,
+        314
+      ],
+      "paste_position": [
+        88,
+        36
+      ]
+    },
+    {
+      "grid": [
+        1,
+        0
+      ],
+      "source_box": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 114817,
+      "selected_component_bbox": [
+        230,
+        51,
+        526,
+        501
+      ],
+      "crop_bbox": [
+        230,
+        51,
+        526,
+        501
+      ],
+      "edge_touch": false,
+      "output_size": [
+        204,
+        310
+      ],
+      "paste_position": [
+        90,
+        40
+      ]
+    },
+    {
+      "grid": [
+        1,
+        1
+      ],
+      "source_box": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "component_mode": "largest",
+      "component_count": 1,
+      "selected_component_area": 113654,
+      "selected_component_bbox": [
+        89,
+        52,
+        390,
+        501
+      ],
+      "crop_bbox": [
+        89,
+        52,
+        390,
+        501
+      ],
+      "edge_touch": false,
+      "output_size": [
+        207,
+        310
+      ],
+      "paste_position": [
+        88,
+        40
+      ]
+    }
+  ],
+  "edge_touch_frames": []
+}

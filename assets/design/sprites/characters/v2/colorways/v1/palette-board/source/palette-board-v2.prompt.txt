@@ -1,0 +1,24 @@
+Regenerate the 2x3 OC Kindergarten colorway approval board using the original trio reference for
+strict character identity and the previous colorway board reference for the exact approved Meadow
+and Berry palette language.
+
+Keep exactly six full-body robots in exactly 2 rows by 3 columns: boy, girl, genderless on row 1 in
+Meadow teal/mint; boy, girl, genderless on row 2 in Berry raspberry/coral. Preserve the same identity
+markers, white shells, black face screens, cyan eyes, pale-blue sleeves, wheel geometry, neutral
+front pose, pixel-art style, and palette decisions from the references. Do not redesign or add
+anything.
+
+Layout correction is the primary change: make all six characters slightly smaller and centered in
+their equal invisible cells. Each full character including hat, flower, antenna, wheels, and any
+antialiased edge must occupy only the central 48% to 55% of its cell height and width. Leave at least
+18% completely empty magenta margin at the top, bottom, left, and right of every cell. The wheel
+bottoms of the entire bottom row must sit clearly above the canvas bottom with a wide empty magenta
+band below them. Nothing may touch or approach a cell edge. Use identical scale and aligned
+wheel-bottom lines within each row.
+
+No boxes, cell dividers, labels, palette swatches, UI, text, shadows, floor, room, watermark, or extra
+props.
+
+Background must be a perfectly flat single-color solid #FF00FF field across every pixel outside the
+characters, edge to edge. No pink gradient, lighting, texture, vignette, or compression variation.
+Do not use #FF00FF in characters.

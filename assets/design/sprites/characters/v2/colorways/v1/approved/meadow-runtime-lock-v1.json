@@ -1,0 +1,975 @@
+{
+  "lock_id": "meadow-runtime-lock-v1",
+  "status": "approved",
+  "approved_on": "2026-07-22",
+  "preset": "meadow",
+  "classic_baseline_lock": "assets/design/sprites/characters/v2/approved/v2-wheelbase-animation-baseline-lock-v4.json",
+  "scope": {
+    "characters": 3,
+    "runtime_sheet_count": 21,
+    "idle_frames": 12,
+    "movement_frames": 96,
+    "state_action_frames": 60,
+    "runtime_frames": 168,
+    "movement_direction_strips": 24,
+    "movement_atlases": 3,
+    "idle_and_action_strips": 18,
+    "idle_and_action_2x2_sheets": 18
+  },
+  "character_contract": {
+    "frame_size_px": [
+      48,
+      64
+    ],
+    "anchor_px": [
+      24,
+      64
+    ],
+    "appearance_selection": "appearancePreset + characterVariant",
+    "runtime_tinting": false
+  },
+  "palette_contract": {
+    "clothing_and_backpack": "mint, teal and emerald",
+    "boy_cap": "grape shadow, violet body, periwinkle highlight, lavender brim",
+    "berry_status": "paused; palette-board candidate only"
+  },
+  "action_semantic_locks": {
+    "boy_executing": {
+      "orientation": "up_back",
+      "semantic": "place_toy_block",
+      "minimum_reference_alpha_iou": 0.95
+    },
+    "boy_error": {
+      "orientation": "down_front",
+      "semantic": "inspect_diagnostic_reader",
+      "minimum_reference_alpha_iou": 0.95
+    }
+  },
+  "locked_file_count": 231,
+  "files": [
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/boy-child-error-meadow-v1-2x2-48x64.png",
+      "sha256": "c554b9d2c758b326404cb47d457b263c3edbd7efbc026c262f7984453d2c8140"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/boy-child-error-meadow-v1-strip-48x64.png",
+      "sha256": "7d85535d764cbaf6ab42d7e1a03bc58733195de37fbec071284ccd23bddb0f19"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-1-48x64.png",
+      "sha256": "a26eb9848a0d342277f50a3c33709a292256cb60e589bc7b5dd8a3c33f248a72"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-2-48x64.png",
+      "sha256": "0232ccf981a449408ef600dbdd82f73a0f1c831faf3a3c3b3a61626aa5288cad"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-3-48x64.png",
+      "sha256": "e0c82a5df1aa8ba7670e5c0cc2a0d787f0b17d0e3e7ec706412a1d70b9dd8427"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/error/frames/boy-child-error-meadow-v1-4-48x64.png",
+      "sha256": "0305808f41614bc8ef6522fd8e602ca51fa5b42b83d8d2b03ea784bdbf961db1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/boy-child-executing-meadow-v1-2x2-48x64.png",
+      "sha256": "c8acf2b73c3224d4edbbfcfc88121b5c3c34a836ac198adb3f1ab7d87e973876"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/boy-child-executing-meadow-v1-strip-48x64.png",
+      "sha256": "67a799fad8c2a1ff8a8fd69be46edd02cf1b89db0c1cd36802bbabebc1912ad7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-1-48x64.png",
+      "sha256": "8169bcf21f17edf8dcda63c6dde036c79698c335a31c6d11eef862b968dab89c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-2-48x64.png",
+      "sha256": "d12edd095282479df5f27e95f4f76a0f96e6f06522ff188934c5f87e0c22c195"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-3-48x64.png",
+      "sha256": "b241682fa1360c6040a006d3958f3b24dcf1695b7779a541d3f5335d70c35c0c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/executing/frames/boy-child-executing-meadow-v1-4-48x64.png",
+      "sha256": "55321c927c5a4a42d9f736cf36be39581ffbe58c13557110fdb7cf3664922ce0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/boy-child-researching-meadow-v1-2x2-48x64.png",
+      "sha256": "864409f51a64cadfcf93509692fdf6dc174eeabeb1811c3aefe4a9f6d66946c5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/boy-child-researching-meadow-v1-strip-48x64.png",
+      "sha256": "c1cfead4ddf2d526ac4c44301869593f70da789d6ef39833394d8776b6f444e7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-1-48x64.png",
+      "sha256": "fda15e3aedba6e056ca0e3bfdd13448797f99c6d8f8eb04fc72fce4de2d0013e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-2-48x64.png",
+      "sha256": "3fe47c2b4fb307b5effdee9ed696a048410c4d35e16a5487e00376acddc59561"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-3-48x64.png",
+      "sha256": "94d3e792e7edd23e93d1b86d11598a82425446bbb6594abd5fd6d8e491bc0c46"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/researching/frames/boy-child-researching-meadow-v1-4-48x64.png",
+      "sha256": "db9717fd281297a9483ba1f5493764fa48fc20d75e9c70bc939fa75f25448f79"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-meadow-v1-2x2-48x64.png",
+      "sha256": "6ad9a81c320f9c65e584ee65edfc4c5de2a0d7ccce305aa5d928e87ab8199490"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/boy-child-syncing-meadow-v1-strip-48x64.png",
+      "sha256": "abdf27a61247ef05cf182ff16883d96e79f5d055228d9e3a366c79a0487208f5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-1-48x64.png",
+      "sha256": "02fe6fc150b2ee3b59d06f62c7969627d7ae9aaf7c826d018de9ea7b822ecd9b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-2-48x64.png",
+      "sha256": "046911ecc1be2e2ab3eb6c09f15030123eaacd239a53d98ffe64991d3a6db939"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-3-48x64.png",
+      "sha256": "7c803b244cd4f42a22021a33f581b7dcd5b408a254e18dc553871e75a06ac53e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/syncing/frames/boy-child-syncing-meadow-v1-4-48x64.png",
+      "sha256": "a7f8dc6973daac9d9817ec4d01d4b39084c0d60246a250cc5b962630118bac51"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/writing/boy-child-writing-meadow-v1-2x2-48x64.png",
+      "sha256": "17c3be0300f7f7111aa53430a63e147efa2b6e5c178bb87caee29c6332741b1b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/writing/boy-child-writing-meadow-v1-strip-48x64.png",
+      "sha256": "3506dfde27d0fa79307a9d6bc6931ac94c2b5b9a1279e7859f635acb7be16581"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-meadow-v1-1-48x64.png",
+      "sha256": "a068fa28d7a604b1773f8a91d08e090485df0792cbb55c49d433fa41641058da"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-meadow-v1-2-48x64.png",
+      "sha256": "78ba7d39e277fbfe73cb083a4e2598cb98af36f1ab971073dc1a2aaa8eed963b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-meadow-v1-3-48x64.png",
+      "sha256": "9e23d02e79800a247ba36886791721c81a7a780dc1b6c2cc7e6786b7507387b4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/actions/v1/writing/frames/boy-child-writing-meadow-v1-4-48x64.png",
+      "sha256": "abe21a0130165a190653dbf39445633ef0602792561d814de390b349117c5152"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/boy-child-idle-meadow-v1-2x2-48x64.png",
+      "sha256": "738b876811201f6f0abc6cf43275e0b1cfda9e3b138b53a8ced4c01f63192897"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/boy-child-idle-meadow-v1-strip-48x64.png",
+      "sha256": "6acfe8bfd2ac6b0ab04f85997cd497d0f17ffe12ca657d08a761d9a9aa56724b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-1-48x64.png",
+      "sha256": "91f9b00cd00ec67d20996f9acbbddfad35d60d5271801f7e921161f274fd15b3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-2-48x64.png",
+      "sha256": "95ff817e55399f99bd364b79199164cb70ba2f44972d69b0c970c68a8cff55ab"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-3-48x64.png",
+      "sha256": "94ee3091076d32c95694208b0e6675e3e39c3945a3d942122e2fa4dbfc1f6f59"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/idle/frames/boy-child-idle-meadow-v1-4-48x64.png",
+      "sha256": "1d816c6aac0cc8531066d5f76df53cceeb49862d870f100547b8de33bdb329c2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/boy-child-move-8dir-4frame-meadow-v1-48x64.png",
+      "sha256": "f358152f39d37f0e1a86baebcd940667ea871b7d5638b4e033752336ac86aea9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-meadow-v1-1-48x64.png",
+      "sha256": "656dba4372e6cbb48522b5489a43d1f226cb3195d63b9067cac35e8c26c5e15a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-meadow-v1-2-48x64.png",
+      "sha256": "8b38b0c952769d1c353eabf6199c2609ce63020201e7a2d7f60ca35673e3bd9d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-meadow-v1-3-48x64.png",
+      "sha256": "7981beb7ecef8effedf13824f5e23427b085e38fda69acd767ba2582ea1e6ad9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down/boy-child-move-down-meadow-v1-4-48x64.png",
+      "sha256": "5f04ec4d4b65d6210ace574ebb08af12aee52630867a84c1d184c7c94323f09f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-meadow-v1-1-48x64.png",
+      "sha256": "35d18d130d2533028b873a94ec1c732683d2d765d2aa7bb5c331ff3005539355"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-meadow-v1-2-48x64.png",
+      "sha256": "ff7444baab56295dffcce1a5996ec9769b465516b4eba84f9afdce2404e44f1a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-meadow-v1-3-48x64.png",
+      "sha256": "788b622280d72e55e088d2ce9b7208853e17929f1db3e9042ef76776006c1775"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_left/boy-child-move-down_left-meadow-v1-4-48x64.png",
+      "sha256": "f1af63c3c7e198f322e16d5232ecd3f4e454edd3a8eeabd4e9194fe7b722c139"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-meadow-v1-1-48x64.png",
+      "sha256": "90bcff7e0e7f8b0a90f1cb18e680e2321ae56bcaecb117e936413b1edf1b9951"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-meadow-v1-2-48x64.png",
+      "sha256": "1cf604ef7d4ab73b97b35b6f4b5fd8b47d09e1ba5026f710653b65f101a31670"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-meadow-v1-3-48x64.png",
+      "sha256": "232c658639a4532f6479e916a7f6f88a6965f4053725aac65c444db0d02e57ef"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/down_right/boy-child-move-down_right-meadow-v1-4-48x64.png",
+      "sha256": "3f16e33c9d0f38e6fec8d4c7157f19cca753847f28e50f0d4688aec75d9ab63d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-meadow-v1-1-48x64.png",
+      "sha256": "a2964fa33157d1913e800aa58e82121a3af39075dc6dad4464350386f2af7c91"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-meadow-v1-2-48x64.png",
+      "sha256": "21defa7e3c514908c6595866cd1212acf79441c644fcb2b791a31459fbd56131"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-meadow-v1-3-48x64.png",
+      "sha256": "77039a5aa14eb50fa188a5afdaf5fa2534cdd90fed090351ee1255433a81a17b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/left/boy-child-move-left-meadow-v1-4-48x64.png",
+      "sha256": "b4c77a9d1329ff49756cd03e66907ed304cd016f88887aa06c9dc4da2609f913"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-meadow-v1-1-48x64.png",
+      "sha256": "d50f1cbe57877f2d222e1dd863c99a6b2e628f3fd581b023106aa5ef83a09fc3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-meadow-v1-2-48x64.png",
+      "sha256": "a4aa715cf922208a3e872848a77d0d57f493a606b075eb7b24356fee707ce30a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-meadow-v1-3-48x64.png",
+      "sha256": "6dd8d9fec52c237305928dc8dd88d48440c6654721821df78174bc84a5dc9a0b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/right/boy-child-move-right-meadow-v1-4-48x64.png",
+      "sha256": "74d712813382fb539577f9cc3c822a047fa359c22337a6d33d4ab0b3682f3388"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-meadow-v1-1-48x64.png",
+      "sha256": "d7324a2e24e445112eeba70b9790bf1787159cca4bdde629261cd7b05789c999"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-meadow-v1-2-48x64.png",
+      "sha256": "7735615843d40eefffc3bf2856c92b6df7825720bfc9171cda66189bbfc2e3c7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-meadow-v1-3-48x64.png",
+      "sha256": "a04c24dc9807b4e63d67519b3e8382deadce37ec89f823bff70f18b406258ce0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up/boy-child-move-up-meadow-v1-4-48x64.png",
+      "sha256": "54e95c55dbe9d0c600301b8d21069af02638ac1d9cc0ae715872b25e0b1335ad"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-meadow-v1-1-48x64.png",
+      "sha256": "0f0366e806b78d4c8a6be4d205f18dfd406b6f5bd2d2c61c25fad45f5a4048ef"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-meadow-v1-2-48x64.png",
+      "sha256": "eb6ff813470c6149939cc7223266125823783bab1a7830c022873d57c6176bbd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-meadow-v1-3-48x64.png",
+      "sha256": "62ab08bcf0ad2cb4f49775a0d0ccbf4a28c01857f5196d4b3a192bfef5d7b158"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_left/boy-child-move-up_left-meadow-v1-4-48x64.png",
+      "sha256": "5e2ac114c12f4a0f8f102398ea4cb263490044a3861d10f28922fac90fd6f65b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-meadow-v1-1-48x64.png",
+      "sha256": "ebc4a036d864bb91795a783016bfba2d129eb12796d958478b11dfda3eb2a4e6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-meadow-v1-2-48x64.png",
+      "sha256": "eb51f914e3b1d4be5ad4082a680d8536e477b67856afb2592369a5c632a34960"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-meadow-v1-3-48x64.png",
+      "sha256": "6a2aa66737b37464383100862dcfcc95ccdd71ef9c6fba11631856a0a0f2f438"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/frames/up_right/boy-child-move-up_right-meadow-v1-4-48x64.png",
+      "sha256": "a158d69e517b94911f26bf9f57fa3435a2958d688c73bbe44827e58b1e5a949c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-down-meadow-v1-strip-48x64.png",
+      "sha256": "096781e5755fcafd1b92ba27fa752db43ac5475d1b5be45d3c2c06b9ce0f79d1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-down_left-meadow-v1-strip-48x64.png",
+      "sha256": "db31b823187c898ffe45b36173cf5484c75457332930aeb918275feea47dd6e7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-down_right-meadow-v1-strip-48x64.png",
+      "sha256": "6d99d700a3b24744b5f201dfba23886299be9d3c237263ede583044705317b60"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-left-meadow-v1-strip-48x64.png",
+      "sha256": "cf90dc3af240e60a43385d8dfb63e8616022df2b95b6c8a1ea11666aa5cb1d9e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-right-meadow-v1-strip-48x64.png",
+      "sha256": "63bb30768aefc5857dc1d23c6d80ba970eeee14b7141f03b76a85092ff65d7f4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-up-meadow-v1-strip-48x64.png",
+      "sha256": "5fd8af64117358f0e8a4795bc0b43d8ed95b8da0e5e588bb9a314a0c761fdfa6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-up_left-meadow-v1-strip-48x64.png",
+      "sha256": "af6087c93422839abf99efd6ee8d3d813cc165b8f937895750e0a4c2caf9c11f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-boy/moving/v1/strips/boy-child-move-up_right-meadow-v1-strip-48x64.png",
+      "sha256": "9695416ae9922142d1c20c71153a98bdf15ef448e2b37883a2e023168782a977"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-meadow-v1-1-48x64.png",
+      "sha256": "c0ee0eac84c416e5cef1fc142a31edb387a1cf5aaff9cc353cd4783b17697c7d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-meadow-v1-2-48x64.png",
+      "sha256": "72d017e1d655b72326250f12827dfcb80bd77af22088bcf9836ceaa50441dfc4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-meadow-v1-3-48x64.png",
+      "sha256": "98552409fe78aaf3b13beb91fb7368940aefba70313cf88080e88a6f49fafc72"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/error/frames/genderless-child-error-meadow-v1-4-48x64.png",
+      "sha256": "b7c725a6d112aab00295c6192f2cc7f5d91e22dd107bd33b61bafeba3c945e67"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/error/genderless-child-error-meadow-v1-2x2-48x64.png",
+      "sha256": "86302a13263b8d5fd74380c5f2829c59b63f37cf3e3c899142e99fd66c03b980"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/error/genderless-child-error-meadow-v1-strip-48x64.png",
+      "sha256": "9b7e59c4487ed27ed012369a4af668289eb2ab981ccf86019dda2ef7a3ceed9f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-meadow-v1-1-48x64.png",
+      "sha256": "5a41f19c0eac0a4fa4291ea0c58b05c13e225c5b977f0e15f2fafef696f822e8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-meadow-v1-2-48x64.png",
+      "sha256": "cbee8e01306b0824c4c3ded44d68212d756d66d7da13406fd191afdea1354e14"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-meadow-v1-3-48x64.png",
+      "sha256": "f07d35a11352da3a8ca690f65c69e1cc0577456898c9471448caae4e15fe8f73"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/executing/frames/genderless-child-executing-meadow-v1-4-48x64.png",
+      "sha256": "098b0037524f23de8a10f35db368f408c5b46492a950bd0b03589bccd2b54e34"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-meadow-v1-2x2-48x64.png",
+      "sha256": "82e5e5412ee6e3b57cde2e6851902adf94b128a4599c04a56a86829801ead94b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/executing/genderless-child-executing-meadow-v1-strip-48x64.png",
+      "sha256": "27e4a8b572b2ea5e6058a0c051426f47b1c3e580f99e984a5f94c9c14dbfa825"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-meadow-v1-1-48x64.png",
+      "sha256": "573a672cd505468aa6574a7c617874823c25c1859f954544f0265f1f0015268e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-meadow-v1-2-48x64.png",
+      "sha256": "9f8774c984219329817c36824e3ec06e18632fda5e68da9692dfee719ca45a8a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-meadow-v1-3-48x64.png",
+      "sha256": "90bd2b0498ca7a211021ea17b775b9a40c5f3ac4f1aecdb30a524f7c3d94a915"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/researching/frames/genderless-child-researching-meadow-v1-4-48x64.png",
+      "sha256": "e37804d49d07257b89d5996a12be7db8af509dfd972bec1280aea9015ea8e404"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-meadow-v1-2x2-48x64.png",
+      "sha256": "8e0ce906d9898ab27483383ce4b989022be7408b0c37048ea755e64cd747cdde"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/researching/genderless-child-researching-meadow-v1-strip-48x64.png",
+      "sha256": "9291ddae57f78f576b3aeffc32b300720a8941c95055557f0bd70d0fabdca240"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-1-48x64.png",
+      "sha256": "30aa2a1502529619ed8be49a520b5c9b2e76c446ec7f3c4aec74b4fbbd4afdd4"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-2-48x64.png",
+      "sha256": "7056ba89e6793bdd49f8d0c1727c95924acd1cdb719d23648baa5046f9c49b31"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-3-48x64.png",
+      "sha256": "b0b56bdc54b236a8b12b4259e4be0ac36f27d5854f23ade92981ede1686c7b53"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/frames/genderless-child-syncing-meadow-v1-4-48x64.png",
+      "sha256": "86feff0ffb0b2d114482b07f4cb4ed34fa758d60f7b7cec8140b4078a323f92e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-meadow-v1-2x2-48x64.png",
+      "sha256": "7a2d1b749f887650f1b5db564dcd826d8ec64f8aca2114c0078bcd1a4204178e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/syncing/genderless-child-syncing-meadow-v1-strip-48x64.png",
+      "sha256": "4231d84d87ef16ce6358a5d63e34a98d61a9aa33be02a1fb9188666252aa604f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-meadow-v1-1-48x64.png",
+      "sha256": "cab391e38a3833b33eac53d7768033a27fc8e37b361918e8e064753082f8b8d6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-meadow-v1-2-48x64.png",
+      "sha256": "2d5616dd727eddb8df71adc1948985bdabb19bfa9dfe6a58a6afa70ab611cf1e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-meadow-v1-3-48x64.png",
+      "sha256": "f86974c40461a26142d3ea759336cb47ad676a6ae5f454e496640bbdc66e8d62"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/writing/frames/genderless-child-writing-meadow-v1-4-48x64.png",
+      "sha256": "4a8d4006cb6fca4dd305d86a38676207a4ca5e3baa687917e086e135fb788de1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-meadow-v1-2x2-48x64.png",
+      "sha256": "23bd3bb324694079a0815ca6decf1d1c5b4f1358dc23d66d9953861960676821"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/actions/v1/writing/genderless-child-writing-meadow-v1-strip-48x64.png",
+      "sha256": "0124484015c0cda5f858466139f83cd5e85bd0a52b5ada734d727364a2608bd8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-1-48x64.png",
+      "sha256": "e0c5462f406b5c32c889219fdf5abf280332476e4116b634d67b7048afdc877b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-2-48x64.png",
+      "sha256": "90e3c320875471fca40078f961a8774b26c130c13c4650c06256eea7e4a5b5fb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-3-48x64.png",
+      "sha256": "45221ed5568e2914a2eab58162ef4759ff6c6e8fec8e437de98287ea57027fe8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/frames/genderless-child-idle-meadow-v1-4-48x64.png",
+      "sha256": "a39d221c04400edf76fa6625d0fecc0b12b291db859605a2786b381a4a4ad19b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/genderless-child-idle-meadow-v1-2x2-48x64.png",
+      "sha256": "d9ab0048d7d7377b4c7dab85089e61f4d66601767cee6ac258c278c9af2d944b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/idle/genderless-child-idle-meadow-v1-strip-48x64.png",
+      "sha256": "97ba6d020d6a737718d2796f52dae6029538dfea631a6ff93e782e8e2358a548"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-meadow-v1-1-48x64.png",
+      "sha256": "ac334a0df3f71cafbe1a9ee3ff74dda80e518f4a64582864719d72631e0d511f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-meadow-v1-2-48x64.png",
+      "sha256": "08d2dfc9bc7549fa833b303c776e690eccf061cc5e25de40a281b3ecb0055033"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-meadow-v1-3-48x64.png",
+      "sha256": "78e1d0c2d8aa94b80975ecf789f5a10b8f7829fa6c8f09d95e2b4d62110c73dd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down/genderless-child-move-down-meadow-v1-4-48x64.png",
+      "sha256": "4833062e8ef5ec70043d40778bcacc7b3397f3d53427a16aaf894116f1d14c7d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-meadow-v1-1-48x64.png",
+      "sha256": "e969a5c98185ea4c383d004616c295c0238dbea77c34e966eb92be7c94eab4aa"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-meadow-v1-2-48x64.png",
+      "sha256": "4126c83a55f492e00279b7af76d0ec5403ec113ef68369f3692712ec60dc940f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-meadow-v1-3-48x64.png",
+      "sha256": "d07567c6d30df851b9b5c87689247ae652eda17cf66a15655166eb3432128975"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_left/genderless-child-move-down_left-meadow-v1-4-48x64.png",
+      "sha256": "ae2463cdcea93e062055c8cddcdfc639bea66e01e4a763356a7af64398d13c68"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-meadow-v1-1-48x64.png",
+      "sha256": "ba8fc7a5a8b3883a447d13a2521bcef8ee0da6430289334334fd0dc0670fbaab"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-meadow-v1-2-48x64.png",
+      "sha256": "5fd95b91f7e98d8f3afe96689341c47c28911e1b2a1e6b5df5e4f3f1fd0acec1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-meadow-v1-3-48x64.png",
+      "sha256": "8fb9a34f33f2500930cf189381ad1c3e2ad974d8a88d08224caffb0d14c824ca"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/down_right/genderless-child-move-down_right-meadow-v1-4-48x64.png",
+      "sha256": "06e61a65e0142b488f388fca8d367ce30d4aed67d14e303e04093e3670f9cea8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-meadow-v1-1-48x64.png",
+      "sha256": "28e856d037b758f3f8f6590bb84bfe4b2b6e55b954afaf5c34c64f401d09d91c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-meadow-v1-2-48x64.png",
+      "sha256": "d9a570dd0a7e8fb7e57d758e0a801a0980f254a5b148c94b4773e2167586f906"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-meadow-v1-3-48x64.png",
+      "sha256": "f02135bf156b178f1116695003dcee17ca5c6fab53e431a7061446051e66392a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/left/genderless-child-move-left-meadow-v1-4-48x64.png",
+      "sha256": "0c75af20d39891fa4b7471cba9f85fe606bb1d71f6bbc794f0ce136a8b15e7e9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-meadow-v1-1-48x64.png",
+      "sha256": "f4dc22233ec1d6cd91f14c0a31eb9e3263fbb8489ad972d8d7b56e76927cf5a2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-meadow-v1-2-48x64.png",
+      "sha256": "95376e0c2189d9931ab49b173cb5cacc7fd57fd13444f217fdec971eecea50b6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-meadow-v1-3-48x64.png",
+      "sha256": "cf98f0585087d292adbef5984f639575609e541af0ffb4ae9fbfad7b8d70e5ab"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/right/genderless-child-move-right-meadow-v1-4-48x64.png",
+      "sha256": "b3d84449b3763ea5a2fe936de5c855b237fc32339b6d3a9f24205deb25fff41a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-meadow-v1-1-48x64.png",
+      "sha256": "83252ecf5817868005b456a4e4fba94cedea023722af264407bc22a24740282d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-meadow-v1-2-48x64.png",
+      "sha256": "521eec4586d32c088f0c39a329e0caeb8679742980eb5fc7c64daf89821ffab2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-meadow-v1-3-48x64.png",
+      "sha256": "b4f93023b30ecafd4df8064c9faae023de70a64952933df527f99a4f2d04597d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up/genderless-child-move-up-meadow-v1-4-48x64.png",
+      "sha256": "0bbea12c68bedcc1217e235ec21305c1b6ebbbf88507f1f51140c209f6408f7e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-meadow-v1-1-48x64.png",
+      "sha256": "152d336961d688c61e3995bad1d33df7013c38566c159a85257faebb0550edd8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-meadow-v1-2-48x64.png",
+      "sha256": "5766c6f4238b5300447d69007a2277b5682f5f6823fce5b20a12038befc122b3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-meadow-v1-3-48x64.png",
+      "sha256": "54643b94b7700b098fd741c990c4f46dbfcabcc37d6b015c41583e4612cae937"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_left/genderless-child-move-up_left-meadow-v1-4-48x64.png",
+      "sha256": "a5e0cc27de6620b95e8d817d5b1fb056b3a052a512c7cce52b3a9ae9136bda2f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-meadow-v1-1-48x64.png",
+      "sha256": "3969c99584cea8596ef201faa9a984833e412a9ad9e0716e413832a00b01f7c2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-meadow-v1-2-48x64.png",
+      "sha256": "d312734cc00889c0362ac6018f2c608dad6d328ca7fcf3bae60f72727ce26a24"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-meadow-v1-3-48x64.png",
+      "sha256": "222a4bef454ad9d9f89ed112a39053d7ab68fd7afe2df1e352bc1257bac3b99b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/frames/up_right/genderless-child-move-up_right-meadow-v1-4-48x64.png",
+      "sha256": "577bb1fc114fa43b53a2c3d35dd12ff4222143c1a3b7ff71b557c290b4cd0f55"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/genderless-child-move-8dir-4frame-meadow-v1-48x64.png",
+      "sha256": "83cb90cb65b3b32e7402dbbeb2fca92acd164acee525ffc2afe9af0cc04e4b83"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down-meadow-v1-strip-48x64.png",
+      "sha256": "568d59cd8baeb2846589a4efb5632dba640833c977e4389640523bc7b2942e8a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down_left-meadow-v1-strip-48x64.png",
+      "sha256": "fa8d0fd61642ca2d3c606598b1ba88558c1303be9e54da2b821a3c86223331bb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-down_right-meadow-v1-strip-48x64.png",
+      "sha256": "3f6c269b237838ca4c54b8bd15033123f5a01e456354d0da4df9fdeb29d322d1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-left-meadow-v1-strip-48x64.png",
+      "sha256": "6514b62475cd7d95df393ed3f5e7b7f4353f5c97a9bb580d4983bd05eca941e2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-right-meadow-v1-strip-48x64.png",
+      "sha256": "394cde7bd4d3d50dfb80572ce8af157e4106705ab153759e3ce1a036b05c728a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up-meadow-v1-strip-48x64.png",
+      "sha256": "a3c6d43ca41e531a0d27c9587ffddbd71fe3a82684417d92d5638258914c9d22"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up_left-meadow-v1-strip-48x64.png",
+      "sha256": "f77a1461ac5cbdc294cf29e0d5247a8dca034372ad4787d2f46dfcc8563d95be"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-genderless/moving/v1/strips/genderless-child-move-up_right-meadow-v1-strip-48x64.png",
+      "sha256": "c078b6742d1ee13905ed69f20a5d7648d40a5e405805133109ab528758643ce5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-meadow-v1-1-48x64.png",
+      "sha256": "32509d24db447723320798afcd0e2db9dc08e78290d2b59f2aacf3bd34a55670"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-meadow-v1-2-48x64.png",
+      "sha256": "f56eec78c77cc18ae1c5cc47600f52a88555edacfe4b7aa96ec6b7b57e85d78d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-meadow-v1-3-48x64.png",
+      "sha256": "07c2ea5b9786c290d711071421932153f7384c13c609e1fe0119b62ff80dd74e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/error/frames/girl-child-error-meadow-v1-4-48x64.png",
+      "sha256": "a6baec6ecb2d8c69d0348135bdc516dae6ce2938fddf6ffef6bc6b927214b41e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/error/girl-child-error-meadow-v1-2x2-48x64.png",
+      "sha256": "ebc8cdac0cdfdba4bccf55d1b2d1e077cc88f14ca5378ec686835ad7316ff956"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/error/girl-child-error-meadow-v1-strip-48x64.png",
+      "sha256": "6e82c1e7404d87635bf7946fbc4e2eca19fee1376f5062283dcd4b0d69074e5b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-1-48x64.png",
+      "sha256": "bed6ced37112ca1f1c9cc6cd10e66bd843b6564253156893fa35c48a04c923db"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-2-48x64.png",
+      "sha256": "a7d46e114c76f40062bc6948291badaf19d9942cd54ab63098ead8daf0308430"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-3-48x64.png",
+      "sha256": "e7fb4f28961120023f2f9f6caf2a6dc24496aed7ada35ef0014fadabbac98c54"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/frames/girl-child-executing-meadow-v1-4-48x64.png",
+      "sha256": "6401d755c3bfa99c598934bef77863aba3d5da76f1aacaf521cbf04fd00e267b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/girl-child-executing-meadow-v1-2x2-48x64.png",
+      "sha256": "2458c42df7f4b316a9ee5658d27fcd6e067996f7974b4aa09517932fe41b9428"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/executing/girl-child-executing-meadow-v1-strip-48x64.png",
+      "sha256": "5050b9af3359300c92ba026e51a0446650b6876f2ee04dd27eb92e6874c34819"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-1-48x64.png",
+      "sha256": "25012ccb7f929b526a1e6d10d2ff217ca53bd24a7dca4b22a6151fce40e97ad6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-2-48x64.png",
+      "sha256": "8d91d581de083cf6c006827bfe9c7220298944309cc705eee07069c99a3286ff"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-3-48x64.png",
+      "sha256": "e192606e647735fa533cc5a98a8adf82792d3c81cae13dc3319171afde44c82f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/frames/girl-child-researching-meadow-v1-4-48x64.png",
+      "sha256": "50689b179b0140f5a021e5295a3c844b1b7a3cbcead6b4c06623b61e130c195a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/girl-child-researching-meadow-v1-2x2-48x64.png",
+      "sha256": "7db2ae1da043014bf973826e70aab610ee1ad15e05704b50f5a0f23818c73dec"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/researching/girl-child-researching-meadow-v1-strip-48x64.png",
+      "sha256": "2b5c252081db4ce1174b84d6ec77ff99efb04d10520918fb82d17a3a43dbbff6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-1-48x64.png",
+      "sha256": "c12a89e1402595acae21e1ad0e24a6a849fa7c947b06973caa74ad63233e1116"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-2-48x64.png",
+      "sha256": "64b9501fa7ec76e29b0d8bfbbbab798241af2a2416fe04109d657a671c08d89d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-3-48x64.png",
+      "sha256": "8fb25c454b7f63250b97e5e77464c8f7bdbcace49ac2554bff39b03bc3b7693a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/frames/girl-child-syncing-meadow-v1-4-48x64.png",
+      "sha256": "d98b0a552d89554ac5019d32d0ef468f80f057291e5d8ef898f79b7314cf27ad"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-meadow-v1-2x2-48x64.png",
+      "sha256": "8bbb33ac528296a76f1c777ba686bf655e30fc9907ee92607bed653f7414f89b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-meadow-v1-strip-48x64.png",
+      "sha256": "d4628151cc9dca39a03fa3ca1101244ef25fdcea532227b0c7927b2025d06b54"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-1-48x64.png",
+      "sha256": "4e5243bdedd4404a8142c569ab2b294998cc2708506f7c1607406fd93b8349c8"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-2-48x64.png",
+      "sha256": "f85b7b8e3f2597c5acb57dcb08a89621c1fe6548dce8179d9eb709eb5ddd2b43"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-3-48x64.png",
+      "sha256": "ad73a1b671d1fdc789cce0635f6aa911b66239ed4c9cef6eb9e8b6e07971437d"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/frames/girl-child-writing-meadow-v1-4-48x64.png",
+      "sha256": "08e897b77079f53d3bcadaa567073bc710ec8ca1b854fed0f70fae6c77095aac"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/girl-child-writing-meadow-v1-2x2-48x64.png",
+      "sha256": "92e26740f59b6dcac89ec09aa3c8e56ae5f8664582cc6cb46fe618075a9ee31c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/actions/v1/writing/girl-child-writing-meadow-v1-strip-48x64.png",
+      "sha256": "78cc0ba19c142fed892b491e3f287d64adcec8cd3edf5ba7e08e86c7d3123809"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/idle/frames/girl-child-idle-meadow-v1-1-48x64.png",
+      "sha256": "184fb383cc30ba974e8dcacbaaa924bd8be9b74ca15598a50dc83360b3bf47f0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/idle/frames/girl-child-idle-meadow-v1-2-48x64.png",
+      "sha256": "2870df20125133f6fa00bbcbe0d5037ff8dec580e9e62c86d636244eae5f80d9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/idle/frames/girl-child-idle-meadow-v1-3-48x64.png",
+      "sha256": "052c05ac3080d6aaa74b7e5ae8e61461de2eeebab4ebedec385a00de577f76e3"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/idle/frames/girl-child-idle-meadow-v1-4-48x64.png",
+      "sha256": "c3ebe49be3a5abcb2def37e5d5f279d41bf08e59351b4ffd13fc52ca0c4151ab"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/idle/girl-child-idle-meadow-v1-2x2-48x64.png",
+      "sha256": "b803957ca5a107be0a151a8ae1fd26bf9a2089521da137974d9d8ad0ca1a11fb"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/idle/girl-child-idle-meadow-v1-strip-48x64.png",
+      "sha256": "5dfc30fa4af09ab9f5300da319950cfad22b57812f95c2b0d2081e2bae9a5727"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-1-48x64.png",
+      "sha256": "d4360f53a47178414fe27f6d81666cebbffe4b235f62658b4681e1e6dc48f3fd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-2-48x64.png",
+      "sha256": "034103819c54e05086b33bf4489aabfb8a083fe3061b445c499f1a0b45563519"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-3-48x64.png",
+      "sha256": "1fb1def486de73268ebc7924f68cab33e4f96fbc01baf2d0762c677e6d63fa39"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down/girl-child-move-down-meadow-v1-4-48x64.png",
+      "sha256": "a0b606422d83be1e87985f604b1e92e66d7e97782f723aa828d7979d6e59f5e0"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-1-48x64.png",
+      "sha256": "cc490da82feeb8ab658d09f904eb03b9bf776ef43c661f9cabaf8b128844a862"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-2-48x64.png",
+      "sha256": "3fb92f069f16c8a54759594b5470ffb4fa05f6e22b33d585c2ad08248c950b2b"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-3-48x64.png",
+      "sha256": "8ed69babcee0a04afcfbb1719ab8d490292aece3b64330904d8981ff579a44f9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_left/girl-child-move-down_left-meadow-v1-4-48x64.png",
+      "sha256": "23844392e70e615551898c6343598a4620009309d9087c6add5e3ff827edf4da"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-1-48x64.png",
+      "sha256": "e54ad653bd4b2ac01abf5eda25d8340d5f8e823576bd43a1abffe4fb9c435896"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-2-48x64.png",
+      "sha256": "ce8d41d8b8b36b18568e6ad6fe24e74454386062cc818a41ada340903be739e9"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-3-48x64.png",
+      "sha256": "3e9010be3159bf5aef7fbf2904736429460835232b865108d56582bd744bab21"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/down_right/girl-child-move-down_right-meadow-v1-4-48x64.png",
+      "sha256": "c598d5526ab4d385271cf013e95bcc599a02ccc13ac3f752ca014e1393b58b99"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-1-48x64.png",
+      "sha256": "57f99c2127ae0829f77c46b7b888bbf531e5d89209ac30d98b11bd47226ad2b7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-2-48x64.png",
+      "sha256": "df8d494a2799f2c167256afa67a8ebe2e12ca359a1707728565d68eb5380e5d5"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-3-48x64.png",
+      "sha256": "08f133135807e2062e6283fd8fa09e3c112ff2df752b0f585cb5417cd6c70f48"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/left/girl-child-move-left-meadow-v1-4-48x64.png",
+      "sha256": "5ba29b8a17cdd56f6bd654fec6108995bf14bc545a61186632b05e2997d90810"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-1-48x64.png",
+      "sha256": "2faf45a6bcf89e93d3fca559b52683c30eebc5caf8fa10d46dcb7eb93d2bb8f1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-2-48x64.png",
+      "sha256": "7aa156ddb1066180f1f7dd3c32a091e249adf4c38cb60ede2d5b0d540d96df5c"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-3-48x64.png",
+      "sha256": "3b786c0ec51f8449b08b2c20639f3c9f6690f401704b41edbfd5bab18ed2f78f"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/right/girl-child-move-right-meadow-v1-4-48x64.png",
+      "sha256": "faa3df277d3ac97a67429bdfe9b1df9fc3a6c80afc21aa421cef1bee6cf816cd"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-1-48x64.png",
+      "sha256": "9013dab032b15dba5ae4c5986189c9a3c6bf8ee6447aab7b5eb136a72c2e0c34"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-2-48x64.png",
+      "sha256": "7d39bbb71baf4332a7a66f5df8b7d917dd4226d991ee364e0cf07f5068443134"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-3-48x64.png",
+      "sha256": "c98dfca42d485858de01435b07515bb953a4f3080ff6e51d9c57445a495b58b1"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up/girl-child-move-up-meadow-v1-4-48x64.png",
+      "sha256": "ad75c48a6f9ded821292bae3f17def67916b44f945de4cf948b411d28f471550"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-1-48x64.png",
+      "sha256": "a3b67cd992bd4b80cd55dbf2d53b83051c40497ed8993d4e36af5eefbb0661c7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-2-48x64.png",
+      "sha256": "f995dfaf04975731153ed1e7d7ba538b1fe6998f41979dcc2c622b24766efc22"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-3-48x64.png",
+      "sha256": "e0d4a404fb4864d1c660a3daca1400adb4e915269d1df4c0f1489cb0d50d7684"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_left/girl-child-move-up_left-meadow-v1-4-48x64.png",
+      "sha256": "1901258fee09b27a97736a624fa9888d23b5e8f75ba759f8ecff6a9792fcbf28"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-1-48x64.png",
+      "sha256": "a9536e407477c70dd40ebab6e438f5aa6f25c7de5205c350d1d159d1b78fbea2"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-2-48x64.png",
+      "sha256": "e8ebdcc3da5d89b85fff2a22b555d3fe8f8fbdea48d5301f071482e7d3ed3654"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-3-48x64.png",
+      "sha256": "1432db4208f0bc577d083bcb2a64ca233c38849195bf04e8ffda180f793f5daf"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/frames/up_right/girl-child-move-up_right-meadow-v1-4-48x64.png",
+      "sha256": "e27033b17273eb0e3ea7e4122d3369e17b9fa2c31506e86687786ce60b10561e"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/girl-child-move-8dir-4frame-meadow-v1-48x64.png",
+      "sha256": "6bd20b731ea307f94ae1a1d2fc62138be4ef503c46ceca4fa233ec3833140138"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down-meadow-v1-strip-48x64.png",
+      "sha256": "8890c0743f0c93bef64df46ce98e39ed20472d6155c662647a75e5a2a2c86ed6"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_left-meadow-v1-strip-48x64.png",
+      "sha256": "f070607a625691fc940b3ad30a179af498732a438486f1dc48a71af0ad49647a"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-down_right-meadow-v1-strip-48x64.png",
+      "sha256": "98abb4ab1afefde54954c351517743c5dec632152cf52887f06471c1091fd8bc"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-left-meadow-v1-strip-48x64.png",
+      "sha256": "6dba383102450d8a9e361c78e4f71d3af24f906b71725bf37f990df9fb360cfe"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-right-meadow-v1-strip-48x64.png",
+      "sha256": "65d3ff69c8165beff86f2e6e7e32cc112bcf6085160fe0c69473303f966fe737"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up-meadow-v1-strip-48x64.png",
+      "sha256": "61b654286eed85198df684a9d786ab1eb075b39cfa99ef3a4ed849177b8a5ec7"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_left-meadow-v1-strip-48x64.png",
+      "sha256": "aef428445ef1e799091bf1aeb75919937798f224fccebbaf69d6bad95b4f3810"
+    },
+    {
+      "path": "assets/design/sprites/characters/v2/colorways/v1/meadow/ai-agent-child-girl/moving/v1/strips/girl-child-move-up_right-meadow-v1-strip-48x64.png",
+      "sha256": "74e918c2d064ac16b0b2f5dbad22b1e361f023035548435ecda079dae8264006"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import { and, asc, eq, gt, isNull, or, sql } from 'drizzle-orm';
 
 import {
   AGENT_REGISTRY_SCHEMA_VERSION,
+  DEFAULT_AGENT_APPEARANCE_PRESET,
 } from './agent-registry-contract';
 import type {
   AgentProfile,
@@ -43,6 +44,7 @@ function rowToProfile(row: AgentProfileRow): AgentProfile {
     agentId: row.agentId,
     displayName: row.displayName,
     characterVariant: row.characterVariant as AgentProfile['characterVariant'],
+    appearancePreset: row.appearancePreset as AgentProfile['appearancePreset'],
     registeredBy: row.registeredBy as AgentProfile['registeredBy'],
     ...(ownerId === undefined ? {} : { ownerId }),
     ...(row.role === null ? {} : { role: row.role }),
@@ -139,6 +141,8 @@ export async function upsertAgentProfile(
         source,
         displayName: input.displayName,
         characterVariant: input.characterVariant,
+        appearancePreset:
+          input.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
         registeredBy: input.registeredBy,
         role: input.role,
         color: input.color,
@@ -153,6 +157,8 @@ export async function upsertAgentProfile(
           source,
           displayName: input.displayName,
           characterVariant: input.characterVariant,
+          appearancePreset:
+            input.appearancePreset ?? DEFAULT_AGENT_APPEARANCE_PRESET,
           registeredBy: input.registeredBy,
           role: input.role ?? null,
           color: input.color ?? null,
@@ -187,6 +193,21 @@ export async function archiveAgentProfile(
 ): Promise<boolean> {
   const { database } = getDatabaseClient();
   return database.transaction(async (transaction) => {
+    const initialRows = await transaction
+      .select({ enrollmentId: agentProfiles.enrollmentId })
+      .from(agentProfiles)
+      .where(eq(agentProfiles.agentId, agentId))
+      .limit(1);
+    const enrollmentId = initialRows[0]?.enrollmentId;
+    if (enrollmentId) {
+      await transaction
+        .select({ id: agentEnrollments.id })
+        .from(agentEnrollments)
+        .where(eq(agentEnrollments.id, enrollmentId))
+        .limit(1)
+        .for('update');
+    }
+
     const rows = await transaction
       .update(agentProfiles)
       .set({

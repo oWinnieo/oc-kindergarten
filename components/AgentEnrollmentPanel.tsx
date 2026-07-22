@@ -2,6 +2,11 @@
 
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
+import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import AgentAppearancePicker, {
+  APPEARANCE_PRESET_LABELS,
+} from './AgentAppearancePicker';
+
 type CharacterVariant = 'boy' | 'girl' | 'genderless';
 type EnrollmentStatus =
   | 'draft'
@@ -17,6 +22,7 @@ interface AgentDraft {
   personalitySummary?: string;
   capabilities?: string[];
   characterVariant?: CharacterVariant;
+  appearancePreset?: AgentAppearancePreset;
   color?: string;
 }
 
@@ -50,6 +56,7 @@ interface ActivationDraft {
   personalitySummary: string;
   capabilities: string;
   characterVariant: '' | CharacterVariant;
+  appearancePreset: AgentAppearancePreset;
   color: string;
 }
 
@@ -67,6 +74,7 @@ function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
     personalitySummary: draft?.personalitySummary ?? '',
     capabilities: draft?.capabilities?.join(', ') ?? '',
     characterVariant: '',
+    appearancePreset: 'classic',
     color: draft?.color ?? '#6576d8',
   };
 }
@@ -250,6 +258,7 @@ export default function AgentEnrollmentPanel() {
           body: JSON.stringify({
             displayName: draft.displayName,
             characterVariant: draft.characterVariant,
+            appearancePreset: draft.appearancePreset,
             ...(draft.role.trim() ? { role: draft.role } : {}),
             ...(draft.personalitySummary.trim()
               ? { personalitySummary: draft.personalitySummary }
@@ -490,8 +499,17 @@ export default function AgentEnrollmentPanel() {
                       )}
                     </div>
                   </fieldset>
+                  <AgentAppearancePicker
+                    idPrefix={`activation-${enrollment.id}`}
+                    characterVariant={activation.characterVariant}
+                    value={activation.appearancePreset}
+                    disabled={busyId !== null}
+                    onChange={(appearancePreset) =>
+                      updateActivation(enrollment.id, { appearancePreset })
+                    }
+                  />
                   <label>
-                    <span>角色颜色（可选）</span>
+                    <span>标识色（可选）</span>
                     <input
                       type="color"
                       value={activation.color}
@@ -519,7 +537,10 @@ export default function AgentEnrollmentPanel() {
                     <strong>{enrollment.agent.displayName} 已入园</strong>
                     <p>
                       OpenClaw ID：{enrollment.nativeAgentId} · 外观：
-                      {VARIANT_LABELS[enrollment.agent.characterVariant]}
+                      {VARIANT_LABELS[enrollment.agent.characterVariant]} ·{' '}
+                      {APPEARANCE_PRESET_LABELS[
+                        enrollment.agent.appearancePreset ?? 'classic'
+                      ]}
                     </p>
                     <p>Agent 下一次运行时会自动进入教室并展示真实状态。</p>
                   </div>

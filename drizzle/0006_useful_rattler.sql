@@ -1,0 +1,1 @@
+ALTER TABLE "agent_profiles" ADD COLUMN "appearance_preset" text DEFAULT 'classic' NOT NULL;

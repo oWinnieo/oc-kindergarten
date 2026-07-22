@@ -18,6 +18,23 @@
 `approved/v2-wheelbase-animation-baseline-lock-v4.json` 的 SHA-256 锁定。
 旧 v1/v2/v3 锁作为不可变父级基线保留；v4 共锁定 429 个文件。
 
+## 外观配色预设
+
+`colorways/v1/` 保存完整 sprite 资源组，不在 Canvas 对整张 PNG 使用 tint/filter：
+
+- `classic` 直接使用上述 V2 黄色基线；
+- `meadow` 覆盖三名角色的 idle、8 方向 × 4 帧 moving，以及 researching、writing、
+  executing、syncing、error 五类动作；男孩帽子使用紫罗兰／薰衣草色阶，服装与背包保持
+  薄荷绿、青绿和祖母绿；
+- `berry` 已进入配色板候选，但尚无完整动作资源；自 2026-07-22 起暂缓制作，恢复前不进入
+  公开契约或本轮验收。
+
+运行时外观由 `appearancePreset + characterVariant` 选择。所有 Meadow 48×64 帧逐帧匹配
+对应经典帧的轮底锚点，左斜方向沿用经典基线的精确水平镜像策略，并要求洋红/紫边残留为 0。
+生成来源、处理器元数据、预览与构建脚本见 `colorways/v1/README.md`。
+Meadow 正式运行时文件由
+`colorways/v1/approved/meadow-runtime-lock-v1.json` 的 SHA-256 锁定。
+
 ## 尺寸规则
 
 - 排除帽子、花朵和天线后，三名角色第一帧的头壳顶部到轮组底部统一为 50 px

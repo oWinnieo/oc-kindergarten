@@ -1,0 +1,5 @@
+Edit the approved 4x4 cardinal locomotion grid into the Meadow colorway.
+Preserve rows down, left, right, up and all four wheel phases per row. Preserve
+identity, accessories, proportions, wheelbase, and cell order. Recolor only the
+outfit and backpack fabric to mint/teal/emerald; preserve all other colors.
+Render one complete sprite per cell on flat #FF00FF, without text or grid lines.

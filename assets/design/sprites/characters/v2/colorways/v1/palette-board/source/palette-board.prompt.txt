@@ -1,0 +1,34 @@
+Use the referenced OC Kindergarten trio as the strict visual identity, silhouette, proportions,
+camera, material, and project-native pixel-art reference. Create a colorway approval board only;
+do not redesign any character.
+
+Layout: exactly 2 rows by 3 columns of equal invisible cells. In each row, left is the exact boy
+robot with duck cap, middle is the exact girl robot with flower, right is the exact genderless robot
+with antenna. Same neutral front-facing pose, same full-body scale, same wheel-bottom anchor, and
+same spacing in all six cells. No boxes, dividers, labels, swatches, UI, or text.
+
+Row 1 — Meadow colorway: recolor only the yellow wearable outfit, backpack, and coordinated wearable
+trim to a cheerful deep teal / fresh mint palette, with a small warm golden accent. Keep the white
+shell, black face display, cyan eyes, pale-blue sleeves, gray wheels, and each character's identity
+marker intact. The duck cap may coordinate with teal and mint but must remain unmistakably the same
+duck cap; the flower stays coral-red; the antenna stays cyan.
+
+Row 2 — Berry colorway: recolor only the yellow wearable outfit, backpack, and coordinated wearable
+trim to a rich raspberry / warm coral palette with restrained lavender-blue highlights. Keep the
+white shell, black face display, cyan eyes, pale-blue sleeves, gray wheels, and each character's
+identity marker intact. The duck cap may coordinate with raspberry and coral but must remain
+unmistakably the same duck cap; the flower stays coral-red; the antenna stays cyan.
+
+Preserve readable light/mid/shadow ramps within each new wearable palette. Do not recolor face
+displays, eyes, white body shells, sleeves, wheel rubber, wheel metal, or unrelated body details.
+No props or action objects.
+
+Style: match the referenced crisp, friendly, high-resolution pixel art that downsamples cleanly to
+48x64. Stable dark outline clusters, soft upper-left lighting, no painterly blur, no new accessories,
+no pose changes.
+
+Containment: entire subject inside the central 60% to 70% of each cell, generous margin on all four
+sides, nothing crosses a cell edge, same bounding box and pixel scale.
+
+Background: perfectly flat uniform solid #FF00FF across the entire board, edge to edge, no gradient,
+texture, shadow, floor, room, border, watermark, or text. Do not use #FF00FF in any character.
