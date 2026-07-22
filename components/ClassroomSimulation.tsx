@@ -82,6 +82,7 @@ import berryGirlErrorUrl from '@/assets/design/sprites/characters/v2/colorways/v
 import berryGirlResearchingUrl from '@/assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/researching/girl-child-researching-berry-v1-strip-48x64.png';
 import berryGirlSyncingUrl from '@/assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/syncing/girl-child-syncing-berry-v1-strip-48x64.png';
 import berryGirlWritingUrl from '@/assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/girl-child-writing-berry-v1-strip-48x64.png';
+import AgentSpeechBubble from './AgentSpeechBubble';
 import { agentActionNotice } from '@/lib/agent-action-notice';
 import {
   AgentEventAdapter,
@@ -92,6 +93,7 @@ import {
   createMockAgentEventAdapter,
   parseAgentRuntimeEvent,
 } from '@/lib/agent-event-contract';
+import { agentIncomingMessageNotice } from '@/lib/agent-message-presentation';
 import {
   AgentAppearancePreset,
   AgentProfile,
@@ -148,6 +150,16 @@ const NAME_TAG_MAX_TEXT_WIDTH = 96;
 const NAME_TAG_HORIZONTAL_PADDING = 6;
 const NAME_TAG_VERTICAL_GAP = 3;
 const NAME_TAG_EDGE_MARGIN = 2;
+const SPEECH_BUBBLE_DURATION_MS = 12_000;
+const ADMIN_ONLY_TEST_AGENT_IDS = new Set([
+  'agent-scout',
+  'agent-bloom',
+  'agent-spark',
+]);
+
+function isAdminOnlyTestAgent(agentId: string): boolean {
+  return ADMIN_ONLY_TEST_AGENT_IDS.has(agentId);
+}
 
 const RUNTIME_STEPS = [
   ['State', '任务状态转换为明确的场景目标'],
@@ -290,6 +302,13 @@ interface AgentView {
   visible: boolean;
   targetPoint: Point | null;
   waitingForState: AgentTaskState | null;
+  x: number;
+  y: number;
+}
+
+interface AgentSpeechView {
+  eventId: string;
+  content: string;
 }
 
 interface EventStatusView {
@@ -728,6 +747,8 @@ function toAgentViews(agents: RuntimeAgent[]): AgentView[] {
     visible: agent.visible,
     targetPoint: agent.targetPoint,
     waitingForState: agent.waitingForState,
+    x: agent.x,
+    y: agent.y,
   }));
 }
 
@@ -756,6 +777,8 @@ export default function ClassroomSimulation({
   const debugRef = useRef(false);
   const doorRef = useRef<DoorState>({ phase: 'closed', phaseStartedAt: 0 });
   const eventTimersRef = useRef<number[]>([]);
+  const speechTimersRef = useRef(new Map<string, number>());
+  const requestedTestAgentIdsRef = useRef(new Set<string>());
   const waitQueuesRef = useRef(new Map<AgentTaskState, string[]>());
   const drainingQueuesRef = useRef(false);
   const applyAgentStateRef = useRef<
@@ -793,6 +816,12 @@ export default function ClassroomSimulation({
   const selectedAgentIdRef = useRef('');
   const [sceneActionStatus, setSceneActionStatus] = useState<string | null>(null);
   const [classroomNotice, setClassroomNotice] = useState('教室正在自由活动。');
+  const [agentSpeech, setAgentSpeech] = useState<
+    Record<string, AgentSpeechView>
+  >({});
+  const [requestedTestAgentIds, setRequestedTestAgentIds] = useState<
+    Set<string>
+  >(() => new Set());
   const [presenceTransition, setPresenceTransition] = useState<
     'joining' | 'leaving' | null
   >(null);
@@ -810,6 +839,33 @@ export default function ClassroomSimulation({
   useEffect(() => {
     selectedAgentIdRef.current = selectedAgentId;
   }, [selectedAgentId]);
+
+  const showAgentSpeech = useCallback(
+    (agentId: string, speech: AgentSpeechView) => {
+      const currentTimer = speechTimersRef.current.get(agentId);
+      if (currentTimer !== undefined) window.clearTimeout(currentTimer);
+      setAgentSpeech((current) => ({ ...current, [agentId]: speech }));
+      const timer = window.setTimeout(() => {
+        setAgentSpeech((current) => {
+          if (current[agentId]?.eventId !== speech.eventId) return current;
+          const next = { ...current };
+          delete next[agentId];
+          return next;
+        });
+        speechTimersRef.current.delete(agentId);
+      }, SPEECH_BUBBLE_DURATION_MS);
+      speechTimersRef.current.set(agentId, timer);
+    },
+    [],
+  );
+
+  useEffect(
+    () => () => {
+      speechTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+      speechTimersRef.current.clear();
+    },
+    [],
+  );
 
   const reconcileProfiles = useCallback((profiles: readonly AgentProfile[]) => {
     const existingById = new Map(
@@ -1198,6 +1254,15 @@ export default function ClassroomSimulation({
       }
       seenEventIdsRef.current.add(event.eventId);
       lastSequenceRef.current.set(sequenceKey, event.sequence);
+      if (
+        event.type === 'agent.presence' &&
+        event.action === 'enter' &&
+        isAdminOnlyTestAgent(event.agentId) &&
+        !requestedTestAgentIdsRef.current.has(event.agentId)
+      ) {
+        setEventError(null);
+        return true;
+      }
       if (event.source !== 'mock' && event.type === 'agent.state') {
         externalStateAgentsRef.current.add(event.agentId);
       }
@@ -1221,8 +1286,10 @@ export default function ClassroomSimulation({
         } else {
           applied = applyAgentState(event.agentId, event.state);
         }
-      } else {
+      } else if (event.type === 'agent.presence') {
         applied = applyPresenceEvent(event);
+      } else {
+        applied = profilesRef.current.has(event.agentId);
       }
       if (!applied) {
         setEventError(`Agent Event API v1 未能应用事件：${event.eventId}`);
@@ -1239,7 +1306,9 @@ export default function ClassroomSimulation({
         detail:
           event.type === 'agent.state'
             ? event.state
-            : `${event.action}@${event.scenePointId}`,
+            : event.type === 'agent.presence'
+              ? `${event.action}@${event.scenePointId}`
+              : event.direction,
       });
       if (event.type === 'agent.state' && event.source === 'command') {
         const displayName = profilesRef.current.get(event.agentId)?.displayName;
@@ -1247,9 +1316,22 @@ export default function ClassroomSimulation({
           setClassroomNotice(agentActionNotice(displayName, event.state));
         }
       }
+      if (event.type === 'agent.message') {
+        const displayName = profilesRef.current.get(event.agentId)?.displayName;
+        if (displayName && event.direction === 'incoming') {
+          setClassroomNotice(
+            agentIncomingMessageNotice(displayName, event.content),
+          );
+        } else if (displayName && event.direction === 'outgoing') {
+          showAgentSpeech(event.agentId, {
+            eventId: event.eventId,
+            content: event.content,
+          });
+        }
+      }
       return true;
     },
-    [applyAgentState, applyPresenceEvent],
+    [applyAgentState, applyPresenceEvent, showAgentSpeech],
   );
 
   dispatchEventRef.current = dispatchAgentEvent;
@@ -1281,19 +1363,24 @@ export default function ClassroomSimulation({
       (first, second) => first.agentId.localeCompare(second.agentId),
     );
     agentsRef.current = createAgents(profiles);
+    const agentsToJoin = agentsRef.current.filter(
+      (agent) =>
+        !isAdminOnlyTestAgent(agent.id) ||
+        requestedTestAgentIdsRef.current.has(agent.id),
+    );
     doorRef.current = { phase: 'closed', phaseStartedAt: performance.now() };
     setAgentViews(toAgentViews(agentsRef.current));
     setRouteError(null);
     setEventError(null);
     setSceneActionStatus(null);
-    setSelectedAgentId(profiles[0]?.agentId ?? '');
+    setSelectedAgentId(agentsToJoin[0]?.id ?? '');
     pendingStateRef.current.clear();
     waitQueuesRef.current.clear();
     externalPresenceAgentsRef.current.clear();
     externalStateAgentsRef.current.clear();
-    setPresenceTransition(profiles.length > 0 ? 'joining' : null);
+    setPresenceTransition(agentsToJoin.length > 0 ? 'joining' : null);
 
-    agentsRef.current.forEach((agent, index) => {
+    agentsToJoin.forEach((agent, index) => {
       const startAt = 250 + index * JOIN_STAGGER_MS;
       scheduleEventTimer(startAt, () => {
         if (!profilesRef.current.has(agent.id)) return;
@@ -1318,10 +1405,10 @@ export default function ClassroomSimulation({
         },
       );
     });
-    if (profiles.length > 0) {
+    if (agentsToJoin.length > 0) {
       const finishedAt =
         250 +
-        (profiles.length - 1) * JOIN_STAGGER_MS +
+        (agentsToJoin.length - 1) * JOIN_STAGGER_MS +
         DOOR_TRANSITION_MS * 2 +
         DOOR_OPEN_HOLD_MS +
         100;
@@ -1339,8 +1426,9 @@ export default function ClassroomSimulation({
 
   const startLeaveSequence = useCallback(() => {
     clearEventTimers();
-    setPresenceTransition('leaving');
-    agentsRef.current.forEach((agent, index) => {
+    const visibleAgents = agentsRef.current.filter((agent) => agent.visible);
+    setPresenceTransition(visibleAgents.length > 0 ? 'leaving' : null);
+    visibleAgents.forEach((agent, index) => {
       scheduleEventTimer(index * LEAVE_STAGGER_MS, () => {
         const event = mockAdapterRef.current?.createPresenceEvent(
           agent.id,
@@ -1805,8 +1893,56 @@ export default function ClassroomSimulation({
     startLeaveSequence();
   };
 
+  const handleTestAgentVisibility = (
+    agentId: string,
+    shouldShow: boolean,
+  ) => {
+    if (
+      !isAdmin ||
+      !adminPanelOpen ||
+      !isAdminOnlyTestAgent(agentId)
+    ) {
+      return;
+    }
+    const agent = agentsRef.current.find((candidate) => candidate.id === agentId);
+    if (!agent) {
+      setSceneActionStatus(`找不到测试 Agent：${agentId}`);
+      return;
+    }
+
+    if (shouldShow) requestedTestAgentIdsRef.current.add(agentId);
+    else requestedTestAgentIdsRef.current.delete(agentId);
+    setRequestedTestAgentIds(new Set(requestedTestAgentIdsRef.current));
+
+    if (agent.visible === shouldShow) {
+      setSceneActionStatus(
+        `${agent.name}测试形象已${shouldShow ? '显示' : '隐藏'}`,
+      );
+      return;
+    }
+    const event = mockAdapterRef.current?.createPresenceEvent(
+      agentId,
+      shouldShow ? 'enter' : 'leave',
+    );
+    if (!event || !dispatchAgentEvent(event)) {
+      if (shouldShow) requestedTestAgentIdsRef.current.delete(agentId);
+      else requestedTestAgentIdsRef.current.add(agentId);
+      setRequestedTestAgentIds(new Set(requestedTestAgentIdsRef.current));
+      setSceneActionStatus(`${agent.name}测试形象显示状态切换失败`);
+      return;
+    }
+    setSceneActionStatus(
+      `${agent.name}测试形象正在${shouldShow ? '入场' : '离场'}`,
+    );
+  };
+
+  const expectedVisibleAgents = agentViews.filter(
+    (agent) =>
+      !isAdminOnlyTestAgent(agent.id) || requestedTestAgentIds.has(agent.id),
+  );
   const allPlayersJoined =
-    agentViews.length > 0 && agentViews.every((agent) => agent.visible);
+    expectedVisibleAgents.length > 0 &&
+    expectedVisibleAgents.every((agent) => agent.visible);
   const selectedAgentView =
     agentViews.find((agent) => agent.id === selectedAgentId && agent.visible) ??
     agentViews.find((agent) => agent.visible);
@@ -1863,6 +1999,22 @@ export default function ClassroomSimulation({
             data-selected-agent={selectedAgentView?.id ?? ''}
             aria-label="动态注册的 AI agent 从教室入口入场，并在不同功能区之间移动的实时场景"
           />
+          <div className="agentSpeechLayer" aria-live="polite">
+            {agentViews.flatMap((agent) => {
+              const speech = agentSpeech[agent.id];
+              if (!agent.visible || !speech) return [];
+              return [
+                <AgentSpeechBubble
+                  key={`${agent.id}:${speech.eventId}`}
+                  agentName={agent.name}
+                  content={speech.content}
+                  accentColor={agent.color}
+                  xPercent={(agent.x / WORLD_SIZE.width) * 100}
+                  yPercent={((agent.y - 86) / WORLD_SIZE.height) * 100}
+                />,
+              ];
+            })}
+          </div>
           {!ready && !loadError && (
             <div className="sceneLoading">正在载入运行时资源…</div>
           )}
@@ -2012,17 +2164,35 @@ export default function ClassroomSimulation({
             <div className="agentPanel">
               {agentViews.map((agent) => {
                 const state = STATE_CONFIG[agent.taskState];
+                const isTestAgent = isAdminOnlyTestAgent(agent.id);
+                const testAgentRequested = requestedTestAgentIds.has(agent.id);
                 return (
                   <article className={`agentCard ${selectedAgentView?.id === agent.id ? 'isSceneTarget' : ''}`} key={agent.id}>
                     <div className="agentCardHeader">
                       <span className="agentDot" style={{ background: agent.color }} />
                       <div><h3>{agent.name}</h3><p>{agent.role}</p></div>
                       <span className={`motionStatus ${agent.moving ? 'isMoving' : ''} ${agent.waitingForState ? 'isWaiting' : ''}`}>
-                        {!agent.visible ? '等待入场' : agent.waitingForState ? '排队中' : agent.moving ? '移动中' : '已到达'}
+                        {!agent.visible
+                          ? isTestAgent && !testAgentRequested
+                            ? '默认隐藏'
+                            : '等待入场'
+                          : agent.waitingForState
+                            ? '排队中'
+                            : agent.moving
+                              ? '移动中'
+                              : '已到达'}
                       </span>
                     </div>
                     <div className="agentStateLine"><strong>{state.shortLabel}</strong><span>{state.location}</span></div>
-                    <p className="agentMeta">{agent.waitingForState ? `等待进入${STATE_CONFIG[agent.waitingForState].location}` : agent.moving ? `${agent.routeLength} 格路径 · ${agent.direction}` : state.arrivalAnimation}</p>
+                    <p className="agentMeta">
+                      {isTestAgent && !testAgentRequested
+                        ? '测试形象默认隐藏，仅管理员可手动显示'
+                        : agent.waitingForState
+                          ? `等待进入${STATE_CONFIG[agent.waitingForState].location}`
+                          : agent.moving
+                            ? `${agent.routeLength} 格路径 · ${agent.direction}`
+                            : state.arrivalAnimation}
+                    </p>
                     <button
                       className="agentSelectButton"
                       type="button"
@@ -2032,6 +2202,30 @@ export default function ClassroomSimulation({
                     >
                       {selectedAgentView?.id === agent.id ? '当前场景操作对象' : '设为场景操作对象'}
                     </button>
+                    {isTestAgent && (
+                      <button
+                        className="agentSelectButton"
+                        type="button"
+                        onClick={() =>
+                          handleTestAgentVisibility(
+                            agent.id,
+                            !testAgentRequested,
+                          )
+                        }
+                        disabled={
+                          !ready ||
+                          presenceTransition !== null ||
+                          (testAgentRequested && !agent.visible)
+                        }
+                        aria-pressed={testAgentRequested}
+                      >
+                        {testAgentRequested
+                          ? agent.visible
+                            ? '隐藏测试形象'
+                            : '测试形象正在入场'
+                          : '显示测试形象'}
+                      </button>
+                    )}
                     <div className="agentCommands" aria-label={`${agent.name}状态指令`}>
                       {AGENT_TASK_STATES.map((stateId) => (
                         <button key={stateId} type="button" className={agent.taskState === stateId ? 'isSelected' : ''} onClick={() => handleAgentState(agent.id, stateId)} disabled={!ready || !agent.visible || presenceTransition !== null}>

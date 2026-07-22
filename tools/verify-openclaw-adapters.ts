@@ -7,9 +7,20 @@ import {
   MonotonicAgentSequenceClock,
   OpenClawAgentAdapter,
 } from '../lib/openclaw-agent-adapter';
+import {
+  parseAgentRuntimeEvent,
+  type AgentRuntimeEvent,
+} from '../lib/agent-event-contract';
+import { agentIncomingMessageNotice } from '../lib/agent-message-presentation';
 import { StarOfficeFallbackAdapter } from '../lib/star-office-fallback-adapter';
 
-type Fixture = Record<string, unknown> & { expected: string };
+type Fixture = Record<string, unknown> & { expected: string | string[] };
+
+function eventMarker(event: AgentRuntimeEvent): string {
+  if (event.type === 'agent.state') return event.state;
+  if (event.type === 'agent.presence') return event.action;
+  return `${event.direction}:${event.content}`;
+}
 
 const now = () => new Date('2026-07-17T12:30:00.000Z');
 const clock = new MonotonicAgentSequenceClock({ now });
@@ -27,14 +38,14 @@ for (const fixture of fixtures) {
   const result = nativeAdapter.adapt(input);
   assert.equal(result.ok, true);
   if (!result.ok) continue;
-  assert.equal(result.events.length, 1);
-  const event = result.events[0];
-  assert.ok(event.sequence > lastSequence);
-  lastSequence = event.sequence;
-  assert.equal(
-    event.type === 'agent.state' ? event.state : event.action,
-    expected,
+  assert.deepEqual(
+    result.events.map(eventMarker),
+    Array.isArray(expected) ? expected : [expected],
   );
+  for (const event of result.events) {
+    assert.ok(event.sequence > lastSequence);
+    lastSequence = event.sequence;
+  }
 }
 
 const duplicate = nativeAdapter.adapt(
@@ -88,6 +99,25 @@ assert.equal(classifyOpenClawTool('browser.open'), 'researching');
 assert.equal(classifyOpenClawTool('apply_patch'), 'writing');
 assert.equal(classifyOpenClawTool('git_push'), 'syncing');
 assert.equal(classifyOpenClawTool('exec'), 'executing');
+
+assert.equal(
+  agentIncomingMessageNotice('Bonnie', 'Bonnie你在干嘛呀'),
+  'Bonnie 收到主人的消息“Bonnie你在干嘛呀”',
+);
+assert.equal(
+  parseAgentRuntimeEvent({
+    schemaVersion: 1,
+    eventId: 'openclaw:invalid-message',
+    type: 'agent.message',
+    agentId: 'agent-scout',
+    source: 'openclaw',
+    observedAt: '2026-07-17T12:00:08.000Z',
+    sequence: 99,
+    direction: 'sideways',
+    content: 'private message',
+  }).ok,
+  false,
+);
 
 const star = starAdapter.adapt(
   {

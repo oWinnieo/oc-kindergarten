@@ -15,10 +15,12 @@ export const AGENT_EVENT_SOURCES = [
 ] as const;
 
 export const AGENT_PRESENCE_ACTIONS = ['enter', 'leave'] as const;
+export const AGENT_MESSAGE_DIRECTIONS = ['incoming', 'outgoing'] as const;
 export const CLASSROOM_SCENE_POINT_IDS = [CLASSROOM_ENTRANCE_ID] as const;
 
 export type AgentEventSource = (typeof AGENT_EVENT_SOURCES)[number];
 export type AgentPresenceAction = (typeof AGENT_PRESENCE_ACTIONS)[number];
+export type AgentMessageDirection = (typeof AGENT_MESSAGE_DIRECTIONS)[number];
 export type ClassroomScenePointId = (typeof CLASSROOM_SCENE_POINT_IDS)[number];
 
 interface AgentEventBase {
@@ -43,7 +45,16 @@ export interface AgentPresenceEvent extends AgentEventBase {
   scenePointId: ClassroomScenePointId;
 }
 
-export type AgentRuntimeEvent = AgentStateEvent | AgentPresenceEvent;
+export interface AgentMessageEvent extends AgentEventBase {
+  type: 'agent.message';
+  direction: AgentMessageDirection;
+  content: string;
+}
+
+export type AgentRuntimeEvent =
+  | AgentStateEvent
+  | AgentPresenceEvent
+  | AgentMessageEvent;
 
 export type AgentEventParseResult =
   | { ok: true; event: AgentRuntimeEvent }
@@ -123,6 +134,19 @@ export function parseAgentRuntimeEvent(input: unknown): AgentEventParseResult {
       return { ok: false, error: 'scenePointId 不受支持' };
     }
     return { ok: true, event: input as unknown as AgentPresenceEvent };
+  }
+
+  if (input.type === 'agent.message') {
+    if (!includesValue(AGENT_MESSAGE_DIRECTIONS, input.direction)) {
+      return { ok: false, error: 'message direction 不受支持' };
+    }
+    if (!isNonEmptyString(input.content)) {
+      return { ok: false, error: 'message content 不能为空' };
+    }
+    if (Array.from(input.content).length > 280) {
+      return { ok: false, error: 'message content 不能超过 280 个字符' };
+    }
+    return { ok: true, event: input as unknown as AgentMessageEvent };
   }
 
   return { ok: false, error: '事件 type 不受支持' };

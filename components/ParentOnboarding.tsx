@@ -140,7 +140,7 @@ export default function ParentOnboarding() {
           <h2>确认你的家长资料</h2>
         </div>
         <div className="parentHeadingLinks">
-          <a className="parentTextLink" href="/family">我的家庭</a>
+          <a className="parentTextLink" href="/family">我的宝宝团</a>
           <a className="parentTextLink" href="/api/auth/signout?callbackUrl=%2F">
             退出登录
           </a>

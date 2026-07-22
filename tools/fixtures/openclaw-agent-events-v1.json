@@ -19,8 +19,8 @@
     "runId": "run-1",
     "sessionKey": "agent:main:main",
     "observedAt": "2026-07-17T12:00:01.000Z",
-    "data": { "promptSummary": "核对资料并更新页面" },
-    "expected": "writing"
+    "data": { "messageContent": "Bonnie你在干嘛呀" },
+    "expected": ["syncing", "incoming:Bonnie你在干嘛呀"]
   },
   {
     "bridgeVersion": 1,
@@ -42,7 +42,7 @@
     "runId": "run-1",
     "observedAt": "2026-07-17T12:00:03.000Z",
     "data": { "toolName": "web_search", "toolCallId": "call-1" },
-    "expected": "writing"
+    "expected": "syncing"
   },
   {
     "bridgeVersion": 1,
@@ -70,31 +70,45 @@
     "bridgeVersion": 1,
     "kind": "openclaw.hook",
     "bridgeEventId": "openclaw:fixture:7",
-    "hook": "message_sending",
+    "hook": "agent_end",
     "classroomAgentId": "agent-scout",
     "runId": "run-1",
     "observedAt": "2026-07-17T12:00:06.000Z",
+    "data": {
+      "success": true,
+      "messageContent": "我在听你说呀，你说吧，我接着。"
+    },
+    "expected": ["idle", "outgoing:我在听你说呀，你说吧，我接着。"]
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:8",
+    "hook": "message_sending",
+    "classroomAgentId": "agent-scout",
+    "runId": "run-1",
+    "observedAt": "2026-07-17T12:00:07.000Z",
     "data": {},
     "expected": "syncing"
   },
   {
     "bridgeVersion": 1,
     "kind": "openclaw.hook",
-    "bridgeEventId": "openclaw:fixture:8",
+    "bridgeEventId": "openclaw:fixture:9",
     "hook": "message_sent",
     "classroomAgentId": "agent-scout",
     "runId": "run-1",
-    "observedAt": "2026-07-17T12:00:07.000Z",
+    "observedAt": "2026-07-17T12:00:08.000Z",
     "data": { "success": true },
     "expected": "idle"
   },
   {
     "bridgeVersion": 1,
     "kind": "openclaw.hook",
-    "bridgeEventId": "openclaw:fixture:9",
+    "bridgeEventId": "openclaw:fixture:10",
     "hook": "gateway_stop",
     "classroomAgentId": "agent-scout",
-    "observedAt": "2026-07-17T12:00:08.000Z",
+    "observedAt": "2026-07-17T12:00:09.000Z",
     "data": { "reason": "shutdown" },
     "expected": "leave"
   }

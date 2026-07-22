@@ -1,5 +1,6 @@
 import {
   AGENT_EVENT_SCHEMA_VERSION,
+  AgentMessageEvent,
   AgentPresenceEvent,
   AgentRuntimeEvent,
   AgentStateEvent,
@@ -250,7 +251,11 @@ export class OpenClawAgentAdapter {
     }
 
     const mapped = this.mapHook(bridgeEvent);
-    return { ok: true, events: mapped ? [mapped] : [], ignored: mapped ? undefined : 'no_mapping' };
+    return {
+      ok: true,
+      events: mapped,
+      ignored: mapped.length > 0 ? undefined : 'no_mapping',
+    };
   }
 
   private rememberBridgeEvent(eventId: string) {
@@ -342,52 +347,95 @@ export class OpenClawAgentAdapter {
     };
   }
 
-  private mapHook(event: OpenClawBridgeEvent): AgentRuntimeEvent | null {
+  private messageEvent(
+    event: OpenClawBridgeEvent,
+    direction: AgentMessageEvent['direction'],
+    content: string,
+  ): AgentMessageEvent {
+    const base = this.base(event);
+    return {
+      ...base,
+      eventId: `${base.eventId}:message`,
+      type: 'agent.message',
+      direction,
+      content: truncate(content, 280),
+    };
+  }
+
+  private mapHook(event: OpenClawBridgeEvent): AgentRuntimeEvent[] {
     const data = event.data ?? {};
     switch (event.hook) {
       case 'gateway_start':
-        return this.presenceEvent(event, 'enter');
+        return [this.presenceEvent(event, 'enter')];
       case 'gateway_stop':
-        return this.presenceEvent(event, 'leave');
-      case 'before_agent_run':
-        return this.stateEvent(
-          event,
-          'writing',
-          optionalString(data, 'promptSummary') ?? '开始处理任务',
-        );
+        return [this.presenceEvent(event, 'leave')];
+      case 'before_agent_run': {
+        const messageContent = optionalString(data, 'messageContent');
+        return [
+          this.stateEvent(
+            event,
+            'syncing',
+            messageContent ? '正在接收并处理消息' : '开始处理任务',
+          ),
+          ...(messageContent
+            ? [this.messageEvent(event, 'incoming', messageContent)]
+            : []),
+        ];
+      }
       case 'before_tool_call': {
         const toolName = optionalString(data, 'toolName') ?? 'unknown-tool';
-        return this.stateEvent(
-          event,
-          classifyOpenClawTool(toolName),
-          `调用 ${toolName}`,
-        );
+        return [
+          this.stateEvent(
+            event,
+            classifyOpenClawTool(toolName),
+            `调用 ${toolName}`,
+          ),
+        ];
       }
       case 'after_tool_call': {
         const toolName = optionalString(data, 'toolName') ?? 'unknown-tool';
         const error = optionalString(data, 'error');
-        return error
-          ? this.stateEvent(event, 'error', `${toolName} 失败：${error}`)
-          : this.stateEvent(event, 'writing', `${toolName} 已完成，继续整理`);
+        return [
+          error
+            ? this.stateEvent(event, 'error', `${toolName} 失败：${error}`)
+            : this.stateEvent(event, 'syncing', `${toolName} 已完成，准备回复`),
+        ];
       }
       case 'agent_end': {
         const success = data.success !== false;
         const error = optionalString(data, 'error');
-        return success
-          ? this.stateEvent(event, 'idle', '任务处理完成')
-          : this.stateEvent(event, 'error', error ?? 'Agent 运行失败');
+        const messageContent = success
+          ? optionalString(data, 'messageContent')
+          : undefined;
+        return [
+          success
+            ? this.stateEvent(event, 'idle', '任务处理完成')
+            : this.stateEvent(event, 'error', error ?? 'Agent 运行失败'),
+          ...(messageContent
+            ? [this.messageEvent(event, 'outgoing', messageContent)]
+            : []),
+        ];
       }
-      case 'message_sending':
-        return this.stateEvent(event, 'syncing', '正在发送结果');
+      case 'message_sending': {
+        const messageContent = optionalString(data, 'messageContent');
+        return [
+          this.stateEvent(event, 'syncing', '正在发送结果'),
+          ...(messageContent
+            ? [this.messageEvent(event, 'outgoing', messageContent)]
+            : []),
+        ];
+      }
       case 'message_sent': {
         const success = data.success !== false;
         const error = optionalString(data, 'error');
-        return success
-          ? this.stateEvent(event, 'idle', '结果发送完成')
-          : this.stateEvent(event, 'error', error ?? '结果发送失败');
+        return [
+          success
+            ? this.stateEvent(event, 'idle', '结果发送完成')
+            : this.stateEvent(event, 'error', error ?? '结果发送失败'),
+        ];
       }
       default:
-        return null;
+        return [];
     }
   }
 }

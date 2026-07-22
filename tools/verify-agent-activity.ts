@@ -119,8 +119,48 @@ assert.equal(failed.title, '活动出现异常');
 assert.equal(failed.detail, '已前往诊断修理站等待检查');
 assert.equal(JSON.stringify(failed).includes('secret tool failure details'), false);
 
-const fallback = mapAgentActivityRecord({
+const incomingMessage = mapAgentActivityRecord({
   id: 16,
+  eventType: 'agent.message',
+  observedAt,
+  payload: {
+    schemaVersion: 1,
+    eventId: 'activity-incoming-message',
+    type: 'agent.message',
+    agentId: 'agent-activity',
+    source: 'openclaw',
+    observedAt,
+    sequence: 5,
+    direction: 'incoming',
+    content: 'private owner message',
+  },
+});
+assert.equal(incomingMessage.kind, 'message');
+assert.equal(incomingMessage.title, '收到主人消息');
+assert.equal(JSON.stringify(incomingMessage).includes('private owner message'), false);
+
+const outgoingMessage = mapAgentActivityRecord({
+  id: 17,
+  eventType: 'agent.message',
+  observedAt,
+  payload: {
+    schemaVersion: 1,
+    eventId: 'activity-outgoing-message',
+    type: 'agent.message',
+    agentId: 'agent-activity',
+    source: 'openclaw',
+    observedAt,
+    sequence: 6,
+    direction: 'outgoing',
+    content: 'private agent reply',
+  },
+});
+assert.equal(outgoingMessage.kind, 'message');
+assert.equal(outgoingMessage.title, '已经回复主人');
+assert.equal(JSON.stringify(outgoingMessage).includes('private agent reply'), false);
+
+const fallback = mapAgentActivityRecord({
+  id: 18,
   eventType: 'agent.internal',
   observedAt,
   payload: { secret: 'must-not-leak' },

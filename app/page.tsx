@@ -20,7 +20,7 @@ export default function HomePage({
   return (
     <main className="appShell canvasApp">
       <a className="parentEntryLink" href="/family">
-        我的家庭
+        我的宝宝团
       </a>
       <ClassroomSimulation
         initialIsAdmin={initialIsAdmin}

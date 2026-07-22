@@ -17,6 +17,7 @@ export type AgentActivityKind =
   | 'task'
   | 'completion'
   | 'error'
+  | 'message'
   | 'activity';
 
 export type AgentActivityTone =
@@ -191,6 +192,26 @@ export function mapAgentActivityRecord(
 
   if (parsed.event.type === 'agent.state') {
     return stateActivity(cursor, parsed.event, observedAt);
+  }
+
+  if (parsed.event.type === 'agent.message') {
+    return parsed.event.direction === 'incoming'
+      ? {
+          cursor,
+          kind: 'message',
+          tone: 'attention',
+          title: '收到主人消息',
+          detail: '已开始处理并准备回复',
+          observedAt,
+        }
+      : {
+          cursor,
+          kind: 'message',
+          tone: 'positive',
+          title: '已经回复主人',
+          detail: '回复已送往消息渠道',
+          observedAt,
+        };
   }
 
   return parsed.event.action === 'enter'

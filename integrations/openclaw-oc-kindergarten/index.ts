@@ -15,12 +15,68 @@ type HookContext = {
   runId?: string;
   sessionKey?: string;
   sessionId?: string;
+  messageProvider?: string;
+  trigger?: string;
+  channelId?: string;
 };
 
 const DEFAULT_ENDPOINT = "http://127.0.0.1:3000/api/openclaw/events";
 const DEFAULT_AGENT_ID = "agent-scout";
-const BRIDGE_ADAPTER_VERSION = "2.0.0";
-const PLUGIN_VERSION = "0.3.0";
+const BRIDGE_ADAPTER_VERSION = "2.1.0";
+const PLUGIN_VERSION = "0.4.0";
+
+function optionalMessageContent(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (!normalized) return undefined;
+  return Array.from(normalized).slice(0, 280).join("");
+}
+
+function isChannelMessageRun(context: HookContext): boolean {
+  if (context.trigger === "user") return true;
+  if (context.messageProvider || context.channelId) return true;
+  return /(?:^|:)(?:telegram|discord|slack|whatsapp|signal|imessage|line|matrix|webchat)(?:$|:)/i.test(
+    context.sessionKey ?? "",
+  );
+}
+
+function messageText(value: unknown): string | undefined {
+  if (typeof value === "string") return optionalMessageContent(value);
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return undefined;
+  }
+  const record = value as Record<string, unknown>;
+  if (
+    typeof record.type === "string" &&
+    record.type !== "text" &&
+    record.type !== "output_text"
+  ) {
+    return undefined;
+  }
+  return optionalMessageContent(record.text) ?? optionalMessageContent(record.content);
+}
+
+function finalAssistantMessage(messages: unknown): string | undefined {
+  if (!Array.isArray(messages)) return undefined;
+  for (let index = messages.length - 1; index >= 0; index -= 1) {
+    const candidate = messages[index];
+    if (typeof candidate !== "object" || candidate === null) continue;
+    const message = candidate as Record<string, unknown>;
+    if (message.role !== "assistant") continue;
+    if (typeof message.content === "string") {
+      return optionalMessageContent(message.content);
+    }
+    if (Array.isArray(message.content)) {
+      const content = message.content
+        .map(messageText)
+        .filter((item): item is string => Boolean(item))
+        .join(" ");
+      const normalized = optionalMessageContent(content);
+      if (normalized) return normalized;
+    }
+  }
+  return undefined;
+}
 
 function derivePairingEndpoint(endpoint: string): string {
   return new URL("/api/runtime/enrollments/pair", endpoint).toString();
@@ -98,6 +154,15 @@ const plugin = {
       }
       return nativeAgentId;
     };
+
+    const hasRoutableAgentIdentity = (context: HookContext): boolean =>
+      Boolean(
+        context.agentId ||
+          (context.sessionKey &&
+            (identityMode === "server"
+              ? sessionNativeAgentMap.has(context.sessionKey)
+              : sessionClassroomAgentMap.has(context.sessionKey))),
+      );
 
     const postTo = async (
       target: string,
@@ -329,9 +394,9 @@ const plugin = {
                 profileDraft,
               },
             });
-            const pairing =
+            const pairing: Record<string, unknown> =
               typeof response.pairing === "object" && response.pairing !== null
-                ? response.pairing
+                ? (response.pairing as Record<string, unknown>)
                 : {};
             console.log(
               JSON.stringify(
@@ -365,8 +430,13 @@ const plugin = {
     // OpenClaw 2026.3.x calls this hook before_agent_start. The bridge keeps
     // the provider-neutral v1 wire name before_agent_run for compatibility
     // with the server adapter and newer Gateway releases.
-    api.on("before_agent_start", (_event, context) => {
-      void emit("before_agent_run", context, {});
+    api.on("before_agent_start", (event, context) => {
+      const messageContent = isChannelMessageRun(context)
+        ? optionalMessageContent(event.prompt)
+        : undefined;
+      void emit("before_agent_run", context, {
+        ...(messageContent ? { messageContent } : {}),
+      });
     });
 
     api.on("before_tool_call", (event, context) => {
@@ -386,18 +456,27 @@ const plugin = {
     });
 
     api.on("agent_end", (event, context) => {
+      const messageContent = event.success
+        ? finalAssistantMessage(event.messages)
+        : undefined;
       void emit("agent_end", context, {
         success: event.success,
+        ...(messageContent ? { messageContent } : {}),
         ...(event.error ? { error: "agent_failed" } : {}),
         ...(event.durationMs !== undefined ? { durationMs: event.durationMs } : {}),
       });
     });
 
     api.on("message_sending", (_event, context) => {
+      // OpenClaw 2026.3.x message hooks normally omit agentId/sessionKey.
+      // Skipping an unresolvable hook prevents one Agent's delivery state
+      // from being assigned to the configured default Agent.
+      if (!hasRoutableAgentIdentity(context)) return;
       void emit("message_sending", context, {});
     });
 
     api.on("message_sent", (event, context) => {
+      if (!hasRoutableAgentIdentity(context)) return;
       void emit("message_sent", context, {
         success: event.success,
         ...(event.error ? { error: "message_failed" } : {}),

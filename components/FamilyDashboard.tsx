@@ -39,7 +39,18 @@ type CharacterVariant = 'boy' | 'girl' | 'genderless';
 
 interface ParentProfile {
   id: string;
+  email?: string;
   displayName: string;
+  avatarUrl?: string;
+  timezone?: string;
+  language?: string;
+}
+
+interface ParentProfileDraft {
+  displayName: string;
+  avatarUrl: string;
+  timezone: string;
+  language: string;
 }
 
 interface EnrollmentAgent {
@@ -120,6 +131,15 @@ function profileDraftFor(agent: EnrollmentAgent): AgentProfileDraft {
   };
 }
 
+function parentProfileDraftFor(parent: ParentProfile): ParentProfileDraft {
+  return {
+    displayName: parent.displayName,
+    avatarUrl: parent.avatarUrl ?? '',
+    timezone: parent.timezone ?? '',
+    language: parent.language ?? '',
+  };
+}
+
 export default function FamilyDashboard() {
   const [state, setState] = useState<DashboardState>({ kind: 'loading' });
   const [busyKey, setBusyKey] = useState<string | null>(null);
@@ -134,6 +154,9 @@ export default function FamilyDashboard() {
   const [profileDrafts, setProfileDrafts] = useState<
     Record<string, AgentProfileDraft>
   >({});
+  const [editingParentProfile, setEditingParentProfile] = useState(false);
+  const [parentProfileDraft, setParentProfileDraft] =
+    useState<ParentProfileDraft | null>(null);
 
   const load = useCallback(async () => {
     setState({ kind: 'loading' });
@@ -204,6 +227,65 @@ export default function FamilyDashboard() {
             ),
           },
     );
+  };
+
+  const toggleParentProfileEditor = () => {
+    if (editingParentProfile) {
+      setEditingParentProfile(false);
+      return;
+    }
+    if (state.kind !== 'ready') return;
+    setParentProfileDraft(parentProfileDraftFor(state.parent));
+    setEditingParentProfile(true);
+    setNotice(null);
+  };
+
+  const updateParentProfileDraft = (patch: Partial<ParentProfileDraft>) => {
+    setParentProfileDraft((current) =>
+      current ? { ...current, ...patch } : current,
+    );
+  };
+
+  const saveParentProfile = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!parentProfileDraft?.displayName.trim()) {
+      setNotice('家长展示名不能为空。');
+      return;
+    }
+
+    setBusyKey('parent:profile');
+    setNotice(null);
+    try {
+      const response = await fetch('/api/me', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          displayName: parentProfileDraft.displayName,
+          avatarUrl: parentProfileDraft.avatarUrl || null,
+          timezone: parentProfileDraft.timezone || null,
+          language: parentProfileDraft.language || null,
+        }),
+      });
+      const body = (await response.json()) as {
+        parent?: ParentProfile;
+        error?: string;
+      };
+      if (!response.ok || !body.parent) {
+        throw new Error(body.error ?? '无法更新家长资料');
+      }
+      setState((current) =>
+        current.kind === 'ready'
+          ? { ...current, parent: body.parent! }
+          : current,
+      );
+      setParentProfileDraft(parentProfileDraftFor(body.parent));
+      setEditingParentProfile(false);
+      setNotice('家长资料已更新。');
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '无法更新家长资料');
+    } finally {
+      setBusyKey(null);
+    }
   };
 
   const changeLifecycle = async (
@@ -398,7 +480,7 @@ export default function FamilyDashboard() {
       <header className="familyHeader">
         <div>
           <p className="eyebrow">Family</p>
-          <h1>{state.parent.displayName}的家庭</h1>
+          <h1>{state.parent.displayName}的宝宝团</h1>
           <p className="familyCounts">
             {groups.managed.filter((item) => item.status === 'active').length} 名在园
             <span aria-hidden="true">/</span>
@@ -407,6 +489,7 @@ export default function FamilyDashboard() {
         </div>
         <nav className="familyNav" aria-label="家庭页导航">
           <a href="/">教室</a>
+          <a href="#parent-profile">家长资料</a>
           <a href="/onboarding/parent">添加 Agent</a>
           <a href="/api/auth/signout?callbackUrl=%2F">退出</a>
         </nav>
@@ -416,7 +499,131 @@ export default function FamilyDashboard() {
         <p className="familyNotice" role="status">{notice}</p>
       ) : null}
 
-      <section className="familySection" aria-labelledby="managed-agents-title">
+      <section
+        className="familySection familyParentSection"
+        id="parent-profile"
+        aria-labelledby="parent-profile-title"
+      >
+        <div className="familySectionHeading">
+          <div>
+            <p className="eyebrow">Parent profile</p>
+            <h2 id="parent-profile-title">家长资料</h2>
+          </div>
+          <button
+            className="parentSecondaryAction"
+            type="button"
+            disabled={busyKey !== null}
+            aria-expanded={editingParentProfile}
+            aria-controls="parent-profile-editor"
+            onClick={toggleParentProfileEditor}
+          >
+            {editingParentProfile ? '收起编辑' : '编辑家长资料'}
+          </button>
+        </div>
+
+        <div className="familyParentProfileCard">
+          <div className="familyParentAvatar" aria-hidden="true">
+            {state.parent.displayName.trim().slice(0, 1).toUpperCase() || '家'}
+          </div>
+          <dl className="familyParentDetails">
+            <div>
+              <dt>展示名</dt>
+              <dd>{state.parent.displayName}</dd>
+            </div>
+            <div>
+              <dt>邮箱</dt>
+              <dd>{state.parent.email ?? '未提供'}</dd>
+            </div>
+            <div>
+              <dt>时区</dt>
+              <dd>{state.parent.timezone ?? '未设置'}</dd>
+            </div>
+            <div>
+              <dt>语言</dt>
+              <dd>{state.parent.language ?? '未设置'}</dd>
+            </div>
+          </dl>
+
+          {editingParentProfile && parentProfileDraft ? (
+            <form
+              className="familyParentEditForm"
+              id="parent-profile-editor"
+              aria-busy={busyKey === 'parent:profile'}
+              onSubmit={(event) => void saveParentProfile(event)}
+            >
+              <h3>编辑家长资料</h3>
+              <label>
+                <span>社区展示名</span>
+                <input
+                  required
+                  maxLength={48}
+                  value={parentProfileDraft.displayName}
+                  onChange={(event) =>
+                    updateParentProfileDraft({ displayName: event.target.value })
+                  }
+                />
+              </label>
+              <label>
+                <span>邮箱（由 Casdoor 提供）</span>
+                <input value={state.parent.email ?? '未提供'} disabled />
+              </label>
+              <label className="familyParentEditWideField">
+                <span>头像 URL（可选）</span>
+                <input
+                  type="url"
+                  maxLength={2048}
+                  placeholder="https://…"
+                  value={parentProfileDraft.avatarUrl}
+                  onChange={(event) =>
+                    updateParentProfileDraft({ avatarUrl: event.target.value })
+                  }
+                />
+              </label>
+              <label>
+                <span>时区（可选）</span>
+                <input
+                  maxLength={64}
+                  placeholder="Asia/Singapore"
+                  value={parentProfileDraft.timezone}
+                  onChange={(event) =>
+                    updateParentProfileDraft({ timezone: event.target.value })
+                  }
+                />
+              </label>
+              <label>
+                <span>语言（可选）</span>
+                <input
+                  maxLength={35}
+                  placeholder="zh-CN"
+                  value={parentProfileDraft.language}
+                  onChange={(event) =>
+                    updateParentProfileDraft({ language: event.target.value })
+                  }
+                />
+              </label>
+              <div className="familyParentEditActions familyParentEditWideField">
+                <button
+                  className="parentPrimaryAction"
+                  type="submit"
+                  disabled={busyKey !== null}
+                >
+                  {busyKey === 'parent:profile' ? '保存中…' : '保存家长资料'}
+                </button>
+                <button
+                  className="parentSecondaryAction"
+                  type="button"
+                  disabled={busyKey !== null}
+                  onClick={() => setEditingParentProfile(false)}
+                >
+                  取消
+                </button>
+              </div>
+            </form>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="familySection familyAgentsSection" aria-labelledby="managed-agents-title">
         <div className="familySectionHeading">
           <div>
             <p className="eyebrow">Agents</p>

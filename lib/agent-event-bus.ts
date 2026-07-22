@@ -11,7 +11,7 @@ class AgentEventBus {
     if (event.type === 'agent.presence') {
       this.latestPresenceByAgent.set(event.agentId, event);
       this.latestStateByAgent.delete(event.agentId);
-    } else {
+    } else if (event.type === 'agent.state') {
       this.latestStateByAgent.set(event.agentId, event);
     }
     this.listeners.forEach((listener) => listener(event));

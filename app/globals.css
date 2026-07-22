@@ -646,6 +646,11 @@ button:focus-visible {
   padding: 34px 0;
 }
 
+.familyParentSection {
+  scroll-margin-top: 22px;
+}
+
+.familyAgentsSection,
 .familyPendingSection {
   border-top: 1px solid var(--line);
 }
@@ -662,6 +667,124 @@ button:focus-visible {
   margin: 3px 0 0;
   font-size: 22px;
   letter-spacing: 0;
+}
+
+.familyParentProfileCard {
+  border: 1px solid rgba(23, 50, 74, 0.16);
+  border-radius: 8px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.familyParentAvatar {
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(41, 125, 182, 0.22);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--sky);
+  color: #145b83;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.familyParentDetails {
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.familyParentDetails div {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.familyParentDetails dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.familyParentDetails dd {
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.familyParentEditForm {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.familyParentEditForm h3 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 15px;
+}
+
+.familyParentEditForm label {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.familyParentEditForm label > span {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyParentEditForm input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 6px;
+  padding: 9px 11px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.familyParentEditForm input:focus {
+  border-color: var(--blue);
+  outline: 3px solid rgba(41, 125, 182, 0.14);
+}
+
+.familyParentEditForm input:disabled {
+  background: #f2f3ef;
+  color: var(--muted);
+}
+
+.familyParentEditWideField {
+  grid-column: 1 / -1;
+}
+
+.familyParentEditActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.familyParentEditActions .parentPrimaryAction,
+.familyParentEditActions .parentSecondaryAction {
+  min-height: 38px;
+  border-radius: 6px;
+  padding: 8px 13px;
+  font-size: 12px;
 }
 
 .familyAgentList {
@@ -1198,6 +1321,31 @@ button:focus-visible {
 
   .familyAgentCard {
     grid-template-columns: 1fr;
+  }
+
+  .familyParentProfileCard {
+    grid-template-columns: 1fr;
+  }
+
+  .familyParentDetails {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .familyParentEditForm {
+    grid-template-columns: 1fr;
+  }
+
+  .familyParentEditForm h3,
+  .familyParentEditWideField {
+    grid-column: auto;
+  }
+
+  .familyParentEditActions {
+    justify-content: stretch;
+  }
+
+  .familyParentEditActions > button {
+    flex: 1;
   }
 
   .familyBehaviorControl {
@@ -1789,6 +1937,75 @@ button:focus-visible {
   box-shadow: 0 24px 80px rgba(38, 74, 92, 0.2);
 }
 
+.agentSpeechLayer {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.agentSpeechBubble {
+  --agent-speech-accent: var(--blue);
+  position: absolute;
+  width: max-content;
+  max-width: min(240px, 62vw);
+  border: 2px solid var(--agent-speech-accent);
+  border-radius: 14px;
+  padding: 9px 12px 10px;
+  display: grid;
+  gap: 2px;
+  transform: translate(-50%, -100%);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 8px 24px rgba(23, 50, 74, 0.2);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  animation: agentSpeechEnter 180ms ease-out both;
+}
+
+.agentSpeechBubble::before,
+.agentSpeechBubble::after {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.agentSpeechBubble::before {
+  bottom: -10px;
+  border-width: 9px 8px 0;
+  border-color: var(--agent-speech-accent) transparent transparent;
+}
+
+.agentSpeechBubble::after {
+  bottom: -7px;
+  border-width: 7px 6px 0;
+  border-color: #fff transparent transparent;
+}
+
+.agentSpeechBubbleName {
+  color: var(--agent-speech-accent);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+@keyframes agentSpeechEnter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% + 5px)) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}
+
 .classroomNotice {
   min-width: 0;
   min-height: 42px;
@@ -2153,6 +2370,15 @@ button:focus-visible {
 
   .canvasOnlyViewport {
     border-radius: 12px;
+  }
+
+  .agentSpeechBubble {
+    max-width: min(190px, 68vw);
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 6px 8px 7px;
+    font-size: 10px;
+    line-height: 1.35;
   }
 
   .classroomNotice {

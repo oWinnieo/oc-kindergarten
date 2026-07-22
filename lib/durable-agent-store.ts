@@ -383,7 +383,7 @@ export async function storeAgentEvent(
               updatedAt: new Date(),
             },
           });
-      } else {
+      } else if (event.type === 'agent.state') {
         await transaction
           .insert(agentLatestStates)
           .values({
