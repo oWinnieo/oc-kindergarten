@@ -1,6 +1,10 @@
 import {
+  AGENT_MESSAGE_CHANNELS,
+  AGENT_MESSAGE_CONVERSATION_TYPES,
+  AGENT_MESSAGE_SENDER_ROLES,
   AGENT_EVENT_SCHEMA_VERSION,
   AgentMessageEvent,
+  AgentMessageOrigin,
   AgentPresenceEvent,
   AgentRuntimeEvent,
   AgentStateEvent,
@@ -9,12 +13,14 @@ import {
   AgentTaskState,
   CLASSROOM_ENTRANCE_ID,
 } from './classroom-runtime';
+import { sanitizeOpenClawDisplayText } from './openclaw-message-display';
 
 export const OPENCLAW_BRIDGE_VERSION = 1 as const;
 
 export const OPENCLAW_BRIDGE_HOOKS = [
   'gateway_start',
   'gateway_stop',
+  'message_received',
   'before_agent_run',
   'before_tool_call',
   'after_tool_call',
@@ -143,6 +149,37 @@ function optionalString(
   return typeof value === 'string' && value.trim() ? value : undefined;
 }
 
+function optionalMessageOrigin(
+  data: Record<string, unknown>,
+): AgentMessageOrigin | undefined {
+  const value = data.messageOrigin;
+  if (!isRecord(value)) return undefined;
+  if (
+    !AGENT_MESSAGE_CHANNELS.includes(
+      value.channel as AgentMessageOrigin['channel'],
+    ) ||
+    !AGENT_MESSAGE_CONVERSATION_TYPES.includes(
+      value.conversationType as AgentMessageOrigin['conversationType'],
+    ) ||
+    !AGENT_MESSAGE_SENDER_ROLES.includes(
+      value.senderRole as AgentMessageOrigin['senderRole'],
+    )
+  ) {
+    return undefined;
+  }
+  const senderName =
+    typeof value.senderName === 'string' && value.senderName.trim()
+      ? Array.from(value.senderName.trim()).slice(0, 80).join('')
+      : undefined;
+  return {
+    channel: value.channel as AgentMessageOrigin['channel'],
+    conversationType:
+      value.conversationType as AgentMessageOrigin['conversationType'],
+    senderRole: value.senderRole as AgentMessageOrigin['senderRole'],
+    ...(senderName ? { senderName } : {}),
+  };
+}
+
 function truncate(value: string, limit = 120): string {
   const compact = value.replace(/\s+/g, ' ').trim();
   return compact.length <= limit ? compact : `${compact.slice(0, limit - 1)}…`;
@@ -214,6 +251,18 @@ export function parseOpenClawBridgeEvent(
     typeof data.success !== 'boolean'
   ) {
     return { ok: false, error: `${input.hook} 必须包含布尔值 success` };
+  }
+  if (
+    input.hook === 'message_received' &&
+    !isNonEmptyString(data.messageContent)
+  ) {
+    return { ok: false, error: 'message_received 必须包含 messageContent' };
+  }
+  if (
+    input.hook === 'message_received' &&
+    optionalMessageOrigin(data) === undefined
+  ) {
+    return { ok: false, error: 'message_received 必须包含有效的 messageOrigin' };
   }
   return { ok: true, event: input as unknown as OpenClawBridgeEvent };
 }
@@ -351,6 +400,7 @@ export class OpenClawAgentAdapter {
     event: OpenClawBridgeEvent,
     direction: AgentMessageEvent['direction'],
     content: string,
+    origin?: AgentMessageOrigin,
   ): AgentMessageEvent {
     const base = this.base(event);
     return {
@@ -359,6 +409,7 @@ export class OpenClawAgentAdapter {
       type: 'agent.message',
       direction,
       content: truncate(content, 280),
+      ...(origin ? { origin } : {}),
     };
   }
 
@@ -369,17 +420,22 @@ export class OpenClawAgentAdapter {
         return [this.presenceEvent(event, 'enter')];
       case 'gateway_stop':
         return [this.presenceEvent(event, 'leave')];
-      case 'before_agent_run': {
+      case 'message_received': {
         const messageContent = optionalString(data, 'messageContent');
+        if (!messageContent) return [];
         return [
-          this.stateEvent(
+          this.stateEvent(event, 'syncing', '正在接收并处理消息'),
+          this.messageEvent(
             event,
-            'syncing',
-            messageContent ? '正在接收并处理消息' : '开始处理任务',
+            'incoming',
+            messageContent,
+            optionalMessageOrigin(data),
           ),
-          ...(messageContent
-            ? [this.messageEvent(event, 'incoming', messageContent)]
-            : []),
+        ];
+      }
+      case 'before_agent_run': {
+        return [
+          this.stateEvent(event, 'syncing', '开始处理任务'),
         ];
       }
       case 'before_tool_call': {
@@ -404,8 +460,11 @@ export class OpenClawAgentAdapter {
       case 'agent_end': {
         const success = data.success !== false;
         const error = optionalString(data, 'error');
-        const messageContent = success
+        const rawMessageContent = success
           ? optionalString(data, 'messageContent')
+          : undefined;
+        const messageContent = rawMessageContent
+          ? sanitizeOpenClawDisplayText(rawMessageContent)
           : undefined;
         return [
           success
@@ -417,7 +476,10 @@ export class OpenClawAgentAdapter {
         ];
       }
       case 'message_sending': {
-        const messageContent = optionalString(data, 'messageContent');
+        const rawMessageContent = optionalString(data, 'messageContent');
+        const messageContent = rawMessageContent
+          ? sanitizeOpenClawDisplayText(rawMessageContent)
+          : undefined;
         return [
           this.stateEvent(event, 'syncing', '正在发送结果'),
           ...(messageContent

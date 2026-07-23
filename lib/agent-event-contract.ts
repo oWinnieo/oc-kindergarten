@@ -16,12 +16,31 @@ export const AGENT_EVENT_SOURCES = [
 
 export const AGENT_PRESENCE_ACTIONS = ['enter', 'leave'] as const;
 export const AGENT_MESSAGE_DIRECTIONS = ['incoming', 'outgoing'] as const;
+export const AGENT_MESSAGE_CHANNELS = ['telegram'] as const;
+export const AGENT_MESSAGE_CONVERSATION_TYPES = ['direct', 'group'] as const;
+export const AGENT_MESSAGE_SENDER_ROLES = [
+  'owner',
+  'participant',
+  'unknown',
+] as const;
 export const CLASSROOM_SCENE_POINT_IDS = [CLASSROOM_ENTRANCE_ID] as const;
 
 export type AgentEventSource = (typeof AGENT_EVENT_SOURCES)[number];
 export type AgentPresenceAction = (typeof AGENT_PRESENCE_ACTIONS)[number];
 export type AgentMessageDirection = (typeof AGENT_MESSAGE_DIRECTIONS)[number];
+export type AgentMessageChannel = (typeof AGENT_MESSAGE_CHANNELS)[number];
+export type AgentMessageConversationType =
+  (typeof AGENT_MESSAGE_CONVERSATION_TYPES)[number];
+export type AgentMessageSenderRole =
+  (typeof AGENT_MESSAGE_SENDER_ROLES)[number];
 export type ClassroomScenePointId = (typeof CLASSROOM_SCENE_POINT_IDS)[number];
+
+export interface AgentMessageOrigin {
+  channel: AgentMessageChannel;
+  conversationType: AgentMessageConversationType;
+  senderRole: AgentMessageSenderRole;
+  senderName?: string;
+}
 
 interface AgentEventBase {
   schemaVersion: typeof AGENT_EVENT_SCHEMA_VERSION;
@@ -49,6 +68,7 @@ export interface AgentMessageEvent extends AgentEventBase {
   type: 'agent.message';
   direction: AgentMessageDirection;
   content: string;
+  origin?: AgentMessageOrigin;
 }
 
 export type AgentRuntimeEvent =
@@ -145,6 +165,44 @@ export function parseAgentRuntimeEvent(input: unknown): AgentEventParseResult {
     }
     if (Array.from(input.content).length > 280) {
       return { ok: false, error: 'message content 不能超过 280 个字符' };
+    }
+    if (input.origin !== undefined) {
+      if (!isRecord(input.origin)) {
+        return { ok: false, error: 'message origin 必须是对象' };
+      }
+      if (!includesValue(AGENT_MESSAGE_CHANNELS, input.origin.channel)) {
+        return { ok: false, error: 'message origin channel 不受支持' };
+      }
+      if (
+        !includesValue(
+          AGENT_MESSAGE_CONVERSATION_TYPES,
+          input.origin.conversationType,
+        )
+      ) {
+        return {
+          ok: false,
+          error: 'message origin conversationType 不受支持',
+        };
+      }
+      if (
+        !includesValue(
+          AGENT_MESSAGE_SENDER_ROLES,
+          input.origin.senderRole,
+        )
+      ) {
+        return { ok: false, error: 'message origin senderRole 不受支持' };
+      }
+      if (
+        input.origin.senderName !== undefined &&
+        (typeof input.origin.senderName !== 'string' ||
+          input.origin.senderName.trim().length === 0 ||
+          Array.from(input.origin.senderName).length > 80)
+      ) {
+        return {
+          ok: false,
+          error: 'message origin senderName 必须是 1 到 80 个字符',
+        };
+      }
     }
     return { ok: true, event: input as unknown as AgentMessageEvent };
   }

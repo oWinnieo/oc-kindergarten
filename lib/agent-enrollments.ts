@@ -26,8 +26,10 @@ import {
   agentProfiles,
   eventOutbox,
   providerAgentBindings,
+  runtimeCredentials,
 } from './db/schema';
 import { parseProviderAgentDraft } from './provider-binding-contract';
+import { generateRuntimeCredential } from './runtime-credential-contract';
 
 const OPEN_ENROLLMENT_STATUSES: AgentEnrollmentStatus[] = [
   'draft',
@@ -372,9 +374,14 @@ export async function pairRuntimeAgent(
   status: 'pending_parent_confirmation';
   provider: string;
   nativeAgentId: string;
+  credential: {
+    token: string;
+    tokenType: 'Bearer';
+  };
 }> {
   const { database } = getDatabaseClient();
   const pairingCodeHash = hashPairingCode(input.pairingCode);
+  const issuedCredential = generateRuntimeCredential();
   const now = new Date();
   return database.transaction(async (transaction) => {
     const enrollmentRows = await transaction
@@ -458,6 +465,7 @@ export async function pairRuntimeAgent(
     const storedBindingDraft = normalizedDraft(binding?.discoveryDraft);
     const draftProfile = discovery.profileDraft ??
       storedBindingDraft ?? { displayName: discovery.nativeAgentId };
+    let bindingId: string;
     if (binding) {
       await transaction
         .update(providerAgentBindings)
@@ -472,18 +480,47 @@ export async function pairRuntimeAgent(
           updatedAt: now,
         })
         .where(eq(providerAgentBindings.id, binding.id));
+      bindingId = binding.id;
     } else {
-      await transaction.insert(providerAgentBindings).values({
-        provider: discovery.provider,
-        nativeAgentId: discovery.nativeAgentId,
-        runtimeInstanceId: discovery.runtimeInstanceId,
-        adapterVersion: discovery.adapterVersion,
-        discoveryDraft: draftProfile,
-        status: 'pending_claim',
-        lastSeenAt: now,
-        updatedAt: now,
-      });
+      const insertedBindings = await transaction
+        .insert(providerAgentBindings)
+        .values({
+          provider: discovery.provider,
+          nativeAgentId: discovery.nativeAgentId,
+          runtimeInstanceId: discovery.runtimeInstanceId,
+          adapterVersion: discovery.adapterVersion,
+          discoveryDraft: draftProfile,
+          status: 'pending_claim',
+          lastSeenAt: now,
+          updatedAt: now,
+        })
+        .returning({ id: providerAgentBindings.id });
+      bindingId = insertedBindings[0]?.id ?? '';
+      if (!bindingId) {
+        throw new Error('runtime binding 写入后未返回记录');
+      }
     }
+
+    await transaction
+      .update(runtimeCredentials)
+      .set({
+        status: 'revoked',
+        revokedAt: now,
+        updatedAt: now,
+      })
+      .where(
+        and(
+          eq(runtimeCredentials.bindingId, bindingId),
+          eq(runtimeCredentials.status, 'active'),
+        ),
+      );
+    await transaction.insert(runtimeCredentials).values({
+      bindingId,
+      tokenHash: issuedCredential.tokenHash,
+      status: 'active',
+      runtimeInstanceId: discovery.runtimeInstanceId,
+      updatedAt: now,
+    });
 
     await transaction
       .update(agentEnrollments)
@@ -504,6 +541,10 @@ export async function pairRuntimeAgent(
       status: 'pending_parent_confirmation',
       provider: discovery.provider,
       nativeAgentId: discovery.nativeAgentId,
+      credential: {
+        token: issuedCredential.token,
+        tokenType: 'Bearer',
+      },
     };
   });
 }

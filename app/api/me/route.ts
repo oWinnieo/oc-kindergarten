@@ -18,7 +18,7 @@ export async function GET() {
   const parent = await getParentUserById(parentUserId);
   if (!parent) {
     return NextResponse.json(
-      { ok: false, error: '家长资料不存在，请重新登录' },
+      { ok: false, error: '主人资料不存在，请重新登录' },
       { status: 401 },
     );
   }
@@ -50,7 +50,7 @@ export async function PATCH(request: Request) {
   const parent = await updateParentUserProfile(parentUserId, parsed.patch);
   if (!parent) {
     return NextResponse.json(
-      { ok: false, error: '家长资料不存在，请重新登录' },
+      { ok: false, error: '主人资料不存在，请重新登录' },
       { status: 401 },
     );
   }

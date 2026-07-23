@@ -13,6 +13,14 @@ import {
   agentActionNotice,
 } from '@/lib/agent-action-notice';
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import {
+  PARENT_LANGUAGE_OPTIONS,
+  PARENT_TIMEZONE_OPTIONS,
+  parentLanguageLabel,
+  parentLanguageValue,
+  parentTimezoneLabel,
+  parentTimezoneValue,
+} from '@/lib/parent-profile-options';
 import AgentAppearancePicker, {
   APPEARANCE_PRESET_LABELS,
 } from './AgentAppearancePicker';
@@ -135,8 +143,8 @@ function parentProfileDraftFor(parent: ParentProfile): ParentProfileDraft {
   return {
     displayName: parent.displayName,
     avatarUrl: parent.avatarUrl ?? '',
-    timezone: parent.timezone ?? '',
-    language: parent.language ?? '',
+    timezone: parentTimezoneValue(parent.timezone),
+    language: parentLanguageValue(parent.language),
   };
 }
 
@@ -178,7 +186,7 @@ export default function FamilyDashboard() {
         error?: string;
       };
       if (!profileResponse.ok || !profileBody.parent) {
-        throw new Error(profileBody.error ?? '无法读取家长资料');
+        throw new Error(profileBody.error ?? '无法读取主人资料');
       }
       if (!enrollmentsResponse.ok || !enrollmentBody.enrollments) {
         throw new Error(enrollmentBody.error ?? '无法读取家庭 Agent');
@@ -249,7 +257,7 @@ export default function FamilyDashboard() {
   const saveParentProfile = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!parentProfileDraft?.displayName.trim()) {
-      setNotice('家长展示名不能为空。');
+      setNotice('主人展示名不能为空。');
       return;
     }
 
@@ -271,7 +279,7 @@ export default function FamilyDashboard() {
         error?: string;
       };
       if (!response.ok || !body.parent) {
-        throw new Error(body.error ?? '无法更新家长资料');
+        throw new Error(body.error ?? '无法更新主人资料');
       }
       setState((current) =>
         current.kind === 'ready'
@@ -280,9 +288,9 @@ export default function FamilyDashboard() {
       );
       setParentProfileDraft(parentProfileDraftFor(body.parent));
       setEditingParentProfile(false);
-      setNotice('家长资料已更新。');
+      setNotice('主人资料已更新。');
     } catch (error) {
-      setNotice(error instanceof Error ? error.message : '无法更新家长资料');
+      setNotice(error instanceof Error ? error.message : '无法更新主人资料');
     } finally {
       setBusyKey(null);
     }
@@ -489,7 +497,7 @@ export default function FamilyDashboard() {
         </div>
         <nav className="familyNav" aria-label="家庭页导航">
           <a href="/">教室</a>
-          <a href="#parent-profile">家长资料</a>
+          <a href="#parent-profile">主人资料</a>
           <a href="/onboarding/parent">添加 Agent</a>
           <a href="/api/auth/signout?callbackUrl=%2F">退出</a>
         </nav>
@@ -507,7 +515,7 @@ export default function FamilyDashboard() {
         <div className="familySectionHeading">
           <div>
             <p className="eyebrow">Parent profile</p>
-            <h2 id="parent-profile-title">家长资料</h2>
+            <h2 id="parent-profile-title">主人资料</h2>
           </div>
           <button
             className="parentSecondaryAction"
@@ -517,7 +525,7 @@ export default function FamilyDashboard() {
             aria-controls="parent-profile-editor"
             onClick={toggleParentProfileEditor}
           >
-            {editingParentProfile ? '收起编辑' : '编辑家长资料'}
+            {editingParentProfile ? '收起编辑' : '编辑主人资料'}
           </button>
         </div>
 
@@ -536,11 +544,11 @@ export default function FamilyDashboard() {
             </div>
             <div>
               <dt>时区</dt>
-              <dd>{state.parent.timezone ?? '未设置'}</dd>
+              <dd>{parentTimezoneLabel(state.parent.timezone)}</dd>
             </div>
             <div>
               <dt>语言</dt>
-              <dd>{state.parent.language ?? '未设置'}</dd>
+              <dd>{parentLanguageLabel(state.parent.language)}</dd>
             </div>
           </dl>
 
@@ -551,7 +559,7 @@ export default function FamilyDashboard() {
               aria-busy={busyKey === 'parent:profile'}
               onSubmit={(event) => void saveParentProfile(event)}
             >
-              <h3>编辑家长资料</h3>
+              <h3>编辑主人资料</h3>
               <label>
                 <span>社区展示名</span>
                 <input
@@ -581,25 +589,35 @@ export default function FamilyDashboard() {
               </label>
               <label>
                 <span>时区（可选）</span>
-                <input
-                  maxLength={64}
-                  placeholder="Asia/Singapore"
+                <select
                   value={parentProfileDraft.timezone}
                   onChange={(event) =>
                     updateParentProfileDraft({ timezone: event.target.value })
                   }
-                />
+                >
+                  <option value="">请选择时区</option>
+                  {PARENT_TIMEZONE_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </label>
               <label>
                 <span>语言（可选）</span>
-                <input
-                  maxLength={35}
-                  placeholder="zh-CN"
+                <select
                   value={parentProfileDraft.language}
                   onChange={(event) =>
                     updateParentProfileDraft({ language: event.target.value })
                   }
-                />
+                >
+                  <option value="">请选择语言</option>
+                  {PARENT_LANGUAGE_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </label>
               <div className="familyParentEditActions familyParentEditWideField">
                 <button
@@ -607,7 +625,7 @@ export default function FamilyDashboard() {
                   type="submit"
                   disabled={busyKey !== null}
                 >
-                  {busyKey === 'parent:profile' ? '保存中…' : '保存家长资料'}
+                  {busyKey === 'parent:profile' ? '保存中…' : '保存主人资料'}
                 </button>
                 <button
                   className="parentSecondaryAction"

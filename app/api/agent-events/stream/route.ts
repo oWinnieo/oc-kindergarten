@@ -6,6 +6,10 @@ import {
 } from '@/lib/durable-agent-store';
 import { durableLiveEvents } from '@/lib/durable-live-events';
 import type { DurableAgentEvent } from '@/lib/durable-live-events';
+import {
+  CLASSROOM_SNAPSHOT_END_SSE,
+  encodeClassroomSnapshotSse,
+} from '@/lib/classroom-snapshot-protocol';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -23,6 +27,10 @@ function encodeEvent(stored: DurableAgentEvent): Uint8Array {
   return encoder.encode(
     `id: ${stored.cursor}\ndata: ${JSON.stringify(stored.event)}\n\n`,
   );
+}
+
+function encodeSnapshotEvent(stored: DurableAgentEvent): Uint8Array {
+  return encoder.encode(encodeClassroomSnapshotSse(stored.cursor, stored.event));
 }
 
 export async function GET(request: Request) {
@@ -55,7 +63,12 @@ export async function GET(request: Request) {
         await dispatchPendingOutbox();
         const cursor = parseCursor(request);
         if (cursor === null) {
-          for (const stored of await snapshotAgentEvents()) enqueue(stored);
+          for (const stored of await snapshotAgentEvents()) {
+            if (seen.has(stored.cursor)) continue;
+            seen.add(stored.cursor);
+            controller.enqueue(encodeSnapshotEvent(stored));
+          }
+          controller.enqueue(encoder.encode(CLASSROOM_SNAPSHOT_END_SSE));
         } else {
           let replayCursor = cursor;
           for (;;) {

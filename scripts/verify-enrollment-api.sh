@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
+
+report_failure() {
+  local status="$?"
+  printf 'enrollment_api_verification_failed_line=%s status=%s\n' \
+    "${BASH_LINENO[0]:-unknown}" "${status}" >&2
+  return "${status}"
+}
+trap report_failure ERR
 
 PROJECT_DIR="${1:-/opt/docker/oc-projects/oc-kindergarten}"
 PUBLIC_ORIGIN="${PUBLIC_ORIGIN:-https://kindergarten-dev.rococo.dev}"
@@ -91,6 +99,11 @@ WHERE aggregate_id IN (
   SELECT p.agent_id FROM agent_profiles p
   JOIN agent_enrollments e ON e.id = p.enrollment_id
   WHERE e.parent_user_id IN (:'parent_id'::uuid, :'other_parent_id'::uuid)
+);
+DELETE FROM runtime_credentials
+WHERE binding_id IN (
+  SELECT id FROM provider_agent_bindings
+  WHERE provider = 'openclaw' AND native_agent_id = :'native_agent'
 );
 DELETE FROM provider_agent_bindings
 WHERE provider = 'openclaw' AND native_agent_id = :'native_agent';
@@ -212,18 +225,54 @@ pair_json="$(jq -cn \
   --arg native_agent "${test_native_agent}" \
   '{schemaVersion:1,pairingCode:$pairing_code,discovery:{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,runtimeInstanceId:"verification-runtime",adapterVersion:"verification",profileDraft:{displayName:"Verification Agent",role:"Enrollment verification",capabilities:["verification"]}}}')"
 pair_result="$(curl -fsS -X POST \
-  -H "Authorization: Bearer ${agent_token}" \
   -H 'Content-Type: application/json' \
   --data-binary "${pair_json}" \
   "${PUBLIC_ORIGIN}/api/runtime/enrollments/pair")"
 test "$(printf '%s' "${pair_result}" | jq -r '.pairing.status')" = "pending_parent_confirmation"
+runtime_credential="$(printf '%s' "${pair_result}" | jq -er '.pairing.credential.token')"
+test "$(printf '%s' "${pair_result}" | jq -r '.pairing.credential.tokenType')" = "Bearer"
+printf '%s' "${runtime_credential}" | grep -Eq '^ockg_rt_[A-Za-z0-9_-]{43}$'
+
+credential_storage_count="$(docker compose exec -T postgres psql \
+  -U "${POSTGRES_USER:-oc_kindergarten_user}" \
+  -d "${POSTGRES_DB:-oc_kindergarten}" \
+  -v ON_ERROR_STOP=1 \
+  -v native_agent="${test_native_agent}" \
+  -v runtime_credential="${runtime_credential}" \
+  -At <<'SQL'
+SELECT count(*)
+FROM runtime_credentials c
+JOIN provider_agent_bindings b ON b.id = c.binding_id
+WHERE b.provider = 'openclaw'
+  AND b.native_agent_id = :'native_agent'
+  AND c.status = 'active'
+  AND c.token_hash <> :'runtime_credential';
+SQL
+)"
+test "${credential_storage_count}" = "1"
 
 reused_code_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
-  -H "Authorization: Bearer ${agent_token}" \
   -H 'Content-Type: application/json' \
   --data-binary "${pair_json}" \
   "${PUBLIC_ORIGIN}/api/runtime/enrollments/pair")"
 test "${reused_code_status}" = "404"
+
+scoped_discovery_json="$(jq -cn \
+  --arg native_agent "${test_native_agent}" \
+  '{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,runtimeInstanceId:"verification-runtime",adapterVersion:"verification"}')"
+scoped_discovery_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+  -H "Authorization: Bearer ${runtime_credential}" \
+  -H 'Content-Type: application/json' \
+  --data-binary "${scoped_discovery_json}" \
+  "${PUBLIC_ORIGIN}/api/runtime/agents/discover")"
+test "${scoped_discovery_status}" = "202"
+
+wrong_identity_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+  -H "Authorization: Bearer ${runtime_credential}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"schemaVersion":1,"provider":"openclaw","nativeAgentId":"another-agent"}' \
+  "${PUBLIC_ORIGIN}/api/runtime/agents/discover")"
+test "${wrong_identity_status}" = "401"
 
 other_parent_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
   -H "Cookie: ${other_session_cookie}" \
@@ -500,6 +549,13 @@ archive_count="$(docker compose exec -T postgres psql \
   -At -c "SELECT count(*) FROM agent_profiles p JOIN agent_enrollments e ON e.id = p.enrollment_id JOIN provider_agent_bindings b ON b.agent_id = p.agent_id WHERE p.agent_id = '${agent_id}' AND p.archived_at IS NOT NULL AND e.status = 'archived' AND b.status = 'revoked';")"
 test "${archive_count}" = "1"
 
+archived_scoped_credential_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+  -H "Authorization: Bearer ${runtime_credential}" \
+  -H 'Content-Type: application/json' \
+  --data-binary "${scoped_discovery_json}" \
+  "${PUBLIC_ORIGIN}/api/runtime/agents/discover")"
+test "${archived_scoped_credential_status}" = "401"
+
 archived_registry_count="$(curl -fsS "${PUBLIC_ORIGIN}/api/agents" | \
   jq --arg agent_id "${agent_id}" '[.profiles[] | select(.agentId == $agent_id)] | length')"
 test "${archived_registry_count}" = "0"
@@ -537,7 +593,6 @@ other_claim_pair_json="$(jq -cn \
   --arg native_agent "${test_native_agent}" \
   '{schemaVersion:1,pairingCode:$pairing_code,discovery:{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,profileDraft:{displayName:"Cross-owner claim"}}}')"
 other_claim_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
-  -H "Authorization: Bearer ${agent_token}" \
   -H 'Content-Type: application/json' \
   --data-binary "${other_claim_pair_json}" \
   "${PUBLIC_ORIGIN}/api/runtime/enrollments/pair")"
@@ -564,6 +619,13 @@ restored_count="$(docker compose exec -T postgres psql \
   -v ON_ERROR_STOP=1 \
   -At -c "SELECT count(*) FROM agent_profiles p JOIN agent_enrollments e ON e.id = p.enrollment_id JOIN provider_agent_bindings b ON b.agent_id = p.agent_id WHERE p.agent_id = '${agent_id}' AND p.archived_at IS NULL AND e.status = 'suspended' AND b.status = 'active';")"
 test "${restored_count}" = "1"
+
+restored_scoped_credential_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+  -H "Authorization: Bearer ${runtime_credential}" \
+  -H 'Content-Type: application/json' \
+  --data-binary "${scoped_discovery_json}" \
+  "${PUBLIC_ORIGIN}/api/runtime/agents/discover")"
+test "${restored_scoped_credential_status}" = "202"
 
 restored_registry_count="$(curl -fsS "${PUBLIC_ORIGIN}/api/agents" | \
   jq --arg agent_id "${agent_id}" '[.profiles[] | select(.agentId == $agent_id)] | length')"
@@ -607,4 +669,5 @@ printf 'profile_revision_registry_outbox_and_dual_sse=passed\n'
 printf 'casdoor_direct_signin_family_callback=passed\n'
 printf 'owner_pending_enrollment_cancellation=passed\n'
 printf 'owner_archive_restore_and_identity_guard=passed\n'
+printf 'scoped_credential_archive_restore_guard=passed\n'
 printf 'owner_activity_timeline_privacy_and_pagination=passed\n'

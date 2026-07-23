@@ -231,7 +231,7 @@ export async function issueAgentActionCommand(
       observedAt: now.toISOString(),
       sequence,
       state: input.action,
-      taskSummary: `${actor.type === 'parent' ? '家长' : '管理员'}指令：${ACTION_SUMMARIES[input.action]}`,
+      taskSummary: `${actor.type === 'parent' ? '主人' : '管理员'}指令：${ACTION_SUMMARIES[input.action]}`,
       metadata: {
         actorType: actor.type,
         requestId: input.requestId,

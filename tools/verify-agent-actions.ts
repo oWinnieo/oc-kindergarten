@@ -1,5 +1,24 @@
 import assert from 'node:assert/strict';
 
+import {
+  CLASSROOM_SNAPSHOT_END_EVENT,
+  CLASSROOM_SNAPSHOT_END_SSE,
+  CLASSROOM_SNAPSHOT_EVENT,
+  encodeClassroomSnapshotSse,
+} from '../lib/classroom-snapshot-protocol';
+
+const snapshotPayload = { type: 'agent.state', state: 'syncing' };
+assert.equal(CLASSROOM_SNAPSHOT_EVENT, 'classroom-snapshot');
+assert.equal(CLASSROOM_SNAPSHOT_END_EVENT, 'classroom-snapshot-end');
+assert.equal(
+  encodeClassroomSnapshotSse(42, snapshotPayload),
+  'id: 42\nevent: classroom-snapshot\ndata: {"type":"agent.state","state":"syncing"}\n\n',
+);
+assert.equal(
+  CLASSROOM_SNAPSHOT_END_SSE,
+  'event: classroom-snapshot-end\ndata: {}\n\n',
+);
+
 import { parseAgentAction } from '../lib/agent-action-contract';
 import { agentActionNotice } from '../lib/agent-action-notice';
 import {

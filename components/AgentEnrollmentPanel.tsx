@@ -66,6 +66,15 @@ const VARIANT_LABELS: Record<CharacterVariant, string> = {
   genderless: '无性别孩子外观',
 };
 
+const PLUGIN_BETA_VERSION = 'v0.5.0-beta.3';
+const PLUGIN_INSTALL_COMMAND = [
+  `openclaw plugins install 'git:https://github.com/oWinnieo/oc-kindergarten-openclaw-plugin.git#${PLUGIN_BETA_VERSION}' --force`,
+  'openclaw plugins enable oc-kindergarten-bridge',
+  `openclaw config set 'plugins.entries["oc-kindergarten-bridge"].hooks.allowConversationAccess' true --strict-json`,
+  `openclaw config set 'plugins.entries["oc-kindergarten-bridge"].config.shareAssistantMessages' true --strict-json`,
+  'openclaw gateway restart',
+].join('\n');
+
 function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
   const draft = enrollment.draftProfile;
   return {
@@ -80,7 +89,10 @@ function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
 }
 
 function pairingCommand(code: string, nativeAgentId: string) {
-  return `openclaw kindergarten pair ${code} --agent ${nativeAgentId}`;
+  return [
+    `openclaw kindergarten pair ${code} --agent ${nativeAgentId}`,
+    'openclaw gateway restart',
+  ].join('\n');
 }
 
 async function responseBody(response: Response) {
@@ -219,6 +231,17 @@ export default function AgentEnrollmentPanel() {
     }
   };
 
+  const copyPluginInstallCommand = async () => {
+    try {
+      await navigator.clipboard.writeText(PLUGIN_INSTALL_COMMAND);
+      setNotice(
+        '插件安装命令已复制，包含回复气泡所需的会话访问开关。beta.3 支持在同一 Gateway 配对多个 Agent。',
+      );
+    } catch {
+      setNotice('浏览器无法复制，请手动复制插件安装命令。');
+    }
+  };
+
   const updateActivation = (
     enrollmentId: string,
     patch: Partial<ActivationDraft>,
@@ -302,6 +325,28 @@ export default function AgentEnrollmentPanel() {
         配对码只能使用一次，15 分钟后失效。Agent 提交的资料只是草稿，必须由你确认后才会公开。
       </p>
 
+      <div className="agentPairingBox agentPluginSetup">
+        <div>
+          <span className="agentPluginStep">首次使用 · Private beta</span>
+          <h3>先在 OpenClaw 主机安装入园插件</h3>
+        </div>
+        <p>
+          需要 OpenClaw 2026.7.1-2 或更高版本并能访问插件仓库。同一台主机无需重复安装；
+          命令会允许插件读取并发送最多 280 字的清洗后回复摘要，用于教室气泡。beta.3 会按
+          OpenClaw Agent ID 分别保存 scoped credential，同一 Gateway 可以配对多个 Agent。
+        </p>
+        <code className="agentPairingCommand">{PLUGIN_INSTALL_COMMAND}</code>
+        <div className="agentPairingActions">
+          <button
+            className="parentSecondaryAction"
+            type="button"
+            onClick={() => void copyPluginInstallCommand()}
+          >
+            复制插件安装命令
+          </button>
+        </div>
+      </div>
+
       {loading ? <p className="parentStatus">正在读取你的 Agent…</p> : null}
       {!loading && enrollments.length === 0 ? (
         <div className="agentEmptyState">
@@ -335,7 +380,7 @@ export default function AgentEnrollmentPanel() {
                     : enrollment.status === 'awaiting_pairing'
                       ? '等待 OpenClaw'
                       : enrollment.status === 'pending_parent_confirmation'
-                        ? '等待家长确认'
+                        ? '等待主人确认'
                         : enrollment.status === 'active'
                           ? '已入园'
                           : enrollment.status}
@@ -471,7 +516,7 @@ export default function AgentEnrollmentPanel() {
                     />
                   </label>
                   <fieldset className="agentVariantField parentFullField">
-                    <legend>由家长选择角色外观</legend>
+                    <legend>由主人选择角色外观</legend>
                     {enrollment.draftProfile?.characterVariant ? (
                       <p>
                         Agent 建议：

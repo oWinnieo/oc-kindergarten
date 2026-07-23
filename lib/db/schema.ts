@@ -124,6 +124,28 @@ export const providerAgentBindings = pgTable(
   ],
 );
 
+export const runtimeCredentials = pgTable(
+  'runtime_credentials',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    bindingId: uuid('binding_id')
+      .notNull()
+      .references(() => providerAgentBindings.id),
+    tokenHash: text('token_hash').notNull(),
+    status: text('status').notNull().default('active'),
+    runtimeInstanceId: text('runtime_instance_id'),
+    lastUsedAt: timestamp('last_used_at', { withTimezone: true }),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('runtime_credentials_token_hash_uq').on(table.tokenHash),
+    index('runtime_credentials_binding_idx').on(table.bindingId),
+    index('runtime_credentials_status_idx').on(table.status),
+  ],
+);
+
 export const agentEventCursors = pgTable(
   'agent_event_cursors',
   {

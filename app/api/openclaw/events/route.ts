@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 
-import { authorizeAgentEventRequest } from '@/lib/agent-event-auth';
+import {
+  authorizeAgentEventRequest,
+  authorizeRuntimeCredentialRequest,
+} from '@/lib/agent-event-auth';
 import type { AgentRuntimeEvent } from '@/lib/agent-event-contract';
 import {
   dispatchPendingOutbox,
@@ -74,15 +77,27 @@ async function adaptBridgeV2(input: unknown): Promise<
 }
 
 export async function POST(request: Request) {
-  if (!authorizeAgentEventRequest(request)) {
-    return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
-  }
-
   let input: unknown;
   try {
     input = await request.json();
   } catch {
     return NextResponse.json({ ok: false, error: '请求体必须是 JSON' }, { status: 400 });
+  }
+
+  const parsedBridgeV2 = isOpenClawBridgeV2(input)
+    ? parseOpenClawBridgeV2(input)
+    : undefined;
+  const authorized =
+    parsedBridgeV2?.ok === true
+      ? await authorizeRuntimeCredentialRequest(request, {
+          provider: parsedBridgeV2.bridge.discovery.provider,
+          nativeAgentId: parsedBridgeV2.bridge.discovery.nativeAgentId,
+          runtimeInstanceId:
+            parsedBridgeV2.bridge.discovery.runtimeInstanceId,
+        })
+      : authorizeAgentEventRequest(request);
+  if (!authorized) {
+    return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
 
   const result = isOpenClawBridgeV2(input)

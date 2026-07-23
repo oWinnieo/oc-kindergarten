@@ -45,7 +45,7 @@ const command = mapAgentActivityRecord({
     observedAt,
     sequence: 1,
     state: 'researching',
-    taskSummary: '家长指令：阅读',
+    taskSummary: '主人指令：阅读',
     metadata: {
       actorType: 'parent',
       requestId: 'private-request-id',

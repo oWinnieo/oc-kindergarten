@@ -94,6 +94,11 @@ import {
   parseAgentRuntimeEvent,
 } from '@/lib/agent-event-contract';
 import { agentIncomingMessageNotice } from '@/lib/agent-message-presentation';
+import { resolveAgentStateLiveness } from '@/lib/agent-state-liveness';
+import {
+  CLASSROOM_SNAPSHOT_END_EVENT,
+  CLASSROOM_SNAPSHOT_EVENT,
+} from '@/lib/classroom-snapshot-protocol';
 import {
   AgentAppearancePreset,
   AgentProfile,
@@ -778,6 +783,8 @@ export default function ClassroomSimulation({
   const doorRef = useRef<DoorState>({ phase: 'closed', phaseStartedAt: 0 });
   const eventTimersRef = useRef<number[]>([]);
   const speechTimersRef = useRef(new Map<string, number>());
+  const stateExpiryTimersRef = useRef(new Map<string, number>());
+  const latestStateEventIdsRef = useRef(new Map<string, string>());
   const requestedTestAgentIdsRef = useRef(new Set<string>());
   const waitQueuesRef = useRef(new Map<AgentTaskState, string[]>());
   const drainingQueuesRef = useRef(false);
@@ -787,6 +794,7 @@ export default function ClassroomSimulation({
   const drainWaitQueuesRef = useRef<() => void>(() => {});
   const mockAdapterRef = useRef<AgentEventAdapter | null>(null);
   const dispatchEventRef = useRef<(input: unknown) => boolean>(() => false);
+  const snapshotEventsRef = useRef<unknown[]>([]);
   const lastSequenceRef = useRef(new Map<string, number>());
   const seenEventIdsRef = useRef(new Set<string>());
   const pendingStateRef = useRef(new Map<string, AgentStateEvent>());
@@ -863,6 +871,9 @@ export default function ClassroomSimulation({
     () => () => {
       speechTimersRef.current.forEach((timer) => window.clearTimeout(timer));
       speechTimersRef.current.clear();
+      stateExpiryTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+      stateExpiryTimersRef.current.clear();
+      latestStateEventIdsRef.current.clear();
     },
     [],
   );
@@ -875,6 +886,10 @@ export default function ClassroomSimulation({
     for (const agentId of Array.from(existingById.keys())) {
       if (!registeredIds.has(agentId)) {
         removeAgentFromActivityWaitQueues(waitQueuesRef.current, agentId);
+        const timer = stateExpiryTimersRef.current.get(agentId);
+        if (timer !== undefined) window.clearTimeout(timer);
+        stateExpiryTimersRef.current.delete(agentId);
+        latestStateEventIdsRef.current.delete(agentId);
       }
     }
     profilesRef.current = new Map(
@@ -1072,6 +1087,67 @@ export default function ClassroomSimulation({
 
   applyAgentStateRef.current = applyAgentState;
 
+  const placeAgentImmediately = useCallback(
+    (agentId: string, state: AgentTaskState) => {
+      const agent = agentsRef.current.find((candidate) => candidate.id === agentId);
+      if (!agent) return false;
+      const occupiedTargets = agentsRef.current
+        .filter(
+          (candidate) =>
+            candidate.id !== agent.id &&
+            candidate.visible &&
+            candidate.targetPoint !== null,
+        )
+        .map((candidate) => candidate.targetPoint)
+        .filter((point): point is Point => point !== null);
+      try {
+        const target = selectActivityTarget(state, occupiedTargets);
+        removeAgentFromActivityWaitQueues(waitQueuesRef.current, agent.id);
+        agent.x = target.point.x;
+        agent.y = target.point.y;
+        agent.moving = false;
+        agent.visible = true;
+        agent.taskState = state;
+        agent.path = [];
+        agent.pathIndex = 0;
+        agent.routeLength = 0;
+        agent.targetPoint = target.point;
+        agent.waitingForState = null;
+        agent.onArrival = null;
+        return true;
+      } catch (error) {
+        if (!(error instanceof ActivityRegionFullError)) {
+          setRouteError(
+            error instanceof Error ? error.message : '活动区域没有可用坐标',
+          );
+          return false;
+        }
+        enqueueActivityWaiter(waitQueuesRef.current, state, agent.id);
+        let fallback: ReturnType<typeof selectActivityTarget>;
+        try {
+          fallback = selectActivityTarget('idle', occupiedTargets);
+        } catch {
+          agent.visible = false;
+          agent.waitingForState = state;
+          return true;
+        }
+        agent.x = fallback.point.x;
+        agent.y = fallback.point.y;
+        agent.visible = true;
+        agent.taskState = 'idle';
+        agent.moving = false;
+        agent.path = [];
+        agent.pathIndex = 0;
+        agent.routeLength = 0;
+        agent.targetPoint = fallback.point;
+        agent.waitingForState = state;
+        agent.onArrival = null;
+        return true;
+      }
+    },
+    [],
+  );
+
   const drainWaitQueues = useCallback(() => {
     if (drainingQueuesRef.current) return;
     drainingQueuesRef.current = true;
@@ -1100,7 +1176,7 @@ export default function ClassroomSimulation({
   drainWaitQueuesRef.current = drainWaitQueues;
 
   const applyPresenceEvent = useCallback(
-    (event: AgentPresenceEvent) => {
+    (event: AgentPresenceEvent, immediate = false) => {
       const agent = agentsRef.current.find(
         (candidate) => candidate.id === event.agentId,
       );
@@ -1113,6 +1189,17 @@ export default function ClassroomSimulation({
         if (agent.visible) {
           setRouteError(null);
           return true;
+        }
+        if (immediate) {
+          const pendingState = pendingStateRef.current.get(agent.id);
+          pendingStateRef.current.delete(agent.id);
+          const placed = placeAgentImmediately(
+            agent.id,
+            pendingState?.state ?? 'idle',
+          );
+          setRouteError(placed ? null : `无法放置 ${agent.name}`);
+          setAgentViews(toAgentViews(agentsRef.current));
+          return placed;
         }
         doorRef.current = { phase: 'opening', phaseStartedAt: performance.now() };
         scheduleEventTimer(DOOR_TRANSITION_MS, () => {
@@ -1230,11 +1317,11 @@ export default function ClassroomSimulation({
       setAgentViews(toAgentViews(agentsRef.current));
       return true;
     },
-    [applyAgentState, scheduleEventTimer],
+    [applyAgentState, placeAgentImmediately, scheduleEventTimer],
   );
 
   const dispatchAgentEvent = useCallback(
-    (input: unknown) => {
+    (input: unknown, immediate = false) => {
       const parsed = parseAgentRuntimeEvent(input);
       if (!parsed.ok) {
         setEventError(`Agent Event API v1 拒绝事件：${parsed.error}`);
@@ -1272,22 +1359,61 @@ export default function ClassroomSimulation({
         } else {
           externalPresenceAgentsRef.current.delete(event.agentId);
           externalStateAgentsRef.current.delete(event.agentId);
+          const timer = stateExpiryTimersRef.current.get(event.agentId);
+          if (timer !== undefined) window.clearTimeout(timer);
+          stateExpiryTimersRef.current.delete(event.agentId);
+          latestStateEventIdsRef.current.delete(event.agentId);
         }
       }
 
       let applied: boolean;
       if (event.type === 'agent.state') {
+        const currentTimer = stateExpiryTimersRef.current.get(event.agentId);
+        if (currentTimer !== undefined) window.clearTimeout(currentTimer);
+        stateExpiryTimersRef.current.delete(event.agentId);
+        latestStateEventIdsRef.current.set(event.agentId, event.eventId);
+
+        const liveness = resolveAgentStateLiveness(event);
+        if (liveness.expiresInMs !== null && liveness.expiresInMs > 0) {
+          const timer = window.setTimeout(() => {
+            if (
+              latestStateEventIdsRef.current.get(event.agentId) !== event.eventId
+            ) {
+              return;
+            }
+            stateExpiryTimersRef.current.delete(event.agentId);
+            const agent = agentsRef.current.find(
+              (candidate) => candidate.id === event.agentId,
+            );
+            if (agent?.visible) {
+              applyAgentStateRef.current(event.agentId, 'idle');
+            } else {
+              pendingStateRef.current.set(event.agentId, {
+                ...event,
+                state: 'idle',
+                taskSummary: '活动状态超时，已回到待机',
+              });
+            }
+          }, liveness.expiresInMs);
+          stateExpiryTimersRef.current.set(event.agentId, timer);
+        }
+
         const agent = agentsRef.current.find(
           (candidate) => candidate.id === event.agentId,
         );
         if (agent && !agent.visible) {
-          pendingStateRef.current.set(event.agentId, event);
+          pendingStateRef.current.set(event.agentId, {
+            ...event,
+            state: liveness.state,
+          });
           applied = true;
         } else {
-          applied = applyAgentState(event.agentId, event.state);
+          applied = immediate
+            ? placeAgentImmediately(event.agentId, liveness.state)
+            : applyAgentState(event.agentId, liveness.state);
         }
       } else if (event.type === 'agent.presence') {
-        applied = applyPresenceEvent(event);
+        applied = applyPresenceEvent(event, immediate);
       } else {
         applied = profilesRef.current.has(event.agentId);
       }
@@ -1320,7 +1446,11 @@ export default function ClassroomSimulation({
         const displayName = profilesRef.current.get(event.agentId)?.displayName;
         if (displayName && event.direction === 'incoming') {
           setClassroomNotice(
-            agentIncomingMessageNotice(displayName, event.content),
+            agentIncomingMessageNotice(
+              displayName,
+              event.content,
+              event.origin,
+            ),
           );
         } else if (displayName && event.direction === 'outgoing') {
           showAgentSpeech(event.agentId, {
@@ -1331,7 +1461,7 @@ export default function ClassroomSimulation({
       }
       return true;
     },
-    [applyAgentState, applyPresenceEvent, showAgentSpeech],
+    [applyAgentState, applyPresenceEvent, placeAgentImmediately, showAgentSpeech],
   );
 
   dispatchEventRef.current = dispatchAgentEvent;
@@ -1345,6 +1475,21 @@ export default function ClassroomSimulation({
 
     setEventStreamStatus('connecting');
     const stream = new EventSource('/api/agent-events/stream');
+    const handleSnapshot = (message: MessageEvent<string>) => {
+      try {
+        snapshotEventsRef.current.push(JSON.parse(message.data));
+      } catch {
+        setEventError('Agent Event API v1 收到无法解析的教室快照');
+      }
+    };
+    const handleSnapshotEnd = () => {
+      const events = snapshotEventsRef.current;
+      snapshotEventsRef.current = [];
+      for (const event of events) dispatchAgentEvent(event, true);
+      setAgentViews(toAgentViews(agentsRef.current));
+    };
+    stream.addEventListener(CLASSROOM_SNAPSHOT_EVENT, handleSnapshot);
+    stream.addEventListener(CLASSROOM_SNAPSHOT_END_EVENT, handleSnapshotEnd);
     stream.onopen = () => setEventStreamStatus('live');
     stream.onmessage = (message) => {
       try {
@@ -1354,8 +1499,13 @@ export default function ClassroomSimulation({
       }
     };
     stream.onerror = () => setEventStreamStatus('retrying');
-    return () => stream.close();
-  }, [profilesReady, ready]);
+    return () => {
+      snapshotEventsRef.current = [];
+      stream.removeEventListener(CLASSROOM_SNAPSHOT_EVENT, handleSnapshot);
+      stream.removeEventListener(CLASSROOM_SNAPSHOT_END_EVENT, handleSnapshotEnd);
+      stream.close();
+    };
+  }, [dispatchAgentEvent, profilesReady, ready]);
 
   const startJoinSequence = useCallback(() => {
     clearEventTimers();
@@ -1415,14 +1565,6 @@ export default function ClassroomSimulation({
       scheduleEventTimer(finishedAt, () => setPresenceTransition(null));
     }
   }, [clearEventTimers, dispatchAgentEvent, scheduleEventTimer]);
-
-  useEffect(() => {
-    if (!ready || !profilesReady) return;
-    startJoinSequence();
-    return () => {
-      clearEventTimers();
-    };
-  }, [clearEventTimers, profilesReady, ready, startJoinSequence]);
 
   const startLeaveSequence = useCallback(() => {
     clearEventTimers();

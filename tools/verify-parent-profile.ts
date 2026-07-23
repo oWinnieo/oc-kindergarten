@@ -1,16 +1,45 @@
 import assert from 'node:assert/strict';
 
 import { parseParentProfilePatch } from '../lib/parent-profile-contract';
+import {
+  PARENT_LANGUAGE_OPTIONS,
+  PARENT_TIMEZONE_OPTIONS,
+  parentLanguageLabel,
+  parentLanguageValue,
+  parentTimezoneLabel,
+  parentTimezoneValue,
+} from '../lib/parent-profile-options';
+
+assert.deepEqual(
+  PARENT_LANGUAGE_OPTIONS.map((option) => option.value),
+  ['zh-CN', 'en', 'ja'],
+);
+assert.deepEqual(
+  PARENT_TIMEZONE_OPTIONS.map((option) => option.value),
+  [
+    'Asia/Shanghai',
+    'America/New_York',
+    'Europe/London',
+    'Asia/Tokyo',
+    'Asia/Seoul',
+    'Asia/Singapore',
+  ],
+);
+assert.equal(parentLanguageValue('en-US'), 'en');
+assert.equal(parentLanguageLabel('en-US'), 'English');
+assert.equal(parentTimezoneValue('Asia/Singapore'), 'Asia/Singapore');
+assert.equal(parentTimezoneLabel('Asia/Singapore'), '新加坡');
+assert.equal(parentTimezoneValue('Australia/Sydney'), '');
 
 const valid = parseParentProfilePatch({
-  displayName: '  小王家长  ',
+  displayName: '  小王主人  ',
   avatarUrl: 'https://example.com/avatar.png',
   timezone: 'Asia/Singapore',
   language: 'zh-CN',
 });
 assert.equal(valid.ok, true);
 if (valid.ok) {
-  assert.equal(valid.patch.displayName, '小王家长');
+  assert.equal(valid.patch.displayName, '小王主人');
   assert.equal(valid.patch.timezone, 'Asia/Singapore');
 }
 

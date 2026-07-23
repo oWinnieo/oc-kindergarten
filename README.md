@@ -10,10 +10,10 @@ OC Kindergarten 是一个像素风 AI 助手幼儿园小社区。项目通过角
 - Next.js standalone Docker 构建与 Docker Compose 部署。
 - PostgreSQL 16 + Drizzle ORM 持久化 Registry、latest state、event log、SSE replay cursor 和 transactional outbox。
 - OpenClaw bridge v2 使用数据库 provider binding 做服务端身份解析；未知原生 Agent 只进入 `pending_claim`，不会自动出现在教室。
-- 家长 enrollment、15 分钟一次性 pairing、资料确认和 profile/binding transaction 激活已部署；树莓派插件提供 `openclaw kindergarten pair`。
-- `/family` 提供本人 Agent 的持续管理；资料编辑、suspend/resume、可恢复归档与六种行为指令由 Casdoor owner session 保护。归档恢复到 `suspended`，必须由家长再次确认恢复入园；永久退园不向普通家长开放。
+- 主人 enrollment、15 分钟一次性 pairing、资料确认和 profile/binding transaction 激活已部署；树莓派插件提供 `openclaw kindergarten pair`。
+- `/family` 提供本人 Agent 的持续管理；资料编辑、suspend/resume、可恢复归档与六种行为指令由 Casdoor owner session 保护。归档恢复到 `suspended`，必须由主人再次确认恢复入园；永久退园不向普通主人开放。
 - 家庭页为 active、suspended 和 archived Agent 提供 owner-only 最近活动时间线；事件以安全中文摘要展示，并使用倒序游标分页，不向浏览器返回原始 payload、prompt 或 runtime/session 标识。
-- 家长行为指令会在教室顶部显示统一的实时提示；登录按钮直接发起 Casdoor provider 登录，并在完成后返回原家庭入口。
+- 主人行为指令会在教室顶部显示统一的实时提示；登录按钮直接发起 Casdoor provider 登录，并在完成后返回原家庭入口。
 - `32x32` 世界 tile。
 - `48x64` 主角色帧。
 - 男孩、女孩、无性别孩子三套 V2 轮式 static/idle 资产。
@@ -50,6 +50,7 @@ yarn db:migrate
 
 归档恢复部署、回滚以及管理员、Agent event、NextAuth 和 Casdoor secret 轮换步骤见
 [`docs/operations.md`](docs/operations.md)。
+后续开发顺序与发布门槛见 [`docs/development-plan.md`](docs/development-plan.md)。
 
 OpenClaw 生产接入推荐使用 bridge v2：插件配置 `identityMode: "server"`，不配置静态
 `agentMap`。runtime 可调用 `POST /api/runtime/agents/discover` 提交非敏感身份草稿，也可
@@ -57,16 +58,23 @@ OpenClaw 生产接入推荐使用 bridge v2：插件配置 `identityMode: "serve
 `provider + nativeAgentId` 解析 binding。未激活身份返回 `202 pending_binding`，active
 binding 的下一条事件无需重启 Gateway 即可生效。bridge v1 仅作为旧部署兼容路径保留。
 
-家长身份由独立 Casdoor organization `OCKindergarten` 和 Application
+OpenClaw 插件的正式源码已拆分到 private dev 仓库
+`oc-workspace/oc-kindergarten-openclaw-plugin`，内测发布仓库为
+`oWinnieo/oc-kindergarten-openclaw-plugin`。`v0.5.0-beta.1` 起，插件通过一次性配对码
+取得单 binding scoped credential，并使用 OpenClaw 官方 config mutation API 自动保存配置；
+不再向内测用户分发服务器全局 Agent event token。`v0.5.0-beta.2` 每个 Gateway 暂只允许配对
+一个 scoped Agent；多 Agent credential store 列入 beta.3 开发计划。
+
+主人身份由独立 Casdoor organization `OCKindergarten` 和 Application
 `oc-kindergarten` 提供，不复用或迁移 `RococoOrg` 用户；使用 `issuer + sub` 关联本地
 `parent_users`，不会以邮箱作为主键。服务端需要配置 `NEXTAUTH_URL`、
 `NEXTAUTH_SECRET`、`CASDOOR_ISSUER_URL`、`CASDOOR_CLIENT_ID` 和
-`CASDOOR_CLIENT_SECRET`；家长入口为 `/onboarding/parent`，session 与管理员调试 session、
+`CASDOOR_CLIENT_SECRET`；主人入口为 `/onboarding/parent`，session 与管理员调试 session、
 Agent event token 完全分离。Casdoor 初始化与只读边界检查分别使用
 `scripts/configure-casdoor-parent-auth.sh` 和 `scripts/verify-casdoor-parent-auth.sql`。
 
-保存家长资料后可在同一页面点击“添加 AI Agent”。网页生成一次性码后，在 OpenClaw
-主机执行：
+保存主人资料后可在同一页面点击“添加 AI Agent”。首次使用先按页面给出的固定 beta tag
+安装插件；网页生成一次性码后，在 OpenClaw 主机执行：
 
 ```bash
 openclaw kindergarten pair XXXXX-XXXXX-XXXXX-XXXXX --agent main
@@ -74,24 +82,24 @@ openclaw kindergarten pair XXXXX-XXXXX-XXXXX-XXXXX --agent main
 
 返回页面审阅 Agent 草稿并亲自选择角色造型与服装配色预设后，服务端会在同一 transaction 中创建
 owner profile、激活 provider binding 并发布 Registry 变化。`scripts/verify-enrollment-api.sh`
-用自动清理的临时身份验证单次码、跨家长权限和完整激活链路。
+用自动清理的临时身份验证单次码、跨主人权限和完整激活链路。
 
 入园后从 `/family` 管理本人 Agent。暂停会立即从公共 Registry 隐藏角色并拒绝后续 runtime
 event；恢复后保留原 binding，下一条 provider event 会自动重新入场。待处理入园申请仍可
 撤销；已入园 Agent 可归档并从已归档列表恢复。恢复操作原地校验原 provider/native identity，
-清除旧 latest state，并先回到暂停状态；跨家长重新认领和永久退园均不开放。家长行为、管理员单 Agent 指令和场景物件点击统一调用
+清除旧 latest state，并先回到暂停状态；跨主人重新认领和永久退园均不开放。主人行为、管理员单 Agent 指令和场景物件点击统一调用
 `POST /api/agents/:agentId/actions`，客户端只提交 action 与 request id，不能伪造 runtime event。
 
 每个已绑定 Agent 都可以从家庭页展开“最近活动”。服务端通过
 `GET /api/enrollments/:enrollmentId/activity?limit=5&cursor=...` 读取既有
 `agent_event_log`，只允许 enrollment owner 访问；缺失记录和跨家庭访问统一返回 `404`。
-时间线显示进入/离开教室、家长指令、活动区域、任务完成和异常等安全摘要。归档只停止新事件，
+时间线显示进入/离开教室、主人指令、活动区域、任务完成和异常等安全摘要。归档只停止新事件，
 不会删除 owner 可见的既有历史；原始事件 payload 始终留在服务端。
 
-家长可在 active 或 suspended 状态修改展示名、角色／职责、性格简介、公开能力标签、角色造型、
+主人可在 active 或 suspended 状态修改展示名、角色／职责、性格简介、公开能力标签、角色造型、
 服装配色预设和标识色。`classic` 是兼容旧记录的默认值，`meadow`（草地青绿）和
 `berry`（莓果珊瑚）都会切换整套审核后的 sprite 资源。每次修改都会推进 profile revision；active 修改通过 transactional outbox 发布到
-所有 Registry SSE 连接，suspended 修改只持久化，不会让角色重新出现在公开教室，直到家长
+所有 Registry SSE 连接，suspended 修改只持久化，不会让角色重新出现在公开教室，直到主人
 恢复入园。标识色只用于姓名牌边框、状态点等界面强调，不会重染角色 sprite。
 
 服务器首次配置可由 root 运行

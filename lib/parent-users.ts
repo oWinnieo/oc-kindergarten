@@ -63,7 +63,7 @@ export async function upsertParentUserFromOidc(
   const suggestedName =
     limited(input.displayName, 48) ??
     limited(email?.split('@')[0], 48) ??
-    '新家长';
+    '新主人';
   const avatarUrl = limited(input.avatarUrl, 2048);
   const now = new Date();
   const { database } = getDatabaseClient();
@@ -86,7 +86,7 @@ export async function upsertParentUserFromOidc(
     })
     .returning();
   const row = rows[0];
-  if (!row) throw new Error('家长身份写入后未返回记录');
+  if (!row) throw new Error('主人身份写入后未返回记录');
   return rowToView(row);
 }
 

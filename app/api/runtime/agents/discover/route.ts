@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { authorizeAgentEventRequest } from '@/lib/agent-event-auth';
+import { authorizeRuntimeCredentialRequest } from '@/lib/agent-event-auth';
 import { discoverProviderAgent } from '@/lib/provider-agent-bindings';
 import {
   PROVIDER_BINDING_SCHEMA_VERSION,
@@ -11,9 +11,6 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
-  if (!authorizeAgentEventRequest(request)) {
-    return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
-  }
   let input: unknown;
   try {
     input = await request.json();
@@ -23,6 +20,15 @@ export async function POST(request: Request) {
   const parsed = parseProviderAgentDiscovery(input);
   if (!parsed.ok) {
     return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+  }
+  if (
+    !(await authorizeRuntimeCredentialRequest(request, {
+      provider: parsed.discovery.provider,
+      nativeAgentId: parsed.discovery.nativeAgentId,
+      runtimeInstanceId: parsed.discovery.runtimeInstanceId,
+    }))
+  ) {
+    return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
   }
   const binding = await discoverProviderAgent(parsed.discovery);
   return NextResponse.json(

@@ -42,13 +42,13 @@ export function parseParentProfilePatch(
   input: unknown,
 ): ParentProfilePatchParseResult {
   if (!isRecord(input)) {
-    return { ok: false, error: '家长资料必须是对象' };
+    return { ok: false, error: '主人资料必须是对象' };
   }
   const unknownField = Object.keys(input).find(
     (field) => !ALLOWED_FIELDS.has(field),
   );
   if (unknownField) {
-    return { ok: false, error: `家长资料不允许字段：${unknownField}` };
+    return { ok: false, error: `主人资料不允许字段：${unknownField}` };
   }
 
   const patch: ParentProfilePatch = {};

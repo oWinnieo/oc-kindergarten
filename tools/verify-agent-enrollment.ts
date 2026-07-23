@@ -66,7 +66,7 @@ const sensitiveDraft = parseRuntimeEnrollmentPairing({
 assert(!sensitiveDraft.ok, '敏感／未知草稿字段必须拒绝');
 
 const missingVariant = parseAgentActivation({ displayName: '小助手' });
-assert(!missingVariant.ok, '家长未选择外观时不能激活');
+assert(!missingVariant.ok, '主人未选择外观时不能激活');
 const activation = parseAgentActivation({
   displayName: ' 小助手 ',
   characterVariant: 'boy',
@@ -76,7 +76,7 @@ const activation = parseAgentActivation({
   capabilities: ['research'],
   color: '#1677B8',
 });
-assert(activation.ok, '合法家长确认资料应通过');
+assert(activation.ok, '合法主人确认资料应通过');
 assert(activation.activation.displayName === '小助手', '名称应去除首尾空格');
 assert(activation.activation.color === '#1677b8', '确认颜色应规范化');
 assert(

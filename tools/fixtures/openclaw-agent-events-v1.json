@@ -12,6 +12,25 @@
   {
     "bridgeVersion": 1,
     "kind": "openclaw.hook",
+    "bridgeEventId": "openclaw:fixture:message-received",
+    "hook": "message_received",
+    "classroomAgentId": "agent-scout",
+    "nativeAgentId": "main",
+    "observedAt": "2026-07-17T12:00:00.500Z",
+    "data": {
+      "messageContent": "@Bonnie,在线么",
+      "messageOrigin": {
+        "channel": "telegram",
+        "conversationType": "group",
+        "senderRole": "participant",
+        "senderName": "@Alice"
+      }
+    },
+    "expected": ["syncing", "incoming:@Bonnie,在线么"]
+  },
+  {
+    "bridgeVersion": 1,
+    "kind": "openclaw.hook",
     "bridgeEventId": "openclaw:fixture:2",
     "hook": "before_agent_run",
     "classroomAgentId": "agent-scout",
@@ -19,8 +38,8 @@
     "runId": "run-1",
     "sessionKey": "agent:main:main",
     "observedAt": "2026-07-17T12:00:01.000Z",
-    "data": { "messageContent": "Bonnie你在干嘛呀" },
-    "expected": ["syncing", "incoming:Bonnie你在干嘛呀"]
+    "data": { "messageContent": "不应展示的完整 prompt" },
+    "expected": "syncing"
   },
   {
     "bridgeVersion": 1,
@@ -76,7 +95,7 @@
     "observedAt": "2026-07-17T12:00:06.000Z",
     "data": {
       "success": true,
-      "messageContent": "我在听你说呀，你说吧，我接着。"
+      "messageContent": "[[reply_to_current]]我在听你说呀，你说吧，我接着。"
     },
     "expected": ["idle", "outgoing:我在听你说呀，你说吧，我接着。"]
   },

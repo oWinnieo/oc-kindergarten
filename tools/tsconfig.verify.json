@@ -16,6 +16,8 @@
     "./verify-provider-binding.ts",
     "./verify-parent-profile.ts",
     "./verify-agent-enrollment.ts",
+    "./verify-runtime-credential.ts",
+    "./verify-runtime-pairing-rate-limit.ts",
     "./verify-agent-actions.ts",
     "./verify-agent-activity.ts",
     "./verify-capacity-stress.ts",

@@ -159,7 +159,7 @@ export function parseAgentActivation(
     return { ok: false, error: 'displayName 不能为空' };
   }
   if (!parsed.draft.characterVariant) {
-    return { ok: false, error: '必须由家长明确选择 characterVariant' };
+    return { ok: false, error: '必须由主人明确选择 characterVariant' };
   }
   return {
     ok: true,
