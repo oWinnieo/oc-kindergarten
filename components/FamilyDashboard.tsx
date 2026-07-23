@@ -499,6 +499,7 @@ export default function FamilyDashboard() {
           <a href="/">教室</a>
           <a href="#parent-profile">主人资料</a>
           <a href="/onboarding/parent">添加 Agent</a>
+          <a href="/beta-guide">内测指南</a>
           <a href="/api/auth/signout?callbackUrl=%2F">退出</a>
         </nav>
       </header>

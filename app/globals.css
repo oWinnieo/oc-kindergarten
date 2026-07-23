@@ -42,11 +42,17 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-.parentEntryLink {
+.siteQuickLinks {
   position: fixed;
   z-index: 40;
   top: 14px;
   left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.parentEntryLink {
   border: 1px solid rgba(23, 50, 74, 0.18);
   border-radius: 999px;
   padding: 8px 13px;
@@ -64,6 +70,324 @@ button:focus-visible {
   transform: translateY(-1px);
 }
 
+.betaGuideShell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 72px;
+}
+
+.betaGuideTopbar {
+  min-height: 48px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.parentBrand.betaGuideBrand {
+  margin-bottom: 0;
+}
+
+.betaGuideTopbar nav {
+  display: flex;
+  gap: 18px;
+}
+
+.betaGuideTopbar nav a,
+.betaGuideIndex a {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.betaGuideIntro {
+  min-height: 360px;
+  padding: 64px 0 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+  align-items: end;
+  gap: 64px;
+}
+
+.betaGuideIntro h1 {
+  max-width: 720px;
+  margin: 6px 0 20px;
+  font-size: 52px;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.betaGuideIntro > div:first-child > p:last-child {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.betaGuideIntroActions {
+  border-left: 4px solid var(--coral);
+  padding-left: 24px;
+  display: grid;
+  gap: 22px;
+}
+
+.betaGuideFacts {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.betaGuideFacts div {
+  display: grid;
+  gap: 3px;
+}
+
+.betaGuideFacts dt {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.betaGuideFacts dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.betaGuideIntroActions .parentPrimaryAction,
+.betaGuideActions .parentPrimaryAction,
+.betaGuideActions .parentSecondaryAction,
+.betaGuideFooter .parentPrimaryAction {
+  width: fit-content;
+  border-radius: 6px;
+}
+
+.betaGuideSafety,
+.betaGuideOptional {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.55fr);
+  gap: 48px;
+}
+
+.betaGuideSafety h2,
+.betaGuideOptional h2,
+.betaGuideTroubleshooting h2,
+.betaGuideFooter h2 {
+  margin: 4px 0 0;
+  font-size: 25px;
+  letter-spacing: 0;
+}
+
+.betaGuideSafety ul,
+.betaGuideOptional ol {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 12px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.betaGuideLayout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 56px;
+}
+
+.betaGuideIndex {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  padding: 42px 0;
+}
+
+.betaGuideIndex > strong {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.betaGuideIndex nav {
+  border-left: 1px solid var(--line);
+  display: grid;
+}
+
+.betaGuideIndex a {
+  min-height: 40px;
+  padding: 8px 0 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+}
+
+.betaGuideIndex a:hover {
+  color: var(--blue);
+}
+
+.betaGuideIndex a span {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(41, 125, 182, 0.24);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  font-size: 10px;
+}
+
+.betaGuideSteps {
+  min-width: 0;
+}
+
+.betaGuideStep {
+  scroll-margin-top: 18px;
+  border-bottom: 1px solid var(--line);
+  padding: 48px 0;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 22px;
+}
+
+.betaGuideStepNumber {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  background: var(--coral);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.betaGuideStep h2 {
+  margin: 4px 0 16px;
+  font-size: 27px;
+  letter-spacing: 0;
+}
+
+.betaGuideStep p,
+.betaGuideStep li,
+.betaGuideChoice p,
+.betaGuideTroubleshooting p,
+.betaGuideFooter p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.betaGuideStep > div:last-child > p:not(.eyebrow) {
+  margin: 0 0 18px;
+}
+
+.betaGuideStep ol,
+.betaGuideStep ul {
+  margin: 0 0 18px;
+  padding-left: 23px;
+  display: grid;
+  gap: 9px;
+}
+
+.betaGuideStep code:not(.betaGuideCode code) {
+  color: #205f82;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+.betaGuideCode {
+  overflow-x: auto;
+  margin: 18px 0;
+  border-radius: 6px;
+  padding: 18px;
+  background: #17324a;
+  color: #e9f7ff;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.betaGuideSignal,
+.betaGuideChoice {
+  margin-top: 20px;
+  border-left: 4px solid var(--mint);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 16px;
+  background: #effaf5;
+}
+
+.betaGuideChoice {
+  border-left-color: var(--yellow-dark);
+  background: #fff8df;
+}
+
+.betaGuideSignal strong,
+.betaGuideChoice strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.betaGuideSignal p,
+.betaGuideChoice p {
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+
+.betaGuideActions {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.betaGuideOptional {
+  margin-top: 36px;
+}
+
+.betaGuideTroubleshooting {
+  padding: 54px 0;
+}
+
+.betaGuideTroubleList {
+  margin-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.betaGuideTroubleList details {
+  border-bottom: 1px solid var(--line);
+  padding: 17px 2px;
+}
+
+.betaGuideTroubleList summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.betaGuideTroubleList p {
+  max-width: 760px;
+  margin: 12px 0 0;
+  font-size: 13px;
+}
+
+.betaGuideFooter {
+  border-top: 4px solid var(--ink);
+  padding: 34px 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 40px;
+}
+
+.betaGuideFooter p:last-child {
+  max-width: 720px;
+  margin-bottom: 0;
+}
+
 .parentOnboardingShell {
   width: min(860px, calc(100% - 32px));
   margin: 0 auto;
@@ -73,6 +397,18 @@ button:focus-visible {
 .parentOnboardingHeader {
   max-width: 720px;
   margin-bottom: 28px;
+}
+
+.parentOnboardingNav {
+  margin-bottom: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.parentOnboardingNav .parentBrand {
+  margin-bottom: 0;
 }
 
 .parentBrand {
@@ -1287,6 +1623,99 @@ button:focus-visible {
 }
 
 @media (max-width: 620px) {
+  .siteQuickLinks {
+    right: 12px;
+    left: 12px;
+    justify-content: space-between;
+  }
+
+  .parentEntryLink {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .betaGuideShell {
+    width: min(100% - 24px, 1120px);
+    padding-top: 22px;
+  }
+
+  .betaGuideTopbar,
+  .betaGuideTopbar nav,
+  .betaGuideActions {
+    flex-wrap: wrap;
+  }
+
+  .betaGuideIntro {
+    min-height: auto;
+    padding: 44px 0 38px;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .betaGuideIntro h1 {
+    font-size: 38px;
+  }
+
+  .betaGuideIntro > div:first-child > p:last-child {
+    font-size: 15px;
+  }
+
+  .betaGuideSafety,
+  .betaGuideOptional,
+  .betaGuideFooter {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .betaGuideLayout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .betaGuideIndex {
+    position: static;
+    padding: 28px 0 0;
+  }
+
+  .betaGuideIndex nav {
+    border-left: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .betaGuideIndex a {
+    min-width: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 8px 2px;
+    font-size: 12px;
+  }
+
+  .betaGuideStep {
+    padding: 38px 0;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .betaGuideStepNumber {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  .betaGuideStep h2 {
+    font-size: 23px;
+  }
+
+  .betaGuideCode {
+    margin-right: -2px;
+    padding: 14px;
+    font-size: 11px;
+  }
+
+  .betaGuideFooter {
+    align-items: start;
+  }
+
   .parentOnboardingShell {
     padding-top: 28px;
   }

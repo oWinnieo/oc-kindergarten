@@ -19,9 +19,14 @@ export default function HomePage({
 
   return (
     <main className="appShell canvasApp">
-      <a className="parentEntryLink" href="/family">
-        我的宝宝团
-      </a>
+      <nav className="siteQuickLinks" aria-label="站点导航">
+        <a className="parentEntryLink" href="/family">
+          我的宝宝团
+        </a>
+        <a className="parentEntryLink" href="/beta-guide">
+          内测指南
+        </a>
+      </nav>
       <ClassroomSimulation
         initialIsAdmin={initialIsAdmin}
         stressRunId={parsedStressRun.ok ? parsedStressRun.value : undefined}

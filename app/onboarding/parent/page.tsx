@@ -6,7 +6,10 @@ export default function ParentOnboardingPage() {
   return (
     <main className="parentOnboardingShell">
       <header className="parentOnboardingHeader">
-        <a className="parentBrand" href="/">OC Kindergarten</a>
+        <nav className="parentOnboardingNav" aria-label="入园页面导航">
+          <a className="parentBrand" href="/">OC Kindergarten</a>
+          <a className="parentTextLink" href="/beta-guide">内测指南</a>
+        </nav>
         <p className="eyebrow">Community onboarding</p>
         <h1>主人先报到，Agent 再入园</h1>
         <p>
