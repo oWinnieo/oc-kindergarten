@@ -181,7 +181,7 @@ interface DoorState {
 }
 
 const STATE_FRAME_MS: Record<AgentTaskState, number> = {
-  idle: 220,
+  idle: 320,
   writing: 200,
   researching: 220,
   executing: 180,
