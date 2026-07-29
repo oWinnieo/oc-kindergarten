@@ -90,6 +90,33 @@ token 分发给内测用户。恢复本版本后既有未撤销 credential 可�
   不会在每次 `pair` 后自动重启。onboarding 的配对命令因此显式追加
   `openclaw gateway restart`；beta.4 继续收敛 reload 操作体验。
 
+### Acceptance record: 2026-07-29 (beta.4 credential operations passed)
+
+- annotated fixed tag `v0.5.0-beta.4` 指向
+  `26a7aa9db71eb5718afca42e1871054fe5f61c53`；发布前 typecheck、build、17/17 自动化测试、
+  pack、HTTPS 全新安装、beta.2/beta.3 升级和失败保护矩阵均通过；
+- `pi-home` 升级前使用 OpenClaw 原生 backup 创建并验证
+  `/home/winnie/backups/openclaw-upgrades/2026-07-29T22-50-22.891+08-00-openclaw-backup.tar.gz`，
+  mode `0600`，SHA-256 为
+  `58a9cde06d0bb4a31e14d611f0d7e7b8c61cb7477145685002f83a8f76827640`；另保留 mode
+  `0600` 的快速回滚配置
+  `/home/winnie/backups/openclaw-upgrades/openclaw-pre-beta4-20260729T145100Z.json`；
+- 插件通过公开 HTTPS fixed tag 从 beta.3 升级到 beta.4；install record 的
+  `gitRef` 为 `v0.5.0-beta.4`、`gitCommit` 为 `26a7aa9...`，配置校验和 plugin doctor
+  通过，conversation hook 权限保持开启；
+- 升级前后 per-Agent credential store SHA-256 均为
+  `981a167eb1ffac902105b34c9f106c93e8bf1f7562c9f92c48808154d9a70530`，实际键仍只有
+  `openclaw:frontend` 与 `openclaw:fullstack`；legacy/internal token 仍存在但未输出；
+- `openclaw kindergarten apply --json` 完成真实 systemd Gateway 重启和 deep RPC
+  readiness，状态从 `unknown` 收敛为 `applied`；Gateway PID 从 `428212` 变为 `429268`，
+  restart count 仍为 0，RPC 与 config audit 均通过；
+- `frontend` 与 `fullstack` 分别完成一次不投递到外部渠道的真实 Gateway 任务。服务端每个
+  Agent 均记录 `agent.state, agent.state, agent.message`，最终为 `idle`，对应 active
+  credential 的 `last_used_at` 更新且 pending outbox 为 0；
+- human/JSON status、apply 输出和 Gateway journal 均通过 redaction；没有
+  `agent_end blocked`、bridge delivery failure 或 credential 明文。升级未创建临时 Agent、
+  binding 或 credential，因此无需清理生产身份数据。
+
 ### Acceptance record: 2026-07-23 (conditional beta)
 
 - 生产应用部署到 `b5fd442`，Web image digest 为

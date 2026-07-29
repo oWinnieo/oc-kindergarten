@@ -3,7 +3,8 @@
 ## Completed: OpenClaw plugin beta.3 multi-Agent credentials
 
 Status: completed and accepted on production on 2026-07-23. Plugin tag
-`v0.5.0-beta.3` points to `8de9bd06e963`; `pi-home` is running that fixed tag.
+`v0.5.0-beta.3` points to `8de9bd06e963`. `pi-home` completed this acceptance
+before its later beta.4 upgrade.
 
 Goal: allow one OpenClaw Gateway to pair multiple Agents without one pairing
 overwriting another Agent's scoped credential.
@@ -29,7 +30,11 @@ Release result: the single-scoped-Agent beta.2 gate is lifted for beta.3.
 Legacy/internal global tokens remain isolated compatibility credentials and
 must still not be distributed to beta users.
 
-## Next: beta.4 credential operations and reload ergonomics
+## Completed: beta.4 credential operations and reload ergonomics
+
+Status: released and accepted on `pi-home` on 2026-07-29. Annotated tag
+`v0.5.0-beta.4` points to `26a7aa9db71eb5718afca42e1871054fe5f61c53`;
+`pi-home` is running that fixed tag.
 
 Goal: make credential state and Gateway activation obvious to operators without
 ever exposing secret values.
@@ -48,3 +53,11 @@ Preparation and acceptance scope:
    GitHub SSH key.
 5. Keep rotation, revoke isolation, restore/resume, deletion isolation, secret
    redaction, and complete cleanup as release gates.
+
+Release result: non-secret human/JSON status, explicit
+`restart_required | restart_failed | applied | unknown` activation state, safe
+apply retry, HTTPS install/upgrade protection and beta.2/beta.3 migration
+coverage passed. The `pi-home` upgrade preserved the exact two-Agent credential
+store, completed a real Gateway restart and deep RPC readiness check, and ran
+successful `frontend` and `fullstack` lifecycle tasks that both returned to
+`idle`.
