@@ -104,9 +104,9 @@ token 分发给内测用户。恢复本版本后既有未撤销 credential 可�
 - 插件通过公开 HTTPS fixed tag 从 beta.3 升级到 beta.4；install record 的
   `gitRef` 为 `v0.5.0-beta.4`、`gitCommit` 为 `26a7aa9...`，配置校验和 plugin doctor
   通过，conversation hook 权限保持开启；
-- 升级前后 per-Agent credential store SHA-256 均为
-  `981a167eb1ffac902105b34c9f106c93e8bf1f7562c9f92c48808154d9a70530`，实际键仍只有
-  `openclaw:frontend` 与 `openclaw:fullstack`；legacy/internal token 仍存在但未输出；
+- 升级前后在 `pi-home` 内存中完成 per-Agent credential store 等值比较，结果一致；实际键仍
+  只有 `openclaw:frontend` 与 `openclaw:fullstack`。credential 值及其比较指纹均未写入文档
+  或日志；legacy/internal token 仍存在但未输出；
 - `openclaw kindergarten apply --json` 完成真实 systemd Gateway 重启和 deep RPC
   readiness，状态从 `unknown` 收敛为 `applied`；Gateway PID 从 `428212` 变为 `429268`，
   restart count 仍为 0，RPC 与 config audit 均通过；
