@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { AgentActivityItem } from '@/lib/agent-activity-contract';
+import type { OwnerAgentMoment } from '@/lib/agent-moment-owner-contract';
+import AgentMomentComposer from './AgentMomentComposer';
 
 interface AgentActivityTimelineProps {
   enrollmentId: string;
   agentName: string;
   refreshToken?: number;
   compact?: boolean;
+  onMomentChanged?: () => void;
 }
 
 interface ActivityResponse {
@@ -38,12 +41,17 @@ export default function AgentActivityTimeline({
   agentName,
   refreshToken = 0,
   compact = false,
+  onMomentChanged,
 }: AgentActivityTimelineProps) {
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<LoadPhase>('idle');
   const [items, setItems] = useState<AgentActivityItem[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCursors, setSelectedCursors] = useState<string[]>([]);
+  const [creatingMoment, setCreatingMoment] = useState(false);
+  const [editingMoment, setEditingMoment] =
+    useState<OwnerAgentMoment | null>(null);
   const previousRefreshToken = useRef(refreshToken);
   const panelId = `agent-activity-${enrollmentId}`;
 
@@ -92,6 +100,48 @@ export default function AgentActivityTimeline({
     if (nextOpen && phase === 'idle') void fetchPage(undefined, true);
   };
 
+  const toggleSelection = (cursor: string) => {
+    setSelectedCursors((current) =>
+      current.includes(cursor)
+        ? current.filter((value) => value !== cursor)
+        : current.length >= 2
+          ? current
+          : [...current, cursor],
+    );
+  };
+
+  const createMoment = async () => {
+    setCreatingMoment(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/agent-moments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          schemaVersion: 1,
+          enrollmentId,
+          activityCursors: selectedCursors,
+          template: 'daily',
+        }),
+      });
+      const body = (await response.json()) as {
+        moment?: OwnerAgentMoment;
+        error?: string;
+      };
+      if (!response.ok || !body.moment) {
+        throw new Error(body.error ?? '无法创建成长瞬间');
+      }
+      setSelectedCursors([]);
+      setEditingMoment(body.moment);
+      onMomentChanged?.();
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : '无法创建成长瞬间');
+      setPhase('error');
+    } finally {
+      setCreatingMoment(false);
+    }
+  };
+
   return (
     <section
       className={`familyActivityTimeline${compact ? ' isCompact' : ''}`}
@@ -134,6 +184,26 @@ export default function AgentActivityTimeline({
                   <div>
                     <strong>{item.title}</strong>
                     <span>{item.detail}</span>
+                    <label className="familyActivityShareChoice">
+                      <input
+                        type="checkbox"
+                        checked={selectedCursors.includes(item.cursor)}
+                        disabled={
+                          !item.shareable ||
+                          (!selectedCursors.includes(item.cursor) &&
+                            selectedCursors.length >= 2)
+                        }
+                        aria-label={`选择“${item.title}”用于成长瞬间`}
+                        onChange={() => toggleSelection(item.cursor)}
+                      />
+                      <span>
+                        {item.shareable
+                          ? selectedCursors.includes(item.cursor)
+                            ? '已选择'
+                            : '用于成长瞬间'
+                          : item.shareBlockedReason ?? '不可分享'}
+                      </span>
+                    </label>
                   </div>
                   <time dateTime={item.observedAt} title={new Date(item.observedAt).toLocaleString('zh-CN')}>
                     {formatActivityTime(item.observedAt)}
@@ -152,7 +222,33 @@ export default function AgentActivityTimeline({
               {phase === 'more' ? '读取中…' : '查看更多'}
             </button>
           ) : null}
+          {selectedCursors.length > 0 ? (
+            <div className="familyActivityShareActions" role="status">
+              <span>已选择 {selectedCursors.length}/2 条</span>
+              <button
+                className="parentPrimaryAction"
+                type="button"
+                disabled={creatingMoment}
+                onClick={() => void createMoment()}
+              >
+                {creatingMoment ? '正在生成…' : '生成成长瞬间'}
+              </button>
+              <button type="button" onClick={() => setSelectedCursors([])}>
+                清除选择
+              </button>
+            </div>
+          ) : null}
         </div>
+      ) : null}
+      {editingMoment ? (
+        <AgentMomentComposer
+          moment={editingMoment}
+          onClose={() => setEditingMoment(null)}
+          onChanged={(moment) => {
+            setEditingMoment(moment);
+            onMomentChanged?.();
+          }}
+        />
       ) : null}
     </section>
   );

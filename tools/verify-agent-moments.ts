@@ -16,6 +16,11 @@ import {
   sanitizeMomentText,
 } from '../lib/agent-moment-sanitizer';
 import type { AgentRuntimeEvent } from '../lib/agent-event-contract';
+import { parseOwnerAgentMomentPageQuery } from '../lib/agent-moments';
+import {
+  consumesOwnerMutationAllowance,
+  hasSameOrigin,
+} from '../lib/owner-mutation-security';
 
 const enrollmentId = '11111111-1111-4111-8111-111111111111';
 const momentId = '22222222-2222-4222-8222-222222222222';
@@ -277,6 +282,106 @@ assert.deepEqual(parsePublicAgentMomentCursor(encodedCursor), {
 });
 assert.equal(parsePublicAgentMomentCursor('not-a-cursor').ok, false);
 
+assert.deepEqual(
+  parseOwnerAgentMomentPageQuery(
+    new URLSearchParams({ enrollmentId, limit: '10' }),
+  ),
+  {
+    ok: true,
+    value: { enrollmentId, limit: 10 },
+  },
+);
+const ownerCursor = Buffer.from(
+  JSON.stringify({ c: observedAt, i: momentId }),
+  'utf8',
+).toString('base64url');
+assert.deepEqual(
+  parseOwnerAgentMomentPageQuery(
+    new URLSearchParams({ enrollmentId, limit: '1', cursor: ownerCursor }),
+  ),
+  {
+    ok: true,
+    value: {
+      enrollmentId,
+      limit: 1,
+      cursor: { createdAt: observedAt, id: momentId },
+    },
+  },
+);
+assert.equal(
+  parseOwnerAgentMomentPageQuery(
+    new URLSearchParams({ enrollmentId, limit: '51' }),
+  ).ok,
+  false,
+);
+assert.equal(
+  parseOwnerAgentMomentPageQuery(
+    new URLSearchParams({
+      enrollmentId: 'not-an-enrollment',
+      cursor: 'private',
+    }),
+  ).ok,
+  false,
+);
+
+assert.equal(
+  hasSameOrigin(
+    new Request('https://kindergarten.example/api/agent-moments', {
+      method: 'POST',
+      headers: { Origin: 'https://kindergarten.example' },
+    }),
+  ),
+  true,
+);
+assert.equal(
+  hasSameOrigin(
+    new Request('https://kindergarten.example/api/agent-moments', {
+      method: 'POST',
+      headers: { Origin: 'https://attacker.example' },
+    }),
+  ),
+  false,
+);
+assert.equal(
+  hasSameOrigin(
+    new Request('http://localhost:3000/api/agent-moments', {
+      method: 'POST',
+      headers: {
+        Host: 'kindergarten.example',
+        Origin: 'https://kindergarten.example',
+        'X-Forwarded-Proto': 'https',
+      },
+    }),
+  ),
+  true,
+);
+
+for (let index = 0; index < 40; index += 1) {
+  assert.deepEqual(
+    consumesOwnerMutationAllowance('moment-rate-parent', 'publish'),
+    { allowed: true },
+  );
+}
+const exhaustedAllowance = consumesOwnerMutationAllowance(
+  'moment-rate-parent',
+  'publish',
+);
+assert.equal(exhaustedAllowance.allowed, false);
+assert.equal(
+  exhaustedAllowance.allowed
+    ? false
+    : exhaustedAllowance.retryAfterSeconds >= 1,
+  true,
+);
+assert.equal(
+  hasSameOrigin(
+    new Request('https://kindergarten.example/api/agent-moments', {
+      method: 'POST',
+    }),
+  ),
+  false,
+);
+
 process.stdout.write(
-  'Agent moments regression passed: contracts, candidates, sanitizer, public DTO and cursor\n',
+  'Agent moments regression passed: contracts, candidates, sanitizer, owner isolation inputs, public DTO and cursors\n',
 );
