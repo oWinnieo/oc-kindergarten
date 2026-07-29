@@ -6,6 +6,7 @@ import {
   STATE_CONFIG,
   type AgentTaskState,
 } from './classroom-runtime';
+import { mapMomentCandidate } from './agent-moment-sanitizer';
 
 export const AGENT_ACTIVITY_SCHEMA_VERSION = 1 as const;
 export const DEFAULT_AGENT_ACTIVITY_PAGE_SIZE = 20;
@@ -33,6 +34,8 @@ export interface AgentActivityItem {
   title: string;
   detail: string;
   observedAt: string;
+  shareable: boolean;
+  shareBlockedReason?: string;
 }
 
 export interface AgentActivityPage {
@@ -131,6 +134,7 @@ function stateActivity(
       title: `已收到“${COMMAND_LABELS[event.state]}”指令`,
       detail: `准备前往${location}`,
       observedAt,
+      shareable: true,
     };
   }
 
@@ -142,6 +146,7 @@ function stateActivity(
       title: TASK_TITLES.error,
       detail: `已前往${location}等待检查`,
       observedAt,
+      shareable: true,
     };
   }
 
@@ -160,6 +165,7 @@ function stateActivity(
       title,
       detail: `回到${location}`,
       observedAt,
+      shareable: true,
     };
   }
 
@@ -170,11 +176,13 @@ function stateActivity(
     title: TASK_TITLES[event.state],
     detail: `前往${location}`,
     observedAt,
+    shareable: true,
   };
 }
 
 export function mapAgentActivityRecord(
   record: AgentActivityRecord,
+  options: { allowReplyExcerpt?: boolean } = {},
 ): AgentActivityItem {
   const cursor = String(record.id);
   const observedAt = normalizedObservedAt(record.observedAt);
@@ -187,6 +195,8 @@ export function mapAgentActivityRecord(
       title: '活动记录已更新',
       detail: '这条记录不包含可展示的详细信息',
       observedAt,
+      shareable: false,
+      shareBlockedReason: '这类活动不能用于公开分享',
     };
   }
 
@@ -195,23 +205,36 @@ export function mapAgentActivityRecord(
   }
 
   if (parsed.event.type === 'agent.message') {
-    return parsed.event.direction === 'incoming'
-      ? {
-          cursor,
-          kind: 'message',
-          tone: 'attention',
-          title: '收到主人消息',
-          detail: '已开始处理并准备回复',
-          observedAt,
-        }
-      : {
-          cursor,
-          kind: 'message',
-          tone: 'positive',
-          title: '已经回复主人',
-          detail: '回复已送往消息渠道',
-          observedAt,
-        };
+    const candidate = mapMomentCandidate(parsed.event, options);
+    if (parsed.event.direction === 'incoming') {
+      return {
+        cursor,
+        kind: 'message',
+        tone: 'attention',
+        title: '收到主人消息',
+        detail: '已开始处理并准备回复',
+        observedAt,
+        shareable: false,
+        shareBlockedReason: '主人发来的消息不能公开分享',
+      };
+    }
+    return {
+      cursor,
+      kind: 'message',
+      tone: 'positive',
+      title: '已经回复主人',
+      detail: '回复已送往消息渠道',
+      observedAt,
+      shareable: candidate.eligible,
+      ...(candidate.eligible
+        ? {}
+        : {
+            shareBlockedReason:
+              candidate.reason === 'reply_excerpt_disabled'
+                ? '请先开启“允许回复摘录”'
+                : '回复内容未通过公开分享检查',
+          }),
+    };
   }
 
   return parsed.event.action === 'enter'
@@ -222,6 +245,8 @@ export function mapAgentActivityRecord(
         title: '进入教室',
         detail: '已从教室入口进入',
         observedAt,
+        shareable: false,
+        shareBlockedReason: '进出教室记录不用于成长瞬间',
       }
     : {
         cursor,
@@ -230,5 +255,7 @@ export function mapAgentActivityRecord(
         title: '离开教室',
         detail: '已从教室入口离开',
         observedAt,
+        shareable: false,
+        shareBlockedReason: '进出教室记录不用于成长瞬间',
       };
 }

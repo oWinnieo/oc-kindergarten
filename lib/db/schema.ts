@@ -1,5 +1,7 @@
 import {
   bigint,
+  boolean,
+  check,
   index,
   integer,
   jsonb,
@@ -209,6 +211,154 @@ export const agentEventLog = pgTable(
       table.sourceSequence,
     ),
     index('agent_event_log_agent_created_idx').on(table.agentId, table.id),
+  ],
+);
+
+export const agentShareSettings = pgTable(
+  'agent_share_settings',
+  {
+    agentId: text('agent_id')
+      .primaryKey()
+      .references(() => agentProfiles.agentId, { onDelete: 'cascade' }),
+    ownerId: uuid('owner_id')
+      .notNull()
+      .references(() => parentUsers.id, { onDelete: 'cascade' }),
+    profileVisibility: text('profile_visibility')
+      .notNull()
+      .default('private'),
+    allowReplyExcerpt: boolean('allow_reply_excerpt').notNull().default(false),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index('agent_share_settings_owner_idx').on(table.ownerId),
+    check(
+      'agent_share_settings_profile_visibility_check',
+      sql`${table.profileVisibility} IN ('private', 'public')`,
+    ),
+  ],
+);
+
+export const agentMoments = pgTable(
+  'agent_moments',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    ownerId: uuid('owner_id')
+      .notNull()
+      .references(() => parentUsers.id, { onDelete: 'cascade' }),
+    agentId: text('agent_id')
+      .notNull()
+      .references(() => agentProfiles.agentId, { onDelete: 'cascade' }),
+    shareSlug: text('share_slug'),
+    title: text('title').notNull(),
+    ownerCaption: text('owner_caption'),
+    template: text('template').notNull(),
+    visibility: text('visibility').notNull().default('private'),
+    status: text('status').notNull().default('draft'),
+    publishedAt: timestamp('published_at', { withTimezone: true }),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('agent_moments_share_slug_uq').on(table.shareSlug),
+    index('agent_moments_owner_created_idx').on(
+      table.ownerId,
+      table.createdAt,
+      table.id,
+    ),
+    index('agent_moments_agent_created_idx').on(
+      table.agentId,
+      table.createdAt,
+      table.id,
+    ),
+    index('agent_moments_public_feed_idx').on(
+      table.status,
+      table.visibility,
+      table.publishedAt,
+      table.id,
+    ),
+    check(
+      'agent_moments_title_length_check',
+      sql`char_length(${table.title}) BETWEEN 1 AND 80`,
+    ),
+    check(
+      'agent_moments_owner_caption_length_check',
+      sql`${table.ownerCaption} IS NULL OR char_length(${table.ownerCaption}) <= 280`,
+    ),
+    check(
+      'agent_moments_template_check',
+      sql`${table.template} IN ('daily', 'quote', 'progress', 'achievement', 'recovery')`,
+    ),
+    check(
+      'agent_moments_visibility_check',
+      sql`${table.visibility} IN ('private', 'unlisted', 'public')`,
+    ),
+    check(
+      'agent_moments_status_check',
+      sql`${table.status} IN ('draft', 'published', 'revoked')`,
+    ),
+    check(
+      'agent_moments_share_slug_length_check',
+      sql`${table.shareSlug} IS NULL OR char_length(${table.shareSlug}) = 32`,
+    ),
+    check(
+      'agent_moments_published_fields_check',
+      sql`${table.status} <> 'published' OR (${table.shareSlug} IS NOT NULL AND ${table.publishedAt} IS NOT NULL AND ${table.visibility} IN ('unlisted', 'public'))`,
+    ),
+    check(
+      'agent_moments_revoked_fields_check',
+      sql`${table.status} <> 'revoked' OR ${table.revokedAt} IS NOT NULL`,
+    ),
+  ],
+);
+
+export const agentMomentItems = pgTable(
+  'agent_moment_items',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    momentId: uuid('moment_id')
+      .notNull()
+      .references(() => agentMoments.id, { onDelete: 'cascade' }),
+    sourceEventLogId: bigint('source_event_log_id', { mode: 'number' }).references(
+      () => agentEventLog.id,
+      { onDelete: 'set null' },
+    ),
+    position: integer('position').notNull(),
+    kind: text('kind').notNull(),
+    titleSnapshot: text('title_snapshot').notNull(),
+    detailSnapshot: text('detail_snapshot').notNull(),
+    occurredAtSnapshot: timestamp('occurred_at_snapshot', {
+      withTimezone: true,
+    }).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('agent_moment_items_position_uq').on(
+      table.momentId,
+      table.position,
+    ),
+    uniqueIndex('agent_moment_items_source_event_uq').on(
+      table.momentId,
+      table.sourceEventLogId,
+    ),
+    index('agent_moment_items_moment_idx').on(table.momentId),
+    check(
+      'agent_moment_items_position_check',
+      sql`${table.position} IN (1, 2)`,
+    ),
+    check(
+      'agent_moment_items_kind_check',
+      sql`${table.kind} IN ('task', 'command', 'completion', 'error', 'reply')`,
+    ),
+    check(
+      'agent_moment_items_title_length_check',
+      sql`char_length(${table.titleSnapshot}) BETWEEN 1 AND 80`,
+    ),
+    check(
+      'agent_moment_items_detail_length_check',
+      sql`char_length(${table.detailSnapshot}) BETWEEN 1 AND 280`,
+    ),
   ],
 );
 
