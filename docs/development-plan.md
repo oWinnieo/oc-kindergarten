@@ -60,4 +60,8 @@ apply retry, HTTPS install/upgrade protection and beta.2/beta.3 migration
 coverage passed. The `pi-home` upgrade preserved the exact two-Agent credential
 store, completed a real Gateway restart and deep RPC readiness check, and ran
 successful `frontend` and `fullstack` lifecycle tasks that both returned to
-`idle`.
+`idle`. A disposable server profile then upgraded a real single-Agent beta.2
+scoped credential to beta.4, removed the legacy field, preserved the value
+without printing a hash or fingerprint, and reused the migrated credential
+after a second Gateway start. The remaining closeout gates are the running
+24–72 hour observation and an external user's independent onboarding.

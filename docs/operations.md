@@ -116,6 +116,17 @@ token 分发给内测用户。恢复本版本后既有未撤销 credential 可�
 - human/JSON status、apply 输出和 Gateway journal 均通过 redaction；没有
   `agent_end blocked`、bridge delivery failure 或 credential 明文。升级未创建临时 Agent、
   binding 或 credential，因此无需清理生产身份数据。
+- 开发服务器另用一次性独立 profile 和正常 enrollment/pairing 取得唯一临时 Agent 的真实
+  beta.2 scoped credential；从 `v0.5.0-beta.2` 升级到 `v0.5.0-beta.4` 后，Gateway
+  自动识别唯一身份、移除旧单 `token` 字段、把原值迁移到唯一 per-Agent 键，并在第二次
+  Gateway 启动后继续成功使用。比较只在内存中完成，没有记录值、hash 或可逆指纹；
+- 迁移测试的 beta.2/beta.4 deep RPC、status redaction、重启持久化和服务端事件递增均通过；
+  临时 parent、enrollment、profile、binding、credential、event/outbox、Node/OpenClaw
+  环境、workspace、profile 和端口已完整清理，残留计数为 0；
+- `2026-07-29 23:27`（UTC+8）建立 24-72 小时观察 T0：`pi-home` Gateway
+  `active/running`、restart count 0、deep RPC 正常，插件为 beta.4 / `applied`，
+  `frontend` 与 `fullstack` 均为 `present`；站点返回 `200`，Web/PostgreSQL restart count
+  和 pending outbox 均为 0。T+24h、T+48h、T+72h 只读复查已安排，外部用户独立入园仍未完成。
 
 ### Acceptance record: 2026-07-23 (conditional beta)
 
