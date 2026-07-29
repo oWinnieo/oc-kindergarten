@@ -7,8 +7,17 @@ import {
 } from '../lib/agent-registry-contract';
 import { AgentRegistry } from '../lib/agent-registry';
 import {
+  parseWelcomeAgentId,
+  welcomeAgentHref,
+} from '../lib/classroom-welcome';
+import {
+  agentRuntimeStateNotice,
+  isComplexTaskStateSet,
+} from '../lib/agent-runtime-notice';
+import {
   ActivityRegionFullError,
   AGENT_TASK_STATES,
+  type AgentTaskState,
   activityRegionTargets,
   selectActivityTarget,
 } from '../lib/classroom-runtime';
@@ -93,6 +102,29 @@ assert.deepEqual(changes, [
   'agent.profile.upserted',
   'agent.profile.removed',
 ]);
+
+assert.equal(parseWelcomeAgentId('agent-new:main'), 'agent-new:main');
+assert.equal(parseWelcomeAgentId(['agent-new:main']), 'agent-new:main');
+assert.equal(parseWelcomeAgentId('bad agent'), undefined);
+assert.equal(welcomeAgentHref('agent-new:main'), '/?welcomeAgent=agent-new%3Amain');
+assert.equal(
+  isComplexTaskStateSet(
+    new Set<AgentTaskState>(['syncing', 'executing']),
+  ),
+  true,
+);
+assert.equal(
+  agentRuntimeStateNotice(
+    '小忙',
+    'syncing',
+    new Set<AgentTaskState>(['syncing', 'executing']),
+  ),
+  '小忙 正在处理复杂任务，期间可能在不同活动区之间移动。',
+);
+assert.equal(
+  agentRuntimeStateNotice('小忙', 'idle', new Set<AgentTaskState>()),
+  '小忙 已完成任务，正在自由活动。',
+);
 
 const expectedCapacities = {
   idle: 88,

@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import { welcomeAgentHref } from '@/lib/classroom-welcome';
 import AgentAppearancePicker, {
   APPEARANCE_PRESET_LABELS,
 } from './AgentAppearancePicker';
@@ -129,7 +130,9 @@ export default function AgentEnrollmentPanel() {
       const body = await responseBody(
         await fetch('/api/enrollments', { cache: 'no-store' }),
       );
-      const nextEnrollments = body.enrollments ?? [];
+      const nextEnrollments = (body.enrollments ?? []).filter(
+        (enrollment) => enrollment.status !== 'archived',
+      );
       setEnrollments(nextEnrollments);
       setActivationDrafts((current) => {
         const next = { ...current };
@@ -331,7 +334,11 @@ export default function AgentEnrollmentPanel() {
           item.id === enrollment.id ? body.enrollment! : item,
         ),
       );
-      setNotice('Agent 已确认入园。它下一次有活动时会进入教室。');
+      const agentId = body.enrollment.agent?.agentId;
+      setNotice('Agent 已确认入园，正在带它从入口进入教室。');
+      if (agentId) {
+        window.location.assign(welcomeAgentHref(agentId));
+      }
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '确认入园失败');
     } finally {
@@ -635,7 +642,7 @@ export default function AgentEnrollmentPanel() {
                         enrollment.agent.appearancePreset ?? 'classic'
                       ]}
                     </p>
-                    <p>Agent 下一次运行时会自动进入教室并展示真实状态。</p>
+                    <p>Agent 已在园；打开教室会直接恢复它的当前状态。</p>
                   </div>
                 </div>
               ) : null}

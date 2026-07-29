@@ -237,6 +237,19 @@ export default function FamilyDashboard() {
     );
   };
 
+  const removeEnrollment = (enrollmentId: string) => {
+    setState((current) =>
+      current.kind !== 'ready'
+        ? current
+        : {
+            ...current,
+            enrollments: current.enrollments.filter(
+              (item) => item.id !== enrollmentId,
+            ),
+          },
+    );
+  };
+
   const toggleParentProfileEditor = () => {
     if (editingParentProfile) {
       setEditingParentProfile(false);
@@ -299,9 +312,11 @@ export default function FamilyDashboard() {
   const changeLifecycle = async (
     enrollment: Enrollment,
     action: 'suspend' | 'resume' | 'archive' | 'restore',
+    confirmArchive = true,
   ) => {
     if (
       action === 'archive' &&
+      confirmArchive &&
       !window.confirm(
         enrollment.agent
           ? '归档这个 Agent？归档后它会离开教室并停止接收事件，你之后可以从已归档列表恢复。'
@@ -339,6 +354,35 @@ export default function FamilyDashboard() {
       );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '无法更新 Agent 状态');
+    } finally {
+      setBusyKey(null);
+    }
+  };
+
+  const cancelPendingEnrollment = async (enrollment: Enrollment) => {
+    if (!window.confirm('撤销这个入园申请？此操作不可撤销。')) return;
+
+    if (enrollment.status === 'pending_parent_confirmation') {
+      await changeLifecycle(enrollment, 'archive', false);
+      return;
+    }
+
+    const key = `${enrollment.id}:delete`;
+    setBusyKey(key);
+    setNotice(null);
+    try {
+      const response = await fetch(
+        `/api/enrollments/${encodeURIComponent(enrollment.id)}`,
+        { method: 'DELETE' },
+      );
+      const body = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(body.error ?? '无法撤销入园申请');
+      }
+      removeEnrollment(enrollment.id);
+      setNotice('入园申请已删除。');
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '无法撤销入园申请');
     } finally {
       setBusyKey(null);
     }
@@ -898,7 +942,7 @@ export default function FamilyDashboard() {
                   <button
                     type="button"
                     disabled={busyKey !== null}
-                    onClick={() => void changeLifecycle(enrollment, 'archive')}
+                    onClick={() => void cancelPendingEnrollment(enrollment)}
                   >
                     撤销申请
                   </button>

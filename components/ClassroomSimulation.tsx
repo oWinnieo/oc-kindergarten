@@ -84,6 +84,7 @@ import berryGirlSyncingUrl from '@/assets/design/sprites/characters/v2/colorways
 import berryGirlWritingUrl from '@/assets/design/sprites/characters/v2/colorways/v1/berry/ai-agent-child-girl/actions/v1/writing/girl-child-writing-berry-v1-strip-48x64.png';
 import AgentSpeechBubble from './AgentSpeechBubble';
 import { agentActionNotice } from '@/lib/agent-action-notice';
+import { agentRuntimeStateNotice } from '@/lib/agent-runtime-notice';
 import {
   AgentEventAdapter,
   AgentEventSource,
@@ -769,11 +770,13 @@ function loadImage(url: string): Promise<HTMLImageElement> {
 interface ClassroomSimulationProps {
   initialIsAdmin: boolean;
   stressRunId?: string;
+  welcomeAgentId?: string;
 }
 
 export default function ClassroomSimulation({
   initialIsAdmin,
   stressRunId,
+  welcomeAgentId,
 }: ClassroomSimulationProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const profilesRef = useRef(new Map<string, AgentProfile>());
@@ -800,6 +803,8 @@ export default function ClassroomSimulation({
   const pendingStateRef = useRef(new Map<string, AgentStateEvent>());
   const externalPresenceAgentsRef = useRef(new Set<string>());
   const externalStateAgentsRef = useRef(new Set<string>());
+  const taskStatesRef = useRef(new Map<string, Set<AgentTaskState>>());
+  const welcomeHandledRef = useRef(false);
   if (!mockAdapterRef.current) {
     mockAdapterRef.current = createMockAgentEventAdapter();
   }
@@ -890,6 +895,7 @@ export default function ClassroomSimulation({
         if (timer !== undefined) window.clearTimeout(timer);
         stateExpiryTimersRef.current.delete(agentId);
         latestStateEventIdsRef.current.delete(agentId);
+        taskStatesRef.current.delete(agentId);
       }
     }
     profilesRef.current = new Map(
@@ -1359,6 +1365,7 @@ export default function ClassroomSimulation({
         } else {
           externalPresenceAgentsRef.current.delete(event.agentId);
           externalStateAgentsRef.current.delete(event.agentId);
+          taskStatesRef.current.delete(event.agentId);
           const timer = stateExpiryTimersRef.current.get(event.agentId);
           if (timer !== undefined) window.clearTimeout(timer);
           stateExpiryTimersRef.current.delete(event.agentId);
@@ -1441,6 +1448,25 @@ export default function ClassroomSimulation({
         if (displayName) {
           setClassroomNotice(agentActionNotice(displayName, event.state));
         }
+      } else if (
+        event.type === 'agent.state' &&
+        event.source !== 'mock'
+      ) {
+        const displayName = profilesRef.current.get(event.agentId)?.displayName;
+        if (displayName) {
+          const taskStates =
+            taskStatesRef.current.get(event.agentId) ??
+            new Set<AgentTaskState>();
+          if (event.state === 'idle' || event.state === 'error') {
+            taskStates.clear();
+          } else {
+            taskStates.add(event.state);
+          }
+          taskStatesRef.current.set(event.agentId, taskStates);
+          setClassroomNotice(
+            agentRuntimeStateNotice(displayName, event.state, taskStates),
+          );
+        }
       }
       if (event.type === 'agent.message') {
         const displayName = profilesRef.current.get(event.agentId)?.displayName;
@@ -1506,6 +1532,64 @@ export default function ClassroomSimulation({
       stream.close();
     };
   }, [dispatchAgentEvent, profilesReady, ready]);
+
+  useEffect(() => {
+    if (
+      !ready ||
+      !profilesReady ||
+      !welcomeAgentId ||
+      welcomeHandledRef.current
+    ) {
+      return;
+    }
+
+    const agent = agentsRef.current.find(
+      (candidate) => candidate.id === welcomeAgentId,
+    );
+    if (!agent || isAdminOnlyTestAgent(agent.id)) return;
+
+    welcomeHandledRef.current = true;
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.delete('welcomeAgent');
+    window.history.replaceState(
+      window.history.state,
+      '',
+      `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`,
+    );
+
+    if (agent.visible) {
+      setClassroomNotice(`${agent.name} 已经在教室里自由活动。`);
+      return;
+    }
+
+    const enterEvent = mockAdapterRef.current?.createPresenceEvent(
+      agent.id,
+      'enter',
+    );
+    if (!enterEvent || !dispatchAgentEvent(enterEvent)) {
+      setClassroomNotice(`${agent.name} 的首次入场动画未能开始，请刷新教室。`);
+      return;
+    }
+
+    setClassroomNotice(`${agent.name} 刚刚入园，正在从入口进入教室。`);
+    scheduleEventTimer(
+      DOOR_TRANSITION_MS * 2 + DOOR_OPEN_HOLD_MS + 10,
+      () => {
+        const idleEvent = mockAdapterRef.current?.createStateEvent(
+          agent.id,
+          'idle',
+          '首次入园完成',
+        );
+        if (idleEvent) dispatchAgentEvent(idleEvent);
+      },
+    );
+  }, [
+    dispatchAgentEvent,
+    profilesReady,
+    ready,
+    scheduleEventTimer,
+    welcomeAgentId,
+  ]);
 
   const startJoinSequence = useCallback(() => {
     clearEventTimers();
