@@ -205,10 +205,44 @@ export default function AgentEnrollmentPanel() {
         await fetch('/api/enrollments', { method: 'POST' }),
       );
       if (!body.enrollment) throw new Error('服务器没有返回入园申请');
-      setEnrollments((current) => [...current, body.enrollment!]);
+      setEnrollments((current) => [body.enrollment!, ...current]);
       await issueCode(body.enrollment.id);
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '创建入园申请失败');
+      setBusyId(null);
+    }
+  };
+
+  const deleteEnrollment = async (enrollment: AgentEnrollment) => {
+    if (!window.confirm('确定删除这条 AI Agent 入园申请吗？')) return;
+    setBusyId(enrollment.id);
+    setNotice('');
+    try {
+      await responseBody(
+        await fetch(`/api/enrollments/${enrollment.id}`, { method: 'DELETE' }),
+      );
+      setEnrollments((current) =>
+        current.filter((item) => item.id !== enrollment.id),
+      );
+      setPairingSecrets((current) => {
+        const next = { ...current };
+        delete next[enrollment.id];
+        return next;
+      });
+      setNativeAgentIds((current) => {
+        const next = { ...current };
+        delete next[enrollment.id];
+        return next;
+      });
+      setActivationDrafts((current) => {
+        const next = { ...current };
+        delete next[enrollment.id];
+        return next;
+      });
+      setNotice('AI Agent 入园申请已删除。');
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '删除入园申请失败');
+    } finally {
       setBusyId(null);
     }
   };
@@ -374,17 +408,31 @@ export default function AgentEnrollmentPanel() {
                     enrollment.draftProfile?.displayName ??
                     `AI Agent ${index + 1}`}
                 </strong>
-                <span className={`agentEnrollmentBadge status-${enrollment.status}`}>
-                  {enrollment.status === 'draft'
-                    ? '准备配对'
-                    : enrollment.status === 'awaiting_pairing'
-                      ? '等待 OpenClaw'
-                      : enrollment.status === 'pending_parent_confirmation'
-                        ? '等待主人确认'
-                        : enrollment.status === 'active'
-                          ? '已入园'
-                          : enrollment.status}
-                </span>
+                <div className="agentEnrollmentTitleActions">
+                  <span className={`agentEnrollmentBadge status-${enrollment.status}`}>
+                    {enrollment.status === 'draft'
+                      ? '准备配对'
+                      : enrollment.status === 'awaiting_pairing'
+                        ? '等待 OpenClaw'
+                        : enrollment.status === 'pending_parent_confirmation'
+                          ? '等待主人确认'
+                          : enrollment.status === 'active'
+                            ? '已入园'
+                            : enrollment.status}
+                  </span>
+                  {enrollment.status === 'draft' ||
+                  enrollment.status === 'awaiting_pairing' ? (
+                    <button
+                      className="agentEnrollmentDelete"
+                      type="button"
+                      disabled={busyId !== null}
+                      aria-label={`删除 ${enrollment.agent?.displayName ?? enrollment.draftProfile?.displayName ?? `AI Agent ${index + 1}`} 入园申请`}
+                      onClick={() => void deleteEnrollment(enrollment)}
+                    >
+                      {busyId === enrollment.id ? '删除中…' : '删除'}
+                    </button>
+                  ) : null}
+                </div>
               </div>
 
               {enrollment.status === 'draft' ? (

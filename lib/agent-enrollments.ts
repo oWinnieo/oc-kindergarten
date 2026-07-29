@@ -1,4 +1,4 @@
-import { and, asc, count, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, isNull, ne, sql } from 'drizzle-orm';
 
 import type {
   AgentActivationInput,
@@ -283,8 +283,34 @@ export async function listAgentEnrollments(
       eq(agentProfiles.enrollmentId, agentEnrollments.id),
     )
     .where(eq(agentEnrollments.parentUserId, parentUserId))
-    .orderBy(asc(agentEnrollments.createdAt));
+    .orderBy(desc(agentEnrollments.createdAt));
   return rows.map((row) => rowToEnrollmentView(row as EnrollmentViewRow));
+}
+
+export async function deleteAgentEnrollment(
+  parentUserId: string,
+  enrollmentId: string,
+): Promise<void> {
+  const { database } = getDatabaseClient();
+  const rows = await database
+    .delete(agentEnrollments)
+    .where(
+      and(
+        eq(agentEnrollments.id, enrollmentId),
+        eq(agentEnrollments.parentUserId, parentUserId),
+        inArray(agentEnrollments.status, ['draft', 'awaiting_pairing']),
+      ),
+    )
+    .returning({ id: agentEnrollments.id });
+  if (rows[0]) return;
+
+  const existing = await enrollmentViewById(parentUserId, enrollmentId);
+  throw new AgentEnrollmentError(
+    existing ? 'invalid_state' : 'not_found',
+    existing
+      ? '已经完成配对的 Agent 不能从入园列表直接删除'
+      : 'Agent 入园申请不存在',
+  );
 }
 
 export async function createAgentEnrollment(
