@@ -25,6 +25,8 @@ import AgentAppearancePicker, {
   APPEARANCE_PRESET_LABELS,
 } from './AgentAppearancePicker';
 import AgentActivityTimeline from './AgentActivityTimeline';
+import AgentMomentLibrary from './AgentMomentLibrary';
+import AgentShareSettings from './AgentShareSettings';
 import CasdoorSignInButton from './CasdoorSignInButton';
 
 type EnrollmentStatus =
@@ -156,6 +158,9 @@ export default function FamilyDashboard() {
   const [activityRefreshes, setActivityRefreshes] = useState<
     Record<string, number>
   >({});
+  const [momentRefreshes, setMomentRefreshes] = useState<
+    Record<string, number>
+  >({});
   const [editingEnrollmentId, setEditingEnrollmentId] = useState<string | null>(
     null,
   );
@@ -235,6 +240,17 @@ export default function FamilyDashboard() {
             ),
           },
     );
+  };
+
+  const refreshAgentMoments = (enrollmentId: string) => {
+    setMomentRefreshes((current) => ({
+      ...current,
+      [enrollmentId]: (current[enrollmentId] ?? 0) + 1,
+    }));
+    setActivityRefreshes((current) => ({
+      ...current,
+      [enrollmentId]: (current[enrollmentId] ?? 0) + 1,
+    }));
   };
 
   const removeEnrollment = (enrollmentId: string) => {
@@ -786,6 +802,17 @@ export default function FamilyDashboard() {
                     enrollmentId={enrollment.id}
                     agentName={agent.displayName}
                     refreshToken={activityRefreshes[enrollment.id] ?? 0}
+                    onMomentChanged={() => refreshAgentMoments(enrollment.id)}
+                  />
+                  <AgentShareSettings
+                    enrollmentId={enrollment.id}
+                    agentName={agent.displayName}
+                    onChanged={() => refreshAgentMoments(enrollment.id)}
+                  />
+                  <AgentMomentLibrary
+                    enrollmentId={enrollment.id}
+                    agentName={agent.displayName}
+                    refreshToken={momentRefreshes[enrollment.id] ?? 0}
                   />
 
                   {editing && profileDraft ? (
@@ -977,11 +1004,24 @@ export default function FamilyDashboard() {
                   ) : null}
                 </div>
                 {enrollment.agent ? (
-                  <AgentActivityTimeline
-                    compact
-                    enrollmentId={enrollment.id}
-                    agentName={enrollment.agent.displayName}
-                  />
+                  <>
+                    <AgentActivityTimeline
+                      compact
+                      enrollmentId={enrollment.id}
+                      agentName={enrollment.agent.displayName}
+                      onMomentChanged={() => refreshAgentMoments(enrollment.id)}
+                    />
+                    <AgentShareSettings
+                      enrollmentId={enrollment.id}
+                      agentName={enrollment.agent.displayName}
+                      onChanged={() => refreshAgentMoments(enrollment.id)}
+                    />
+                    <AgentMomentLibrary
+                      enrollmentId={enrollment.id}
+                      agentName={enrollment.agent.displayName}
+                      refreshToken={momentRefreshes[enrollment.id] ?? 0}
+                    />
+                  </>
                 ) : null}
               </li>
             ))}
