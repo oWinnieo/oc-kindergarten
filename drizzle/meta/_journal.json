@@ -57,6 +57,13 @@
       "when": 1784787361371,
       "tag": "0007_medical_mockingbird",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1785339413381,
+      "tag": "0008_stale_mathemanic",
+      "breakpoints": true
     }
   ]
 }

@@ -30,6 +30,8 @@ assert.deepEqual(entered, {
   title: '进入教室',
   detail: '已从教室入口进入',
   observedAt,
+  shareable: false,
+  shareBlockedReason: '进出教室记录不用于成长瞬间',
 });
 
 const command = mapAgentActivityRecord({
@@ -55,6 +57,7 @@ const command = mapAgentActivityRecord({
 assert.equal(command.kind, 'command');
 assert.equal(command.title, '已收到“阅读”指令');
 assert.equal(command.detail, '准备前往阅读角');
+assert.equal(command.shareable, true);
 assert.equal(JSON.stringify(command).includes('private-request-id'), false);
 
 const writing = mapAgentActivityRecord({
@@ -137,6 +140,7 @@ const incomingMessage = mapAgentActivityRecord({
 });
 assert.equal(incomingMessage.kind, 'message');
 assert.equal(incomingMessage.title, '收到主人消息');
+assert.equal(incomingMessage.shareable, false);
 assert.equal(JSON.stringify(incomingMessage).includes('private owner message'), false);
 
 const outgoingMessage = mapAgentActivityRecord({
@@ -157,7 +161,34 @@ const outgoingMessage = mapAgentActivityRecord({
 });
 assert.equal(outgoingMessage.kind, 'message');
 assert.equal(outgoingMessage.title, '已经回复主人');
+assert.equal(outgoingMessage.shareable, false);
+assert.equal(outgoingMessage.shareBlockedReason, '请先开启“允许回复摘录”');
 assert.equal(JSON.stringify(outgoingMessage).includes('private agent reply'), false);
+
+const shareableOutgoingMessage = mapAgentActivityRecord(
+  {
+    id: 19,
+    eventType: 'agent.message',
+    observedAt,
+    payload: {
+      schemaVersion: 1,
+      eventId: 'activity-shareable-outgoing-message',
+      type: 'agent.message',
+      agentId: 'agent-activity',
+      source: 'openclaw',
+      observedAt,
+      sequence: 7,
+      direction: 'outgoing',
+      content: '今天顺利完成了整理任务',
+    },
+  },
+  { allowReplyExcerpt: true },
+);
+assert.equal(shareableOutgoingMessage.shareable, true);
+assert.equal(
+  JSON.stringify(shareableOutgoingMessage).includes('今天顺利完成了整理任务'),
+  false,
+);
 
 const fallback = mapAgentActivityRecord({
   id: 18,

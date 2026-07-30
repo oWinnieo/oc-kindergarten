@@ -9,6 +9,7 @@ import {
   agentEnrollments,
   agentEventLog,
   agentProfiles,
+  agentShareSettings,
 } from './db/schema';
 
 export interface ListAgentActivitiesOptions {
@@ -39,6 +40,17 @@ export async function listAgentActivities(
     .limit(1);
   const agentId = accessRows[0]?.agentId;
   if (!agentId) return null;
+  const settingsRows = await database
+    .select({ allowReplyExcerpt: agentShareSettings.allowReplyExcerpt })
+    .from(agentShareSettings)
+    .where(
+      and(
+        eq(agentShareSettings.agentId, agentId),
+        eq(agentShareSettings.ownerId, parentUserId),
+      ),
+    )
+    .limit(1);
+  const allowReplyExcerpt = settingsRows[0]?.allowReplyExcerpt ?? false;
 
   const where =
     options.cursor === undefined
@@ -62,7 +74,9 @@ export async function listAgentActivities(
   const hasMore = rows.length > options.limit;
   const pageRows = rows.slice(0, options.limit);
   return {
-    items: pageRows.map(mapAgentActivityRecord),
+    items: pageRows.map((row) =>
+      mapAgentActivityRecord(row, { allowReplyExcerpt }),
+    ),
     nextCursor:
       hasMore && pageRows.length > 0
         ? String(pageRows[pageRows.length - 1]!.id)

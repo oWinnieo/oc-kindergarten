@@ -20,6 +20,7 @@
     "./verify-runtime-pairing-rate-limit.ts",
     "./verify-agent-actions.ts",
     "./verify-agent-activity.ts",
+    "./verify-agent-moments.ts",
     "./verify-capacity-stress.ts",
     "./verify-scene-agent-selection.ts"
   ]
