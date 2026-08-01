@@ -13,6 +13,8 @@ import {
   agentActionNotice,
 } from '@/lib/agent-action-notice';
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import { providerLabel } from '@/lib/agent-provider-catalog';
+import type { AgentProvider } from '@/lib/provider-binding-contract';
 import {
   PARENT_LANGUAGE_OPTIONS,
   PARENT_TIMEZONE_OPTIONS,
@@ -87,7 +89,8 @@ interface AgentProfileDraft {
 interface Enrollment {
   id: string;
   status: EnrollmentStatus;
-  provider?: string;
+  provider?: AgentProvider;
+  runtimeInstanceId?: string;
   nativeAgentId?: string;
   pairingExpired?: boolean;
   updatedAt: string;
@@ -745,7 +748,10 @@ export default function FamilyDashboard() {
                         {agent.role ?? 'AI Agent'} · {VARIANT_LABELS[agent.characterVariant]} ·{' '}
                         {APPEARANCE_PRESET_LABELS[agent.appearancePreset ?? 'classic']}
                       </p>
-                      <code>{enrollment.provider}/{enrollment.nativeAgentId}</code>
+                      <code>
+                        {providerLabel(enrollment.provider)} ·{' '}
+                        {enrollment.nativeAgentId}
+                      </code>
                     </div>
                   </div>
 
@@ -961,7 +967,10 @@ export default function FamilyDashboard() {
             {groups.pending.map((enrollment) => (
               <div className="familyPendingRow" key={enrollment.id}>
                 <div>
-                  <strong>{enrollment.nativeAgentId ?? '新的 Agent'}</strong>
+                  <strong>
+                    {providerLabel(enrollment.provider)} ·{' '}
+                    {enrollment.nativeAgentId ?? '新的 Agent'}
+                  </strong>
                   <span>{STATUS_LABELS[enrollment.status]}</span>
                 </div>
                 <div className="familyPendingActions">
@@ -988,7 +997,12 @@ export default function FamilyDashboard() {
               <li key={enrollment.id}>
                 <div className="familyArchivedAgentRow">
                   <div>
-                    <span>{enrollment.agent?.displayName ?? enrollment.nativeAgentId ?? 'Agent'}</span>
+                    <span>
+                      {enrollment.agent?.displayName ??
+                        enrollment.nativeAgentId ??
+                        'Agent'}{' '}
+                      · {providerLabel(enrollment.provider)}
+                    </span>
                     <time dateTime={enrollment.updatedAt}>
                       {new Date(enrollment.updatedAt).toLocaleDateString('zh-CN')}
                     </time>

@@ -60,6 +60,7 @@ const sensitiveDraft = parseRuntimeEnrollmentPairing({
     schemaVersion: 1,
     provider: 'openclaw',
     nativeAgentId: 'main',
+    runtimeInstanceId: 'runtime-test',
     profileDraft: { prompt: 'secret instructions' },
   },
 });

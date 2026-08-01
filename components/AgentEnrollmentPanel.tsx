@@ -3,6 +3,12 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import {
+  AGENT_PROVIDER_CATALOG,
+  buildRuntimePairingCommand,
+  providerLabel,
+} from '@/lib/agent-provider-catalog';
+import type { AgentProvider } from '@/lib/provider-binding-contract';
 import { welcomeAgentHref } from '@/lib/classroom-welcome';
 import AgentAppearancePicker, {
   APPEARANCE_PRESET_LABELS,
@@ -31,7 +37,8 @@ interface AgentEnrollment {
   id: string;
   status: EnrollmentStatus;
   draftProfile?: AgentDraft;
-  provider?: 'openclaw';
+  provider?: AgentProvider;
+  runtimeInstanceId?: string;
   nativeAgentId?: string;
   pairingExpiresAt?: string;
   pairingExpired?: boolean;
@@ -67,15 +74,6 @@ const VARIANT_LABELS: Record<CharacterVariant, string> = {
   genderless: '无性别孩子外观',
 };
 
-const PLUGIN_BETA_VERSION = 'v0.5.0-beta.3';
-const PLUGIN_INSTALL_COMMAND = [
-  `openclaw plugins install 'git:https://github.com/oWinnieo/oc-kindergarten-openclaw-plugin.git#${PLUGIN_BETA_VERSION}' --force`,
-  'openclaw plugins enable oc-kindergarten-bridge',
-  `openclaw config set 'plugins.entries["oc-kindergarten-bridge"].hooks.allowConversationAccess' true --strict-json`,
-  `openclaw config set 'plugins.entries["oc-kindergarten-bridge"].config.shareAssistantMessages' true --strict-json`,
-  'openclaw gateway restart',
-].join('\n');
-
 function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
   const draft = enrollment.draftProfile;
   return {
@@ -87,13 +85,6 @@ function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
     appearancePreset: 'classic',
     color: draft?.color ?? '#6576d8',
   };
-}
-
-function pairingCommand(code: string, nativeAgentId: string) {
-  return [
-    `openclaw kindergarten pair ${code} --agent ${nativeAgentId}`,
-    'openclaw gateway restart',
-  ].join('\n');
 }
 
 async function responseBody(response: Response) {
@@ -114,12 +105,14 @@ export default function AgentEnrollmentPanel() {
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [notice, setNotice] = useState('');
+  const [newProvider, setNewProvider] = useState<AgentProvider>('hermes');
   const [pairingSecrets, setPairingSecrets] = useState<
     Record<string, PairingSecret>
   >({});
   const [nativeAgentIds, setNativeAgentIds] = useState<Record<string, string>>(
     {},
   );
+  const [shareReplies, setShareReplies] = useState<Record<string, boolean>>({});
   const [activationDrafts, setActivationDrafts] = useState<
     Record<string, ActivationDraft>
   >({});
@@ -192,7 +185,10 @@ export default function AgentEnrollmentPanel() {
           item.id === enrollmentId ? body.enrollment! : item,
         ),
       );
-      setNotice('配对码已生成，请在 15 分钟内到 OpenClaw 主机执行命令。');
+      const provider = body.enrollment.provider ?? 'openclaw';
+      setNotice(
+        `配对码已生成，请在 15 分钟内到 ${providerLabel(provider)} 主机执行命令。`,
+      );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '生成配对码失败');
     } finally {
@@ -200,12 +196,16 @@ export default function AgentEnrollmentPanel() {
     }
   };
 
-  const createEnrollment = async () => {
+  const createEnrollment = async (provider: AgentProvider) => {
     setBusyId('new');
     setNotice('');
     try {
       const body = await responseBody(
-        await fetch('/api/enrollments', { method: 'POST' }),
+        await fetch('/api/enrollments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ provider }),
+        }),
       );
       if (!body.enrollment) throw new Error('服务器没有返回入园申请');
       setEnrollments((current) => [body.enrollment!, ...current]);
@@ -237,6 +237,11 @@ export default function AgentEnrollmentPanel() {
         delete next[enrollment.id];
         return next;
       });
+      setShareReplies((current) => {
+        const next = { ...current };
+        delete next[enrollment.id];
+        return next;
+      });
       setActivationDrafts((current) => {
         const next = { ...current };
         delete next[enrollment.id];
@@ -250,30 +255,43 @@ export default function AgentEnrollmentPanel() {
     }
   };
 
-  const copyCommand = async (enrollmentId: string) => {
+  const copyCommand = async (enrollment: AgentEnrollment) => {
+    const enrollmentId = enrollment.id;
     const secret = pairingSecrets[enrollmentId];
     const nativeAgentId = nativeAgentIds[enrollmentId]?.trim();
-    if (!secret || !nativeAgentId) return;
-    if (!/^[A-Za-z0-9][A-Za-z0-9._:-]*$/.test(nativeAgentId)) {
+    const provider = enrollment.provider ?? 'openclaw';
+    if (!secret || (provider === 'openclaw' && !nativeAgentId)) return;
+    if (
+      provider === 'openclaw' &&
+      !/^[A-Za-z0-9][A-Za-z0-9._:-]*$/.test(nativeAgentId ?? '')
+    ) {
       setNotice('OpenClaw Agent ID 格式不正确');
       return;
     }
     try {
       await navigator.clipboard.writeText(
-        pairingCommand(secret.code, nativeAgentId),
+        buildRuntimePairingCommand({
+          provider,
+          pairingCode: secret.code,
+          endpoint: window.location.origin,
+          nativeAgentId,
+          shareReplies: shareReplies[enrollmentId] ?? false,
+        }),
       );
-      setNotice('配对命令已复制。请到安装 OpenClaw 的树莓派终端执行。');
+      setNotice(
+        `配对命令已复制。请到安装 ${providerLabel(provider)} 的终端执行。`,
+      );
     } catch {
       setNotice('浏览器无法复制，请手动复制命令。');
     }
   };
 
-  const copyPluginInstallCommand = async () => {
+  const copyPluginInstallCommand = async (provider: AgentProvider) => {
     try {
-      await navigator.clipboard.writeText(PLUGIN_INSTALL_COMMAND);
-      setNotice(
-        '插件安装命令已复制，包含回复气泡所需的会话访问开关。beta.3 支持在同一 Gateway 配对多个 Agent。',
+      await navigator.clipboard.writeText(
+        AGENT_PROVIDER_CATALOG[provider].installCommand,
       );
+      setNotice(`${providerLabel(provider)} 插件安装命令已复制。`);
     } catch {
       setNotice('浏览器无法复制，请手动复制插件安装命令。');
     }
@@ -346,6 +364,8 @@ export default function AgentEnrollmentPanel() {
     }
   };
 
+  const selectedProvider = AGENT_PROVIDER_CATALOG[newProvider];
+
   return (
     <section className="parentCard agentEnrollmentPanel">
       <div className="parentCardHeading">
@@ -357,7 +377,7 @@ export default function AgentEnrollmentPanel() {
           className="parentPrimaryAction"
           type="button"
           disabled={busyId !== null}
-          onClick={() => void createEnrollment()}
+          onClick={() => void createEnrollment(newProvider)}
         >
           {busyId === 'new' ? '创建中…' : '添加 AI Agent'}
         </button>
@@ -366,22 +386,44 @@ export default function AgentEnrollmentPanel() {
         配对码只能使用一次，15 分钟后失效。Agent 提交的资料只是草稿，必须由你确认后才会公开。
       </p>
 
+      <fieldset className="agentVariantField">
+        <legend>你使用哪个 Agent runtime？</legend>
+        <div className="agentVariantOptions">
+          {(['hermes', 'openclaw'] as AgentProvider[]).map((provider) => (
+            <label key={provider}>
+              <input
+                type="radio"
+                name="new-agent-provider"
+                value={provider}
+                checked={newProvider === provider}
+                onChange={() => setNewProvider(provider)}
+              />
+              <span>{providerLabel(provider)}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
       <div className="agentPairingBox agentPluginSetup">
         <div>
           <span className="agentPluginStep">首次使用 · Private beta</span>
-          <h3>先在 OpenClaw 主机安装入园插件</h3>
+          <h3>先在 {selectedProvider.label} 主机安装入园插件</h3>
         </div>
         <p>
-          需要 OpenClaw 2026.7.1-2 或更高版本并能访问插件仓库。同一台主机无需重复安装；
-          命令会允许插件读取并发送最多 280 字的清洗后回复摘要，用于教室气泡。beta.3 会按
-          OpenClaw Agent ID 分别保存 scoped credential，同一 Gateway 可以配对多个 Agent。
+          已测试版本：{selectedProvider.minimumVersion}。同一 profile 无需重复安装。
+          {selectedProvider.restartCopy}
+          {newProvider === 'hermes'
+            ? ' 回复气泡默认关闭，只有配对时主动勾选才会发送清洗后的 280 字摘要。'
+            : ' OpenClaw 插件会按 Agent ID 分别保存 scoped credential。'}
         </p>
-        <code className="agentPairingCommand">{PLUGIN_INSTALL_COMMAND}</code>
+        <code className="agentPairingCommand">
+          {selectedProvider.installCommand}
+        </code>
         <div className="agentPairingActions">
           <button
             className="parentSecondaryAction"
             type="button"
-            onClick={() => void copyPluginInstallCommand()}
+            onClick={() => void copyPluginInstallCommand(newProvider)}
           >
             复制插件安装命令
           </button>
@@ -400,11 +442,19 @@ export default function AgentEnrollmentPanel() {
         {enrollments.map((enrollment, index) => {
           const secret = pairingSecrets[enrollment.id];
           const nativeAgentId = nativeAgentIds[enrollment.id] ?? '';
+          const provider = enrollment.provider ?? 'openclaw';
+          const providerCatalog = AGENT_PROVIDER_CATALOG[provider];
           const command = secret
-            ? pairingCommand(
-                secret.code,
-                nativeAgentId.trim() || 'YOUR_AGENT_ID',
-              )
+            ? buildRuntimePairingCommand({
+                provider,
+                pairingCode: secret.code,
+                endpoint:
+                  typeof window === 'undefined'
+                    ? 'https://YOUR_KINDERGARTEN_HOST'
+                    : window.location.origin,
+                nativeAgentId: nativeAgentId.trim() || undefined,
+                shareReplies: shareReplies[enrollment.id] ?? false,
+              })
             : '';
           const activation = activationDrafts[enrollment.id];
           return (
@@ -420,7 +470,7 @@ export default function AgentEnrollmentPanel() {
                     {enrollment.status === 'draft'
                       ? '准备配对'
                       : enrollment.status === 'awaiting_pairing'
-                        ? '等待 OpenClaw'
+                        ? `等待 ${providerCatalog.label}`
                         : enrollment.status === 'pending_parent_confirmation'
                           ? '等待主人确认'
                           : enrollment.status === 'active'
@@ -465,26 +515,50 @@ export default function AgentEnrollmentPanel() {
                           minute: '2-digit',
                         })}
                       </p>
-                      <label>
-                        <span>要配对的 OpenClaw Agent ID</span>
-                        <input
-                          value={nativeAgentId}
-                          placeholder="例如 main、design 或 frontend"
-                          onChange={(event) =>
-                            setNativeAgentIds((current) => ({
-                              ...current,
-                              [enrollment.id]: event.target.value,
-                            }))
-                          }
-                        />
-                      </label>
+                      {providerCatalog.needsNativeAgentId ? (
+                        <label>
+                          <span>要配对的 {providerCatalog.identityLabel}</span>
+                          <input
+                            value={nativeAgentId}
+                            placeholder="例如 main、design 或 frontend"
+                            onChange={(event) =>
+                              setNativeAgentIds((current) => ({
+                                ...current,
+                                [enrollment.id]: event.target.value,
+                              }))
+                            }
+                          />
+                        </label>
+                      ) : (
+                        <>
+                          <p>
+                            Hermes 会为当前 profile 生成稳定 identity；profile 的可见名称不会作为全局唯一键。
+                          </p>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={shareReplies[enrollment.id] ?? false}
+                              onChange={(event) =>
+                                setShareReplies((current) => ({
+                                  ...current,
+                                  [enrollment.id]: event.target.checked,
+                                }))
+                              }
+                            />
+                            <span>允许发送清洗并截断到 280 字的最终回复气泡（可选）</span>
+                          </label>
+                        </>
+                      )}
                       <code className="agentPairingCommand">{command}</code>
                       <div className="agentPairingActions">
                         <button
                           className="parentPrimaryAction"
                           type="button"
-                          disabled={!nativeAgentId.trim()}
-                          onClick={() => void copyCommand(enrollment.id)}
+                          disabled={
+                            providerCatalog.needsNativeAgentId &&
+                            !nativeAgentId.trim()
+                          }
+                          onClick={() => void copyCommand(enrollment)}
                         >
                           复制配对命令
                         </button>
@@ -522,7 +596,8 @@ export default function AgentEnrollmentPanel() {
                   onSubmit={(event) => void activate(event, enrollment)}
                 >
                   <p>
-                    OpenClaw Agent：<strong>{enrollment.nativeAgentId}</strong>。请检查并决定哪些资料公开。
+                    {providerCatalog.identityLabel}：
+                    <strong>{enrollment.nativeAgentId}</strong>。请检查并决定哪些资料公开。
                   </p>
                   <label>
                     <span>Agent 展示名</span>
@@ -636,7 +711,8 @@ export default function AgentEnrollmentPanel() {
                   <div>
                     <strong>{enrollment.agent.displayName} 已入园</strong>
                     <p>
-                      OpenClaw ID：{enrollment.nativeAgentId} · 外观：
+                      {providerCatalog.label} · {providerCatalog.identityLabel}：
+                      {enrollment.nativeAgentId} · 外观：
                       {VARIANT_LABELS[enrollment.agent.characterVariant]} ·{' '}
                       {APPEARANCE_PRESET_LABELS[
                         enrollment.agent.appearancePreset ?? 'classic'

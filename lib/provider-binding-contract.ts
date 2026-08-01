@@ -4,7 +4,7 @@ import {
 } from './agent-registry-contract';
 
 export const PROVIDER_BINDING_SCHEMA_VERSION = 1 as const;
-export const AGENT_PROVIDERS = ['openclaw'] as const;
+export const AGENT_PROVIDERS = ['openclaw', 'hermes'] as const;
 export const PROVIDER_BINDING_STATUSES = [
   'pending_claim',
   'active',
@@ -14,6 +14,31 @@ export const PROVIDER_BINDING_STATUSES = [
 export type AgentProvider = (typeof AGENT_PROVIDERS)[number];
 export type ProviderBindingStatus =
   (typeof PROVIDER_BINDING_STATUSES)[number];
+
+export interface RuntimeIdentity {
+  provider: AgentProvider;
+  runtimeInstanceId: string;
+  nativeAgentId: string;
+}
+
+export function sameRuntimeIdentity(
+  left: RuntimeIdentity,
+  right: RuntimeIdentity,
+): boolean {
+  return (
+    left.provider === right.provider &&
+    left.runtimeInstanceId === right.runtimeInstanceId &&
+    left.nativeAgentId === right.nativeAgentId
+  );
+}
+
+export function runtimeIdentityKey(identity: RuntimeIdentity): string {
+  return JSON.stringify([
+    identity.provider,
+    identity.runtimeInstanceId,
+    identity.nativeAgentId,
+  ]);
+}
 
 export interface ProviderAgentDraft {
   displayName?: string;
@@ -25,11 +50,8 @@ export interface ProviderAgentDraft {
   color?: string;
 }
 
-export interface ProviderAgentDiscoveryInput {
+export interface ProviderAgentDiscoveryInput extends RuntimeIdentity {
   schemaVersion: typeof PROVIDER_BINDING_SCHEMA_VERSION;
-  provider: AgentProvider;
-  nativeAgentId: string;
-  runtimeInstanceId?: string;
   adapterVersion?: string;
   profileDraft?: ProviderAgentDraft;
 }
@@ -38,7 +60,7 @@ export interface ProviderAgentBindingView {
   bindingId: string;
   provider: AgentProvider;
   nativeAgentId: string;
-  runtimeInstanceId?: string;
+  runtimeInstanceId: string;
   adapterVersion?: string;
   status: ProviderBindingStatus;
   resolution: 'active' | 'pending_binding' | 'revoked_binding';
@@ -201,7 +223,7 @@ export function parseProviderAgentDiscovery(
     128,
   );
   if (!nativeAgentId.ok) return nativeAgentId;
-  const runtimeInstanceId = optionalString(
+  const runtimeInstanceId = requiredString(
     input.runtimeInstanceId,
     'runtimeInstanceId',
     128,
@@ -221,9 +243,7 @@ export function parseProviderAgentDiscovery(
       schemaVersion: PROVIDER_BINDING_SCHEMA_VERSION,
       provider: input.provider as AgentProvider,
       nativeAgentId: nativeAgentId.value,
-      ...(runtimeInstanceId.value === undefined
-        ? {}
-        : { runtimeInstanceId: runtimeInstanceId.value }),
+      runtimeInstanceId: runtimeInstanceId.value,
       ...(adapterVersion.value === undefined
         ? {}
         : { adapterVersion: adapterVersion.value }),

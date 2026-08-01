@@ -11,6 +11,7 @@
   },
   "include": [
     "./verify-openclaw-adapters.ts",
+    "./verify-hermes-adapter.ts",
     "./verify-agent-registry.ts",
     "./verify-agent-appearance.ts",
     "./verify-provider-binding.ts",

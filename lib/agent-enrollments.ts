@@ -29,6 +29,7 @@ import {
   runtimeCredentials,
 } from './db/schema';
 import { parseProviderAgentDraft } from './provider-binding-contract';
+import type { AgentProvider } from './provider-binding-contract';
 import { generateRuntimeCredential } from './runtime-credential-contract';
 
 const OPEN_ENROLLMENT_STATUSES: AgentEnrollmentStatus[] = [
@@ -77,6 +78,7 @@ type EnrollmentViewRow = {
   status: string;
   draftProfile: unknown;
   provider: string | null;
+  runtimeInstanceId: string | null;
   nativeAgentId: string | null;
   pairingExpiresAt: Date | null;
   pairedAt: Date | null;
@@ -102,6 +104,7 @@ const enrollmentViewSelection = {
   status: agentEnrollments.status,
   draftProfile: agentEnrollments.draftProfile,
   provider: agentEnrollments.provider,
+  runtimeInstanceId: agentEnrollments.runtimeInstanceId,
   nativeAgentId: agentEnrollments.nativeAgentId,
   pairingExpiresAt: agentEnrollments.pairingExpiresAt,
   pairedAt: agentEnrollments.pairedAt,
@@ -232,6 +235,9 @@ function rowToEnrollmentView(
     ...(row.provider === null
       ? {}
       : { provider: row.provider as AgentEnrollmentView['provider'] }),
+    ...(row.runtimeInstanceId === null
+      ? {}
+      : { runtimeInstanceId: row.runtimeInstanceId }),
     ...(row.nativeAgentId === null
       ? {}
       : { nativeAgentId: row.nativeAgentId }),
@@ -315,6 +321,7 @@ export async function deleteAgentEnrollment(
 
 export async function createAgentEnrollment(
   parentUserId: string,
+  provider: AgentProvider = 'openclaw',
 ): Promise<AgentEnrollmentView> {
   const { database } = getDatabaseClient();
   const countRows = await database
@@ -334,7 +341,7 @@ export async function createAgentEnrollment(
   }
   const rows = await database
     .insert(agentEnrollments)
-    .values({ parentUserId, status: 'draft' })
+    .values({ parentUserId, status: 'draft', provider })
     .returning({ id: agentEnrollments.id });
   const id = rows[0]?.id;
   if (!id) throw new Error('Agent enrollment 写入后未返回记录');
@@ -361,7 +368,7 @@ export async function issueAgentPairingCode(
     .set({
       status: 'awaiting_pairing',
       draftProfile: null,
-      provider: null,
+      runtimeInstanceId: null,
       nativeAgentId: null,
       pairingCodeHash,
       pairingExpiresAt: expiresAt,
@@ -399,6 +406,7 @@ export async function pairRuntimeAgent(
   enrollmentId: string;
   status: 'pending_parent_confirmation';
   provider: string;
+  runtimeInstanceId: string;
   nativeAgentId: string;
   credential: {
     token: string;
@@ -431,12 +439,22 @@ export async function pairRuntimeAgent(
     }
 
     const discovery = input.discovery;
+    if (enrollment.provider && enrollment.provider !== discovery.provider) {
+      throw new AgentEnrollmentError(
+        'invalid_state',
+        '配对 runtime 与入园申请选择的 provider 不一致',
+      );
+    }
     const conflictingEnrollments = await transaction
       .select({ id: agentEnrollments.id })
       .from(agentEnrollments)
       .where(
         and(
           eq(agentEnrollments.provider, discovery.provider),
+          eq(
+            agentEnrollments.runtimeInstanceId,
+            discovery.runtimeInstanceId,
+          ),
           eq(agentEnrollments.nativeAgentId, discovery.nativeAgentId),
           ne(agentEnrollments.id, enrollment.id),
           inArray(agentEnrollments.status, CLAIMED_ENROLLMENT_STATUSES),
@@ -456,6 +474,10 @@ export async function pairRuntimeAgent(
       .where(
         and(
           eq(providerAgentBindings.provider, discovery.provider),
+          eq(
+            providerAgentBindings.runtimeInstanceId,
+            discovery.runtimeInstanceId,
+          ),
           eq(providerAgentBindings.nativeAgentId, discovery.nativeAgentId),
         ),
       )
@@ -496,8 +518,6 @@ export async function pairRuntimeAgent(
       await transaction
         .update(providerAgentBindings)
         .set({
-          runtimeInstanceId:
-            discovery.runtimeInstanceId ?? binding.runtimeInstanceId,
           adapterVersion: discovery.adapterVersion ?? binding.adapterVersion,
           discoveryDraft: draftProfile,
           status: preserveTechnicalBinding ? 'active' : 'pending_claim',
@@ -554,6 +574,7 @@ export async function pairRuntimeAgent(
         status: 'pending_parent_confirmation',
         draftProfile,
         provider: discovery.provider,
+        runtimeInstanceId: discovery.runtimeInstanceId,
         nativeAgentId: discovery.nativeAgentId,
         pairingCodeHash: null,
         pairingExpiresAt: null,
@@ -566,6 +587,7 @@ export async function pairRuntimeAgent(
       enrollmentId: enrollment.id,
       status: 'pending_parent_confirmation',
       provider: discovery.provider,
+      runtimeInstanceId: discovery.runtimeInstanceId,
       nativeAgentId: discovery.nativeAgentId,
       credential: {
         token: issuedCredential.token,
@@ -601,6 +623,7 @@ export async function activateAgentEnrollment(
     if (
       enrollment.status !== 'pending_parent_confirmation' ||
       !enrollment.provider ||
+      !enrollment.runtimeInstanceId ||
       !enrollment.nativeAgentId
     ) {
       throw new AgentEnrollmentError(
@@ -615,6 +638,10 @@ export async function activateAgentEnrollment(
       .where(
         and(
           eq(providerAgentBindings.provider, enrollment.provider),
+          eq(
+            providerAgentBindings.runtimeInstanceId,
+            enrollment.runtimeInstanceId,
+          ),
           eq(providerAgentBindings.nativeAgentId, enrollment.nativeAgentId),
         ),
       )
@@ -920,6 +947,7 @@ export async function changeAgentEnrollmentLifecycle(
         !binding ||
         binding.status !== expectedBindingStatus ||
         binding.provider !== enrollment.provider ||
+        binding.runtimeInstanceId !== enrollment.runtimeInstanceId ||
         binding.nativeAgentId !== enrollment.nativeAgentId
       ) {
         throw new AgentEnrollmentError(
@@ -949,6 +977,7 @@ export async function changeAgentEnrollmentLifecycle(
       if (
         action === 'archive' &&
         enrollment.provider &&
+        enrollment.runtimeInstanceId &&
         enrollment.nativeAgentId
       ) {
         await transaction
@@ -957,6 +986,10 @@ export async function changeAgentEnrollmentLifecycle(
           .where(
             and(
               eq(providerAgentBindings.provider, enrollment.provider),
+              eq(
+                providerAgentBindings.runtimeInstanceId,
+                enrollment.runtimeInstanceId,
+              ),
               eq(
                 providerAgentBindings.nativeAgentId,
                 enrollment.nativeAgentId,

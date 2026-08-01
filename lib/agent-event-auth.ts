@@ -7,6 +7,20 @@ import {
   runtimeCredentials,
 } from './db/schema';
 import { hashRuntimeCredentialToken } from './runtime-credential-contract';
+import type { RuntimeIdentity } from './provider-binding-contract';
+
+export function runtimeCredentialScopeMatches(
+  binding: RuntimeIdentity,
+  credentialRuntimeInstanceId: string,
+  scope: RuntimeIdentity,
+): boolean {
+  return (
+    binding.provider === scope.provider &&
+    binding.runtimeInstanceId === scope.runtimeInstanceId &&
+    binding.nativeAgentId === scope.nativeAgentId &&
+    credentialRuntimeInstanceId === scope.runtimeInstanceId
+  );
+}
 
 function equalToken(actual: string, expected: string): boolean {
   const actualBuffer = Buffer.from(actual);
@@ -33,18 +47,20 @@ function bearerToken(request: Request): string {
 
 export async function authorizeRuntimeCredentialRequest(
   request: Request,
-  scope: {
-    provider: string;
-    nativeAgentId: string;
-    runtimeInstanceId?: string;
-  },
+  scope: RuntimeIdentity,
 ): Promise<boolean> {
   if (authorizeAgentEventRequest(request)) return true;
   const tokenHash = hashRuntimeCredentialToken(bearerToken(request));
   if (!tokenHash) return false;
   const { database } = getDatabaseClient();
   const rows = await database
-    .select({ id: runtimeCredentials.id })
+    .select({
+      id: runtimeCredentials.id,
+      credentialRuntimeInstanceId: runtimeCredentials.runtimeInstanceId,
+      provider: providerAgentBindings.provider,
+      bindingRuntimeInstanceId: providerAgentBindings.runtimeInstanceId,
+      nativeAgentId: providerAgentBindings.nativeAgentId,
+    })
     .from(runtimeCredentials)
     .innerJoin(
       providerAgentBindings,
@@ -56,21 +72,36 @@ export async function authorizeRuntimeCredentialRequest(
         eq(runtimeCredentials.status, 'active'),
         ne(providerAgentBindings.status, 'revoked'),
         eq(providerAgentBindings.provider, scope.provider),
+        eq(
+          providerAgentBindings.runtimeInstanceId,
+          scope.runtimeInstanceId,
+        ),
         eq(providerAgentBindings.nativeAgentId, scope.nativeAgentId),
+        eq(runtimeCredentials.runtimeInstanceId, scope.runtimeInstanceId),
       ),
     )
     .limit(1);
   const credential = rows[0];
-  if (!credential) return false;
+  if (
+    !credential ||
+    !runtimeCredentialScopeMatches(
+      {
+        provider: credential.provider as RuntimeIdentity['provider'],
+        runtimeInstanceId: credential.bindingRuntimeInstanceId,
+        nativeAgentId: credential.nativeAgentId,
+      },
+      credential.credentialRuntimeInstanceId,
+      scope,
+    )
+  ) {
+    return false;
+  }
   const now = new Date();
   await database
     .update(runtimeCredentials)
     .set({
       lastUsedAt: now,
       updatedAt: now,
-      ...(scope.runtimeInstanceId === undefined
-        ? {}
-        : { runtimeInstanceId: scope.runtimeInstanceId }),
     })
     .where(eq(runtimeCredentials.id, credential.id));
   return true;

@@ -1,9 +1,38 @@
 # OC Kindergarten Operations
 
+## Provider-neutral runtime identity rollout
+
+Migration `drizzle/0009_polite_colleen_wing.sql` changes binding identity to
+`(provider, runtime_instance_id, native_agent_id)`. Before deployment, pause new
+pairing and create a PostgreSQL custom-format backup. Existing non-empty OpenClaw
+runtime IDs are preserved; null legacy/internal bindings receive the explicit
+`legacy:binding:<uuid>` namespace, and linked enrollment/credential rows are
+backfilled from that binding.
+
+After migration, verify all of the following before resuming pairing:
+
+```sql
+SELECT count(*) FROM provider_agent_bindings
+WHERE runtime_instance_id IS NULL OR btrim(runtime_instance_id) = '';
+
+SELECT count(*) FROM runtime_credentials c
+JOIN provider_agent_bindings b ON b.id = c.binding_id
+WHERE c.runtime_instance_id <> b.runtime_instance_id;
+
+SELECT provider, runtime_instance_id, native_agent_id, count(*)
+FROM provider_agent_bindings
+GROUP BY 1, 2, 3 HAVING count(*) > 1;
+```
+
+三项必须都是零。随后运行 `yarn verify:runtime`、typecheck、生产 build，并分别验证现有
+OpenClaw event 与 Hermes `/api/runtime/events`。回滚应用时可以保留新列和索引；若必须回滚
+数据库，应先停止所有新 pairing 和 provider event，恢复迁移前备份，且在三元组鉴权重新上线
+前不得重新开放 Hermes。
+
 ## Scoped OpenClaw credential rollout
 
 内测插件从 `v0.5.0-beta.1` 起不再接收服务器全局 Agent event token。每次成功使用一次性
-配对码时，服务端为对应 `provider + nativeAgentId` binding 签发一个
+配对码时，服务端为对应 `provider + runtimeInstanceId + nativeAgentId` binding 签发一个
 `ockg_rt_...` scoped credential；数据库只保存带 domain separation 的 SHA-256 hash。再次为
 同一 binding 配对会撤销旧 credential 并签发新值。
 
