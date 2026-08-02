@@ -270,7 +270,7 @@ test "${scoped_discovery_status}" = "202"
 wrong_identity_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
   -H "Authorization: Bearer ${runtime_credential}" \
   -H 'Content-Type: application/json' \
-  --data-binary '{"schemaVersion":1,"provider":"openclaw","nativeAgentId":"another-agent"}' \
+  --data-binary '{"schemaVersion":1,"provider":"openclaw","nativeAgentId":"another-agent","runtimeInstanceId":"verification-runtime"}' \
   "${PUBLIC_ORIGIN}/api/runtime/agents/discover")"
 test "${wrong_identity_status}" = "401"
 
@@ -750,7 +750,7 @@ other_claim_pairing_code="$(printf '%s' "${other_claim_code_json}" | jq -er '.pa
 other_claim_pair_json="$(jq -cn \
   --arg pairing_code "${other_claim_pairing_code}" \
   --arg native_agent "${test_native_agent}" \
-  '{schemaVersion:1,pairingCode:$pairing_code,discovery:{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,profileDraft:{displayName:"Cross-owner claim"}}}')"
+  '{schemaVersion:1,pairingCode:$pairing_code,discovery:{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,runtimeInstanceId:"verification-runtime",profileDraft:{displayName:"Cross-owner claim"}}}')"
 other_claim_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
   -H 'Content-Type: application/json' \
   --data-binary "${other_claim_pair_json}" \
