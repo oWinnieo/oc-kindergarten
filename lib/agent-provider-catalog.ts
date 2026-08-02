@@ -1,6 +1,6 @@
 import type { AgentProvider } from './provider-binding-contract';
 
-const OPENCLAW_PLUGIN_VERSION = 'v0.5.0-beta.3';
+const OPENCLAW_PLUGIN_VERSION = 'v0.5.0-beta.4';
 export const HERMES_PLUGIN_VERSION = 'v0.1.0-beta.1';
 export const HERMES_PLUGIN_COMMIT =
   '9e32d7619c5b9b331704c725ff43ef5bebd8a0e6';
@@ -57,8 +57,8 @@ export const AGENT_PROVIDER_CATALOG: Record<
     identityLabel: 'OpenClaw Agent ID',
     needsNativeAgentId: true,
     installCommand: OPENCLAW_INSTALL_COMMAND,
-    statusCommand: 'openclaw plugins list',
-    doctorCommand: 'openclaw gateway status',
+    statusCommand: 'openclaw kindergarten status',
+    doctorCommand: 'openclaw plugins doctor',
     restartCopy: '安装、升级或新增 hook 权限后需要重启 Gateway。',
   },
 };

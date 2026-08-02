@@ -255,6 +255,10 @@ button:focus-visible {
   gap: 22px;
 }
 
+.betaGuideStep > div:last-child {
+  min-width: 0;
+}
+
 .betaGuideStepNumber {
   width: 44px;
   height: 44px;
@@ -298,10 +302,12 @@ button:focus-visible {
   color: #205f82;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.92em;
+  overflow-wrap: anywhere;
 }
 
 .betaGuideCode {
   overflow-x: auto;
+  max-width: 100%;
   margin: 18px 0;
   border-radius: 6px;
   padding: 18px;
