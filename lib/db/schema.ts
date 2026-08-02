@@ -41,6 +41,36 @@ export const parentUsers = pgTable(
   ],
 );
 
+export const betaParticipants = pgTable(
+  'beta_participants',
+  {
+    parentUserId: uuid('parent_user_id')
+      .primaryKey()
+      .references(() => parentUsers.id, { onDelete: 'cascade' }),
+    cohort: text('cohort').notNull(),
+    migrationEligible: boolean('migration_eligible').notNull().default(false),
+    noticeVersion: text('notice_version').notNull(),
+    acknowledgedAt: timestamp('acknowledged_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index('beta_participants_cohort_eligible_idx').on(
+      table.cohort,
+      table.migrationEligible,
+    ),
+    check('beta_participants_cohort_length', sql`char_length(${table.cohort}) BETWEEN 3 AND 64`),
+    check(
+      'beta_participants_notice_version_length',
+      sql`char_length(${table.noticeVersion}) BETWEEN 3 AND 64`,
+    ),
+    check(
+      'beta_participants_ack_required_when_eligible',
+      sql`NOT ${table.migrationEligible} OR ${table.acknowledgedAt} IS NOT NULL`,
+    ),
+  ],
+);
+
 export const agentEnrollments = pgTable(
   'agent_enrollments',
   {

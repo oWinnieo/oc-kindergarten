@@ -1,5 +1,57 @@
 # OC Kindergarten Operations
 
+## Dev / prod 隔离与内测资料迁移
+
+每个环境必须在自己的部署目录保存 `.env`。dev 以 `.env.example` 为模板，prod 以
+`.env.prod.example` 为模板。以下值由启动保护强制检查：
+
+| 配置 | dev | prod |
+| --- | --- | --- |
+| `KINDERGARTEN_ENV` | `dev` | `prod` |
+| `COMPOSE_PROJECT_NAME` | `oc-kindergarten-dev` | `oc-kindergarten-prod` |
+| `APP_IMAGE` | `oc-kindergarten:dev` | `oc-kindergarten:prod` |
+| `MIGRATOR_IMAGE` | `oc-kindergarten-migrator:dev` | `oc-kindergarten-migrator:prod` |
+| `POSTGRES_DATA_DIR` | `/opt/persist/oc-kindergarten/dev/postgres` | `/opt/persist/oc-kindergarten/prod/postgres` |
+| `NEXT_PUBLIC_KINDERGARTEN_ENV` | `dev` | `prod` |
+
+`EXPECTED_PUBLIC_ORIGIN` 必须与 `NEXTAUTH_URL` 完全相同。dev 域名必须带 `-dev.`，prod
+域名不得带 `-dev.`。两个环境分别使用数据库密码、NextAuth secret、管理员 secret、Agent event
+token、host port、备份目录和 Casdoor OAuth client；Casdoor issuer 保持相同。修改配置后先运行：
+
+```bash
+node scripts/validate-deployment-environment.mjs
+docker compose config --quiet
+```
+
+内测主人在入园页可以选择是否进入迁移清单。选择保存在 `beta_participants`，包括 cohort、告知文案
+版本、当前迁移资格和首次确认时间；未勾选不影响参加内测。只有
+`migration_eligible = true AND acknowledged_at IS NOT NULL` 的用户会被专用工具选中。
+
+迁移工具默认 dry-run，连接只通过环境变量提供，日志不会打印连接串或个人资料：
+
+```bash
+SOURCE_KINDERGARTEN_ENV=dev \
+TARGET_KINDERGARTEN_ENV=prod \
+SOURCE_DATABASE_URL='postgresql://...' \
+TARGET_DATABASE_URL='postgresql://...' \
+yarn users:migrate --dry-run
+```
+
+两个 URL 必须指向不同数据库 endpoint。正式执行必须先完成备份、演练和人工冲突复核，再显式输入
+固定确认短语：
+
+```bash
+SOURCE_KINDERGARTEN_ENV=dev \
+TARGET_KINDERGARTEN_ENV=prod \
+SOURCE_DATABASE_URL='postgresql://...' \
+TARGET_DATABASE_URL='postgresql://...' \
+yarn users:migrate --apply --confirm=MIGRATE_ELIGIBLE_BETA_PARENTS
+```
+
+工具只插入不存在且无冲突的 `parent_users` 与对应 `beta_participants`，保留 UUID 和时间戳；若 UUID
+或 OIDC identity 在 prod 指向另一条记录，会在事务前停止。已存在的 prod 资料不会被 dev 覆盖。
+完整上线与回滚清单见 `docs/dev-to-prod-user-migration.md`。
+
 ## Provider-neutral runtime identity rollout
 
 Migration `drizzle/0009_polite_colleen_wing.sql` changes binding identity to

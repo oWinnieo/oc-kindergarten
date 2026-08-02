@@ -20,6 +20,13 @@ interface ParentProfile {
   language?: string;
 }
 
+interface BetaParticipation {
+  cohort: string;
+  migrationEligible: boolean;
+  noticeVersion: string;
+  acknowledgedAt?: string;
+}
+
 type PageState =
   | { kind: 'loading' }
   | { kind: 'signed-out' }
@@ -40,6 +47,7 @@ export default function ParentOnboarding() {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [timezone, setTimezone] = useState('');
   const [language, setLanguage] = useState('');
+  const [migrationEligible, setMigrationEligible] = useState(false);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState('');
 
@@ -55,6 +63,7 @@ export default function ParentOnboarding() {
         ok?: boolean;
         error?: string;
         parent?: ParentProfile;
+        betaParticipation?: BetaParticipation;
       };
       if (!response.ok || !body.parent) {
         throw new Error(body.error || '无法读取主人资料');
@@ -68,6 +77,7 @@ export default function ParentOnboarding() {
       setLanguage(
         parentLanguageValue(body.parent.language ?? navigator.language) || 'zh-CN',
       );
+      setMigrationEligible(body.betaParticipation?.migrationEligible ?? false);
     } catch (error) {
       setPageState({
         kind: 'error',
@@ -89,21 +99,30 @@ export default function ParentOnboarding() {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          displayName,
-          avatarUrl: avatarUrl || null,
-          timezone: timezone || null,
-          language: language || null,
+          profile: {
+            displayName,
+            avatarUrl: avatarUrl || null,
+            timezone: timezone || null,
+            language: language || null,
+          },
+          betaParticipation: { migrationEligible },
         }),
       });
       const body = (await response.json()) as {
         error?: string;
         parent?: ParentProfile;
+        betaParticipation?: BetaParticipation;
       };
       if (!response.ok || !body.parent) {
         throw new Error(body.error || '保存失败');
       }
       setPageState({ kind: 'ready', parent: body.parent });
-      setNotice('主人资料已保存。下一步可以绑定你的 AI Agent。');
+      setMigrationEligible(body.betaParticipation?.migrationEligible ?? false);
+      setNotice(
+        migrationEligible
+          ? '主人资料已保存，并已加入正式上线资料迁移清单。'
+          : '主人资料已保存；当前不会自动迁移到正式环境。',
+      );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '保存失败');
     } finally {
@@ -211,6 +230,25 @@ export default function ParentOnboarding() {
             ))}
           </select>
         </label>
+        <div className="parentBetaNotice parentFullField">
+          <strong>内测资料迁移选择</strong>
+          <p>
+            dev 与正式环境使用同一套 Casdoor 登录账号，但业务数据库彼此独立。正式上线时只迁移你在
+            Kindergarten 的基础主人资料；你需要在正式环境重新登录，OpenClaw／Hermes Agent
+            也需要重新入园配对。
+          </p>
+          <label className="parentBetaChoice">
+            <input
+              type="checkbox"
+              checked={migrationEligible}
+              onChange={(event) => setMigrationEligible(event.target.checked)}
+            />
+            <span>我已知悉以上安排，并希望把本次内测的主人基础资料迁移到正式环境。</span>
+          </label>
+          <small>
+            不勾选仍可参加内测，但不会进入自动迁移清单；上线前也可以回来修改选择。
+          </small>
+        </div>
         <div className="parentFormActions parentFullField">
           <button className="parentPrimaryAction" type="submit" disabled={saving}>
             {saving ? '保存中…' : '保存主人资料'}

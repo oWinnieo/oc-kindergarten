@@ -518,6 +518,44 @@ button:focus-visible {
   grid-column: 1 / -1;
 }
 
+.parentBetaNotice {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(41, 125, 182, 0.24);
+  border-radius: 14px;
+  padding: 16px;
+  background: rgba(231, 246, 255, 0.58);
+}
+
+.parentBetaNotice > p,
+.parentBetaNotice > small {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.parentBetaChoice {
+  display: flex !important;
+  grid-template-columns: none;
+  align-items: flex-start;
+  gap: 10px !important;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.parentForm .parentBetaChoice > input {
+  width: 18px;
+  min-height: 18px;
+  margin: 2px 0 0;
+  padding: 0;
+  flex: 0 0 18px;
+}
+
+.parentForm .parentBetaChoice > span {
+  line-height: 1.55;
+}
+
 .parentFormActions {
   display: flex;
   align-items: center;

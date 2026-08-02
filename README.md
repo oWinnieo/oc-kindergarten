@@ -36,9 +36,12 @@ docker compose up -d --build
 开发进程直接连接生产数据库。默认推荐用 Compose 启动完整开发栈，PostgreSQL 只在
 Compose 内部网络开放 `5432`。
 
-首次部署先从 `.env.example` 建立 `.env`。数据库使用独立 Compose service，并与服务器
-其他独立项目一致绑定到 `/opt/persist/oc-kindergarten/postgres`；不要把数据库端口暴露到
-公网。`docker compose up -d --build` 会等待 PostgreSQL healthcheck，再由一次性
+首次部署先为 dev 从 `.env.example` 建立 `.env`；prod 使用 `.env.prod.example`，不得复制 dev
+的数据库密码或 NextAuth secret。Compose 项目名、镜像 tag、公开 origin 和 PostgreSQL 数据目录
+都是必填隔离参数；应用与 migrator 启动时会再次校验，不匹配就失败。数据目录固定为
+`/opt/persist/oc-kindergarten/dev/postgres` 与
+`/opt/persist/oc-kindergarten/prod/postgres`，不要把数据库端口暴露到公网。
+`docker compose up -d --build` 会等待 PostgreSQL healthcheck，再由一次性
 `migrate` service 执行 `drizzle/` 中已审核的 migration，成功后才启动 Web service。
 
 常用数据库命令：
@@ -51,6 +54,8 @@ yarn db:migrate
 
 归档恢复部署、回滚以及管理员、Agent event、NextAuth 和 Casdoor secret 轮换步骤见
 [`docs/operations.md`](docs/operations.md)。
+dev/prod 数据库隔离、Casdoor 身份复用和用户资料单向迁移方案见
+[`docs/dev-to-prod-user-migration.md`](docs/dev-to-prod-user-migration.md)。
 后续开发顺序与发布门槛见 [`docs/development-plan.md`](docs/development-plan.md)。
 
 OpenClaw 生产接入推荐使用 bridge v2：插件配置 `identityMode: "server"`，不配置静态
@@ -112,8 +117,8 @@ event；恢复后保留原 binding，下一条 provider event 会自动重新入
 
 服务器首次配置可由 root 运行
 `./scripts/configure-server-database.sh /opt/docker/oc-projects/oc-kindergarten`；脚本不会输出
-数据库密码，并把数据目录设为 `0700`。备份采用 PostgreSQL custom format，默认保存到
-`/opt/persist/_backups/oc-kindergarten/`。恢复必须先停止 Web/migrate service，并在独立
+数据库密码，并把数据目录设为 `0700`。备份采用 PostgreSQL custom format，默认按环境保存到
+`/opt/persist/_backups/oc-kindergarten/dev/` 或 `prod/`。恢复必须先停止 Web/migrate service，并在独立
 数据库中演练确认后再用于生产数据，禁止通过删除 PostgreSQL 持久化目录回滚。
 
 开发页面提供全体指令、单角色指令、自动演示和路径调试。角色抵达写画桌后播放

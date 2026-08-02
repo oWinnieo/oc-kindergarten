@@ -4,12 +4,27 @@ set -eu
 project_dir=${1:-/opt/docker/oc-projects/oc-kindergarten}
 env_file="$project_dir/.env"
 backup_root=/opt/persist/_backups/oc-kindergarten
-postgres_data=/opt/persist/oc-kindergarten/postgres
 
 if [ ! -f "$env_file" ]; then
   echo "Missing environment file: $env_file" >&2
   exit 1
 fi
+
+environment_name=$(sed -n 's/^KINDERGARTEN_ENV=//p' "$env_file" | tail -n 1)
+case "$environment_name" in
+  dev|prod) ;;
+  *)
+    echo "KINDERGARTEN_ENV must be dev or prod in $env_file" >&2
+    exit 1
+    ;;
+esac
+postgres_data=$(sed -n 's/^POSTGRES_DATA_DIR=//p' "$env_file" | tail -n 1)
+expected_postgres_data="/opt/persist/oc-kindergarten/$environment_name/postgres"
+if [ "$postgres_data" != "$expected_postgres_data" ]; then
+  echo "POSTGRES_DATA_DIR must be $expected_postgres_data" >&2
+  exit 1
+fi
+backup_root="$backup_root/$environment_name"
 
 owner_uid=$(stat -c '%u' "$env_file")
 owner_gid=$(stat -c '%g' "$env_file")

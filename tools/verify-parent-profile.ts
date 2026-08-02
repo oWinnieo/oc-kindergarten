@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 
+import {
+  currentBetaCohort,
+  parseBetaParticipationInput,
+} from '../lib/beta-participation';
 import { parseParentProfilePatch } from '../lib/parent-profile-contract';
 import {
   PARENT_LANGUAGE_OPTIONS,
@@ -63,6 +67,15 @@ assert.equal(parseParentProfilePatch({ timezone: 'Mars/Olympus' }).ok, false);
 assert.equal(parseParentProfilePatch({ language: '../../../secret' }).ok, false);
 assert.equal(parseParentProfilePatch({ email: 'cannot-change@example.com' }).ok, false);
 assert.equal(parseParentProfilePatch({}).ok, false);
+
+assert.deepEqual(parseBetaParticipationInput({ migrationEligible: true }), {
+  ok: true,
+  input: { migrationEligible: true },
+});
+assert.equal(parseBetaParticipationInput({ migrationEligible: 'yes' }).ok, false);
+assert.equal(parseBetaParticipationInput({ migrationEligible: true, extra: 1 }).ok, false);
+assert.equal(currentBetaCohort({ BETA_COHORT: 'private-beta-2026' }), 'private-beta-2026');
+assert.throws(() => currentBetaCohort({ BETA_COHORT: 'Invalid Cohort' }));
 
 process.stdout.write(
   'Parent profile contract regression passed: normalization, clearing, privacy and validation\n',

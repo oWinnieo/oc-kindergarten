@@ -1,11 +1,11 @@
-name: oc-oc-kindergarten
+name: ${COMPOSE_PROJECT_NAME:?COMPOSE_PROJECT_NAME is required}
 
 services:
   oc-kindergarten:
     build:
       context: .
       dockerfile: Dockerfile
-    image: oc-kindergarten:dev
+    image: ${APP_IMAGE:?APP_IMAGE is required}
     restart: unless-stopped
     env_file:
       - .env
@@ -26,7 +26,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: migrator
-    image: oc-kindergarten-migrator:dev
+    image: ${MIGRATOR_IMAGE:?MIGRATOR_IMAGE is required}
     restart: "no"
     env_file:
       - .env
@@ -44,7 +44,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
       POSTGRES_DB: ${POSTGRES_DB:-oc_kindergarten}
     volumes:
-      - /opt/persist/oc-kindergarten/postgres:/var/lib/postgresql/data
+      - ${POSTGRES_DATA_DIR:?POSTGRES_DATA_DIR is required}:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
       interval: 5s
