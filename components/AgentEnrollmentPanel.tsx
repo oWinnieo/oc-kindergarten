@@ -4,10 +4,14 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
 import {
+  AGENT_DEPLOYMENTS,
   AGENT_PROVIDER_CATALOG,
+  buildPluginInstallCommand,
   buildRuntimePairingCommand,
+  deploymentLabel,
   providerLabel,
 } from '@/lib/agent-provider-catalog';
+import type { AgentDeployment } from '@/lib/agent-provider-catalog';
 import type { AgentProvider } from '@/lib/provider-binding-contract';
 import { welcomeAgentHref } from '@/lib/classroom-welcome';
 import AgentAppearancePicker, {
@@ -106,6 +110,7 @@ export default function AgentEnrollmentPanel() {
   const [busyId, setBusyId] = useState<string | null>(null);
   const [notice, setNotice] = useState('');
   const [newProvider, setNewProvider] = useState<AgentProvider>('hermes');
+  const [deployment, setDeployment] = useState<AgentDeployment>('docker');
   const [pairingSecrets, setPairingSecrets] = useState<
     Record<string, PairingSecret>
   >({});
@@ -272,6 +277,7 @@ export default function AgentEnrollmentPanel() {
       await navigator.clipboard.writeText(
         buildRuntimePairingCommand({
           provider,
+          deployment,
           pairingCode: secret.code,
           endpoint: window.location.origin,
           nativeAgentId,
@@ -279,7 +285,7 @@ export default function AgentEnrollmentPanel() {
         }),
       );
       setNotice(
-        `配对命令已复制。请到安装 ${providerLabel(provider)} 的终端执行。`,
+        `配对命令已复制。请在 ${deploymentLabel(deployment)} 的正确终端执行。`,
       );
     } catch {
       setNotice('浏览器无法复制，请手动复制命令。');
@@ -289,9 +295,11 @@ export default function AgentEnrollmentPanel() {
   const copyPluginInstallCommand = async (provider: AgentProvider) => {
     try {
       await navigator.clipboard.writeText(
-        AGENT_PROVIDER_CATALOG[provider].installCommand,
+        buildPluginInstallCommand({ provider, deployment }),
       );
-      setNotice(`${providerLabel(provider)} 插件安装命令已复制。`);
+      setNotice(
+        `${providerLabel(provider)} · ${deploymentLabel(deployment)} 插件安装命令已复制。`,
+      );
     } catch {
       setNotice('浏览器无法复制，请手动复制插件安装命令。');
     }
@@ -365,6 +373,10 @@ export default function AgentEnrollmentPanel() {
   };
 
   const selectedProvider = AGENT_PROVIDER_CATALOG[newProvider];
+  const selectedInstallCommand = buildPluginInstallCommand({
+    provider: newProvider,
+    deployment,
+  });
 
   return (
     <section className="parentCard agentEnrollmentPanel">
@@ -404,20 +416,49 @@ export default function AgentEnrollmentPanel() {
         </div>
       </fieldset>
 
+      <fieldset className="agentVariantField">
+        <legend>它安装在哪里？</legend>
+        <div className="agentVariantOptions agentDeploymentOptions">
+          {AGENT_DEPLOYMENTS.map((candidate) => (
+            <label key={candidate}>
+              <input
+                type="radio"
+                name="new-agent-deployment"
+                value={candidate}
+                checked={deployment === candidate}
+                onChange={() => setDeployment(candidate)}
+              />
+              <span>{deploymentLabel(candidate)}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
       <div className="agentPairingBox agentPluginSetup">
         <div>
           <span className="agentPluginStep">首次使用 · Private beta</span>
-          <h3>先在 {selectedProvider.label} 主机安装入园插件</h3>
+          <h3>
+            先在 {selectedProvider.label} · {deploymentLabel(deployment)} 安装入园插件
+          </h3>
         </div>
         <p>
           已测试版本：{selectedProvider.minimumVersion}。同一 profile 无需重复安装。
           {selectedProvider.restartCopy}
+          {deployment === 'docker'
+            ? ' 请先进入该 runtime 的 Docker Compose 目录；命令会使用持久化目录并重启对应 Gateway 服务。'
+            : ' 请使用平时运行 Gateway 的同一个系统账号。'}
+          {deployment === 'docker' && newProvider === 'hermes'
+            ? ' 命名 profile 必须先按内测指南把命令中的 HERMES_HOME 改为自己的 profile 路径。'
+            : ''}
+          {deployment === 'docker'
+            ? ' 自定义服务名或额外 Compose 文件也必须按管理员提供的值替换。'
+            : ''}
           {newProvider === 'hermes'
             ? ' 回复气泡默认关闭，只有配对时主动勾选才会发送清洗后的 280 字摘要。'
             : ' OpenClaw 插件会按 Agent ID 分别保存 scoped credential。'}
         </p>
         <code className="agentPairingCommand">
-          {selectedProvider.installCommand}
+          {selectedInstallCommand}
         </code>
         <div className="agentPairingActions">
           <button
@@ -447,6 +488,7 @@ export default function AgentEnrollmentPanel() {
           const command = secret
             ? buildRuntimePairingCommand({
                 provider,
+                deployment,
                 pairingCode: secret.code,
                 endpoint:
                   typeof window === 'undefined'

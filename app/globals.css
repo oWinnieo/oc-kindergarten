@@ -773,13 +773,14 @@ button:focus-visible {
 }
 
 .agentPairingCommand {
+  display: block;
   overflow-x: auto;
   border-radius: 9px;
   padding: 12px;
   background: #17324a;
   color: #e9f7ff;
   font-size: 12px;
-  white-space: nowrap;
+  white-space: pre;
 }
 
 .agentPairingActions,
@@ -807,6 +808,10 @@ button:focus-visible {
   padding: 14px;
 }
 
+.agentEnrollmentPanel > .agentVariantField + .agentVariantField {
+  margin-top: 12px;
+}
+
 .agentVariantField > p {
   margin: 7px 0 12px;
 }
@@ -815,6 +820,10 @@ button:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
+}
+
+.agentVariantOptions.agentDeploymentOptions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .agentVariantOptions label {
@@ -2219,7 +2228,8 @@ button:focus-visible {
   }
 
   .agentConfirmForm,
-  .agentVariantOptions {
+  .agentVariantOptions,
+  .agentVariantOptions.agentDeploymentOptions {
     grid-template-columns: 1fr;
   }
 
