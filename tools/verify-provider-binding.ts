@@ -8,6 +8,7 @@ import {
 import { parseOpenClawBridgeV2 } from '../lib/openclaw-bridge-v2';
 import {
   AGENT_PROVIDER_CATALOG,
+  buildPluginInstallCommand,
   buildRuntimePairingCommand,
   HERMES_PLUGIN_COMMIT,
   HERMES_PLUGIN_VERSION,
@@ -116,6 +117,21 @@ const hermesInstall = AGENT_PROVIDER_CATALOG.hermes.installCommand;
 assert.equal(hermesInstall.includes(`--branch ${HERMES_PLUGIN_VERSION}`), true);
 assert.equal(hermesInstall.includes(HERMES_PLUGIN_COMMIT), true);
 assert.equal(hermesInstall.includes('hermes plugins install'), false);
+const hermesDockerInstall = buildPluginInstallCommand({
+  provider: 'hermes',
+  deployment: 'docker',
+});
+assert.equal(hermesDockerInstall.includes('-e HERMES_HOME=/opt/data'), true);
+assert.equal(hermesDockerInstall.includes('docker compose restart gateway'), true);
+const openClawDockerInstall = buildPluginInstallCommand({
+  provider: 'openclaw',
+  deployment: 'docker',
+});
+assert.equal(openClawDockerInstall.includes('openclaw-cli plugins install'), true);
+assert.equal(
+  openClawDockerInstall.includes('docker compose restart openclaw-gateway'),
+  true,
+);
 assert.equal(
   buildRuntimePairingCommand({
     provider: 'hermes',
@@ -131,6 +147,25 @@ assert.equal(
     endpoint: 'https://kindergarten.example',
     shareReplies: true,
   }).includes('--share-replies'),
+  true,
+);
+assert.equal(
+  buildRuntimePairingCommand({
+    provider: 'hermes',
+    deployment: 'docker',
+    pairingCode: 'ABCDE-F0123-45678-9ABCD',
+    endpoint: 'https://kindergarten.example',
+  }).includes('docker compose exec --user hermes'),
+  true,
+);
+assert.equal(
+  buildRuntimePairingCommand({
+    provider: 'openclaw',
+    deployment: 'docker',
+    pairingCode: 'ABCDE-F0123-45678-9ABCD',
+    endpoint: 'https://kindergarten.example',
+    nativeAgentId: 'main',
+  }).includes('docker compose run --rm openclaw-cli kindergarten pair'),
   true,
 );
 
