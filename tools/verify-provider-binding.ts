@@ -120,16 +120,51 @@ assert.equal(hermesInstall.includes('hermes plugins install'), false);
 const hermesDockerInstall = buildPluginInstallCommand({
   provider: 'hermes',
   deployment: 'docker',
+  settings: {
+    composeDirectory: '/srv/hermes agent',
+    composeFiles: ['compose.yml', 'compose.private.yml'],
+    gatewayService: 'hermes-gateway',
+    hermesHome: '/opt/data/profiles/beta',
+  },
 });
-assert.equal(hermesDockerInstall.includes('-e HERMES_HOME=/opt/data'), true);
-assert.equal(hermesDockerInstall.includes('docker compose restart gateway'), true);
+assert.equal(hermesDockerInstall.startsWith("cd '/srv/hermes agent'"), true);
+assert.equal(
+  hermesDockerInstall.includes(
+    "docker compose -f 'compose.yml' -f 'compose.private.yml' exec",
+  ),
+  true,
+);
+assert.equal(
+  hermesDockerInstall.includes("-e HERMES_HOME='/opt/data/profiles/beta'"),
+  true,
+);
+assert.equal(hermesDockerInstall.includes('restart hermes-gateway'), true);
 const openClawDockerInstall = buildPluginInstallCommand({
   provider: 'openclaw',
   deployment: 'docker',
+  settings: {
+    composeDirectory: '/srv/openclaw',
+    composeFiles: ['docker-compose.yml'],
+    cliService: 'claw-cli',
+    gatewayService: 'claw-gateway',
+  },
 });
-assert.equal(openClawDockerInstall.includes('openclaw-cli plugins install'), true);
+assert.equal(openClawDockerInstall.startsWith("cd '/srv/openclaw'"), true);
+assert.equal(openClawDockerInstall.includes('claw-cli plugins install'), true);
 assert.equal(
-  openClawDockerInstall.includes('docker compose restart openclaw-gateway'),
+  openClawDockerInstall.includes(
+    "docker compose -f 'docker-compose.yml' restart claw-gateway",
+  ),
+  true,
+);
+assert.equal(
+  buildPluginInstallCommand({
+    provider: 'hermes',
+    deployment: 'host',
+    settings: { hermesHome: '/home/hermes/.hermes/profiles/beta' },
+  }).startsWith(
+    "export HERMES_HOME='/home/hermes/.hermes/profiles/beta'\n",
+  ),
   true,
 );
 assert.equal(
@@ -155,7 +190,15 @@ assert.equal(
     deployment: 'docker',
     pairingCode: 'ABCDE-F0123-45678-9ABCD',
     endpoint: 'https://kindergarten.example',
-  }).includes('docker compose exec --user hermes'),
+    settings: {
+      composeDirectory: '/srv/hermes',
+      composeFiles: ['compose.yml'],
+      gatewayService: 'hermes-gateway',
+      hermesHome: '/opt/data/profiles/beta',
+    },
+  }).includes(
+    "docker compose -f 'compose.yml' exec --user hermes -e HOME=/opt/data -e HERMES_HOME='/opt/data/profiles/beta' hermes-gateway hermes",
+  ),
   true,
 );
 assert.equal(
@@ -165,7 +208,15 @@ assert.equal(
     pairingCode: 'ABCDE-F0123-45678-9ABCD',
     endpoint: 'https://kindergarten.example',
     nativeAgentId: 'main',
-  }).includes('docker compose run --rm openclaw-cli kindergarten pair'),
+    settings: {
+      composeDirectory: '/srv/openclaw',
+      composeFiles: ['compose.yml', 'compose.local.yml'],
+      cliService: 'claw-cli',
+      gatewayService: 'claw-gateway',
+    },
+  }).includes(
+    "docker compose -f 'compose.yml' -f 'compose.local.yml' run --rm claw-cli kindergarten pair",
+  ),
   true,
 );
 

@@ -8,6 +8,14 @@ export const HERMES_PLUGIN_COMMIT =
 export const AGENT_DEPLOYMENTS = ['host', 'docker'] as const;
 export type AgentDeployment = (typeof AGENT_DEPLOYMENTS)[number];
 
+export interface RuntimeCommandSettings {
+  composeDirectory?: string;
+  composeFiles?: string[];
+  gatewayService?: string;
+  cliService?: string;
+  hermesHome?: string;
+}
+
 export interface AgentProviderCatalogEntry {
   provider: AgentProvider;
   label: string;
@@ -39,32 +47,80 @@ const HERMES_INSTALL_COMMAND = [
   'hermes gateway restart',
 ].join('\n');
 
-const OPENCLAW_DOCKER_INSTALL_COMMAND = [
-  `docker compose run --rm openclaw-cli plugins install 'git:https://github.com/oWinnieo/oc-kindergarten-openclaw-plugin.git#${OPENCLAW_PLUGIN_VERSION}' --force`,
-  'docker compose run --rm openclaw-cli plugins enable oc-kindergarten-bridge',
-  `docker compose run --rm openclaw-cli config set 'plugins.entries["oc-kindergarten-bridge"].hooks.allowConversationAccess' true --strict-json`,
-  `docker compose run --rm openclaw-cli config set 'plugins.entries["oc-kindergarten-bridge"].config.shareAssistantMessages' true --strict-json`,
-  'docker compose restart openclaw-gateway',
-  'docker compose run --rm openclaw-cli kindergarten status',
-  'docker compose run --rm openclaw-cli plugins doctor',
-].join('\n');
+function shellQuote(value: string): string {
+  return `'${value.replaceAll("'", `'"'"'`)}'`;
+}
 
-const HERMES_DOCKER_INSTALL_COMMAND = [
-  'docker compose exec --user hermes \\',
-  '  -e HOME=/opt/data \\',
-  '  -e HERMES_HOME=/opt/data \\',
-  "  gateway sh -lc '",
-  'set -eu',
-  'HERMES_PROFILE_HOME="${HERMES_HOME:-$HOME/.hermes}"',
-  'HERMES_PLUGIN_DIR="$HERMES_PROFILE_HOME/plugins/oc-kindergarten"',
-  'test ! -e "$HERMES_PLUGIN_DIR" || { echo "oc-kindergarten already exists; stop and use the tested upgrade guide"; exit 1; }',
-  `git clone --depth 1 --branch ${HERMES_PLUGIN_VERSION} https://github.com/oWinnieo/oc-kindergarten-hermes-plugin.git "$HERMES_PLUGIN_DIR"`,
-  `test "$(git -C "$HERMES_PLUGIN_DIR" rev-parse HEAD)" = "${HERMES_PLUGIN_COMMIT}" || { echo "commit verification failed"; exit 1; }`,
-  'hermes plugins enable oc-kindergarten',
-  'hermes kindergarten doctor',
-  "'",
-  'docker compose restart gateway',
-].join('\n');
+function composeCommand(settings: RuntimeCommandSettings): string {
+  const files = (settings.composeFiles ?? []).filter((file) => file.trim());
+  return [
+    'docker compose',
+    ...files.map((file) => `-f ${shellQuote(file.trim())}`),
+  ].join(' ');
+}
+
+function composeDirectoryCommand(settings: RuntimeCommandSettings): string {
+  return `cd ${shellQuote(
+    settings.composeDirectory?.trim() || 'YOUR_COMPOSE_DIRECTORY',
+  )}`;
+}
+
+function hermesHome(settings: RuntimeCommandSettings, deployment: AgentDeployment) {
+  const fallback = deployment === 'docker' ? '/opt/data' : '';
+  return settings.hermesHome?.trim() || fallback;
+}
+
+function buildHermesHostInstallCommand(settings: RuntimeCommandSettings): string {
+  const profileHome = hermesHome(settings, 'host');
+  return [
+    ...(profileHome ? [`export HERMES_HOME=${shellQuote(profileHome)}`] : []),
+    HERMES_INSTALL_COMMAND,
+  ].join('\n');
+}
+
+function buildOpenClawDockerInstallCommand(
+  settings: RuntimeCommandSettings,
+): string {
+  const compose = composeCommand(settings);
+  const cliService = settings.cliService?.trim() || 'openclaw-cli';
+  const gatewayService =
+    settings.gatewayService?.trim() || 'openclaw-gateway';
+  return [
+    composeDirectoryCommand(settings),
+    `${compose} run --rm ${cliService} plugins install 'git:https://github.com/oWinnieo/oc-kindergarten-openclaw-plugin.git#${OPENCLAW_PLUGIN_VERSION}' --force`,
+    `${compose} run --rm ${cliService} plugins enable oc-kindergarten-bridge`,
+    `${compose} run --rm ${cliService} config set 'plugins.entries["oc-kindergarten-bridge"].hooks.allowConversationAccess' true --strict-json`,
+    `${compose} run --rm ${cliService} config set 'plugins.entries["oc-kindergarten-bridge"].config.shareAssistantMessages' true --strict-json`,
+    `${compose} restart ${gatewayService}`,
+    `${compose} run --rm ${cliService} kindergarten status`,
+    `${compose} run --rm ${cliService} plugins doctor`,
+  ].join('\n');
+}
+
+function buildHermesDockerInstallCommand(
+  settings: RuntimeCommandSettings,
+): string {
+  const compose = composeCommand(settings);
+  const gatewayService = settings.gatewayService?.trim() || 'gateway';
+  const profileHome = hermesHome(settings, 'docker');
+  return [
+    composeDirectoryCommand(settings),
+    `${compose} exec --user hermes \\`,
+    '  -e HOME=/opt/data \\',
+    `  -e HERMES_HOME=${shellQuote(profileHome)} \\`,
+    `  ${gatewayService} sh -lc '`,
+    'set -eu',
+    'HERMES_PROFILE_HOME="${HERMES_HOME:-$HOME/.hermes}"',
+    'HERMES_PLUGIN_DIR="$HERMES_PROFILE_HOME/plugins/oc-kindergarten"',
+    'test ! -e "$HERMES_PLUGIN_DIR" || { echo "oc-kindergarten already exists; stop and use the tested upgrade guide"; exit 1; }',
+    `git clone --depth 1 --branch ${HERMES_PLUGIN_VERSION} https://github.com/oWinnieo/oc-kindergarten-hermes-plugin.git "$HERMES_PLUGIN_DIR"`,
+    `test "$(git -C "$HERMES_PLUGIN_DIR" rev-parse HEAD)" = "${HERMES_PLUGIN_COMMIT}" || { echo "commit verification failed"; exit 1; }`,
+    'hermes plugins enable oc-kindergarten',
+    'hermes kindergarten doctor',
+    "'",
+    `${compose} restart ${gatewayService}`,
+  ].join('\n');
+}
 
 export const AGENT_PROVIDER_CATALOG: Record<
   AgentProvider,
@@ -105,13 +161,17 @@ export function deploymentLabel(deployment: AgentDeployment): string {
 export function buildPluginInstallCommand(options: {
   provider: AgentProvider;
   deployment: AgentDeployment;
+  settings?: RuntimeCommandSettings;
 }): string {
+  const settings = options.settings ?? {};
   if (options.deployment === 'host') {
-    return AGENT_PROVIDER_CATALOG[options.provider].installCommand;
+    return options.provider === 'hermes'
+      ? buildHermesHostInstallCommand(settings)
+      : AGENT_PROVIDER_CATALOG[options.provider].installCommand;
   }
   return options.provider === 'hermes'
-    ? HERMES_DOCKER_INSTALL_COMMAND
-    : OPENCLAW_DOCKER_INSTALL_COMMAND;
+    ? buildHermesDockerInstallCommand(settings)
+    : buildOpenClawDockerInstallCommand(settings);
 }
 
 export function buildRuntimePairingCommand(options: {
@@ -121,30 +181,42 @@ export function buildRuntimePairingCommand(options: {
   endpoint: string;
   nativeAgentId?: string;
   shareReplies?: boolean;
+  settings?: RuntimeCommandSettings;
 }): string {
   const deployment = options.deployment ?? 'host';
+  const settings = options.settings ?? {};
   if (options.provider === 'hermes') {
-    const pairArguments = `kindergarten pair ${options.pairingCode} --endpoint ${options.endpoint}${
+    const pairArguments = `kindergarten pair ${options.pairingCode} --endpoint ${shellQuote(options.endpoint)}${
       options.shareReplies ? ' --share-replies' : ''
     }`;
     if (deployment === 'docker') {
+      const compose = composeCommand(settings);
+      const gatewayService = settings.gatewayService?.trim() || 'gateway';
+      const profileHome = hermesHome(settings, 'docker');
       return [
-        'docker compose exec --user hermes -e HOME=/opt/data -e HERMES_HOME=/opt/data gateway hermes ' +
-          pairArguments,
-        'docker compose restart gateway',
+        composeDirectoryCommand(settings),
+        `${compose} exec --user hermes -e HOME=/opt/data -e HERMES_HOME=${shellQuote(profileHome)} ${gatewayService} hermes ${pairArguments}`,
+        `${compose} restart ${gatewayService}`,
       ].join('\n');
     }
+    const profileHome = hermesHome(settings, 'host');
     return [
+      ...(profileHome ? [`export HERMES_HOME=${shellQuote(profileHome)}`] : []),
       `hermes ${pairArguments}`,
       'hermes gateway restart',
     ].join('\n');
   }
   if (deployment === 'docker') {
+    const compose = composeCommand(settings);
+    const cliService = settings.cliService?.trim() || 'openclaw-cli';
+    const gatewayService =
+      settings.gatewayService?.trim() || 'openclaw-gateway';
     return [
-      `docker compose run --rm openclaw-cli kindergarten pair ${options.pairingCode} --agent ${
+      composeDirectoryCommand(settings),
+      `${compose} run --rm ${cliService} kindergarten pair ${options.pairingCode} --agent ${
         options.nativeAgentId || 'YOUR_AGENT_ID'
       }`,
-      'docker compose restart openclaw-gateway',
+      `${compose} restart ${gatewayService}`,
     ].join('\n');
   }
   return [

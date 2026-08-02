@@ -812,6 +812,67 @@ button:focus-visible {
   margin-top: 12px;
 }
 
+.agentCommandSettings {
+  display: grid;
+  gap: 12px;
+}
+
+.agentCommandSettingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.agentCommandSettings label {
+  display: grid;
+  gap: 7px;
+}
+
+.agentCommandSettings label > span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.agentCommandSettings input,
+.agentCommandSettings textarea {
+  width: 100%;
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.agentCommandSettings input {
+  min-height: 44px;
+}
+
+.agentCommandSettings textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.agentCommandSettings small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.agentCommandSettings small code {
+  margin: 0 4px;
+}
+
+.agentCommandSettingsWide,
+.agentCommandSettingsError {
+  grid-column: 1 / -1;
+}
+
+.agentCommandSettings .agentCommandSettingsError {
+  color: #a23b3b;
+  font-weight: 750;
+}
+
 .agentVariantField > p {
   margin: 7px 0 12px;
 }
@@ -2229,8 +2290,14 @@ button:focus-visible {
 
   .agentConfirmForm,
   .agentVariantOptions,
-  .agentVariantOptions.agentDeploymentOptions {
+  .agentVariantOptions.agentDeploymentOptions,
+  .agentCommandSettingsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .agentCommandSettingsWide,
+  .agentCommandSettingsError {
+    grid-column: auto;
   }
 
   .agentAppearanceOptions {
