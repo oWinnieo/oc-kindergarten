@@ -7,6 +7,7 @@ import {
   AGENT_DEPLOYMENTS,
   AGENT_PROVIDER_CATALOG,
   buildPluginInstallCommand,
+  buildRuntimeInspectionCommand,
   buildRuntimePairingCommand,
   deploymentLabel,
   providerLabel,
@@ -491,6 +492,11 @@ export default function AgentEnrollmentPanel() {
     deployment,
     settings: commandSettings(newProvider, deployment, selectedCommandForm),
   });
+  const selectedInspectionCommand = buildRuntimeInspectionCommand({
+    provider: newProvider,
+    deployment,
+    settings: commandSettings(newProvider, deployment, selectedCommandForm),
+  });
 
   const updateCommandForm = (patch: Partial<RuntimeCommandFormState>) => {
     setCommandForms((current) => ({
@@ -576,6 +582,10 @@ export default function AgentEnrollmentPanel() {
                   updateCommandForm({ composeDirectory: event.target.value })
                 }
               />
+              <small>
+                获取：执行下方第 1 段，复制目标 runtime 那一行的{' '}
+                <code>dir=</code> 值。
+              </small>
             </label>
             <label>
               <span>Gateway 服务名</span>
@@ -585,6 +595,10 @@ export default function AgentEnrollmentPanel() {
                   updateCommandForm({ gatewayService: event.target.value })
                 }
               />
+              <small>
+                获取：执行下方第 1 段，找到 Gateway 容器所在行，复制{' '}
+                <code>service=</code> 值。
+              </small>
             </label>
             {newProvider === 'openclaw' ? (
               <label>
@@ -595,6 +609,10 @@ export default function AgentEnrollmentPanel() {
                     updateCommandForm({ cliService: event.target.value })
                   }
                 />
+                <small>
+                  获取：执行下方第 1 段，找到 CLI 容器所在行，复制{' '}
+                  <code>service=</code> 值。
+                </small>
               </label>
             ) : (
               <label>
@@ -606,6 +624,10 @@ export default function AgentEnrollmentPanel() {
                     updateCommandForm({ hermesDockerHome: event.target.value })
                   }
                 />
+                <small>
+                  获取：先填好 Compose 和 Gateway，再执行下方第 2 段，复制{' '}
+                  <code>HERMES_HOME=</code> 值。
+                </small>
               </label>
             )}
             <label className="agentCommandSettingsWide">
@@ -618,8 +640,8 @@ export default function AgentEnrollmentPanel() {
                 }
               />
               <small>
-                留空时使用 Docker Compose 自动发现；填写后会按顺序生成每一个
-                <code>-f</code> 参数，基础文件也要列出。
+                获取：查看下方第 1 段输出的 <code>files=</code>；多个文件按原顺序每行一个。
+                留空时使用 Docker Compose 自动发现；填写后会生成每一个 <code>-f</code> 参数。
               </small>
             </label>
           </div>
@@ -634,8 +656,8 @@ export default function AgentEnrollmentPanel() {
               }
             />
             <small>
-              默认 profile 请留空；填写后安装和配对命令都会先设置同一个
-              <code>HERMES_HOME</code>。
+              获取：用运行 Gateway 的系统账号执行下方第一行。默认 profile 请留空；
+              命名 profile 填输出的绝对路径，安装和配对会沿用它。
             </small>
           </label>
         ) : (
@@ -647,6 +669,60 @@ export default function AgentEnrollmentPanel() {
         {selectedSettingsError ? (
           <p className="agentCommandSettingsError">{selectedSettingsError}</p>
         ) : null}
+        <div className="agentCommandLookup">
+          <div>
+            <strong>这些值怎么获取？</strong>
+            {deployment === 'docker' ? (
+              <ol>
+                <li>
+                  在 Docker 宿主机执行下方第 1 段。找到镜像名称属于{' '}
+                  {selectedProvider.label} 的那一行。
+                </li>
+                <li>
+                  将 <code>dir=</code> 后面的值填入“Docker Compose 目录”；
+                  将 <code>service=</code> 后面的值填入对应服务名。
+                </li>
+                <li>
+                  <code>files=</code> 后面如果有多个文件，按原顺序拆成每行一个；
+                  如果为空，而且管理员平时没有使用 <code>-f</code> 或{' '}
+                  <code>COMPOSE_FILE</code>，文件列表保持空白。
+                </li>
+                {newProvider === 'hermes' ? (
+                  <li>
+                    填完前三项后执行第 2 段；最后一行输出的{' '}
+                    <code>HERMES_HOME=...</code> 就是当前 Gateway 实际使用的路径。
+                  </li>
+                ) : (
+                  <li>
+                    <code>docker compose config --services</code> 会再次列出服务名；
+                    选择运行 Gateway 和 CLI 的服务。最后一行会列出 Agent ID。
+                  </li>
+                )}
+              </ol>
+            ) : newProvider === 'hermes' ? (
+              <p>
+                使用平时运行 Hermes Gateway 的同一个系统账号执行下方命令。
+                第一行输出当前 <code>HERMES_HOME</code>；默认 profile
+                请让表单保持空白，命名 profile 才填写该绝对路径。
+              </p>
+            ) : (
+              <p>
+                插件安装不需要部署参数。执行下方命令，从 Agent 列表复制要配对项的
+                ID；不要复制展示名。
+              </p>
+            )}
+          </div>
+          <code className="agentPairingCommand agentInspectionCommand">
+            {selectedInspectionCommand}
+          </code>
+          {deployment === 'docker' ? (
+            <p>
+              如果第 1 段显示 <code>&lt;no value&gt;</code>，或同一个 runtime
+              有多个相似容器，请停止猜测，向服务器管理员索取启动时使用的 Compose
+              目录、完整 <code>-f</code> 顺序和服务名。
+            </p>
+          ) : null}
+        </div>
       </fieldset>
 
       <div className="agentPairingBox agentPluginSetup">
@@ -791,6 +867,10 @@ export default function AgentEnrollmentPanel() {
                               }))
                             }
                           />
+                          <small>
+                            获取方法：执行上方“这些值怎么获取？”中的最后一行 Agent
+                            列表命令，复制目标 Agent 的 ID 列，不要填写展示名。
+                          </small>
                         </label>
                       ) : (
                         <>

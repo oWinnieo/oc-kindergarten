@@ -754,6 +754,12 @@ button:focus-visible {
   font-weight: 800;
 }
 
+.agentPairingBox label > small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .agentPairingBox input,
 .agentConfirmForm input,
 .agentConfirmForm textarea {
@@ -871,6 +877,39 @@ button:focus-visible {
 .agentCommandSettings .agentCommandSettingsError {
   color: #a23b3b;
   font-weight: 750;
+}
+
+.agentCommandLookup {
+  border: 1px solid rgba(83, 105, 167, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+  display: grid;
+  gap: 11px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.agentCommandLookup strong {
+  font-size: 14px;
+}
+
+.agentCommandLookup p,
+.agentCommandLookup ol {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.agentCommandLookup ol {
+  padding-left: 20px;
+}
+
+.agentCommandLookup li + li {
+  margin-top: 5px;
+}
+
+.agentInspectionCommand {
+  max-height: 280px;
 }
 
 .agentVariantField > p {
