@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 
 import {
+  betaAcknowledgementTimestamp,
   currentBetaCohort,
   parseBetaParticipationInput,
 } from '../lib/beta-participation';
@@ -76,6 +77,10 @@ assert.equal(parseBetaParticipationInput({ migrationEligible: 'yes' }).ok, false
 assert.equal(parseBetaParticipationInput({ migrationEligible: true, extra: 1 }).ok, false);
 assert.equal(currentBetaCohort({ BETA_COHORT: 'private-beta-2026' }), 'private-beta-2026');
 assert.throws(() => currentBetaCohort({ BETA_COHORT: 'Invalid Cohort' }));
+assert.equal(
+  betaAcknowledgementTimestamp(new Date('2026-08-02T15:05:32.926Z')),
+  '2026-08-02T15:05:32.926Z',
+);
 
 process.stdout.write(
   'Parent profile contract regression passed: normalization, clearing, privacy and validation\n',

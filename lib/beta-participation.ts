@@ -5,6 +5,10 @@ import { betaParticipants } from './db/schema';
 
 export const BETA_MIGRATION_NOTICE_VERSION = '2026-08-02-v1';
 
+export function betaAcknowledgementTimestamp(date: Date): string {
+  return date.toISOString();
+}
+
 export interface BetaParticipationView {
   cohort: string;
   migrationEligible: boolean;
@@ -90,6 +94,7 @@ export async function updateBetaParticipation(
 ): Promise<BetaParticipationView> {
   const cohort = currentBetaCohort();
   const now = new Date();
+  const acknowledgementTimestamp = betaAcknowledgementTimestamp(now);
   const { database } = getDatabaseClient();
   const rows = await database
     .insert(betaParticipants)
@@ -110,8 +115,8 @@ export async function updateBetaParticipation(
         acknowledgedAt: migrationEligible
           ? sql`CASE
               WHEN ${betaParticipants.noticeVersion} = ${BETA_MIGRATION_NOTICE_VERSION}
-                THEN COALESCE(${betaParticipants.acknowledgedAt}, ${now})
-              ELSE ${now}
+                THEN COALESCE(${betaParticipants.acknowledgedAt}, ${acknowledgementTimestamp})
+              ELSE ${acknowledgementTimestamp}
             END`
           : sql`CASE
               WHEN ${betaParticipants.noticeVersion} = ${BETA_MIGRATION_NOTICE_VERSION}

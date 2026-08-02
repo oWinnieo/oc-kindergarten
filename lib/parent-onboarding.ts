@@ -2,6 +2,7 @@ import { eq, sql } from 'drizzle-orm';
 
 import {
   BETA_MIGRATION_NOTICE_VERSION,
+  betaAcknowledgementTimestamp,
   currentBetaCohort,
   type BetaParticipationView,
 } from './beta-participation';
@@ -46,6 +47,7 @@ export async function updateParentOnboarding(
 } | null> {
   const cohort = currentBetaCohort();
   const now = new Date();
+  const acknowledgementTimestamp = betaAcknowledgementTimestamp(now);
   const profileUpdates: Partial<typeof parentUsers.$inferInsert> = {
     updatedAt: now,
   };
@@ -85,8 +87,8 @@ export async function updateParentOnboarding(
           acknowledgedAt: migrationEligible
             ? sql`CASE
                 WHEN ${betaParticipants.noticeVersion} = ${BETA_MIGRATION_NOTICE_VERSION}
-                  THEN COALESCE(${betaParticipants.acknowledgedAt}, ${now})
-                ELSE ${now}
+                  THEN COALESCE(${betaParticipants.acknowledgedAt}, ${acknowledgementTimestamp})
+                ELSE ${acknowledgementTimestamp}
               END`
             : sql`CASE
                 WHEN ${betaParticipants.noticeVersion} = ${BETA_MIGRATION_NOTICE_VERSION}
