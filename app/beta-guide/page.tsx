@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+'use client';
 
-export const metadata: Metadata = {
-  title: '内测入园指南 | OC Kindergarten',
-  description: '第一次参加 OC Kindergarten 内测的完整入园与验证步骤。',
-};
+import type { ReactNode } from 'react';
+import { useState } from 'react';
+
+import { AGENT_PROVIDER_CATALOG } from '@/lib/agent-provider-catalog';
+import type { AgentProvider } from '@/lib/provider-binding-contract';
 
 const steps = [
   ['step-1', '确认准备好了'],
   ['step-2', '登录并填写资料'],
-  ['step-3', '检查 OpenClaw'],
+  ['step-3', '检查 Agent runtime'],
   ['step-4', '安装入园插件'],
   ['step-5', '添加并配对 Agent'],
   ['step-6', '确认入园'],
@@ -26,6 +26,9 @@ function SuccessSignal({ children }: { children: ReactNode }) {
 }
 
 export default function BetaGuidePage() {
+  const [provider, setProvider] = useState<AgentProvider>('hermes');
+  const runtime = AGENT_PROVIDER_CATALOG[provider];
+  const deploymentLabel = provider === 'hermes' ? 'Docker Compose' : '宿主机直接安装';
   return (
     <main className="betaGuideShell">
       <header className="betaGuideTopbar">
@@ -53,13 +56,63 @@ export default function BetaGuidePage() {
             </div>
             <div>
               <dt>需要准备</dt>
-              <dd>电脑和可用的 OpenClaw</dd>
+              <dd>电脑和可用的 {runtime.label}</dd>
+            </div>
+            <div>
+              <dt>本轮部署路径</dt>
+              <dd>{deploymentLabel}</dd>
             </div>
           </dl>
           <a className="parentPrimaryAction" href="/onboarding/parent">
             开始内测
           </a>
         </div>
+      </section>
+
+      <section className="betaGuideSafety" aria-labelledby="provider-title">
+        <div>
+          <p className="eyebrow">Choose runtime</p>
+          <h2 id="provider-title">你使用哪个 Agent runtime？</h2>
+        </div>
+        <div className="betaGuideActions">
+          {(['hermes', 'openclaw'] as AgentProvider[]).map((candidate) => (
+            <button
+              className={
+                provider === candidate
+                  ? 'parentPrimaryAction'
+                  : 'parentSecondaryAction'
+              }
+              type="button"
+              key={candidate}
+              aria-pressed={provider === candidate}
+              onClick={() => setProvider(candidate)}
+            >
+              {AGENT_PROVIDER_CATALOG[candidate].label}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="betaGuideSafety" aria-labelledby="deployment-title">
+        <div>
+          <p className="eyebrow">Choose environment</p>
+          <h2 id="deployment-title">先进入正确的运行环境</h2>
+        </div>
+        <ul>
+          {provider === 'hermes' ? (
+            <>
+              <li>Hermes 的命令需要在运行它的 Docker Compose 容器内执行，不能直接粘贴到服务器宿主机。</li>
+              <li>插件、profile 和配对数据必须位于持久化的 <code>HERMES_HOME</code>；本轮验证路径是容器内 <code>/opt/data</code>。</li>
+              <li>安装和配对在容器内完成；重启 Gateway 回到宿主机执行。</li>
+            </>
+          ) : (
+            <>
+              <li>OpenClaw 的命令直接在安装并运行 Gateway 的宿主机执行，不要进入其他容器。</li>
+              <li>使用平时运行 OpenClaw Gateway 的同一个系统账号，确保 CLI 与 Gateway 读取同一份配置。</li>
+              <li>安装、配对和重启都在同一个宿主机终端完成。</li>
+            </>
+          )}
+        </ul>
       </section>
 
       <section className="betaGuideSafety" aria-labelledby="safety-title">
@@ -93,13 +146,22 @@ export default function BetaGuidePage() {
             <div className="betaGuideStepNumber">1</div>
             <div>
               <p className="eyebrow">准备</p>
-              <h2>确认你有自己的 OpenClaw</h2>
-              <p>
-                你需要能打开安装 OpenClaw 的那台电脑、树莓派或服务器终端，并且至少有一个
-                可以测试的 Agent。如果别人代管这台主机，请先让对方陪你完成终端操作。
-              </p>
+              <h2>确认你能进入 {runtime.label} 的运行环境</h2>
+              {provider === 'hermes' ? (
+                <p>
+                  你需要能打开 Hermes 所在服务器的终端、找到它的 Docker Compose 目录，并准备一个可丢弃的测试
+                  profile。如果别人代管服务器，请先让对方告诉你 Compose 目录、Gateway 服务名和持久化目录。
+                </p>
+              ) : (
+                <p>
+                  你需要能打开安装 OpenClaw 的宿主机终端，并准备一个可丢弃的测试 Agent。
+                  如果别人代管主机，请先让对方陪你完成终端操作。
+                </p>
+              )}
               <SuccessSignal>
-                你知道如何打开 OpenClaw 主机的终端，也知道这次准备测试哪个 Agent。
+                {provider === 'hermes'
+                  ? '你知道如何进入 Hermes 的 Docker Compose 容器，也知道这次准备测试哪个 profile。'
+                  : '你知道如何打开运行 OpenClaw Gateway 的宿主机终端，也知道这次准备测试哪个 Agent。'}
               </SuccessSignal>
             </div>
           </section>
@@ -128,18 +190,51 @@ export default function BetaGuidePage() {
             <div className="betaGuideStepNumber">3</div>
             <div>
               <p className="eyebrow">环境检查</p>
-              <h2>在 OpenClaw 主机确认版本和 Agent ID</h2>
-              <p>打开 OpenClaw 主机的终端，依次执行：</p>
-              <pre className="betaGuideCode"><code>{`openclaw --version
+              <h2>在正确环境确认版本和身份</h2>
+              {provider === 'hermes' ? (
+                <>
+                  <p>
+                    在宿主机进入 Hermes 的 Compose 目录。下面的目录和服务名是本轮验证值；如果你的部署不同，先向管理员确认，不要猜测。
+                  </p>
+                  <pre className="betaGuideCode"><code>{`cd /opt/docker/hermes-agent
+docker compose ps
+docker inspect "$(docker compose ps -q gateway)" \\
+  --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'
+docker compose exec --user hermes \\
+  -e HOME=/opt/data \\
+  -e HERMES_HOME=/opt/data \\
+  gateway sh`}</code></pre>
+                  <p>进入容器后，在同一个 shell 依次执行：</p>
+                  <pre className="betaGuideCode"><code>{`. /opt/hermes/.venv/bin/activate
+hermes version
+hermes doctor
+hermes profile list`}</code></pre>
+                  <ul>
+                    <li>挂载列表必须包含容器内 <code>/opt/data</code>；否则停止，容器重建后插件和配对数据可能丢失。</li>
+                    <li>当前支持固定版本 <code>v2026.7.30 / 0.19.1</code>。</li>
+                    <li><code>hermes doctor</code> 不应报告阻塞问题。</li>
+                    <li>默认 profile 使用 <code>HERMES_HOME=/opt/data</code>。</li>
+                    <li>命名 profile 使用 <code>HERMES_HOME=/opt/data/profiles/YOUR_PROFILE</code>；不要复制其他 profile 的目录。</li>
+                  </ul>
+                </>
+              ) : (
+                <>
+                  <p>打开安装并运行 OpenClaw Gateway 的宿主机终端，依次执行：</p>
+                  <pre className="betaGuideCode"><code>{`openclaw --version
 openclaw gateway status
-openclaw agents list`}</code></pre>
-              <ul>
-                <li>OpenClaw 需要是 <code>2026.7.1-2</code> 或更高版本。</li>
-                <li>Gateway 应显示正在运行。</li>
-                <li>从 Agent 列表记下你要测试的 Agent ID，后面需要原样填写。</li>
-              </ul>
+openclaw agents list
+openclaw plugins list`}</code></pre>
+                  <ul>
+                    <li>OpenClaw 需要是 <code>2026.7.1-2</code> 或更高版本。</li>
+                    <li>Gateway 应显示正在运行。</li>
+                    <li>从 Agent 列表记下测试 Agent ID，后面需要原样填写。</li>
+                    <li>同时记下已安装的 Kindergarten 插件版本，下一步用它判断安装、升级或跳过。</li>
+                  </ul>
+                </>
+              )}
               <SuccessSignal>
-                三条命令都能执行，你已经记下一个 Agent ID，例如 <code>main</code>。
+                检查命令都能执行，你已确认当前
+                {provider === 'hermes' ? ' Hermes profile' : ' Agent ID'}。
               </SuccessSignal>
             </div>
           </section>
@@ -149,16 +244,27 @@ openclaw agents list`}</code></pre>
             <div>
               <p className="eyebrow">首次安装</p>
               <h2>安装入园插件</h2>
-              <p>
-                回到入园页面，找到“先在 OpenClaw 主机安装入园插件”。点击“复制插件安装命令”，
-                将复制的全部命令粘贴到 OpenClaw 主机终端并执行。
-              </p>
+              {provider === 'hermes' ? (
+                <p>
+                  保持第 3 步进入的同一个容器 shell 和同一个 <code>HERMES_HOME</code>。回到入园页面选择 Hermes Agent，
+                  点击“复制插件安装命令”，再把全部命令粘贴到这个容器 shell 执行。不要粘贴到宿主机。
+                </p>
+              ) : (
+                <p>
+                  保持第 3 步的 OpenClaw 宿主机终端。回到入园页面选择 OpenClaw，点击“复制插件安装命令”，
+                  再把全部命令粘贴到这个终端执行。页面当前固定安装 <code>v0.5.0-beta.4</code>。
+                </p>
+              )}
               <div className="betaGuideChoice">
                 <strong>以前已经安装过？</strong>
-                <p>仍可执行页面提供的命令完成升级；不要自行删改其中任何一行。</p>
+                <p>
+                  {provider === 'hermes'
+                    ? '固定 tag 安装命令发现目标目录已存在时会主动停止；不要删除目录或改用会跟随 main 的 update，先联系邀请人。'
+                    : '未安装或版本低于 v0.5.0-beta.4 时可以执行页面命令；已经是 beta.4 就跳过安装。若版本高于 beta.4，立即停止，不要用 --force 降级。'}
+                </p>
               </div>
               <SuccessSignal>
-                命令没有报错，最后的 Gateway 重启完成，终端重新出现可输入命令的提示符。
+                命令没有报错，<code>{runtime.statusCommand}</code> 与 <code>{runtime.doctorCommand}</code> 可以执行。
               </SuccessSignal>
             </div>
           </section>
@@ -170,12 +276,23 @@ openclaw agents list`}</code></pre>
               <h2>添加并配对 Agent</h2>
               <ol>
                 <li>在入园页面点击“添加 AI Agent”。</li>
-                <li>在新出现的输入框里填写第 3 步记下的 Agent ID。</li>
+                {provider === 'openclaw' ? (
+                  <li>在新出现的输入框里填写第 3 步记下的 Agent ID。</li>
+                ) : (
+                  <li>确认卡片显示 Hermes；是否分享清洗回复气泡默认关闭，可自行选择。</li>
+                )}
                 <li>点击“复制配对命令”。配对码只有 15 分钟有效，不要发给别人。</li>
-                <li>回到 OpenClaw 主机终端，粘贴全部命令并执行。</li>
+                {provider === 'hermes' ? (
+                  <>
+                    <li>回到第 3 步的 Hermes 容器 shell，确认仍是同一个 <code>HERMES_HOME</code>，粘贴全部命令并执行。</li>
+                    <li>配对成功后输入 <code>exit</code> 回到宿主机，在 Compose 目录执行 <code>docker compose restart gateway</code>。</li>
+                  </>
+                ) : (
+                  <li>回到 OpenClaw 宿主机终端，粘贴全部命令并执行；页面命令会重启 Gateway。</li>
+                )}
                 <li>回到网页等待几秒；如果页面没有变化，点击“检查配对状态”。</li>
               </ol>
-              <SuccessSignal>卡片状态从“等待 OpenClaw”变成“等待主人确认”。</SuccessSignal>
+              <SuccessSignal>卡片状态从“等待 {runtime.label}”变成“等待主人确认”。</SuccessSignal>
             </div>
           </section>
 
@@ -202,7 +319,14 @@ openclaw agents list`}</code></pre>
               <h2>发送一条真实消息</h2>
               <ol>
                 <li>首次入园动画结束后留在教室；之后也可以从导航重新打开教室。</li>
-                <li>通过你平时使用的渠道给这个 Agent 发一条简单消息。</li>
+                {provider === 'hermes' ? (
+                  <>
+                    <li>重新进入第 3 步的 Hermes 容器和测试 profile，在 Hermes CLI 执行一个简单任务，确认角色状态变化并回到休息。</li>
+                    <li>再通过你平时使用的 Gateway 渠道发送一条简单消息。</li>
+                  </>
+                ) : (
+                  <li>通过你平时使用的渠道给这个 Agent 发一条简单消息。</li>
+                )}
                 <li>观察它是否进入交流区域，并在回复后出现气泡。</li>
                 <li>等待它回到自由活动状态。</li>
                 <li>打开“我的宝宝团 → 最近活动”，确认能看到简短活动记录。</li>
@@ -227,7 +351,7 @@ openclaw agents list`}</code></pre>
         <ol>
           <li>在“我的宝宝团”对测试 Agent 点击“暂时出园”，确认它离开教室。</li>
           <li>点击“恢复入园”，再发送一条消息，确认它能重新出现。</li>
-          <li>只有邀请人要求时才测试“归档”；归档可以还原，但不要删除 OpenClaw Agent。</li>
+          <li>只有邀请人要求时才测试“归档”；归档可以还原，但不要删除 runtime Agent/profile。</li>
         </ol>
       </section>
 
@@ -236,9 +360,25 @@ openclaw agents list`}</code></pre>
         <h2 id="troubleshooting-title">遇到问题时怎么做</h2>
         <div className="betaGuideTroubleList">
           <details>
-            <summary>终端提示 openclaw: command not found</summary>
-            <p>先确认你登录的是安装 OpenClaw 的那台主机，并使用平时运行 OpenClaw 的账号。不要继续执行后面的命令。</p>
+            <summary>终端提示 {provider === 'hermes' ? 'hermes' : 'openclaw'}: command not found</summary>
+            <p>
+              {provider === 'hermes'
+                ? '不要在宿主机继续执行。确认已经进入 gateway 容器，并先运行 `. /opt/hermes/.venv/bin/activate`；仍失败时记录 Compose 服务名并联系邀请人。'
+                : '确认你登录的是安装 OpenClaw 的宿主机，并使用平时运行 Gateway 的同一个账号。不要继续执行后面的命令。'}
+            </p>
           </details>
+          {provider === 'hermes' ? (
+            <details>
+              <summary>Docker 挂载里没有 /opt/data</summary>
+              <p>立即停止安装。先让服务器管理员把 Hermes 数据目录挂载为持久化 volume 或 bind mount；不要把插件或配对凭据只留在容器可写层。</p>
+            </details>
+          ) : null}
+          {provider === 'hermes' ? (
+            <details>
+              <summary>容器内文件变成 root 所有</summary>
+              <p>不要用 root 继续安装或配对。重新按指南使用 <code>docker compose exec --user hermes</code> 进入容器，并让管理员先修复已有文件权限。</p>
+            </details>
+          ) : null}
           <details>
             <summary>配对码过期了</summary>
             <p>回到入园页面点击“重新生成配对码”，重新复制整条配对命令。旧配对码不能再次使用。</p>
@@ -259,7 +399,7 @@ openclaw agents list`}</code></pre>
           <p className="eyebrow">Feedback</p>
           <h2>把这些信息告诉邀请人</h2>
           <p>
-            你停在哪一步、看到的提示、原本期待发生什么、实际发生了什么，以及 OpenClaw 版本。
+            你停在哪一步、看到的提示、原本期待发生什么、实际发生了什么，以及 {runtime.label} 版本。
             截图前请遮住配对码、token、API key、邮箱和私人聊天内容。
           </p>
         </div>

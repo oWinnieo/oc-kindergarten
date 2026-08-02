@@ -1,5 +1,32 @@
 # OC Kindergarten Development Plan
 
+## Completed: Hermes H1 provider-neutral baseline and H2 plugin beta.1
+
+Status: implemented and locally accepted on 2026-08-01. The standalone local
+plugin tag `v0.1.0-beta.1` points to
+`9e32d7619c5b9b331704c725ff43ef5bebd8a0e6`; remote publication and external
+user observation remain H4 gates.
+
+Implemented scope:
+
+1. Binding and credential identity is
+   `(provider, runtimeInstanceId, nativeAgentId)`; migration `0009` explicitly
+   namespaces legacy rows and corrects historical credential scope values.
+2. `/api/runtime/events` dispatches strict provider wire events through a
+   registry while `/api/openclaw/events` remains compatible.
+3. Hermes Bridge v1 rejects prompt, history, args, result, raw error and unknown
+   fields; duplicate bridge IDs are idempotent and active bindings auto-enter.
+4. The standalone Hermes plugin uses profile-scoped credentials, clone-safe
+   identities, a bounded serial outbox, controlled retry, non-sensitive status
+   and explicit reply sharing opt-in.
+5. The server runtime suite, typecheck, production build, local PostgreSQL
+   migration replay, eight plugin tests and Hermes `0.19.1` disposable profile
+   loading all passed.
+
+Next gate: finish provider-aware onboarding, publish the fixed plugin tag, run
+owner acceptance against a disposable paired Hermes profile, then observe one
+external user for 24–72 hours.
+
 ## Completed: OpenClaw plugin beta.3 multi-Agent credentials
 
 Status: completed and accepted on production on 2026-07-23. Plugin tag

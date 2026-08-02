@@ -12,6 +12,7 @@ import type {
   ProviderAgentBindingView,
   ProviderAgentDiscoveryInput,
   ProviderBindingStatus,
+  RuntimeIdentity,
 } from './provider-binding-contract';
 
 type BindingRow = typeof providerAgentBindings.$inferSelect;
@@ -37,9 +38,7 @@ function rowToView(
     bindingId: row.id,
     provider: row.provider as AgentProvider,
     nativeAgentId: row.nativeAgentId,
-    ...(row.runtimeInstanceId === null
-      ? {}
-      : { runtimeInstanceId: row.runtimeInstanceId }),
+    runtimeInstanceId: row.runtimeInstanceId,
     ...(row.adapterVersion === null
       ? {}
       : { adapterVersion: row.adapterVersion }),
@@ -51,8 +50,7 @@ function rowToView(
 }
 
 async function activeAgentIdForBinding(
-  provider: AgentProvider,
-  nativeAgentId: string,
+  identity: RuntimeIdentity,
 ): Promise<string | undefined> {
   const { database } = getDatabaseClient();
   const rows = await database
@@ -68,8 +66,12 @@ async function activeAgentIdForBinding(
     )
     .where(
       and(
-        eq(providerAgentBindings.provider, provider),
-        eq(providerAgentBindings.nativeAgentId, nativeAgentId),
+        eq(providerAgentBindings.provider, identity.provider),
+        eq(
+          providerAgentBindings.runtimeInstanceId,
+          identity.runtimeInstanceId,
+        ),
+        eq(providerAgentBindings.nativeAgentId, identity.nativeAgentId),
         eq(providerAgentBindings.status, 'active'),
         isNull(agentProfiles.archivedAt),
         or(
@@ -90,9 +92,6 @@ export async function discoverProviderAgent(
   const updateValues: Partial<typeof providerAgentBindings.$inferInsert> = {
     lastSeenAt: now,
     updatedAt: now,
-    ...(discovery.runtimeInstanceId === undefined
-      ? {}
-      : { runtimeInstanceId: discovery.runtimeInstanceId }),
     ...(discovery.adapterVersion === undefined
       ? {}
       : { adapterVersion: discovery.adapterVersion }),
@@ -115,6 +114,7 @@ export async function discoverProviderAgent(
     .onConflictDoUpdate({
       target: [
         providerAgentBindings.provider,
+        providerAgentBindings.runtimeInstanceId,
         providerAgentBindings.nativeAgentId,
       ],
       set: updateValues,
@@ -122,16 +122,12 @@ export async function discoverProviderAgent(
     .returning();
   const row = rows[0];
   if (!row) throw new Error('provider discovery 写入后未返回 binding');
-  const activeAgentId = await activeAgentIdForBinding(
-    discovery.provider,
-    discovery.nativeAgentId,
-  );
+  const activeAgentId = await activeAgentIdForBinding(discovery);
   return rowToView(row, activeAgentId);
 }
 
 export async function resolveProviderAgent(
-  provider: AgentProvider,
-  nativeAgentId: string,
+  identity: RuntimeIdentity,
 ): Promise<ProviderAgentBindingView | null> {
   const { database } = getDatabaseClient();
   const rows = await database
@@ -139,14 +135,18 @@ export async function resolveProviderAgent(
     .from(providerAgentBindings)
     .where(
       and(
-        eq(providerAgentBindings.provider, provider),
-        eq(providerAgentBindings.nativeAgentId, nativeAgentId),
+        eq(providerAgentBindings.provider, identity.provider),
+        eq(
+          providerAgentBindings.runtimeInstanceId,
+          identity.runtimeInstanceId,
+        ),
+        eq(providerAgentBindings.nativeAgentId, identity.nativeAgentId),
       ),
     )
     .limit(1);
   const row = rows[0];
   if (!row) return null;
-  const activeAgentId = await activeAgentIdForBinding(provider, nativeAgentId);
+  const activeAgentId = await activeAgentIdForBinding(identity);
   return rowToView(row, activeAgentId);
 }
 

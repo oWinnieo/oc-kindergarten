@@ -1,7 +1,17 @@
 import assert from 'node:assert/strict';
 
-import { parseProviderAgentDiscovery } from '../lib/provider-binding-contract';
+import {
+  parseProviderAgentDiscovery,
+  runtimeIdentityKey,
+  sameRuntimeIdentity,
+} from '../lib/provider-binding-contract';
 import { parseOpenClawBridgeV2 } from '../lib/openclaw-bridge-v2';
+import {
+  AGENT_PROVIDER_CATALOG,
+  buildRuntimePairingCommand,
+  HERMES_PLUGIN_COMMIT,
+  HERMES_PLUGIN_VERSION,
+} from '../lib/agent-provider-catalog';
 
 const parsed = parseProviderAgentDiscovery({
   schemaVersion: 1,
@@ -30,6 +40,7 @@ assert.equal(
     schemaVersion: 1,
     provider: 'openclaw',
     nativeAgentId: 'main',
+    runtimeInstanceId: 'gateway-1',
     profileDraft: { appearancePreset: 'unreviewed' },
   }).ok,
   false,
@@ -40,6 +51,7 @@ assert.equal(
     schemaVersion: 1,
     provider: 'openclaw',
     nativeAgentId: 'main',
+    runtimeInstanceId: 'gateway-1',
     profileDraft: { prompt: 'must not be stored' },
   }).ok,
   false,
@@ -70,6 +82,7 @@ assert.equal(
     schemaVersion: 1,
     provider: 'unknown',
     nativeAgentId: 'main',
+    runtimeInstanceId: 'gateway-1',
   }).ok,
   false,
 );
@@ -78,8 +91,47 @@ assert.equal(
     schemaVersion: 1,
     provider: 'openclaw',
     nativeAgentId: '',
+    runtimeInstanceId: 'gateway-1',
   }).ok,
   false,
+);
+assert.equal(
+  parseProviderAgentDiscovery({
+    schemaVersion: 1,
+    provider: 'hermes',
+    nativeAgentId: 'default',
+  }).ok,
+  false,
+);
+const hermesA = {
+  provider: 'hermes' as const,
+  runtimeInstanceId: 'runtime-a',
+  nativeAgentId: 'default',
+};
+const hermesB = { ...hermesA, runtimeInstanceId: 'runtime-b' };
+assert.equal(sameRuntimeIdentity(hermesA, hermesB), false);
+assert.notEqual(runtimeIdentityKey(hermesA), runtimeIdentityKey(hermesB));
+
+const hermesInstall = AGENT_PROVIDER_CATALOG.hermes.installCommand;
+assert.equal(hermesInstall.includes(`--branch ${HERMES_PLUGIN_VERSION}`), true);
+assert.equal(hermesInstall.includes(HERMES_PLUGIN_COMMIT), true);
+assert.equal(hermesInstall.includes('hermes plugins install'), false);
+assert.equal(
+  buildRuntimePairingCommand({
+    provider: 'hermes',
+    pairingCode: 'ABCDE-F0123-45678-9ABCD',
+    endpoint: 'https://kindergarten.example',
+  }).includes('--share-replies'),
+  false,
+);
+assert.equal(
+  buildRuntimePairingCommand({
+    provider: 'hermes',
+    pairingCode: 'ABCDE-F0123-45678-9ABCD',
+    endpoint: 'https://kindergarten.example',
+    shareReplies: true,
+  }).includes('--share-replies'),
+  true,
 );
 
 process.stdout.write(

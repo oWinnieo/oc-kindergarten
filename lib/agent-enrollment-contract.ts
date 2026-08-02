@@ -71,6 +71,7 @@ export interface AgentEnrollmentView {
   status: AgentEnrollmentStatus;
   draftProfile?: ProviderAgentDraft;
   provider?: AgentProvider;
+  runtimeInstanceId?: string;
   nativeAgentId?: string;
   pairingExpiresAt?: string;
   pairingExpired?: boolean;

@@ -51,6 +51,7 @@ export const agentEnrollments = pgTable(
     status: text('status').notNull(),
     draftProfile: jsonb('draft_profile'),
     provider: text('provider'),
+    runtimeInstanceId: text('runtime_instance_id'),
     nativeAgentId: text('native_agent_id'),
     pairingCodeHash: text('pairing_code_hash'),
     pairingExpiresAt: timestamp('pairing_expires_at', { withTimezone: true }),
@@ -61,8 +62,9 @@ export const agentEnrollments = pgTable(
   },
   (table) => [
     index('agent_enrollments_parent_idx').on(table.parentUserId),
-    index('agent_enrollments_provider_native_idx').on(
+    index('agent_enrollments_runtime_identity_idx').on(
       table.provider,
+      table.runtimeInstanceId,
       table.nativeAgentId,
     ),
     uniqueIndex('agent_enrollments_pairing_hash_uq').on(table.pairingCodeHash),
@@ -109,7 +111,7 @@ export const providerAgentBindings = pgTable(
     provider: text('provider').notNull(),
     nativeAgentId: text('native_agent_id').notNull(),
     agentId: text('agent_id').references(() => agentProfiles.agentId),
-    runtimeInstanceId: text('runtime_instance_id'),
+    runtimeInstanceId: text('runtime_instance_id').notNull(),
     adapterVersion: text('adapter_version'),
     discoveryDraft: jsonb('discovery_draft'),
     status: text('status').notNull(),
@@ -118,8 +120,9 @@ export const providerAgentBindings = pgTable(
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
-    uniqueIndex('provider_agent_bindings_native_uq').on(
+    uniqueIndex('provider_agent_bindings_runtime_identity_uq').on(
       table.provider,
+      table.runtimeInstanceId,
       table.nativeAgentId,
     ),
     index('provider_agent_bindings_agent_idx').on(table.agentId),
@@ -135,7 +138,7 @@ export const runtimeCredentials = pgTable(
       .references(() => providerAgentBindings.id),
     tokenHash: text('token_hash').notNull(),
     status: text('status').notNull().default('active'),
-    runtimeInstanceId: text('runtime_instance_id'),
+    runtimeInstanceId: text('runtime_instance_id').notNull(),
     lastUsedAt: timestamp('last_used_at', { withTimezone: true }),
     revokedAt: timestamp('revoked_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
