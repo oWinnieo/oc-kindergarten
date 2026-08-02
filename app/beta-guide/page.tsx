@@ -132,9 +132,9 @@ export default function BetaGuidePage() {
         <ul>
           {provider === 'hermes' && isDocker ? (
             <>
-              <li>Hermes 的命令需要在运行它的 Docker Compose 容器内执行，不能直接粘贴到服务器宿主机。</li>
+              <li>页面生成的整段命令粘贴到服务器宿主机；命令会先进入所填 Compose 目录，再通过 <code>exec</code> 进入容器。</li>
               <li>插件、profile 和配对数据必须位于持久化的 <code>HERMES_HOME</code>；官方容器路径是 <code>/opt/data</code>。</li>
-              <li>安装和配对在容器内完成；重启 Gateway 回到宿主机执行。</li>
+              <li>安装和配对在容器内完成；同一段命令最后会从宿主机重启所填 Gateway 服务。</li>
             </>
           ) : provider === 'hermes' ? (
             <>
@@ -144,7 +144,7 @@ export default function BetaGuidePage() {
             </>
           ) : isDocker ? (
             <>
-              <li>OpenClaw 命令从它的 Docker Compose 目录执行，使用 <code>openclaw-cli</code> 服务操作持久化配置。</li>
+              <li>页面生成的命令会先进入所填 Docker Compose 目录，再使用所填 CLI 服务操作持久化配置。</li>
               <li>容器内 <code>/home/node/.openclaw</code> 必须映射到持久化目录或 volume；插件与配对数据都保存在这里。</li>
               <li>不要进入 Gateway 容器后直接修改临时文件；重启由宿主机的 <code>docker compose</code> 完成。</li>
             </>
@@ -350,21 +350,21 @@ openclaw plugins list`}</code></pre>
               <h2>安装入园插件</h2>
               {provider === 'hermes' && isDocker ? (
                 <p>
-                  回到入园页面选择 Hermes Agent 和“Docker Compose”，点击“复制插件安装命令”。回到 Hermes Compose
-                  目录，在宿主机粘贴整段命令；它会在 <code>gateway</code> 容器的持久化 <code>/opt/data</code> 中安装并重启服务。
-                  命名 profile 用户必须先把命令中的 <code>HERMES_HOME=/opt/data</code> 改成自己的 profile 路径。
-                  自定义服务名或额外 Compose 文件也要按第 3 步的确认结果替换。
+                  回到入园页面选择 Hermes Agent 和“Docker Compose”。在“命令参数”里填写第 3 步确认的 Compose
+                  目录、Gateway 服务名和容器内 <code>HERMES_HOME</code>；使用额外 Compose 文件时每行填写一个，基础文件也要列出。
+                  页面会把这些值写入完整命令，确认预览后点击“复制插件安装命令”，直接在服务器宿主机粘贴执行。
                 </p>
               ) : provider === 'hermes' ? (
                 <p>
-                  回到入园页面选择 Hermes Agent 和“宿主机直接安装”，点击“复制插件安装命令”。保持第 3 步的同一个
-                  系统账号和 <code>HERMES_HOME</code>，粘贴整段命令执行；命令最后会重启当前 profile 的 Gateway。
+                  回到入园页面选择 Hermes Agent 和“宿主机直接安装”。默认 profile 将“命名 profile 的
+                  <code> HERMES_HOME</code>”留空；命名 profile 填写第 3 步确认的绝对路径。点击“复制插件安装命令”，
+                  使用同一个系统账号粘贴执行；命令会设置所填 profile 并重启它的 Gateway。
                 </p>
               ) : isDocker ? (
                 <p>
-                  回到入园页面选择 OpenClaw 和“Docker Compose”，点击“复制插件安装命令”。在 OpenClaw Compose
-                  目录的宿主机终端粘贴整段命令；它会逐条调用 <code>openclaw-cli</code>，最后重启 <code>openclaw-gateway</code>。
-                  页面当前固定安装 <code>v0.5.0-beta.4</code>；自定义服务名或额外 Compose 文件要按第 3 步的确认结果替换。
+                  回到入园页面选择 OpenClaw 和“Docker Compose”。在“命令参数”里填写 Compose 目录、CLI/Gateway
+                  服务名；使用额外 Compose 文件时每行填写一个，基础文件也要列出。页面会生成全部 <code>cd</code>、
+                  <code>-f</code> 和服务名参数，确认预览后点击“复制插件安装命令”。当前固定安装 <code>v0.5.0-beta.4</code>。
                 </p>
               ) : (
                 <p>
@@ -392,7 +392,10 @@ openclaw plugins list`}</code></pre>
               <p className="eyebrow">建立连接</p>
               <h2>添加并配对 Agent</h2>
               <ol>
-                <li>在入园页面再次确认已选择 {runtime.label} 和“{deploymentLabel(deployment)}”，再点击“添加 AI Agent”。</li>
+                <li>
+                  在入园页面再次确认已选择 {runtime.label} 和“{deploymentLabel(deployment)}”；如上一步修改过命令参数，
+                  保持这些值不变，再点击“添加 AI Agent”。安装与配对命令会共用同一组参数。
+                </li>
                 {provider === 'openclaw' ? (
                   <li>在新出现的输入框里填写第 3 步记下的 Agent ID。</li>
                 ) : (
@@ -401,13 +404,13 @@ openclaw plugins list`}</code></pre>
                 <li>点击“复制配对命令”。配对码只有 15 分钟有效，不要发给别人。</li>
                 {provider === 'hermes' && isDocker ? (
                   <>
-                    <li>回到 Hermes Compose 目录的宿主机终端；命名 profile 用户先把命令中的 <code>HERMES_HOME</code> 改为第 3 步的路径。</li>
-                    <li>粘贴整段命令执行；它会在容器中配对，并从宿主机重启 <code>gateway</code> 服务。</li>
+                    <li>无需再手改命令；页面已沿用 Compose 目录/文件、Gateway 服务名和 <code>HERMES_HOME</code>。</li>
+                    <li>在服务器宿主机粘贴整段命令执行；它会进入正确目录、在容器中配对并重启所填 Gateway 服务。</li>
                   </>
                 ) : provider === 'hermes' ? (
-                  <li>回到第 3 步的 Hermes 宿主机 shell，确认仍是同一个 <code>HERMES_HOME</code>，粘贴整段命令执行并重启当前 profile 的 Gateway。</li>
+                  <li>回到第 3 步的 Hermes 宿主机 shell，粘贴整段命令；命令会沿用表单里的 <code>HERMES_HOME</code> 并重启该 profile 的 Gateway。</li>
                 ) : isDocker ? (
-                  <li>回到 OpenClaw Compose 目录的宿主机终端，粘贴整段命令执行；它会通过 <code>openclaw-cli</code> 配对并重启 <code>openclaw-gateway</code>。</li>
+                  <li>在服务器宿主机粘贴整段命令；它会沿用 Compose 目录/文件和 CLI/Gateway 服务名，通过所填 CLI 服务配对并重启所填 Gateway 服务。</li>
                 ) : (
                   <li>回到 OpenClaw 宿主机终端，粘贴全部命令并执行；页面命令会重启 Gateway。</li>
                 )}
