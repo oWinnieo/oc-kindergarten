@@ -13,6 +13,8 @@ import {
   agentActionNotice,
 } from '@/lib/agent-action-notice';
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import { providerLabel } from '@/lib/agent-provider-catalog';
+import type { AgentProvider } from '@/lib/provider-binding-contract';
 import {
   PARENT_LANGUAGE_OPTIONS,
   PARENT_TIMEZONE_OPTIONS,
@@ -25,6 +27,8 @@ import AgentAppearancePicker, {
   APPEARANCE_PRESET_LABELS,
 } from './AgentAppearancePicker';
 import AgentActivityTimeline from './AgentActivityTimeline';
+import AgentMomentLibrary from './AgentMomentLibrary';
+import AgentShareSettings from './AgentShareSettings';
 import CasdoorSignInButton from './CasdoorSignInButton';
 
 type EnrollmentStatus =
@@ -85,7 +89,8 @@ interface AgentProfileDraft {
 interface Enrollment {
   id: string;
   status: EnrollmentStatus;
-  provider?: string;
+  provider?: AgentProvider;
+  runtimeInstanceId?: string;
   nativeAgentId?: string;
   pairingExpired?: boolean;
   updatedAt: string;
@@ -154,6 +159,9 @@ export default function FamilyDashboard() {
   const [notice, setNotice] = useState<string | null>(null);
   const [lastActions, setLastActions] = useState<Record<string, AgentAction>>({});
   const [activityRefreshes, setActivityRefreshes] = useState<
+    Record<string, number>
+  >({});
+  const [momentRefreshes, setMomentRefreshes] = useState<
     Record<string, number>
   >({});
   const [editingEnrollmentId, setEditingEnrollmentId] = useState<string | null>(
@@ -237,6 +245,30 @@ export default function FamilyDashboard() {
     );
   };
 
+  const refreshAgentMoments = (enrollmentId: string) => {
+    setMomentRefreshes((current) => ({
+      ...current,
+      [enrollmentId]: (current[enrollmentId] ?? 0) + 1,
+    }));
+    setActivityRefreshes((current) => ({
+      ...current,
+      [enrollmentId]: (current[enrollmentId] ?? 0) + 1,
+    }));
+  };
+
+  const removeEnrollment = (enrollmentId: string) => {
+    setState((current) =>
+      current.kind !== 'ready'
+        ? current
+        : {
+            ...current,
+            enrollments: current.enrollments.filter(
+              (item) => item.id !== enrollmentId,
+            ),
+          },
+    );
+  };
+
   const toggleParentProfileEditor = () => {
     if (editingParentProfile) {
       setEditingParentProfile(false);
@@ -299,9 +331,11 @@ export default function FamilyDashboard() {
   const changeLifecycle = async (
     enrollment: Enrollment,
     action: 'suspend' | 'resume' | 'archive' | 'restore',
+    confirmArchive = true,
   ) => {
     if (
       action === 'archive' &&
+      confirmArchive &&
       !window.confirm(
         enrollment.agent
           ? '归档这个 Agent？归档后它会离开教室并停止接收事件，你之后可以从已归档列表恢复。'
@@ -339,6 +373,35 @@ export default function FamilyDashboard() {
       );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '无法更新 Agent 状态');
+    } finally {
+      setBusyKey(null);
+    }
+  };
+
+  const cancelPendingEnrollment = async (enrollment: Enrollment) => {
+    if (!window.confirm('撤销这个入园申请？此操作不可撤销。')) return;
+
+    if (enrollment.status === 'pending_parent_confirmation') {
+      await changeLifecycle(enrollment, 'archive', false);
+      return;
+    }
+
+    const key = `${enrollment.id}:delete`;
+    setBusyKey(key);
+    setNotice(null);
+    try {
+      const response = await fetch(
+        `/api/enrollments/${encodeURIComponent(enrollment.id)}`,
+        { method: 'DELETE' },
+      );
+      const body = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(body.error ?? '无法撤销入园申请');
+      }
+      removeEnrollment(enrollment.id);
+      setNotice('入园申请已删除。');
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : '无法撤销入园申请');
     } finally {
       setBusyKey(null);
     }
@@ -685,7 +748,10 @@ export default function FamilyDashboard() {
                         {agent.role ?? 'AI Agent'} · {VARIANT_LABELS[agent.characterVariant]} ·{' '}
                         {APPEARANCE_PRESET_LABELS[agent.appearancePreset ?? 'classic']}
                       </p>
-                      <code>{enrollment.provider}/{enrollment.nativeAgentId}</code>
+                      <code>
+                        {providerLabel(enrollment.provider)} ·{' '}
+                        {enrollment.nativeAgentId}
+                      </code>
                     </div>
                   </div>
 
@@ -742,6 +808,17 @@ export default function FamilyDashboard() {
                     enrollmentId={enrollment.id}
                     agentName={agent.displayName}
                     refreshToken={activityRefreshes[enrollment.id] ?? 0}
+                    onMomentChanged={() => refreshAgentMoments(enrollment.id)}
+                  />
+                  <AgentShareSettings
+                    enrollmentId={enrollment.id}
+                    agentName={agent.displayName}
+                    onChanged={() => refreshAgentMoments(enrollment.id)}
+                  />
+                  <AgentMomentLibrary
+                    enrollmentId={enrollment.id}
+                    agentName={agent.displayName}
+                    refreshToken={momentRefreshes[enrollment.id] ?? 0}
                   />
 
                   {editing && profileDraft ? (
@@ -890,7 +967,10 @@ export default function FamilyDashboard() {
             {groups.pending.map((enrollment) => (
               <div className="familyPendingRow" key={enrollment.id}>
                 <div>
-                  <strong>{enrollment.nativeAgentId ?? '新的 Agent'}</strong>
+                  <strong>
+                    {providerLabel(enrollment.provider)} ·{' '}
+                    {enrollment.nativeAgentId ?? '新的 Agent'}
+                  </strong>
                   <span>{STATUS_LABELS[enrollment.status]}</span>
                 </div>
                 <div className="familyPendingActions">
@@ -898,7 +978,7 @@ export default function FamilyDashboard() {
                   <button
                     type="button"
                     disabled={busyKey !== null}
-                    onClick={() => void changeLifecycle(enrollment, 'archive')}
+                    onClick={() => void cancelPendingEnrollment(enrollment)}
                   >
                     撤销申请
                   </button>
@@ -917,7 +997,12 @@ export default function FamilyDashboard() {
               <li key={enrollment.id}>
                 <div className="familyArchivedAgentRow">
                   <div>
-                    <span>{enrollment.agent?.displayName ?? enrollment.nativeAgentId ?? 'Agent'}</span>
+                    <span>
+                      {enrollment.agent?.displayName ??
+                        enrollment.nativeAgentId ??
+                        'Agent'}{' '}
+                      · {providerLabel(enrollment.provider)}
+                    </span>
                     <time dateTime={enrollment.updatedAt}>
                       {new Date(enrollment.updatedAt).toLocaleDateString('zh-CN')}
                     </time>
@@ -933,11 +1018,24 @@ export default function FamilyDashboard() {
                   ) : null}
                 </div>
                 {enrollment.agent ? (
-                  <AgentActivityTimeline
-                    compact
-                    enrollmentId={enrollment.id}
-                    agentName={enrollment.agent.displayName}
-                  />
+                  <>
+                    <AgentActivityTimeline
+                      compact
+                      enrollmentId={enrollment.id}
+                      agentName={enrollment.agent.displayName}
+                      onMomentChanged={() => refreshAgentMoments(enrollment.id)}
+                    />
+                    <AgentShareSettings
+                      enrollmentId={enrollment.id}
+                      agentName={enrollment.agent.displayName}
+                      onChanged={() => refreshAgentMoments(enrollment.id)}
+                    />
+                    <AgentMomentLibrary
+                      enrollmentId={enrollment.id}
+                      agentName={enrollment.agent.displayName}
+                      refreshToken={momentRefreshes[enrollment.id] ?? 0}
+                    />
+                  </>
                 ) : null}
               </li>
             ))}

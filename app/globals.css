@@ -255,6 +255,10 @@ button:focus-visible {
   gap: 22px;
 }
 
+.betaGuideStep > div:last-child {
+  min-width: 0;
+}
+
 .betaGuideStepNumber {
   width: 44px;
   height: 44px;
@@ -298,10 +302,12 @@ button:focus-visible {
   color: #205f82;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.92em;
+  overflow-wrap: anywhere;
 }
 
 .betaGuideCode {
   overflow-x: auto;
+  max-width: 100%;
   margin: 18px 0;
   border-radius: 6px;
   padding: 18px;
@@ -510,6 +516,44 @@ button:focus-visible {
 
 .parentFullField {
   grid-column: 1 / -1;
+}
+
+.parentBetaNotice {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(41, 125, 182, 0.24);
+  border-radius: 14px;
+  padding: 16px;
+  background: rgba(231, 246, 255, 0.58);
+}
+
+.parentBetaNotice > p,
+.parentBetaNotice > small {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.parentBetaChoice {
+  display: flex !important;
+  grid-template-columns: none;
+  align-items: flex-start;
+  gap: 10px !important;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.parentForm .parentBetaChoice > input {
+  width: 18px;
+  min-height: 18px;
+  margin: 2px 0 0;
+  padding: 0;
+  flex: 0 0 18px;
+}
+
+.parentForm .parentBetaChoice > span {
+  line-height: 1.55;
 }
 
 .parentFormActions {
@@ -748,6 +792,12 @@ button:focus-visible {
   font-weight: 800;
 }
 
+.agentPairingBox label > small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .agentPairingBox input,
 .agentConfirmForm input,
 .agentConfirmForm textarea {
@@ -767,13 +817,14 @@ button:focus-visible {
 }
 
 .agentPairingCommand {
+  display: block;
   overflow-x: auto;
   border-radius: 9px;
   padding: 12px;
   background: #17324a;
   color: #e9f7ff;
   font-size: 12px;
-  white-space: nowrap;
+  white-space: pre;
 }
 
 .agentPairingActions,
@@ -801,6 +852,104 @@ button:focus-visible {
   padding: 14px;
 }
 
+.agentEnrollmentPanel > .agentVariantField + .agentVariantField {
+  margin-top: 12px;
+}
+
+.agentCommandSettings {
+  display: grid;
+  gap: 12px;
+}
+
+.agentCommandSettingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.agentCommandSettings label {
+  display: grid;
+  gap: 7px;
+}
+
+.agentCommandSettings label > span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.agentCommandSettings input,
+.agentCommandSettings textarea {
+  width: 100%;
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.agentCommandSettings input {
+  min-height: 44px;
+}
+
+.agentCommandSettings textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.agentCommandSettings small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.agentCommandSettings small code {
+  margin: 0 4px;
+}
+
+.agentCommandSettingsWide,
+.agentCommandSettingsError {
+  grid-column: 1 / -1;
+}
+
+.agentCommandSettings .agentCommandSettingsError {
+  color: #a23b3b;
+  font-weight: 750;
+}
+
+.agentCommandLookup {
+  border: 1px solid rgba(83, 105, 167, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+  display: grid;
+  gap: 11px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.agentCommandLookup strong {
+  font-size: 14px;
+}
+
+.agentCommandLookup p,
+.agentCommandLookup ol {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.agentCommandLookup ol {
+  padding-left: 20px;
+}
+
+.agentCommandLookup li + li {
+  margin-top: 5px;
+}
+
+.agentInspectionCommand {
+  max-height: 280px;
+}
+
 .agentVariantField > p {
   margin: 7px 0 12px;
 }
@@ -809,6 +958,10 @@ button:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
+}
+
+.agentVariantOptions.agentDeploymentOptions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .agentVariantOptions label {
@@ -1648,7 +1801,456 @@ button:focus-visible {
   padding-top: 6px;
 }
 
+.familyActivityShareChoice {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #496371;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.familyActivityShareChoice input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--blue);
+}
+
+.familyActivityShareChoice input:disabled + span {
+  color: #87969d;
+  cursor: not-allowed;
+}
+
+.familyActivityShareActions {
+  margin-top: 10px;
+  border-radius: 7px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--sky);
+  color: #205f82;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.familyActivityShareActions .parentPrimaryAction {
+  min-height: 34px;
+  margin-left: auto;
+  border-radius: 6px;
+  padding: 7px 11px;
+  font-size: 11px;
+}
+
+.familyActivityShareActions > button:last-child,
+.agentMomentTextAction {
+  border: 0;
+  padding: 4px;
+  background: transparent;
+  color: var(--blue);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.agentShareSettings,
+.agentMomentLibrary {
+  min-width: 0;
+  grid-column: 1 / -1;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+
+.agentShareSettings {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto auto;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+.agentShareSettings > div {
+  display: grid;
+  gap: 4px;
+}
+
+.agentShareSettings strong {
+  font-size: 12px;
+}
+
+.agentShareSettings small,
+.agentShareSettings > p,
+.agentShareSettingsStatus {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.agentShareSettings > label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.agentShareSettings > label input {
+  width: 36px;
+  height: 20px;
+  accent-color: var(--blue);
+}
+
+.agentShareSettings > p,
+.agentShareSettingsError {
+  grid-column: 1 / -1;
+}
+
+.agentShareSettingsError,
+.agentMomentError {
+  margin: 8px 0;
+  border-left: 3px solid #bd4a45;
+  padding: 8px 10px;
+  background: #fff2ef;
+  color: #8b3d3d;
+  font-size: 12px;
+}
+
+.agentMomentLibraryToggle {
+  width: 100%;
+  min-height: 34px;
+  border: 0;
+  padding: 3px 2px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 850;
+  text-align: left;
+}
+
+.agentMomentLibraryToggle span:last-child {
+  color: var(--blue);
+  font-size: 11px;
+}
+
+.agentMomentLibraryPanel {
+  padding: 8px 0 2px;
+}
+
+.agentMomentLibraryPanel > p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.agentMomentLibraryPanel > ol {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  list-style: none;
+}
+
+.agentMomentLibraryPanel > ol > li {
+  border-bottom: 1px solid rgba(23, 50, 74, 0.09);
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.agentMomentLibraryPanel > ol > li > div:first-child {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.agentMomentLibraryPanel strong {
+  font-size: 12px;
+}
+
+.agentMomentLibraryPanel span,
+.agentMomentLibraryPanel time {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.agentMomentLibraryActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.agentMomentLibraryActions > button {
+  min-height: 30px;
+  border: 1px solid rgba(41, 125, 182, 0.25);
+  border-radius: 6px;
+  padding: 5px 8px;
+  background: #fff;
+  color: #145b83;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.agentMomentLibraryActions > button.isDanger {
+  border-color: rgba(189, 74, 69, 0.25);
+  color: #8b3d3d;
+}
+
+.agentMomentQr {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+}
+
+.agentMomentQr img {
+  max-width: 192px;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.agentMomentQr a {
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.agentMomentModalBackdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  background: rgba(13, 30, 45, 0.58);
+}
+
+.agentMomentComposer {
+  width: min(720px, 100%);
+  max-height: calc(100vh - 48px);
+  border-radius: 12px;
+  padding: 24px;
+  overflow: auto;
+  background: #fbfcfa;
+  box-shadow: 0 24px 80px rgba(13, 30, 45, 0.28);
+}
+
+.agentMomentComposer > header {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.agentMomentComposer h3 {
+  margin: 3px 0 0;
+  font-size: 22px;
+}
+
+.agentMomentComposer > header > button {
+  border: 0;
+  padding: 5px;
+  background: transparent;
+  color: var(--blue);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.agentMomentRedaction,
+.agentMomentForwardWarning {
+  border-radius: 7px;
+  padding: 10px 12px;
+  background: #fff6df;
+  color: #77561a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.agentMomentPreview {
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.agentMomentPreview li {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 12px;
+  display: grid;
+  gap: 4px;
+  background: #fff;
+}
+
+.agentMomentPreview strong {
+  font-size: 13px;
+}
+
+.agentMomentPreview span,
+.agentMomentPreview time {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.agentMomentComposer form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.agentMomentComposer form > label {
+  display: grid;
+  gap: 7px;
+}
+
+.agentMomentComposer form > label > span,
+.agentMomentComposer legend,
+.agentMomentPublished label > span {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.agentMomentComposer input,
+.agentMomentComposer textarea,
+.agentMomentComposer select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(23, 50, 74, 0.18);
+  border-radius: 6px;
+  padding: 9px 11px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.agentMomentComposer textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.agentMomentComposer small {
+  justify-self: end;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.agentMomentWideField {
+  grid-column: 1 / -1;
+}
+
+.agentMomentComposer fieldset {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 12px;
+  display: flex;
+  gap: 18px;
+}
+
+.agentMomentComposer fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+
+.agentMomentComposer fieldset input {
+  width: 16px;
+  min-height: 16px;
+}
+
+.agentMomentPublished {
+  border: 1px solid rgba(47, 138, 97, 0.22);
+  border-radius: 8px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  background: #f0faf5;
+}
+
+.agentMomentPublished label {
+  display: grid;
+  gap: 6px;
+}
+
+.agentMomentActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.agentMomentActions .parentPrimaryAction,
+.agentMomentActions .parentSecondaryAction {
+  min-height: 40px;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
 @media (max-width: 620px) {
+  .agentShareSettings,
+  .agentMomentComposer form {
+    grid-template-columns: 1fr;
+  }
+
+  .agentShareSettings > label {
+    justify-content: space-between;
+  }
+
+  .agentMomentLibraryPanel > ol > li {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .agentMomentLibraryActions {
+    justify-content: flex-start;
+  }
+
+  .agentMomentModalBackdrop {
+    padding: 0;
+    place-items: stretch;
+  }
+
+  .agentMomentComposer {
+    width: 100%;
+    max-height: none;
+    min-height: 100vh;
+    border-radius: 0;
+    padding: 20px 16px;
+  }
+
+  .agentMomentWideField {
+    grid-column: 1;
+  }
+
+  .agentMomentComposer fieldset {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .familyActivityShareActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .familyActivityShareActions .parentPrimaryAction {
+    margin-left: 0;
+  }
+
   .siteQuickLinks {
     right: 12px;
     left: 12px;
@@ -1764,8 +2366,15 @@ button:focus-visible {
   }
 
   .agentConfirmForm,
-  .agentVariantOptions {
+  .agentVariantOptions,
+  .agentVariantOptions.agentDeploymentOptions,
+  .agentCommandSettingsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .agentCommandSettingsWide,
+  .agentCommandSettingsError {
+    grid-column: auto;
   }
 
   .agentAppearanceOptions {

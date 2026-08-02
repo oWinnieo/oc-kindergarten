@@ -1,9 +1,90 @@
 # OC Kindergarten Operations
 
+## Dev / prod 隔离与内测资料迁移
+
+每个环境必须在自己的部署目录保存 `.env`。dev 以 `.env.example` 为模板，prod 以
+`.env.prod.example` 为模板。以下值由启动保护强制检查：
+
+| 配置 | dev | prod |
+| --- | --- | --- |
+| `KINDERGARTEN_ENV` | `dev` | `prod` |
+| `COMPOSE_PROJECT_NAME` | `oc-kindergarten-dev` | `oc-kindergarten-prod` |
+| `APP_IMAGE` | `oc-kindergarten:dev` | `oc-kindergarten:prod` |
+| `MIGRATOR_IMAGE` | `oc-kindergarten-migrator:dev` | `oc-kindergarten-migrator:prod` |
+| `POSTGRES_DATA_DIR` | `/opt/persist/oc-kindergarten/dev/postgres` | `/opt/persist/oc-kindergarten/prod/postgres` |
+| `NEXT_PUBLIC_KINDERGARTEN_ENV` | `dev` | `prod` |
+
+`EXPECTED_PUBLIC_ORIGIN` 必须与 `NEXTAUTH_URL` 完全相同。dev 域名必须带 `-dev.`，prod
+域名不得带 `-dev.`。两个环境分别使用数据库密码、NextAuth secret、管理员 secret、Agent event
+token、host port、备份目录和 Casdoor OAuth client；Casdoor issuer 保持相同。修改配置后先运行：
+
+```bash
+node scripts/validate-deployment-environment.mjs
+docker compose config --quiet
+```
+
+内测主人在入园页可以选择是否进入迁移清单。选择保存在 `beta_participants`，包括 cohort、告知文案
+版本、当前迁移资格和首次确认时间；未勾选不影响参加内测。只有
+`migration_eligible = true AND acknowledged_at IS NOT NULL` 的用户会被专用工具选中。
+
+迁移工具默认 dry-run，连接只通过环境变量提供，日志不会打印连接串或个人资料：
+
+```bash
+SOURCE_KINDERGARTEN_ENV=dev \
+TARGET_KINDERGARTEN_ENV=prod \
+SOURCE_DATABASE_URL='postgresql://...' \
+TARGET_DATABASE_URL='postgresql://...' \
+yarn users:migrate --dry-run
+```
+
+两个 URL 必须指向不同数据库 endpoint。正式执行必须先完成备份、演练和人工冲突复核，再显式输入
+固定确认短语：
+
+```bash
+SOURCE_KINDERGARTEN_ENV=dev \
+TARGET_KINDERGARTEN_ENV=prod \
+SOURCE_DATABASE_URL='postgresql://...' \
+TARGET_DATABASE_URL='postgresql://...' \
+yarn users:migrate --apply --confirm=MIGRATE_ELIGIBLE_BETA_PARENTS
+```
+
+工具只插入不存在且无冲突的 `parent_users` 与对应 `beta_participants`，保留 UUID 和时间戳；若 UUID
+或 OIDC identity 在 prod 指向另一条记录，会在事务前停止。已存在的 prod 资料不会被 dev 覆盖。
+完整上线与回滚清单见 `docs/dev-to-prod-user-migration.md`。
+
+## Provider-neutral runtime identity rollout
+
+Migration `drizzle/0009_polite_colleen_wing.sql` changes binding identity to
+`(provider, runtime_instance_id, native_agent_id)`. Before deployment, pause new
+pairing and create a PostgreSQL custom-format backup. Existing non-empty OpenClaw
+runtime IDs are preserved; null legacy/internal bindings receive the explicit
+`legacy:binding:<uuid>` namespace, and linked enrollment/credential rows are
+backfilled from that binding.
+
+After migration, verify all of the following before resuming pairing:
+
+```sql
+SELECT count(*) FROM provider_agent_bindings
+WHERE runtime_instance_id IS NULL OR btrim(runtime_instance_id) = '';
+
+SELECT count(*) FROM runtime_credentials c
+JOIN provider_agent_bindings b ON b.id = c.binding_id
+WHERE c.runtime_instance_id <> b.runtime_instance_id;
+
+SELECT provider, runtime_instance_id, native_agent_id, count(*)
+FROM provider_agent_bindings
+GROUP BY 1, 2, 3 HAVING count(*) > 1;
+```
+
+三项必须都是零。随后运行 `yarn verify:runtime`、typecheck、生产 build，并分别验证现有
+OpenClaw event 与 Hermes `/api/runtime/events`。回滚应用时可以保留新列和索引；若必须回滚
+数据库，应先停止所有新 pairing 和 provider event，恢复迁移前备份，且在三元组鉴权重新上线
+前不得重新开放 Hermes。
+
 ## Scoped OpenClaw credential rollout
 
 内测插件从 `v0.5.0-beta.1` 起不再接收服务器全局 Agent event token。每次成功使用一次性
-配对码时，服务端为对应 `provider + nativeAgentId` binding 签发一个
+配对码时，服务端为对应 `provider + runtimeInstanceId + nativeAgentId` binding 签发一个
 `ockg_rt_...` scoped credential；数据库只保存带 domain separation 的 SHA-256 hash。再次为
 同一 binding 配对会撤销旧 credential 并签发新值。
 
@@ -89,6 +170,44 @@ token 分发给内测用户。恢复本版本后既有未撤销 credential 可�
 - 验收发现 OpenClaw CLI 的 config mutation 只记录 restart intent，独立运行的 Gateway
   不会在每次 `pair` 后自动重启。onboarding 的配对命令因此显式追加
   `openclaw gateway restart`；beta.4 继续收敛 reload 操作体验。
+
+### Acceptance record: 2026-07-29 (beta.4 credential operations passed)
+
+- annotated fixed tag `v0.5.0-beta.4` 指向
+  `26a7aa9db71eb5718afca42e1871054fe5f61c53`；发布前 typecheck、build、17/17 自动化测试、
+  pack、HTTPS 全新安装、beta.2/beta.3 升级和失败保护矩阵均通过；
+- `pi-home` 升级前使用 OpenClaw 原生 backup 创建并验证
+  `/home/winnie/backups/openclaw-upgrades/2026-07-29T22-50-22.891+08-00-openclaw-backup.tar.gz`，
+  mode `0600`，SHA-256 为
+  `58a9cde06d0bb4a31e14d611f0d7e7b8c61cb7477145685002f83a8f76827640`；另保留 mode
+  `0600` 的快速回滚配置
+  `/home/winnie/backups/openclaw-upgrades/openclaw-pre-beta4-20260729T145100Z.json`；
+- 插件通过公开 HTTPS fixed tag 从 beta.3 升级到 beta.4；install record 的
+  `gitRef` 为 `v0.5.0-beta.4`、`gitCommit` 为 `26a7aa9...`，配置校验和 plugin doctor
+  通过，conversation hook 权限保持开启；
+- 升级前后在 `pi-home` 内存中完成 per-Agent credential store 等值比较，结果一致；实际键仍
+  只有 `openclaw:frontend` 与 `openclaw:fullstack`。credential 值及其比较指纹均未写入文档
+  或日志；legacy/internal token 仍存在但未输出；
+- `openclaw kindergarten apply --json` 完成真实 systemd Gateway 重启和 deep RPC
+  readiness，状态从 `unknown` 收敛为 `applied`；Gateway PID 从 `428212` 变为 `429268`，
+  restart count 仍为 0，RPC 与 config audit 均通过；
+- `frontend` 与 `fullstack` 分别完成一次不投递到外部渠道的真实 Gateway 任务。服务端每个
+  Agent 均记录 `agent.state, agent.state, agent.message`，最终为 `idle`，对应 active
+  credential 的 `last_used_at` 更新且 pending outbox 为 0；
+- human/JSON status、apply 输出和 Gateway journal 均通过 redaction；没有
+  `agent_end blocked`、bridge delivery failure 或 credential 明文。升级未创建临时 Agent、
+  binding 或 credential，因此无需清理生产身份数据。
+- 开发服务器另用一次性独立 profile 和正常 enrollment/pairing 取得唯一临时 Agent 的真实
+  beta.2 scoped credential；从 `v0.5.0-beta.2` 升级到 `v0.5.0-beta.4` 后，Gateway
+  自动识别唯一身份、移除旧单 `token` 字段、把原值迁移到唯一 per-Agent 键，并在第二次
+  Gateway 启动后继续成功使用。比较只在内存中完成，没有记录值、hash 或可逆指纹；
+- 迁移测试的 beta.2/beta.4 deep RPC、status redaction、重启持久化和服务端事件递增均通过；
+  临时 parent、enrollment、profile、binding、credential、event/outbox、Node/OpenClaw
+  环境、workspace、profile 和端口已完整清理，残留计数为 0；
+- `2026-07-29 23:27`（UTC+8）建立 24-72 小时观察 T0：`pi-home` Gateway
+  `active/running`、restart count 0、deep RPC 正常，插件为 beta.4 / `applied`，
+  `frontend` 与 `fullstack` 均为 `present`；站点返回 `200`，Web/PostgreSQL restart count
+  和 pending outbox 均为 0。T+24h、T+48h、T+72h 只读复查已安排，外部用户独立入园仍未完成。
 
 ### Acceptance record: 2026-07-23 (conditional beta)
 

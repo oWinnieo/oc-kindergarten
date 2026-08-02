@@ -3,6 +3,19 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 import type { AgentAppearancePreset } from '@/lib/agent-registry-contract';
+import {
+  AGENT_DEPLOYMENTS,
+  AGENT_PROVIDER_CATALOG,
+  buildPluginInstallCommand,
+  buildRuntimeInspectionCommand,
+  buildRuntimePairingCommand,
+  deploymentLabel,
+  providerLabel,
+} from '@/lib/agent-provider-catalog';
+import type { AgentDeployment } from '@/lib/agent-provider-catalog';
+import type { RuntimeCommandSettings } from '@/lib/agent-provider-catalog';
+import type { AgentProvider } from '@/lib/provider-binding-contract';
+import { welcomeAgentHref } from '@/lib/classroom-welcome';
 import AgentAppearancePicker, {
   APPEARANCE_PRESET_LABELS,
 } from './AgentAppearancePicker';
@@ -30,7 +43,8 @@ interface AgentEnrollment {
   id: string;
   status: EnrollmentStatus;
   draftProfile?: AgentDraft;
-  provider?: 'openclaw';
+  provider?: AgentProvider;
+  runtimeInstanceId?: string;
   nativeAgentId?: string;
   pairingExpiresAt?: string;
   pairingExpired?: boolean;
@@ -60,20 +74,99 @@ interface ActivationDraft {
   color: string;
 }
 
+interface RuntimeCommandFormState {
+  composeDirectory: string;
+  composeFiles: string;
+  gatewayService: string;
+  cliService: string;
+  hermesHostHome: string;
+  hermesDockerHome: string;
+}
+
+const DEFAULT_COMMAND_FORMS: Record<AgentProvider, RuntimeCommandFormState> = {
+  hermes: {
+    composeDirectory: '',
+    composeFiles: '',
+    gatewayService: 'gateway',
+    cliService: '',
+    hermesHostHome: '',
+    hermesDockerHome: '/opt/data',
+  },
+  openclaw: {
+    composeDirectory: '',
+    composeFiles: '',
+    gatewayService: 'openclaw-gateway',
+    cliService: 'openclaw-cli',
+    hermesHostHome: '',
+    hermesDockerHome: '',
+  },
+};
+
+const COMPOSE_SERVICE_PATTERN = /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+
+function commandSettings(
+  provider: AgentProvider,
+  deployment: AgentDeployment,
+  form: RuntimeCommandFormState,
+): RuntimeCommandSettings {
+  return {
+    composeDirectory: form.composeDirectory.trim(),
+    composeFiles: form.composeFiles
+      .split('\n')
+      .map((file) => file.trim())
+      .filter(Boolean),
+    gatewayService: form.gatewayService.trim(),
+    cliService: form.cliService.trim(),
+    hermesHome:
+      provider === 'hermes'
+        ? deployment === 'docker'
+          ? form.hermesDockerHome.trim()
+          : form.hermesHostHome.trim()
+        : undefined,
+  };
+}
+
+function commandSettingsError(
+  provider: AgentProvider,
+  deployment: AgentDeployment,
+  form: RuntimeCommandFormState,
+): string {
+  if (deployment === 'host') {
+    if (
+      provider === 'hermes' &&
+      form.hermesHostHome.trim() &&
+      !form.hermesHostHome.trim().startsWith('/')
+    ) {
+      return '命名 profile 的 HERMES_HOME 请填写容器或宿主机中的绝对路径。';
+    }
+    return '';
+  }
+  if (!form.composeDirectory.trim()) {
+    return '请填写 Docker Compose 目录，生成的命令会先进入该目录。';
+  }
+  if (!COMPOSE_SERVICE_PATTERN.test(form.gatewayService.trim())) {
+    return 'Gateway 服务名格式不正确。';
+  }
+  if (
+    provider === 'openclaw' &&
+    !COMPOSE_SERVICE_PATTERN.test(form.cliService.trim())
+  ) {
+    return 'OpenClaw CLI 服务名格式不正确。';
+  }
+  if (
+    provider === 'hermes' &&
+    !form.hermesDockerHome.trim().startsWith('/')
+  ) {
+    return 'Docker 内的 HERMES_HOME 必须是绝对路径。';
+  }
+  return '';
+}
+
 const VARIANT_LABELS: Record<CharacterVariant, string> = {
   boy: '男孩外观',
   girl: '女孩外观',
   genderless: '无性别孩子外观',
 };
-
-const PLUGIN_BETA_VERSION = 'v0.5.0-beta.3';
-const PLUGIN_INSTALL_COMMAND = [
-  `openclaw plugins install 'git:https://github.com/oWinnieo/oc-kindergarten-openclaw-plugin.git#${PLUGIN_BETA_VERSION}' --force`,
-  'openclaw plugins enable oc-kindergarten-bridge',
-  `openclaw config set 'plugins.entries["oc-kindergarten-bridge"].hooks.allowConversationAccess' true --strict-json`,
-  `openclaw config set 'plugins.entries["oc-kindergarten-bridge"].config.shareAssistantMessages' true --strict-json`,
-  'openclaw gateway restart',
-].join('\n');
 
 function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
   const draft = enrollment.draftProfile;
@@ -86,13 +179,6 @@ function draftForActivation(enrollment: AgentEnrollment): ActivationDraft {
     appearancePreset: 'classic',
     color: draft?.color ?? '#6576d8',
   };
-}
-
-function pairingCommand(code: string, nativeAgentId: string) {
-  return [
-    `openclaw kindergarten pair ${code} --agent ${nativeAgentId}`,
-    'openclaw gateway restart',
-  ].join('\n');
 }
 
 async function responseBody(response: Response) {
@@ -113,12 +199,16 @@ export default function AgentEnrollmentPanel() {
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [notice, setNotice] = useState('');
+  const [newProvider, setNewProvider] = useState<AgentProvider>('hermes');
+  const [deployment, setDeployment] = useState<AgentDeployment>('docker');
+  const [commandForms, setCommandForms] = useState(DEFAULT_COMMAND_FORMS);
   const [pairingSecrets, setPairingSecrets] = useState<
     Record<string, PairingSecret>
   >({});
   const [nativeAgentIds, setNativeAgentIds] = useState<Record<string, string>>(
     {},
   );
+  const [shareReplies, setShareReplies] = useState<Record<string, boolean>>({});
   const [activationDrafts, setActivationDrafts] = useState<
     Record<string, ActivationDraft>
   >({});
@@ -129,7 +219,9 @@ export default function AgentEnrollmentPanel() {
       const body = await responseBody(
         await fetch('/api/enrollments', { cache: 'no-store' }),
       );
-      const nextEnrollments = body.enrollments ?? [];
+      const nextEnrollments = (body.enrollments ?? []).filter(
+        (enrollment) => enrollment.status !== 'archived',
+      );
       setEnrollments(nextEnrollments);
       setActivationDrafts((current) => {
         const next = { ...current };
@@ -189,7 +281,10 @@ export default function AgentEnrollmentPanel() {
           item.id === enrollmentId ? body.enrollment! : item,
         ),
       );
-      setNotice('配对码已生成，请在 15 分钟内到 OpenClaw 主机执行命令。');
+      const provider = body.enrollment.provider ?? 'openclaw';
+      setNotice(
+        `配对码已生成，请在 15 分钟内到 ${providerLabel(provider)} 主机执行命令。`,
+      );
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '生成配对码失败');
     } finally {
@@ -197,12 +292,16 @@ export default function AgentEnrollmentPanel() {
     }
   };
 
-  const createEnrollment = async () => {
+  const createEnrollment = async (provider: AgentProvider) => {
     setBusyId('new');
     setNotice('');
     try {
       const body = await responseBody(
-        await fetch('/api/enrollments', { method: 'POST' }),
+        await fetch('/api/enrollments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ provider }),
+        }),
       );
       if (!body.enrollment) throw new Error('服务器没有返回入园申请');
       setEnrollments((current) => [body.enrollment!, ...current]);
@@ -234,6 +333,11 @@ export default function AgentEnrollmentPanel() {
         delete next[enrollment.id];
         return next;
       });
+      setShareReplies((current) => {
+        const next = { ...current };
+        delete next[enrollment.id];
+        return next;
+      });
       setActivationDrafts((current) => {
         const next = { ...current };
         delete next[enrollment.id];
@@ -247,29 +351,62 @@ export default function AgentEnrollmentPanel() {
     }
   };
 
-  const copyCommand = async (enrollmentId: string) => {
+  const copyCommand = async (enrollment: AgentEnrollment) => {
+    const enrollmentId = enrollment.id;
     const secret = pairingSecrets[enrollmentId];
     const nativeAgentId = nativeAgentIds[enrollmentId]?.trim();
-    if (!secret || !nativeAgentId) return;
-    if (!/^[A-Za-z0-9][A-Za-z0-9._:-]*$/.test(nativeAgentId)) {
+    const provider = enrollment.provider ?? 'openclaw';
+    const form = commandForms[provider];
+    const settingsError = commandSettingsError(provider, deployment, form);
+    if (settingsError) {
+      setNotice(settingsError);
+      return;
+    }
+    if (!secret || (provider === 'openclaw' && !nativeAgentId)) return;
+    if (
+      provider === 'openclaw' &&
+      !/^[A-Za-z0-9][A-Za-z0-9._:-]*$/.test(nativeAgentId ?? '')
+    ) {
       setNotice('OpenClaw Agent ID 格式不正确');
       return;
     }
     try {
       await navigator.clipboard.writeText(
-        pairingCommand(secret.code, nativeAgentId),
+        buildRuntimePairingCommand({
+          provider,
+          deployment,
+          pairingCode: secret.code,
+          endpoint: window.location.origin,
+          nativeAgentId,
+          shareReplies: shareReplies[enrollmentId] ?? false,
+          settings: commandSettings(provider, deployment, form),
+        }),
       );
-      setNotice('配对命令已复制。请到安装 OpenClaw 的树莓派终端执行。');
+      setNotice(
+        `配对命令已复制。请在 ${deploymentLabel(deployment)} 的正确终端执行。`,
+      );
     } catch {
       setNotice('浏览器无法复制，请手动复制命令。');
     }
   };
 
-  const copyPluginInstallCommand = async () => {
+  const copyPluginInstallCommand = async (provider: AgentProvider) => {
+    const form = commandForms[provider];
+    const settingsError = commandSettingsError(provider, deployment, form);
+    if (settingsError) {
+      setNotice(settingsError);
+      return;
+    }
     try {
-      await navigator.clipboard.writeText(PLUGIN_INSTALL_COMMAND);
+      await navigator.clipboard.writeText(
+        buildPluginInstallCommand({
+          provider,
+          deployment,
+          settings: commandSettings(provider, deployment, form),
+        }),
+      );
       setNotice(
-        '插件安装命令已复制，包含回复气泡所需的会话访问开关。beta.3 支持在同一 Gateway 配对多个 Agent。',
+        `${providerLabel(provider)} · ${deploymentLabel(deployment)} 插件安装命令已复制。`,
       );
     } catch {
       setNotice('浏览器无法复制，请手动复制插件安装命令。');
@@ -331,12 +468,41 @@ export default function AgentEnrollmentPanel() {
           item.id === enrollment.id ? body.enrollment! : item,
         ),
       );
-      setNotice('Agent 已确认入园。它下一次有活动时会进入教室。');
+      const agentId = body.enrollment.agent?.agentId;
+      setNotice('Agent 已确认入园，正在带它从入口进入教室。');
+      if (agentId) {
+        window.location.assign(welcomeAgentHref(agentId));
+      }
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '确认入园失败');
     } finally {
       setBusyId(null);
     }
+  };
+
+  const selectedProvider = AGENT_PROVIDER_CATALOG[newProvider];
+  const selectedCommandForm = commandForms[newProvider];
+  const selectedSettingsError = commandSettingsError(
+    newProvider,
+    deployment,
+    selectedCommandForm,
+  );
+  const selectedInstallCommand = buildPluginInstallCommand({
+    provider: newProvider,
+    deployment,
+    settings: commandSettings(newProvider, deployment, selectedCommandForm),
+  });
+  const selectedInspectionCommand = buildRuntimeInspectionCommand({
+    provider: newProvider,
+    deployment,
+    settings: commandSettings(newProvider, deployment, selectedCommandForm),
+  });
+
+  const updateCommandForm = (patch: Partial<RuntimeCommandFormState>) => {
+    setCommandForms((current) => ({
+      ...current,
+      [newProvider]: { ...current[newProvider], ...patch },
+    }));
   };
 
   return (
@@ -349,8 +515,8 @@ export default function AgentEnrollmentPanel() {
         <button
           className="parentPrimaryAction"
           type="button"
-          disabled={busyId !== null}
-          onClick={() => void createEnrollment()}
+          disabled={busyId !== null || Boolean(selectedSettingsError)}
+          onClick={() => void createEnrollment(newProvider)}
         >
           {busyId === 'new' ? '创建中…' : '添加 AI Agent'}
         </button>
@@ -359,22 +525,232 @@ export default function AgentEnrollmentPanel() {
         配对码只能使用一次，15 分钟后失效。Agent 提交的资料只是草稿，必须由你确认后才会公开。
       </p>
 
+      <fieldset className="agentVariantField">
+        <legend>你使用哪个 Agent runtime？</legend>
+        <div className="agentVariantOptions">
+          {(['hermes', 'openclaw'] as AgentProvider[]).map((provider) => (
+            <label key={provider}>
+              <input
+                type="radio"
+                name="new-agent-provider"
+                value={provider}
+                checked={newProvider === provider}
+                onChange={() => setNewProvider(provider)}
+              />
+              <span>{providerLabel(provider)}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="agentVariantField">
+        <legend>它安装在哪里？</legend>
+        <div className="agentVariantOptions agentDeploymentOptions">
+          {AGENT_DEPLOYMENTS.map((candidate) => (
+            <label key={candidate}>
+              <input
+                type="radio"
+                name="new-agent-deployment"
+                value={candidate}
+                checked={deployment === candidate}
+                onChange={() => setDeployment(candidate)}
+              />
+              <span>{deploymentLabel(candidate)}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="agentVariantField agentCommandSettings">
+        <legend>命令参数</legend>
+        <p>
+          这里只在浏览器中生成命令，不会把服务器路径或服务名提交给幼儿园。
+          安装命令和后面的配对命令会同步使用这些值。
+        </p>
+        {deployment === 'docker' ? (
+          <div className="agentCommandSettingsGrid">
+            <label>
+              <span>Docker Compose 目录（必填）</span>
+              <input
+                value={selectedCommandForm.composeDirectory}
+                placeholder={
+                  newProvider === 'hermes'
+                    ? '/opt/docker/hermes-agent'
+                    : '/opt/docker/openclaw'
+                }
+                onChange={(event) =>
+                  updateCommandForm({ composeDirectory: event.target.value })
+                }
+              />
+              <small>
+                获取：执行下方第 1 段，复制目标 runtime 那一行的{' '}
+                <code>dir=</code> 值。
+              </small>
+            </label>
+            <label>
+              <span>Gateway 服务名</span>
+              <input
+                value={selectedCommandForm.gatewayService}
+                onChange={(event) =>
+                  updateCommandForm({ gatewayService: event.target.value })
+                }
+              />
+              <small>
+                获取：执行下方第 1 段，找到 Gateway 容器所在行，复制{' '}
+                <code>service=</code> 值。
+              </small>
+            </label>
+            {newProvider === 'openclaw' ? (
+              <label>
+                <span>OpenClaw CLI 服务名</span>
+                <input
+                  value={selectedCommandForm.cliService}
+                  onChange={(event) =>
+                    updateCommandForm({ cliService: event.target.value })
+                  }
+                />
+                <small>
+                  获取：执行下方第 1 段，找到 CLI 容器所在行，复制{' '}
+                  <code>service=</code> 值。
+                </small>
+              </label>
+            ) : (
+              <label>
+                <span>容器内 HERMES_HOME</span>
+                <input
+                  value={selectedCommandForm.hermesDockerHome}
+                  placeholder="/opt/data 或 /opt/data/profiles/YOUR_PROFILE"
+                  onChange={(event) =>
+                    updateCommandForm({ hermesDockerHome: event.target.value })
+                  }
+                />
+                <small>
+                  获取：先填好 Compose 和 Gateway，再执行下方第 2 段，复制{' '}
+                  <code>HERMES_HOME=</code> 值。
+                </small>
+              </label>
+            )}
+            <label className="agentCommandSettingsWide">
+              <span>Compose 文件列表（可选，每行一个）</span>
+              <textarea
+                value={selectedCommandForm.composeFiles}
+                placeholder={'docker-compose.yml\ndocker-compose.override.yml'}
+                onChange={(event) =>
+                  updateCommandForm({ composeFiles: event.target.value })
+                }
+              />
+              <small>
+                获取：查看下方第 1 段输出的 <code>files=</code>；多个文件按原顺序每行一个。
+                留空时使用 Docker Compose 自动发现；填写后会生成每一个 <code>-f</code> 参数。
+              </small>
+            </label>
+          </div>
+        ) : newProvider === 'hermes' ? (
+          <label>
+            <span>命名 profile 的 HERMES_HOME（可选）</span>
+            <input
+              value={selectedCommandForm.hermesHostHome}
+              placeholder="/home/hermes/.hermes/profiles/YOUR_PROFILE"
+              onChange={(event) =>
+                updateCommandForm({ hermesHostHome: event.target.value })
+              }
+            />
+            <small>
+              获取：用运行 Gateway 的系统账号执行下方第一行。默认 profile 请留空；
+              命名 profile 填输出的绝对路径，安装和配对会沿用它。
+            </small>
+          </label>
+        ) : (
+          <p>
+            OpenClaw 宿主机插件安装命令没有需要替换的部署参数；生成配对码后只需填写
+            Agent ID。
+          </p>
+        )}
+        {selectedSettingsError ? (
+          <p className="agentCommandSettingsError">{selectedSettingsError}</p>
+        ) : null}
+        <div className="agentCommandLookup">
+          <div>
+            <strong>这些值怎么获取？</strong>
+            {deployment === 'docker' ? (
+              <ol>
+                <li>
+                  在 Docker 宿主机执行下方第 1 段。找到镜像名称属于{' '}
+                  {selectedProvider.label} 的那一行。
+                </li>
+                <li>
+                  将 <code>dir=</code> 后面的值填入“Docker Compose 目录”；
+                  将 <code>service=</code> 后面的值填入对应服务名。
+                </li>
+                <li>
+                  <code>files=</code> 后面如果有多个文件，按原顺序拆成每行一个；
+                  如果为空，而且管理员平时没有使用 <code>-f</code> 或{' '}
+                  <code>COMPOSE_FILE</code>，文件列表保持空白。
+                </li>
+                {newProvider === 'hermes' ? (
+                  <li>
+                    填完前三项后执行第 2 段；最后一行输出的{' '}
+                    <code>HERMES_HOME=...</code> 就是当前 Gateway 实际使用的路径。
+                  </li>
+                ) : (
+                  <li>
+                    <code>docker compose config --services</code> 会再次列出服务名；
+                    选择运行 Gateway 和 CLI 的服务。最后一行会列出 Agent ID。
+                  </li>
+                )}
+              </ol>
+            ) : newProvider === 'hermes' ? (
+              <p>
+                使用平时运行 Hermes Gateway 的同一个系统账号执行下方命令。
+                第一行输出当前 <code>HERMES_HOME</code>；默认 profile
+                请让表单保持空白，命名 profile 才填写该绝对路径。
+              </p>
+            ) : (
+              <p>
+                插件安装不需要部署参数。执行下方命令，从 Agent 列表复制要配对项的
+                ID；不要复制展示名。
+              </p>
+            )}
+          </div>
+          <code className="agentPairingCommand agentInspectionCommand">
+            {selectedInspectionCommand}
+          </code>
+          {deployment === 'docker' ? (
+            <p>
+              如果第 1 段显示 <code>&lt;no value&gt;</code>，或同一个 runtime
+              有多个相似容器，请停止猜测，向服务器管理员索取启动时使用的 Compose
+              目录、完整 <code>-f</code> 顺序和服务名。
+            </p>
+          ) : null}
+        </div>
+      </fieldset>
+
       <div className="agentPairingBox agentPluginSetup">
         <div>
           <span className="agentPluginStep">首次使用 · Private beta</span>
-          <h3>先在 OpenClaw 主机安装入园插件</h3>
+          <h3>
+            先在 {selectedProvider.label} · {deploymentLabel(deployment)} 安装入园插件
+          </h3>
         </div>
         <p>
-          需要 OpenClaw 2026.7.1-2 或更高版本并能访问插件仓库。同一台主机无需重复安装；
-          命令会允许插件读取并发送最多 280 字的清洗后回复摘要，用于教室气泡。beta.3 会按
-          OpenClaw Agent ID 分别保存 scoped credential，同一 Gateway 可以配对多个 Agent。
+          已测试版本：{selectedProvider.minimumVersion}。同一 profile 无需重复安装。
+          {selectedProvider.restartCopy}
+          {deployment === 'docker'
+            ? ' 命令会先进入上方填写的 Docker Compose 目录，并使用同一组 Compose 文件、服务名和持久化目录。'
+            : ' 请使用平时运行 Gateway 的同一个系统账号。'}
+          {newProvider === 'hermes'
+            ? ' 回复气泡默认关闭，只有配对时主动勾选才会发送清洗后的 280 字摘要。'
+            : ' OpenClaw 插件会按 Agent ID 分别保存 scoped credential。'}
         </p>
-        <code className="agentPairingCommand">{PLUGIN_INSTALL_COMMAND}</code>
+        <code className="agentPairingCommand">
+          {selectedInstallCommand}
+        </code>
         <div className="agentPairingActions">
           <button
             className="parentSecondaryAction"
             type="button"
-            onClick={() => void copyPluginInstallCommand()}
+            disabled={Boolean(selectedSettingsError)}
+            onClick={() => void copyPluginInstallCommand(newProvider)}
           >
             复制插件安装命令
           </button>
@@ -393,11 +769,31 @@ export default function AgentEnrollmentPanel() {
         {enrollments.map((enrollment, index) => {
           const secret = pairingSecrets[enrollment.id];
           const nativeAgentId = nativeAgentIds[enrollment.id] ?? '';
+          const provider = enrollment.provider ?? 'openclaw';
+          const providerCatalog = AGENT_PROVIDER_CATALOG[provider];
+          const enrollmentCommandForm = commandForms[provider];
+          const enrollmentSettingsError = commandSettingsError(
+            provider,
+            deployment,
+            enrollmentCommandForm,
+          );
           const command = secret
-            ? pairingCommand(
-                secret.code,
-                nativeAgentId.trim() || 'YOUR_AGENT_ID',
-              )
+            ? buildRuntimePairingCommand({
+                provider,
+                deployment,
+                pairingCode: secret.code,
+                endpoint:
+                  typeof window === 'undefined'
+                    ? 'https://YOUR_KINDERGARTEN_HOST'
+                    : window.location.origin,
+                nativeAgentId: nativeAgentId.trim() || undefined,
+                shareReplies: shareReplies[enrollment.id] ?? false,
+                settings: commandSettings(
+                  provider,
+                  deployment,
+                  enrollmentCommandForm,
+                ),
+              })
             : '';
           const activation = activationDrafts[enrollment.id];
           return (
@@ -413,7 +809,7 @@ export default function AgentEnrollmentPanel() {
                     {enrollment.status === 'draft'
                       ? '准备配对'
                       : enrollment.status === 'awaiting_pairing'
-                        ? '等待 OpenClaw'
+                        ? `等待 ${providerCatalog.label}`
                         : enrollment.status === 'pending_parent_confirmation'
                           ? '等待主人确认'
                           : enrollment.status === 'active'
@@ -458,26 +854,64 @@ export default function AgentEnrollmentPanel() {
                           minute: '2-digit',
                         })}
                       </p>
-                      <label>
-                        <span>要配对的 OpenClaw Agent ID</span>
-                        <input
-                          value={nativeAgentId}
-                          placeholder="例如 main、design 或 frontend"
-                          onChange={(event) =>
-                            setNativeAgentIds((current) => ({
-                              ...current,
-                              [enrollment.id]: event.target.value,
-                            }))
-                          }
-                        />
-                      </label>
+                      {providerCatalog.needsNativeAgentId ? (
+                        <label>
+                          <span>要配对的 {providerCatalog.identityLabel}</span>
+                          <input
+                            value={nativeAgentId}
+                            placeholder="例如 main、design 或 frontend"
+                            onChange={(event) =>
+                              setNativeAgentIds((current) => ({
+                                ...current,
+                                [enrollment.id]: event.target.value,
+                              }))
+                            }
+                          />
+                          <small>
+                            获取方法：执行上方“这些值怎么获取？”中的最后一行 Agent
+                            列表命令，复制目标 Agent 的 ID 列，不要填写展示名。
+                          </small>
+                        </label>
+                      ) : (
+                        <>
+                          <p>
+                            Hermes 会为当前 profile 生成稳定 identity；profile 的可见名称不会作为全局唯一键。
+                          </p>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={shareReplies[enrollment.id] ?? false}
+                              onChange={(event) =>
+                                setShareReplies((current) => ({
+                                  ...current,
+                                  [enrollment.id]: event.target.checked,
+                                }))
+                              }
+                            />
+                            <span>允许发送清洗并截断到 280 字的最终回复气泡（可选）</span>
+                          </label>
+                        </>
+                      )}
+                      <p>
+                        配对命令会同步使用上方为 {providerCatalog.label} ·{' '}
+                        {deploymentLabel(deployment)} 填写的部署参数。
+                      </p>
+                      {enrollmentSettingsError ? (
+                        <p className="agentCommandSettingsError">
+                          {enrollmentSettingsError}
+                        </p>
+                      ) : null}
                       <code className="agentPairingCommand">{command}</code>
                       <div className="agentPairingActions">
                         <button
                           className="parentPrimaryAction"
                           type="button"
-                          disabled={!nativeAgentId.trim()}
-                          onClick={() => void copyCommand(enrollment.id)}
+                          disabled={
+                            Boolean(enrollmentSettingsError) ||
+                            (providerCatalog.needsNativeAgentId &&
+                              !nativeAgentId.trim())
+                          }
+                          onClick={() => void copyCommand(enrollment)}
                         >
                           复制配对命令
                         </button>
@@ -515,7 +949,8 @@ export default function AgentEnrollmentPanel() {
                   onSubmit={(event) => void activate(event, enrollment)}
                 >
                   <p>
-                    OpenClaw Agent：<strong>{enrollment.nativeAgentId}</strong>。请检查并决定哪些资料公开。
+                    {providerCatalog.identityLabel}：
+                    <strong>{enrollment.nativeAgentId}</strong>。请检查并决定哪些资料公开。
                   </p>
                   <label>
                     <span>Agent 展示名</span>
@@ -629,13 +1064,14 @@ export default function AgentEnrollmentPanel() {
                   <div>
                     <strong>{enrollment.agent.displayName} 已入园</strong>
                     <p>
-                      OpenClaw ID：{enrollment.nativeAgentId} · 外观：
+                      {providerCatalog.label} · {providerCatalog.identityLabel}：
+                      {enrollment.nativeAgentId} · 外观：
                       {VARIANT_LABELS[enrollment.agent.characterVariant]} ·{' '}
                       {APPEARANCE_PRESET_LABELS[
                         enrollment.agent.appearancePreset ?? 'classic'
                       ]}
                     </p>
-                    <p>Agent 下一次运行时会自动进入教室并展示真实状态。</p>
+                    <p>Agent 已在园；打开教室会直接恢复它的当前状态。</p>
                   </div>
                 </div>
               ) : null}

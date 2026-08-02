@@ -11,6 +11,7 @@
   },
   "include": [
     "./verify-openclaw-adapters.ts",
+    "./verify-hermes-adapter.ts",
     "./verify-agent-registry.ts",
     "./verify-agent-appearance.ts",
     "./verify-provider-binding.ts",
@@ -20,6 +21,7 @@
     "./verify-runtime-pairing-rate-limit.ts",
     "./verify-agent-actions.ts",
     "./verify-agent-activity.ts",
+    "./verify-agent-moments.ts",
     "./verify-capacity-stress.ts",
     "./verify-scene-agent-selection.ts"
   ]

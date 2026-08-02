@@ -8,10 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "verify:types": "tsc --noEmit",
-    "verify:runtime": "tsc -p tools/tsconfig.verify.json && node .verify-build/tools/verify-openclaw-adapters.js && node .verify-build/tools/verify-agent-registry.js && node .verify-build/tools/verify-agent-appearance.js && node .verify-build/tools/verify-provider-binding.js && node .verify-build/tools/verify-parent-profile.js && node .verify-build/tools/verify-agent-enrollment.js && node .verify-build/tools/verify-runtime-credential.js && node .verify-build/tools/verify-runtime-pairing-rate-limit.js && node .verify-build/tools/verify-agent-actions.js && node .verify-build/tools/verify-agent-activity.js && node .verify-build/tools/verify-capacity-stress.js && node .verify-build/tools/verify-scene-agent-selection.js",
+    "verify:runtime": "tsc -p tools/tsconfig.verify.json && node .verify-build/tools/verify-openclaw-adapters.js && node .verify-build/tools/verify-hermes-adapter.js && node .verify-build/tools/verify-agent-registry.js && node .verify-build/tools/verify-agent-appearance.js && node .verify-build/tools/verify-provider-binding.js && node .verify-build/tools/verify-parent-profile.js && node .verify-build/tools/verify-agent-enrollment.js && node .verify-build/tools/verify-runtime-credential.js && node .verify-build/tools/verify-runtime-pairing-rate-limit.js && node .verify-build/tools/verify-agent-actions.js && node .verify-build/tools/verify-agent-activity.js && node .verify-build/tools/verify-agent-moments.js && node .verify-build/tools/verify-capacity-stress.js && node .verify-build/tools/verify-scene-agent-selection.js && node scripts/verify-deployment-environment.mjs && node scripts/verify-parent-user-migration.mjs",
     "verify": "npm run verify:types && npm run verify:runtime && npm run build",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "node scripts/migrate-database.mjs"
+    "db:migrate": "node scripts/migrate-database.mjs",
+    "users:migrate": "node scripts/migrate-parent-users.mjs"
   },
   "dependencies": {
     "@types/node": "20.11.30",
@@ -21,11 +22,13 @@
     "next": "14.2.23",
     "next-auth": "4.24.11",
     "postgres": "^3.4.9",
+    "qrcode": "1.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.4.2"
   },
   "devDependencies": {
+    "@types/qrcode": "1.5.5",
     "drizzle-kit": "^0.31.10",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.23"

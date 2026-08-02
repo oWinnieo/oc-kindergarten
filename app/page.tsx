@@ -2,12 +2,16 @@ import { cookies } from 'next/headers';
 
 import ClassroomSimulation from '@/components/ClassroomSimulation';
 import { ADMIN_SESSION_COOKIE, isAdminSession } from '@/lib/admin-session';
+import { parseWelcomeAgentId } from '@/lib/classroom-welcome';
 import { parseStressRunId } from '@/lib/stress-test-contract';
 
 export default function HomePage({
   searchParams,
 }: {
-  searchParams?: { stressRun?: string | string[] };
+  searchParams?: {
+    stressRun?: string | string[];
+    welcomeAgent?: string | string[];
+  };
 }) {
   const initialIsAdmin = isAdminSession(
     cookies().get(ADMIN_SESSION_COOKIE)?.value,
@@ -16,6 +20,7 @@ export default function HomePage({
     ? searchParams?.stressRun[0]
     : searchParams?.stressRun;
   const parsedStressRun = parseStressRunId(stressCandidate);
+  const welcomeAgentId = parseWelcomeAgentId(searchParams?.welcomeAgent);
 
   return (
     <main className="appShell canvasApp">
@@ -30,6 +35,7 @@ export default function HomePage({
       <ClassroomSimulation
         initialIsAdmin={initialIsAdmin}
         stressRunId={parsedStressRun.ok ? parsedStressRun.value : undefined}
+        welcomeAgentId={welcomeAgentId}
       />
     </main>
   );

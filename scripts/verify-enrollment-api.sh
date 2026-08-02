@@ -270,7 +270,7 @@ test "${scoped_discovery_status}" = "202"
 wrong_identity_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
   -H "Authorization: Bearer ${runtime_credential}" \
   -H 'Content-Type: application/json' \
-  --data-binary '{"schemaVersion":1,"provider":"openclaw","nativeAgentId":"another-agent"}' \
+  --data-binary '{"schemaVersion":1,"provider":"openclaw","nativeAgentId":"another-agent","runtimeInstanceId":"verification-runtime"}' \
   "${PUBLIC_ORIGIN}/api/runtime/agents/discover")"
 test "${wrong_identity_status}" = "401"
 
@@ -526,6 +526,165 @@ test "$(printf '%s' "${activity_second_page}" | jq -r '.items[0].kind')" = "comm
 test "$(printf '%s' "${activity_second_page}" | jq -r '.items[0].cursor')" != "${activity_first_cursor}"
 test "$(printf '%s' "${activity_second_page}" | jq -r '.nextCursor')" = "null"
 
+signed_out_share_settings_status="$(curl -sS -o /dev/null -w '%{http_code}' \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/share-settings")"
+test "${signed_out_share_settings_status}" = "401"
+
+other_parent_share_settings_status="$(curl -sS -o /dev/null -w '%{http_code}' \
+  -H "Cookie: ${other_session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/share-settings")"
+test "${other_parent_share_settings_status}" = "404"
+
+default_share_settings="$(curl -fsS \
+  -H "Cookie: ${session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/share-settings")"
+test "$(printf '%s' "${default_share_settings}" | jq -r '.settings.profileVisibility')" = "private"
+test "$(printf '%s' "${default_share_settings}" | jq -r '.settings.allowReplyExcerpt')" = "false"
+
+missing_origin_share_settings_status="$(curl -sS -o /dev/null -w '%{http_code}' -X PATCH \
+  -H "Cookie: ${session_cookie}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"profileVisibility":"public"}' \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/share-settings")"
+test "${missing_origin_share_settings_status}" = "403"
+
+moment_create_json="$(jq -cn \
+  --arg enrollment_id "${enrollment_id}" \
+  --arg activity_first_cursor "${activity_first_cursor}" \
+  --arg activity_second_cursor "$(printf '%s' "${activity_second_page}" | jq -er '.items[0].cursor')" \
+  '{schemaVersion:1,enrollmentId:$enrollment_id,activityCursors:[$activity_first_cursor,$activity_second_cursor],template:"progress"}')"
+
+other_parent_moment_create_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+  -H "Cookie: ${other_session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary "${moment_create_json}" \
+  "${PUBLIC_ORIGIN}/api/agent-moments")"
+test "${other_parent_moment_create_status}" = "404"
+
+moment_create_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary "${moment_create_json}" \
+  "${PUBLIC_ORIGIN}/api/agent-moments")"
+moment_id="$(printf '%s' "${moment_create_result}" | jq -er '.moment.id')"
+test "$(printf '%s' "${moment_create_result}" | jq -r '.moment.status')" = "draft"
+test "$(printf '%s' "${moment_create_result}" | jq -r '.moment.visibility')" = "private"
+test "$(printf '%s' "${moment_create_result}" | jq -r '.moment.items | length')" = "2"
+test "$(printf '%s' "${moment_create_result}" | jq -r '.moment.items[0].occurredAt <= .moment.items[1].occurredAt')" = "true"
+
+private_publish_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"visibility":"unlisted"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}/publish")"
+test "${private_publish_status}" = "409"
+
+sensitive_caption_status="$(curl -sS -o /dev/null -w '%{http_code}' -X PATCH \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"ownerCaption":"联系 owner@example.com"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}")"
+test "${sensitive_caption_status}" = "422"
+
+public_share_settings="$(curl -fsS -X PATCH \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"profileVisibility":"public"}' \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/share-settings")"
+test "$(printf '%s' "${public_share_settings}" | jq -r '.settings.profileVisibility')" = "public"
+
+moment_patch_result="$(curl -fsS -X PATCH \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"title":"第一次成长记录","ownerCaption":"认真完成了两项活动"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}")"
+test "$(printf '%s' "${moment_patch_result}" | jq -r '.moment.title')" = "第一次成长记录"
+
+moment_publish_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"visibility":"unlisted"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}/publish")"
+moment_share_slug="$(printf '%s' "${moment_publish_result}" | jq -er '.moment.shareSlug')"
+test "$(printf '%s' "${moment_publish_result}" | jq -r '.moment.status')" = "published"
+test "${#moment_share_slug}" = "32"
+
+other_parent_moment_get_status="$(curl -sS -o /dev/null -w '%{http_code}' \
+  -H "Cookie: ${other_session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}")"
+test "${other_parent_moment_get_status}" = "404"
+
+other_parent_moment_list_status="$(curl -sS -o /dev/null -w '%{http_code}' \
+  -H "Cookie: ${other_session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/agent-moments?enrollmentId=${enrollment_id}&limit=10")"
+test "${other_parent_moment_list_status}" = "404"
+
+published_patch_result="$(curl -fsS -X PATCH \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"title":"修改后的成长记录"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}")"
+test "$(printf '%s' "${published_patch_result}" | jq -r '.moment.status')" = "draft"
+test "$(printf '%s' "${published_patch_result}" | jq -r '.moment.visibility')" = "private"
+test "$(printf '%s' "${published_patch_result}" | jq -r '.moment.shareSlug')" = "${moment_share_slug}"
+
+republish_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"visibility":"public"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}/publish")"
+test "$(printf '%s' "${republish_result}" | jq -r '.moment.shareSlug')" = "${moment_share_slug}"
+
+revoke_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}/revoke")"
+test "$(printf '%s' "${revoke_result}" | jq -r '.moment.status')" = "revoked"
+
+duplicate_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${moment_id}/duplicate")"
+duplicate_moment_id="$(printf '%s' "${duplicate_result}" | jq -er '.moment.id')"
+test "${duplicate_moment_id}" != "${moment_id}"
+test "$(printf '%s' "${duplicate_result}" | jq -r '.moment.status')" = "draft"
+test "$(printf '%s' "${duplicate_result}" | jq -r '.moment.shareSlug')" = "null"
+
+duplicate_publish_result="$(curl -fsS -X POST \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"visibility":"unlisted"}' \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${duplicate_moment_id}/publish")"
+test "$(printf '%s' "${duplicate_publish_result}" | jq -r '.moment.status')" = "published"
+
+private_share_settings_result="$(curl -fsS -X PATCH \
+  -H "Cookie: ${session_cookie}" \
+  -H "Origin: ${PUBLIC_ORIGIN}" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"profileVisibility":"private"}' \
+  "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/share-settings")"
+test "$(printf '%s' "${private_share_settings_result}" | jq -r '.settings.profileVisibility')" = "private"
+
+private_transitioned_moment="$(curl -fsS \
+  -H "Cookie: ${session_cookie}" \
+  "${PUBLIC_ORIGIN}/api/agent-moments/${duplicate_moment_id}")"
+test "$(printf '%s' "${private_transitioned_moment}" | jq -r '.moment.status')" = "draft"
+test "$(printf '%s' "${private_transitioned_moment}" | jq -r '.moment.visibility')" = "private"
+
 archive_result="$(curl -fsS -X POST \
   -H "Cookie: ${session_cookie}" \
   "${PUBLIC_ORIGIN}/api/enrollments/${enrollment_id}/archive")"
@@ -591,7 +750,7 @@ other_claim_pairing_code="$(printf '%s' "${other_claim_code_json}" | jq -er '.pa
 other_claim_pair_json="$(jq -cn \
   --arg pairing_code "${other_claim_pairing_code}" \
   --arg native_agent "${test_native_agent}" \
-  '{schemaVersion:1,pairingCode:$pairing_code,discovery:{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,profileDraft:{displayName:"Cross-owner claim"}}}')"
+  '{schemaVersion:1,pairingCode:$pairing_code,discovery:{schemaVersion:1,provider:"openclaw",nativeAgentId:$native_agent,runtimeInstanceId:"verification-runtime",profileDraft:{displayName:"Cross-owner claim"}}}')"
 other_claim_status="$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
   -H 'Content-Type: application/json' \
   --data-binary "${other_claim_pair_json}" \
@@ -671,3 +830,4 @@ printf 'owner_pending_enrollment_cancellation=passed\n'
 printf 'owner_archive_restore_and_identity_guard=passed\n'
 printf 'scoped_credential_archive_restore_guard=passed\n'
 printf 'owner_activity_timeline_privacy_and_pagination=passed\n'
+printf 'owner_agent_moment_settings_state_machine_and_isolation=passed\n'

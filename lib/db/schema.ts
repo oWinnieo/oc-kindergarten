@@ -1,5 +1,7 @@
 import {
   bigint,
+  boolean,
+  check,
   index,
   integer,
   jsonb,
@@ -39,6 +41,36 @@ export const parentUsers = pgTable(
   ],
 );
 
+export const betaParticipants = pgTable(
+  'beta_participants',
+  {
+    parentUserId: uuid('parent_user_id')
+      .primaryKey()
+      .references(() => parentUsers.id, { onDelete: 'cascade' }),
+    cohort: text('cohort').notNull(),
+    migrationEligible: boolean('migration_eligible').notNull().default(false),
+    noticeVersion: text('notice_version').notNull(),
+    acknowledgedAt: timestamp('acknowledged_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index('beta_participants_cohort_eligible_idx').on(
+      table.cohort,
+      table.migrationEligible,
+    ),
+    check('beta_participants_cohort_length', sql`char_length(${table.cohort}) BETWEEN 3 AND 64`),
+    check(
+      'beta_participants_notice_version_length',
+      sql`char_length(${table.noticeVersion}) BETWEEN 3 AND 64`,
+    ),
+    check(
+      'beta_participants_ack_required_when_eligible',
+      sql`NOT ${table.migrationEligible} OR ${table.acknowledgedAt} IS NOT NULL`,
+    ),
+  ],
+);
+
 export const agentEnrollments = pgTable(
   'agent_enrollments',
   {
@@ -49,6 +81,7 @@ export const agentEnrollments = pgTable(
     status: text('status').notNull(),
     draftProfile: jsonb('draft_profile'),
     provider: text('provider'),
+    runtimeInstanceId: text('runtime_instance_id'),
     nativeAgentId: text('native_agent_id'),
     pairingCodeHash: text('pairing_code_hash'),
     pairingExpiresAt: timestamp('pairing_expires_at', { withTimezone: true }),
@@ -59,8 +92,9 @@ export const agentEnrollments = pgTable(
   },
   (table) => [
     index('agent_enrollments_parent_idx').on(table.parentUserId),
-    index('agent_enrollments_provider_native_idx').on(
+    index('agent_enrollments_runtime_identity_idx').on(
       table.provider,
+      table.runtimeInstanceId,
       table.nativeAgentId,
     ),
     uniqueIndex('agent_enrollments_pairing_hash_uq').on(table.pairingCodeHash),
@@ -107,7 +141,7 @@ export const providerAgentBindings = pgTable(
     provider: text('provider').notNull(),
     nativeAgentId: text('native_agent_id').notNull(),
     agentId: text('agent_id').references(() => agentProfiles.agentId),
-    runtimeInstanceId: text('runtime_instance_id'),
+    runtimeInstanceId: text('runtime_instance_id').notNull(),
     adapterVersion: text('adapter_version'),
     discoveryDraft: jsonb('discovery_draft'),
     status: text('status').notNull(),
@@ -116,8 +150,9 @@ export const providerAgentBindings = pgTable(
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
-    uniqueIndex('provider_agent_bindings_native_uq').on(
+    uniqueIndex('provider_agent_bindings_runtime_identity_uq').on(
       table.provider,
+      table.runtimeInstanceId,
       table.nativeAgentId,
     ),
     index('provider_agent_bindings_agent_idx').on(table.agentId),
@@ -133,7 +168,7 @@ export const runtimeCredentials = pgTable(
       .references(() => providerAgentBindings.id),
     tokenHash: text('token_hash').notNull(),
     status: text('status').notNull().default('active'),
-    runtimeInstanceId: text('runtime_instance_id'),
+    runtimeInstanceId: text('runtime_instance_id').notNull(),
     lastUsedAt: timestamp('last_used_at', { withTimezone: true }),
     revokedAt: timestamp('revoked_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
@@ -209,6 +244,154 @@ export const agentEventLog = pgTable(
       table.sourceSequence,
     ),
     index('agent_event_log_agent_created_idx').on(table.agentId, table.id),
+  ],
+);
+
+export const agentShareSettings = pgTable(
+  'agent_share_settings',
+  {
+    agentId: text('agent_id')
+      .primaryKey()
+      .references(() => agentProfiles.agentId, { onDelete: 'cascade' }),
+    ownerId: uuid('owner_id')
+      .notNull()
+      .references(() => parentUsers.id, { onDelete: 'cascade' }),
+    profileVisibility: text('profile_visibility')
+      .notNull()
+      .default('private'),
+    allowReplyExcerpt: boolean('allow_reply_excerpt').notNull().default(false),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index('agent_share_settings_owner_idx').on(table.ownerId),
+    check(
+      'agent_share_settings_profile_visibility_check',
+      sql`${table.profileVisibility} IN ('private', 'public')`,
+    ),
+  ],
+);
+
+export const agentMoments = pgTable(
+  'agent_moments',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    ownerId: uuid('owner_id')
+      .notNull()
+      .references(() => parentUsers.id, { onDelete: 'cascade' }),
+    agentId: text('agent_id')
+      .notNull()
+      .references(() => agentProfiles.agentId, { onDelete: 'cascade' }),
+    shareSlug: text('share_slug'),
+    title: text('title').notNull(),
+    ownerCaption: text('owner_caption'),
+    template: text('template').notNull(),
+    visibility: text('visibility').notNull().default('private'),
+    status: text('status').notNull().default('draft'),
+    publishedAt: timestamp('published_at', { withTimezone: true }),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('agent_moments_share_slug_uq').on(table.shareSlug),
+    index('agent_moments_owner_created_idx').on(
+      table.ownerId,
+      table.createdAt,
+      table.id,
+    ),
+    index('agent_moments_agent_created_idx').on(
+      table.agentId,
+      table.createdAt,
+      table.id,
+    ),
+    index('agent_moments_public_feed_idx').on(
+      table.status,
+      table.visibility,
+      table.publishedAt,
+      table.id,
+    ),
+    check(
+      'agent_moments_title_length_check',
+      sql`char_length(${table.title}) BETWEEN 1 AND 80`,
+    ),
+    check(
+      'agent_moments_owner_caption_length_check',
+      sql`${table.ownerCaption} IS NULL OR char_length(${table.ownerCaption}) <= 280`,
+    ),
+    check(
+      'agent_moments_template_check',
+      sql`${table.template} IN ('daily', 'quote', 'progress', 'achievement', 'recovery')`,
+    ),
+    check(
+      'agent_moments_visibility_check',
+      sql`${table.visibility} IN ('private', 'unlisted', 'public')`,
+    ),
+    check(
+      'agent_moments_status_check',
+      sql`${table.status} IN ('draft', 'published', 'revoked')`,
+    ),
+    check(
+      'agent_moments_share_slug_length_check',
+      sql`${table.shareSlug} IS NULL OR char_length(${table.shareSlug}) = 32`,
+    ),
+    check(
+      'agent_moments_published_fields_check',
+      sql`${table.status} <> 'published' OR (${table.shareSlug} IS NOT NULL AND ${table.publishedAt} IS NOT NULL AND ${table.visibility} IN ('unlisted', 'public'))`,
+    ),
+    check(
+      'agent_moments_revoked_fields_check',
+      sql`${table.status} <> 'revoked' OR ${table.revokedAt} IS NOT NULL`,
+    ),
+  ],
+);
+
+export const agentMomentItems = pgTable(
+  'agent_moment_items',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    momentId: uuid('moment_id')
+      .notNull()
+      .references(() => agentMoments.id, { onDelete: 'cascade' }),
+    sourceEventLogId: bigint('source_event_log_id', { mode: 'number' }).references(
+      () => agentEventLog.id,
+      { onDelete: 'set null' },
+    ),
+    position: integer('position').notNull(),
+    kind: text('kind').notNull(),
+    titleSnapshot: text('title_snapshot').notNull(),
+    detailSnapshot: text('detail_snapshot').notNull(),
+    occurredAtSnapshot: timestamp('occurred_at_snapshot', {
+      withTimezone: true,
+    }).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('agent_moment_items_position_uq').on(
+      table.momentId,
+      table.position,
+    ),
+    uniqueIndex('agent_moment_items_source_event_uq').on(
+      table.momentId,
+      table.sourceEventLogId,
+    ),
+    index('agent_moment_items_moment_idx').on(table.momentId),
+    check(
+      'agent_moment_items_position_check',
+      sql`${table.position} IN (1, 2)`,
+    ),
+    check(
+      'agent_moment_items_kind_check',
+      sql`${table.kind} IN ('task', 'command', 'completion', 'error', 'reply')`,
+    ),
+    check(
+      'agent_moment_items_title_length_check',
+      sql`char_length(${table.titleSnapshot}) BETWEEN 1 AND 80`,
+    ),
+    check(
+      'agent_moment_items_detail_length_check',
+      sql`char_length(${table.detailSnapshot}) BETWEEN 1 AND 280`,
+    ),
   ],
 );
 

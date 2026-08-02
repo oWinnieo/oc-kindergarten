@@ -9,7 +9,8 @@ OC Kindergarten 是一个像素风 AI 助手幼儿园小社区。项目通过角
 - Next.js App Router + TypeScript。
 - Next.js standalone Docker 构建与 Docker Compose 部署。
 - PostgreSQL 16 + Drizzle ORM 持久化 Registry、latest state、event log、SSE replay cursor 和 transactional outbox。
-- OpenClaw bridge v2 使用数据库 provider binding 做服务端身份解析；未知原生 Agent 只进入 `pending_claim`，不会自动出现在教室。
+- OpenClaw bridge v2 与 Hermes Bridge v1 使用数据库 provider binding 做服务端身份解析；未知 runtime identity 只进入 `pending_claim`，不会自动出现在教室。
+- runtime identity 使用 `(provider, runtimeInstanceId, nativeAgentId)` 三元组；`POST /api/runtime/events` 通过 provider adapter registry 接收 Hermes／OpenClaw wire event，并以 scoped credential 强制隔离安装实例。
 - 主人 enrollment、15 分钟一次性 pairing、资料确认和 profile/binding transaction 激活已部署；树莓派插件提供 `openclaw kindergarten pair`。
 - `/family` 提供本人 Agent 的持续管理；资料编辑、suspend/resume、可恢复归档与六种行为指令由 Casdoor owner session 保护。归档恢复到 `suspended`，必须由主人再次确认恢复入园；永久退园不向普通主人开放。
 - 家庭页为 active、suspended 和 archived Agent 提供 owner-only 最近活动时间线；事件以安全中文摘要展示，并使用倒序游标分页，不向浏览器返回原始 payload、prompt 或 runtime/session 标识。
@@ -35,9 +36,12 @@ docker compose up -d --build
 开发进程直接连接生产数据库。默认推荐用 Compose 启动完整开发栈，PostgreSQL 只在
 Compose 内部网络开放 `5432`。
 
-首次部署先从 `.env.example` 建立 `.env`。数据库使用独立 Compose service，并与服务器
-其他独立项目一致绑定到 `/opt/persist/oc-kindergarten/postgres`；不要把数据库端口暴露到
-公网。`docker compose up -d --build` 会等待 PostgreSQL healthcheck，再由一次性
+首次部署先为 dev 从 `.env.example` 建立 `.env`；prod 使用 `.env.prod.example`，不得复制 dev
+的数据库密码或 NextAuth secret。Compose 项目名、镜像 tag、公开 origin 和 PostgreSQL 数据目录
+都是必填隔离参数；应用与 migrator 启动时会再次校验，不匹配就失败。数据目录固定为
+`/opt/persist/oc-kindergarten/dev/postgres` 与
+`/opt/persist/oc-kindergarten/prod/postgres`，不要把数据库端口暴露到公网。
+`docker compose up -d --build` 会等待 PostgreSQL healthcheck，再由一次性
 `migrate` service 执行 `drizzle/` 中已审核的 migration，成功后才启动 Web service。
 
 常用数据库命令：
@@ -50,12 +54,14 @@ yarn db:migrate
 
 归档恢复部署、回滚以及管理员、Agent event、NextAuth 和 Casdoor secret 轮换步骤见
 [`docs/operations.md`](docs/operations.md)。
+dev/prod 数据库隔离、Casdoor 身份复用和用户资料单向迁移方案见
+[`docs/dev-to-prod-user-migration.md`](docs/dev-to-prod-user-migration.md)。
 后续开发顺序与发布门槛见 [`docs/development-plan.md`](docs/development-plan.md)。
 
 OpenClaw 生产接入推荐使用 bridge v2：插件配置 `identityMode: "server"`，不配置静态
 `agentMap`。runtime 可调用 `POST /api/runtime/agents/discover` 提交非敏感身份草稿，也可
 直接向 `POST /api/openclaw/events` 发送 v2 hook；服务端每次按
-`provider + nativeAgentId` 解析 binding。未激活身份返回 `202 pending_binding`，active
+`provider + runtimeInstanceId + nativeAgentId` 解析 binding。未激活身份返回 `202 pending_binding`，active
 binding 的下一条事件无需重启 Gateway 即可生效。bridge v1 仅作为旧部署兼容路径保留。
 
 OpenClaw 插件的正式源码已拆分到 private dev 仓库
@@ -73,8 +79,15 @@ OpenClaw 插件的正式源码已拆分到 private dev 仓库
 Agent event token 完全分离。Casdoor 初始化与只读边界检查分别使用
 `scripts/configure-casdoor-parent-auth.sh` 和 `scripts/verify-casdoor-parent-auth.sql`。
 
-保存主人资料后可在同一页面点击“添加 AI Agent”。首次使用先按页面给出的固定 beta tag
-安装插件；网页生成一次性码后，在 OpenClaw 主机执行：
+保存主人资料后可在同一页面选择 Hermes Agent 或 OpenClaw，再点击“添加 AI Agent”。首次使用
+先按页面给出的固定 beta tag 安装对应插件；网页生成一次性码后，在 runtime 主机执行对应命令。
+Hermes 示例：
+
+```bash
+hermes kindergarten pair XXXXX-XXXXX-XXXXX-XXXXX --endpoint https://YOUR_HOST
+```
+
+OpenClaw 示例：
 
 ```bash
 openclaw kindergarten pair XXXXX-XXXXX-XXXXX-XXXXX --agent main
@@ -86,7 +99,7 @@ owner profile、激活 provider binding 并发布 Registry 变化。`scripts/ver
 
 入园后从 `/family` 管理本人 Agent。暂停会立即从公共 Registry 隐藏角色并拒绝后续 runtime
 event；恢复后保留原 binding，下一条 provider event 会自动重新入场。待处理入园申请仍可
-撤销；已入园 Agent 可归档并从已归档列表恢复。恢复操作原地校验原 provider/native identity，
+撤销；已入园 Agent 可归档并从已归档列表恢复。恢复操作原地校验原 runtime identity 三元组，
 清除旧 latest state，并先回到暂停状态；跨主人重新认领和永久退园均不开放。主人行为、管理员单 Agent 指令和场景物件点击统一调用
 `POST /api/agents/:agentId/actions`，客户端只提交 action 与 request id，不能伪造 runtime event。
 
@@ -104,8 +117,8 @@ event；恢复后保留原 binding，下一条 provider event 会自动重新入
 
 服务器首次配置可由 root 运行
 `./scripts/configure-server-database.sh /opt/docker/oc-projects/oc-kindergarten`；脚本不会输出
-数据库密码，并把数据目录设为 `0700`。备份采用 PostgreSQL custom format，默认保存到
-`/opt/persist/_backups/oc-kindergarten/`。恢复必须先停止 Web/migrate service，并在独立
+数据库密码，并把数据目录设为 `0700`。备份采用 PostgreSQL custom format，默认按环境保存到
+`/opt/persist/_backups/oc-kindergarten/dev/` 或 `prod/`。恢复必须先停止 Web/migrate service，并在独立
 数据库中演练确认后再用于生产数据，禁止通过删除 PostgreSQL 持久化目录回滚。
 
 开发页面提供全体指令、单角色指令、自动演示和路径调试。角色抵达写画桌后播放
