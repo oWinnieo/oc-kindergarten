@@ -65,6 +65,13 @@ function composeDirectoryCommand(settings: RuntimeCommandSettings): string {
   )}`;
 }
 
+const COMPOSE_CONTAINER_DISCOVERY_COMMAND = [
+  '# 第 1 段：在 Docker 宿主机执行，不需要先知道 Compose 目录',
+  "docker ps --format '{{.Names}}' | while read -r container; do",
+  '  docker inspect "$container" --format \'{{.Name}} | image={{.Config.Image}} | dir={{ index .Config.Labels "com.docker.compose.project.working_dir" }} | service={{ index .Config.Labels "com.docker.compose.service" }} | files={{ index .Config.Labels "com.docker.compose.project.config_files" }}\'',
+  'done',
+].join('\n');
+
 function hermesHome(settings: RuntimeCommandSettings, deployment: AgentDeployment) {
   const fallback = deployment === 'docker' ? '/opt/data' : '';
   return settings.hermesHome?.trim() || fallback;
@@ -172,6 +179,43 @@ export function buildPluginInstallCommand(options: {
   return options.provider === 'hermes'
     ? buildHermesDockerInstallCommand(settings)
     : buildOpenClawDockerInstallCommand(settings);
+}
+
+export function buildRuntimeInspectionCommand(options: {
+  provider: AgentProvider;
+  deployment: AgentDeployment;
+  settings?: RuntimeCommandSettings;
+}): string {
+  const settings = options.settings ?? {};
+  if (options.deployment === 'host') {
+    return options.provider === 'hermes'
+      ? [
+          `printf 'HERMES_HOME=%s\\n' "\${HERMES_HOME:-$HOME/.hermes}"`,
+          'hermes profile list',
+        ].join('\n')
+      : 'openclaw agents list';
+  }
+
+  const compose = composeCommand(settings);
+  const gatewayService =
+    settings.gatewayService?.trim() ||
+    (options.provider === 'hermes' ? 'gateway' : 'openclaw-gateway');
+  const commands = [
+    COMPOSE_CONTAINER_DISCOVERY_COMMAND,
+    '',
+    '# 第 2 段：把第 1 段的结果填入表单后，再执行以下命令复核',
+    composeDirectoryCommand(settings),
+    `${compose} config --services`,
+  ];
+  if (options.provider === 'hermes') {
+    commands.push(
+      `${compose} exec --user hermes ${gatewayService} sh -lc 'printf "HERMES_HOME=%s\\n" "\${HERMES_HOME:-$HOME/.hermes}"'`,
+    );
+  } else {
+    const cliService = settings.cliService?.trim() || 'openclaw-cli';
+    commands.push(`${compose} run --rm ${cliService} agents list`);
+  }
+  return commands.join('\n');
 }
 
 export function buildRuntimePairingCommand(options: {

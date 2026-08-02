@@ -9,6 +9,7 @@ import { parseOpenClawBridgeV2 } from '../lib/openclaw-bridge-v2';
 import {
   AGENT_PROVIDER_CATALOG,
   buildPluginInstallCommand,
+  buildRuntimeInspectionCommand,
   buildRuntimePairingCommand,
   HERMES_PLUGIN_COMMIT,
   HERMES_PLUGIN_VERSION,
@@ -166,6 +167,56 @@ assert.equal(
     "export HERMES_HOME='/home/hermes/.hermes/profiles/beta'\n",
   ),
   true,
+);
+const hermesDockerInspection = buildRuntimeInspectionCommand({
+  provider: 'hermes',
+  deployment: 'docker',
+  settings: {
+    composeDirectory: '/srv/hermes',
+    composeFiles: ['compose.yml', 'compose.private.yml'],
+    gatewayService: 'hermes-gateway',
+  },
+});
+assert.equal(
+  hermesDockerInspection.includes('com.docker.compose.project.working_dir'),
+  true,
+);
+assert.equal(
+  hermesDockerInspection.includes(
+    "docker compose -f 'compose.yml' -f 'compose.private.yml' config --services",
+  ),
+  true,
+);
+assert.equal(
+  hermesDockerInspection.includes(
+    "exec --user hermes hermes-gateway sh -lc 'printf \"HERMES_HOME=%s\\n\"",
+  ),
+  true,
+);
+assert.equal(
+  buildRuntimeInspectionCommand({
+    provider: 'hermes',
+    deployment: 'host',
+  }).includes('hermes profile list'),
+  true,
+);
+assert.equal(
+  buildRuntimeInspectionCommand({
+    provider: 'openclaw',
+    deployment: 'docker',
+    settings: {
+      composeDirectory: '/srv/openclaw',
+      cliService: 'claw-cli',
+    },
+  }).includes('docker compose run --rm claw-cli agents list'),
+  true,
+);
+assert.equal(
+  buildRuntimeInspectionCommand({
+    provider: 'openclaw',
+    deployment: 'host',
+  }),
+  'openclaw agents list',
 );
 assert.equal(
   buildRuntimePairingCommand({

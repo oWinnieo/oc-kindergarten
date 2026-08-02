@@ -352,19 +352,21 @@ openclaw plugins list`}</code></pre>
                 <p>
                   回到入园页面选择 Hermes Agent 和“Docker Compose”。在“命令参数”里填写第 3 步确认的 Compose
                   目录、Gateway 服务名和容器内 <code>HERMES_HOME</code>；使用额外 Compose 文件时每行填写一个，基础文件也要列出。
-                  页面会把这些值写入完整命令，确认预览后点击“复制插件安装命令”，直接在服务器宿主机粘贴执行。
+                  不知道某项时先按页面“这些值怎么获取？”执行只读检查。页面会把这些值写入完整命令，确认预览后点击
+                  “复制插件安装命令”，直接在服务器宿主机粘贴执行。
                 </p>
               ) : provider === 'hermes' ? (
                 <p>
                   回到入园页面选择 Hermes Agent 和“宿主机直接安装”。默认 profile 将“命名 profile 的
                   <code> HERMES_HOME</code>”留空；命名 profile 填写第 3 步确认的绝对路径。点击“复制插件安装命令”，
-                  使用同一个系统账号粘贴执行；命令会设置所填 profile 并重启它的 Gateway。
+                  不确定路径时先执行页面提供的获取命令。使用同一个系统账号粘贴安装命令；它会设置所填 profile 并重启 Gateway。
                 </p>
               ) : isDocker ? (
                 <p>
                   回到入园页面选择 OpenClaw 和“Docker Compose”。在“命令参数”里填写 Compose 目录、CLI/Gateway
                   服务名；使用额外 Compose 文件时每行填写一个，基础文件也要列出。页面会生成全部 <code>cd</code>、
-                  <code>-f</code> 和服务名参数，确认预览后点击“复制插件安装命令”。当前固定安装 <code>v0.5.0-beta.4</code>。
+                  <code>-f</code> 和服务名参数；不确定某项时先按“这些值怎么获取？”检查。确认预览后点击“复制插件安装命令”。
+                  当前固定安装 <code>v0.5.0-beta.4</code>。
                 </p>
               ) : (
                 <p>
